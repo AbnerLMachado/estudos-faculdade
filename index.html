@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b132b">
+<meta name="description" content="Plataforma de estudos de Direito: escolha o semestre, a matéria e o módulo (NP1 ou NP2).">
+<title>Estudos de Direito · UNIP</title>
+<style>
+  :root {
+    --bg-primary: #0b132b;
+    --bg-secondary: #1c2541;
+    --bg-card: #2f3e46;
+    --bg-hover: #3a506b;
+    --accent-gold: #fbbf24;
+    --accent-blue: #38bdf8;
+    --accent-green: #34d399;
+    --text-main: #f8fafc;
+    --text-muted: #a8b5c9;
+    --border-color: #475569;
+    --font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    --altura-topo: 64px;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg-primary);
+    color: var(--text-main);
+    font-family: var(--font-family);
+    line-height: 1.5;
+  }
+  [hidden] { display: none !important; }
+  button, select { font: inherit; color: inherit; }
+  button { cursor: pointer; }
+  :focus-visible { outline: 3px solid var(--accent-gold); outline-offset: 2px; }
+
+  /* ---------- topo ---------- */
+  .topo {
+    height: var(--altura-topo);
+    display: flex; align-items: center; gap: 14px;
+    padding: 0 18px;
+    background: var(--bg-secondary);
+    border-bottom: 2px solid var(--accent-gold);
+  }
+  .topo h1 { margin: 0; font-size: 1.15rem; line-height: 1.2; }
+  .topo p { margin: 0; font-size: .8rem; color: var(--text-muted); }
+  #menu {
+    display: none;
+    width: 42px; height: 42px; border-radius: 10px;
+    border: 1px solid var(--border-color); background: var(--bg-primary); font-size: 1.3rem;
+  }
+
+  /* ---------- estrutura ---------- */
+  .layout { display: flex; height: calc(100% - var(--altura-topo)); }
+  #lateral {
+    width: 320px; flex-shrink: 0; overflow-y: auto;
+    background: var(--bg-secondary);
+    border-right: 1px solid var(--border-color);
+    padding: 14px;
+  }
+  #principal { flex: 1; min-width: 0; display: flex; flex-direction: column; padding: 14px 18px 10px; gap: 10px; overflow-y: auto; }
+
+  /* ---------- lateral ---------- */
+  .rotulo { margin: 4px 0 8px; font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--text-muted); font-weight: 700; }
+  #semestres { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+  .sem-btn {
+    padding: 7px 11px; border-radius: 999px;
+    border: 1px solid var(--border-color); background: var(--bg-primary);
+    font-size: .85rem; font-weight: 600;
+  }
+  .sem-btn small { display: block; font-weight: 400; font-size: .68rem; color: var(--text-muted); }
+  .sem-btn[aria-pressed="true"] { background: var(--accent-gold); color: #0b132b; border-color: var(--accent-gold); }
+  .sem-btn[aria-pressed="true"] small { color: #3b3b3b; }
+  #materias, #ferramentas-lista { list-style: none; margin: 0 0 18px; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+  .mat-btn {
+    width: 100%; text-align: left; padding: 9px 11px; border-radius: 10px;
+    border: 1px solid transparent; background: transparent;
+    display: flex; justify-content: space-between; gap: 8px; align-items: baseline;
+  }
+  .mat-btn:hover { background: var(--bg-hover); }
+  .mat-btn[aria-current="true"] { background: var(--bg-primary); border-color: var(--accent-blue); }
+  .mat-btn .conta { font-size: .72rem; color: var(--accent-green); white-space: nowrap; }
+  .mat-btn.vazia { color: var(--text-muted); }
+  .mat-btn.vazia .conta { color: var(--text-muted); }
+
+  /* ---------- principal ---------- */
+  #cab h2 { margin: 0; font-size: 1.35rem; }
+  #cab p { margin: 2px 0 0; color: var(--text-muted); font-size: .88rem; }
+  .abas { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+  .mod-btn {
+    padding: 8px 16px; border-radius: 10px; font-weight: 700;
+    border: 1px solid var(--border-color); background: var(--bg-secondary);
+  }
+  .mod-btn[aria-pressed="true"] { background: var(--accent-blue); color: #04202e; border-color: var(--accent-blue); }
+  .mod-btn[disabled] { opacity: .45; cursor: not-allowed; }
+  .mod-btn small { font-weight: 500; margin-left: 4px; }
+  #paginas { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; }
+  .pag-btn {
+    display: flex; align-items: center; gap: 7px;
+    padding: 8px 13px; border-radius: 10px;
+    border: 1px solid var(--border-color); background: var(--bg-card); font-size: .88rem;
+  }
+  .pag-btn:hover { background: var(--bg-hover); }
+  .pag-btn[aria-current="true"] { border-color: var(--accent-gold); box-shadow: inset 0 0 0 1px var(--accent-gold); }
+  .pag-btn .visto { color: var(--accent-green); font-weight: 700; }
+
+  /* ---------- visor ---------- */
+  #visor { flex: 1; min-height: 480px; display: flex; flex-direction: column; border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; background: #fff; }
+  .barra-visor { display: flex; align-items: center; gap: 10px; padding: 6px 10px; background: var(--bg-secondary); color: var(--text-main); font-size: .82rem; }
+  .barra-visor span { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .barra-visor button, .barra-visor a {
+    padding: 5px 10px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-primary);
+    color: var(--text-main); text-decoration: none; font-size: .8rem; white-space: nowrap;
+  }
+  #quadro { flex: 1; width: 100%; border: 0; background: #fff; }
+  #carregando { position: absolute; }
+
+  .vazio {
+    flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 6px;
+    border: 2px dashed var(--border-color); border-radius: 12px; padding: 30px; color: var(--text-muted);
+  }
+  .vazio strong { color: var(--text-main); font-size: 1.1rem; }
+  footer { font-size: .72rem; color: var(--text-muted); padding: 2px 2px 6px; }
+
+  /* ---------- celular ---------- */
+  @media (max-width: 860px) {
+    #menu { display: inline-flex; align-items: center; justify-content: center; }
+    #lateral {
+      position: fixed; z-index: 20; top: var(--altura-topo); bottom: 0; left: 0; width: min(86vw, 340px);
+      transform: translateX(-102%); transition: transform .2s ease; box-shadow: 4px 0 24px rgba(0,0,0,.5);
+    }
+    #lateral.aberta { transform: none; }
+    #principal { padding: 12px; }
+    #visor { min-height: 70vh; }
+  }
+  @media (prefers-reduced-motion: reduce) { #lateral { transition: none; } }
+</style>
+</head>
+<body>
+<header class="topo">
+  <button id="menu" type="button" aria-label="Abrir menu de semestres e matérias" aria-expanded="false" aria-controls="lateral">☰</button>
+  <div>
+    <h1 id="titulo">Estudos de Direito · UNIP</h1>
+    <p>Escolha o semestre, a matéria e o módulo</p>
+  </div>
+</header>
+
+<div class="layout">
+  <aside id="lateral" aria-label="Semestres e matérias">
+    <p class="rotulo">Semestre</p>
+    <div id="semestres" role="group" aria-label="Semestres"></div>
+    <p class="rotulo">Matéria</p>
+    <ul id="materias"></ul>
+    <p class="rotulo">Ferramentas</p>
+    <ul id="ferramentas-lista"></ul>
+  </aside>
+
+  <main id="principal">
+    <noscript><p>Este site precisa do JavaScript ativado para funcionar.</p></noscript>
+    <div id="cab"></div>
+    <div class="abas" id="modulos" role="group" aria-label="Módulo"></div>
+    <ul id="paginas" aria-label="Materiais do módulo"></ul>
+    <div id="vazio" class="vazio" hidden></div>
+    <section id="visor" aria-label="Material de estudo" hidden>
+      <div class="barra-visor">
+        <span id="visor-titulo"></span>
+        <a id="nova-aba" target="_blank" rel="noopener">Abrir em nova aba ↗</a>
+        <button id="tela-cheia" type="button">Tela cheia</button>
+      </div>
+      <iframe id="quadro" title="Material de estudo" allow="fullscreen; autoplay; encrypted-media; picture-in-picture; clipboard-write"></iframe>
+    </section>
+    <footer>Material de estudo compilado e organizado por alunos; não substitui as aulas, os livros nem as orientações dos professores.</footer>
+  </main>
+</div>
+
+<script src="catalogo.js"></script>
+<script>
+(function () {
+  "use strict";
+  var DADOS = window.CATALOGO;
+  var CHAVE_ULTIMA = "estudos-direito:ultima";
+  var CHAVE_VISTAS = "estudos-direito:vistas";
+  var NOMES_MODULO = { np1: "NP1", np2: "NP2", geral: "Geral" };
+  var ICONES = { guia: "📖", simulado: "✍️", questoes: "🗂️", mapa: "🧠", resumo: "📝", ferramenta: "🧮" };
+  var MODULOS = ["np1", "np2", "geral"];
+
+  var el = function (id) { return document.getElementById(id); };
+  var estado = { sem: null, mat: null, mod: null, pag: 0 };
+
+  /* ---- armazenamento seguro (pode estar bloqueado no navegador) ---- */
+  function ler(chave) { try { return JSON.parse(localStorage.getItem(chave)); } catch (e) { return null; } }
+  function gravar(chave, valor) { try { localStorage.setItem(chave, JSON.stringify(valor)); } catch (e) { /* sem armazenamento: segue sem lembrar */ } }
+  var vistas = new Set(ler(CHAVE_VISTAS) || []);
+
+  /* ---- ajudantes de catálogo ---- */
+  function achaSemestre(id) { return DADOS.semestres.find(function (s) { return s.id === id; }); }
+  function achaMateria(sem, id) { return sem && sem.materias.find(function (m) { return m.id === id; }); }
+  function paginasDe(mat, mod) { return (mat && mat[mod]) || []; }
+  function totalPaginas(mat) { return MODULOS.reduce(function (n, m) { return n + paginasDe(mat, m).length; }, 0); }
+  function modulosComConteudo(mat) { return MODULOS.filter(function (m) { return paginasDe(mat, m).length > 0; }); }
+
+  /* ---- endereço (hash) para compartilhar: #/6/tributario/np1/0 ---- */
+  function lerHash() {
+    var p = location.hash.replace(/^#\/?/, "").split("/");
+    return { sem: p[0] || null, mat: p[1] || null, mod: p[2] || null, pag: parseInt(p[3], 10) || 0 };
+  }
+  function escreverHash() {
+    var h = "#/" + [estado.sem, estado.mat, estado.mod, estado.pag].filter(function (x) { return x !== null && x !== undefined; }).join("/");
+    if (location.hash !== h) history.replaceState(null, "", h);
+  }
+
+  /* ---- escolhe o que mostrar quando falta algo ---- */
+  function normalizar() {
+    var sem = achaSemestre(estado.sem) || achaSemestre((ler(CHAVE_ULTIMA) || {}).sem) || DADOS.semestres[0];
+    estado.sem = sem.id;
+    var mat = achaMateria(sem, estado.mat);
+    if (!mat) mat = sem.materias.find(function (m) { return totalPaginas(m) > 0; }) || sem.materias[0];
+    estado.mat = mat ? mat.id : null;
+    var comConteudo = modulosComConteudo(mat || {});
+    if (MODULOS.indexOf(estado.mod) === -1 || (comConteudo.length > 0 && comConteudo.indexOf(estado.mod) === -1)) {
+      estado.mod = comConteudo[0] || "np1";
+    }
+    var lista = paginasDe(mat, estado.mod);
+    if (estado.pag < 0 || estado.pag >= lista.length) estado.pag = 0;
+  }
+
+  /* ---- desenho ---- */
+  function limpar(no) { while (no.firstChild) no.removeChild(no.firstChild); }
+  function criar(tag, atributos, texto) {
+    var n = document.createElement(tag);
+    Object.keys(atributos || {}).forEach(function (k) { n.setAttribute(k, atributos[k]); });
+    if (texto) n.textContent = texto;
+    return n;
+  }
+
+  function desenharSemestres() {
+    var area = el("semestres"); limpar(area);
+    DADOS.semestres.slice().sort(function (a, b) { return Number(b.id) - Number(a.id); }).forEach(function (s) {
+      var b = criar("button", { type: "button", "class": "sem-btn", "aria-pressed": String(s.id === estado.sem) }, s.id + "º");
+      b.appendChild(criar("small", {}, s.periodo));
+      b.addEventListener("click", function () { estado.sem = s.id; estado.mat = null; estado.mod = null; estado.pag = 0; atualizar(); });
+      area.appendChild(b);
+    });
+  }
+
+  function desenharMaterias() {
+    var sem = achaSemestre(estado.sem);
+    var lista = el("materias"); limpar(lista);
+    sem.materias.forEach(function (m) {
+      var li = document.createElement("li");
+      var n = totalPaginas(m);
+      var b = criar("button", { type: "button", "class": "mat-btn" + (n === 0 ? " vazia" : ""), "aria-current": String(m.id === estado.mat) });
+      b.appendChild(criar("span", {}, m.nome));
+      b.appendChild(criar("span", { "class": "conta" }, n === 0 ? "em breve" : n + (n === 1 ? " página" : " páginas")));
+      b.addEventListener("click", function () { estado.mat = m.id; estado.mod = null; estado.pag = 0; fecharMenu(); atualizar(); });
+      li.appendChild(b); lista.appendChild(li);
+    });
+    var f = el("ferramentas-lista"); limpar(f);
+    (DADOS.ferramentas || []).forEach(function (t) {
+      var li = document.createElement("li");
+      var b = criar("button", { type: "button", "class": "mat-btn" });
+      b.appendChild(criar("span", {}, ICONES.ferramenta + " " + t.titulo));
+      b.addEventListener("click", function () { fecharMenu(); mostrar(t.titulo, t.url, true); });
+      li.appendChild(b); f.appendChild(li);
+    });
+  }
+
+  function desenharCabecalho() {
+    var sem = achaSemestre(estado.sem), mat = achaMateria(sem, estado.mat);
+    var cab = el("cab"); limpar(cab);
+    if (!mat) return;
+    cab.appendChild(criar("h2", {}, mat.nome));
+    cab.appendChild(criar("p", {}, sem.nome + " · " + sem.periodo + (mat.professor ? " · " + mat.professor : "")));
+
+    var abas = el("modulos"); limpar(abas);
+    var visiveis = MODULOS.filter(function (m) { return m !== "geral" || paginasDe(mat, "geral").length > 0; });
+    visiveis.forEach(function (m) {
+      var n = paginasDe(mat, m).length;
+      var b = criar("button", { type: "button", "class": "mod-btn", "aria-pressed": String(m === estado.mod) }, NOMES_MODULO[m]);
+      b.appendChild(criar("small", {}, n === 0 ? "(em breve)" : "(" + n + ")"));
+      if (n === 0) b.setAttribute("aria-disabled", "true");
+      b.addEventListener("click", function () { estado.mod = m; estado.pag = 0; atualizar(); });
+      abas.appendChild(b);
+    });
+  }
+
+  function desenharPaginas() {
+    var sem = achaSemestre(estado.sem), mat = achaMateria(sem, estado.mat);
+    var lista = paginasDe(mat, estado.mod);
+    var ul = el("paginas"); limpar(ul);
+    lista.forEach(function (p, i) {
+      var li = document.createElement("li");
+      var b = criar("button", { type: "button", "class": "pag-btn", "aria-current": String(i === estado.pag) });
+      b.appendChild(criar("span", { "aria-hidden": "true" }, ICONES[p.tipo] || "📄"));
+      b.appendChild(criar("span", {}, p.titulo));
+      if (vistas.has(p.url)) { var v = criar("span", { "class": "visto", title: "Você já abriu este material" }, "✓"); b.appendChild(v); }
+      b.addEventListener("click", function () { estado.pag = i; atualizar(); });
+      li.appendChild(b); ul.appendChild(li);
+    });
+  }
+
+  function mostrarVazio(titulo, texto) {
+    var v = el("vazio"); limpar(v);
+    v.appendChild(criar("strong", {}, titulo));
+    v.appendChild(criar("span", {}, texto));
+    v.hidden = false; el("visor").hidden = true;
+  }
+
+  function mostrar(titulo, url, avulsa) {
+    el("vazio").hidden = true;
+    el("visor").hidden = false;
+    el("visor-titulo").textContent = titulo;
+    el("nova-aba").setAttribute("href", url);
+    var q = el("quadro");
+    if (q.getAttribute("src") !== url) q.setAttribute("src", url);
+    if (!avulsa) { vistas.add(url); gravar(CHAVE_VISTAS, Array.from(vistas)); }
+  }
+
+  function desenharVisor() {
+    var sem = achaSemestre(estado.sem), mat = achaMateria(sem, estado.mat);
+    var lista = paginasDe(mat, estado.mod);
+    if (!mat) { mostrarVazio("Nada por aqui", "Escolha um semestre e uma matéria."); return; }
+    if (totalPaginas(mat) === 0) { mostrarVazio("Ainda não há material desta matéria", "Em breve ela será incluída aqui."); return; }
+    if (lista.length === 0) { mostrarVazio("Sem material neste módulo", "Esta matéria ainda não tem páginas de " + NOMES_MODULO[estado.mod] + ". Veja os outros módulos."); return; }
+    var p = lista[estado.pag];
+    mostrar(p.titulo, p.url, false);
+    desenharPaginas(); // atualiza a marca de "visto"
+  }
+
+  function atualizar() {
+    normalizar();
+    escreverHash();
+    gravar(CHAVE_ULTIMA, { sem: estado.sem });
+    var sem = achaSemestre(estado.sem), mat = achaMateria(sem, estado.mat);
+    document.title = (mat ? mat.nome + " · " : "") + "Estudos de Direito · UNIP";
+    desenharSemestres();
+    desenharMaterias();
+    desenharCabecalho();
+    desenharPaginas();
+    desenharVisor();
+  }
+
+  /* ---- menu no celular ---- */
+  function fecharMenu() { el("lateral").classList.remove("aberta"); el("menu").setAttribute("aria-expanded", "false"); }
+  el("menu").addEventListener("click", function () {
+    var aberta = el("lateral").classList.toggle("aberta");
+    el("menu").setAttribute("aria-expanded", String(aberta));
+  });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") fecharMenu(); });
+
+  /* ---- tela cheia ---- */
+  el("tela-cheia").addEventListener("click", function () {
+    var v = el("visor");
+    if (document.fullscreenElement) document.exitFullscreen();
+    else if (v.requestFullscreen) v.requestFullscreen();
+  });
+
+  /* ---- navegação pelo endereço (voltar/avançar e links compartilhados) ---- */
+  window.addEventListener("hashchange", function () {
+    var h = lerHash();
+    if (h.sem !== estado.sem || h.mat !== estado.mat || h.mod !== estado.mod || h.pag !== estado.pag) { estado = h; atualizar(); }
+  });
+
+  if (!DADOS || !DADOS.semestres) { document.getElementById("principal").textContent = "Não foi possível carregar o catálogo."; return; }
+  document.getElementById("titulo").textContent = DADOS.titulo;
+  estado = lerHash();
+  atualizar();
+})();
+</script>
+</body>
+</html>
