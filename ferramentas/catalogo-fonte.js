@@ -146,7 +146,7 @@ module.exports = {
           id: "processo-relacao-processual",
           nome: "Processo e Relação Jurídica Processual",
           np1: [item("guia", "Material de estudo NP1", pagina("ProssesualNP1", ""))],
-          np2: [item("guia", "Atos processuais, litisconsórcio e intervenção (NP2)", pagina("ProssesualNP2", ""))],
+          np2: [item("guia", "Atos processuais, litisconsórcio e intervenção (NP2)", pagina("ProssesualNP2", "Index.html"))],
         },
         {
           id: "teoria-das-penas",
