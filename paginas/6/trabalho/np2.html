@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Direito Individual do Trabalho · NP2 · Plataforma de estudos</title>
+<style>
+:root{--bg-primary:#0b132b;--bg-secondary:#1c2541;--bg-card:#2f3e46;--bg-hover:#3a506b;--accent-gold:#fbbf24;--accent-blue:#38bdf8;--accent-green:#34d399;--text-main:#f8fafc;--text-muted:#94a3b8;--correct-green:#22c55e;--wrong-red:#ef4444;--border-color:#475569}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg-primary);color:var(--text-main);line-height:1.6}
+header{background:var(--bg-secondary);padding:22px 16px 14px;text-align:center;border-bottom:2px solid var(--accent-gold)}
+header h1{margin:0 0 4px;font-size:1.6rem;color:var(--accent-gold)}
+header p{margin:0;color:var(--text-muted);font-size:.95rem}
+nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:12px;background:var(--bg-secondary);position:sticky;top:0;z-index:5;border-bottom:1px solid var(--border-color)}
+nav button{background:var(--bg-card);color:var(--text-main);border:1px solid var(--border-color);padding:9px 16px;border-radius:8px;cursor:pointer;font:inherit;font-weight:600}
+nav button:hover{background:var(--bg-hover)}
+nav button.active{background:var(--accent-gold);color:#0b132b;border-color:var(--accent-gold)}
+main{max-width:980px;margin:0 auto;padding:18px 14px 60px}
+.tab-content{display:none}.tab-content.active{display:block}
+h2{color:var(--accent-blue);margin:6px 0 14px}
+.intro{background:var(--bg-secondary);border-left:4px solid var(--accent-blue);padding:12px 16px;border-radius:8px;margin-bottom:18px;color:var(--text-muted)}
+.radar{background:#3b2f0b;border:1px solid var(--accent-gold);border-radius:10px;padding:12px 16px;margin-bottom:18px}
+.radar b{color:var(--accent-gold)}
+.module-block{background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:10px;margin-bottom:12px;overflow:hidden}
+.module-header{padding:14px 16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;font-weight:700;font-size:1.05rem}
+.module-header:hover{background:var(--bg-hover)}
+.module-header small{display:block;color:var(--text-muted);font-weight:400;font-size:.82rem}
+.module-header .seta{transition:transform .2s;color:var(--accent-gold)}
+.module-block.open .seta{transform:rotate(90deg)}
+.module-body{display:none;padding:4px 16px 16px}
+.module-block.open .module-body{display:block}
+.sub-topic{background:var(--bg-card);border-radius:8px;padding:12px 14px;margin-top:12px}
+.sub-topic h3{margin:0 0 6px;color:var(--accent-green);font-size:1rem}
+.sub-topic ul{margin:6px 0 0;padding-left:20px}
+.sub-topic li{margin:4px 0}
+.callout{border-left:4px solid var(--accent-gold);background:rgba(251,191,36,.08);padding:10px 14px;border-radius:6px;margin-top:12px}
+.callout.perigo{border-color:var(--wrong-red);background:rgba(239,68,68,.08)}
+.callout.dica{border-color:var(--accent-green);background:rgba(52,211,153,.08)}
+.lei{font-size:.9rem;color:var(--text-muted);font-style:italic}
+.tag{display:inline-block;background:var(--bg-primary);color:var(--accent-gold);border-radius:20px;padding:1px 10px;font-size:.78rem;margin-right:4px}
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:6px;margin:12px 0}
+.flow-step{background:var(--bg-card);border:1px solid var(--border-color);border-radius:8px;padding:8px 12px;flex:1 1 140px;font-size:.92rem}
+.flow-step b{color:var(--accent-blue);display:block}
+.flow-arrow{align-self:center;color:var(--accent-gold);font-size:1.3rem}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.92rem}
+th,td{border:1px solid var(--border-color);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--bg-hover);color:var(--accent-gold)}
+td{background:var(--bg-card)}
+.tbl-wrap{overflow-x:auto}
+.peg{background:var(--bg-card);border-radius:10px;padding:12px 16px;margin-bottom:10px;border-left:4px solid var(--wrong-red)}
+.peg .afirma{font-weight:700}
+.peg .errada{color:var(--wrong-red);font-weight:700}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+.stat-box{flex:1 1 140px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:8px;padding:8px 12px;text-align:center;font-size:.9rem;color:var(--text-muted)}
+.stat-box span{display:block;font-size:1.3rem;font-weight:700;color:var(--text-main)}
+.q{background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:10px;padding:14px 16px;margin-bottom:14px}
+.q .enun{font-weight:600;margin-bottom:10px}
+.option-btn{display:block;width:100%;text-align:left;background:var(--bg-card);color:var(--text-main);border:1px solid var(--border-color);border-radius:8px;padding:9px 12px;margin-bottom:7px;cursor:pointer;font:inherit}
+.option-btn:hover:not(:disabled){background:var(--bg-hover)}
+.option-btn.correct{background:rgba(34,197,94,.2);border-color:var(--correct-green)}
+.option-btn.wrong{background:rgba(239,68,68,.2);border-color:var(--wrong-red)}
+.option-btn:disabled{cursor:default}
+.explanation{display:none;margin-top:8px;padding:10px 12px;border-radius:8px;background:var(--bg-primary);color:var(--text-muted);font-size:.92rem}
+.explanation.show{display:block}
+.btn{background:var(--accent-gold);color:#0b132b;border:0;border-radius:8px;padding:9px 16px;font:inherit;font-weight:700;cursor:pointer}
+.video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.video-card{background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:10px;overflow:hidden}
+.video-card .ratio{position:relative;padding-top:56.25%}
+.video-card iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video-card h4{margin:0;padding:10px 12px;font-size:.95rem}
+.vazio{background:var(--bg-secondary);border:1px dashed var(--border-color);border-radius:10px;padding:26px;text-align:center;color:var(--text-muted)}
+footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:20px 14px}
+@media(max-width:600px){header h1{font-size:1.3rem}nav button{padding:8px 11px;font-size:.9rem}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Direito Individual do Trabalho · NP2</h1>
+  <p>UNIP · Direito · 6º semestre · Prof.ª Noemia Celeste</p>
+</header>
+<nav>
+  <button class="active" onclick="switchTab('guia',this)">📘 Guia</button>
+  <button onclick="switchTab('mapas',this)">🗺️ Mapas</button>
+  <button onclick="switchTab('pegadinhas',this)">⚠️ Pegadinhas</button>
+  <button onclick="switchTab('quiz',this)">📝 Simulado</button>
+  <button onclick="switchTab('videos',this)">🎬 Vídeos</button>
+</nav>
+<main>
+
+<!-- ============ GUIA ============ -->
+<section id="guia" class="tab-content active">
+  <div class="intro">Resumo organizado das <b>aulas 6 a 10</b> de Direito Individual do Trabalho (slides e anotações das aulas). Clique em cada módulo para abrir. Material de apoio: confira sempre o texto da lei.</div>
+  <div class="radar"><b>📡 Radar da prova (o que foi dito em aula):</b>
+    <ul>
+      <li>Suspensão x interrupção: a professora indicou que casos de <b>classificar o afastamento</b> (quem paga? o tempo conta? qual artigo?) podem aparecer — inclusive <b>greve com pagamento negociado</b>.</li>
+      <li>Justa causa: <b>“qualquer coisa que eu falo pode cair em prova, mas o que pode correr em erro é a alínea b”</b> (incontinência de conduta x mau procedimento).</li>
+      <li>Lembrete geral da professora: <b>“ato leve, pena leve; ato grave, pena grave”</b>.</li>
+      <li>Datas ditas em aula: NP2 em <b>09/11</b> (confira no calendário oficial).</li>
+    </ul>
+  </div>
+
+  <div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>Aula 6 · Suspensão e interrupção do contrato<small>CLT, arts. 471 a 476-A, 473, 395, 392</small></div><span class="seta">▶</span></div>
+    <div class="module-body">
+      <div class="sub-topic"><h3>A ideia central</h3><ul>
+        <li>O contrato <b>continua existindo</b>: o empregado deixa de prestar serviço por um tempo.</li>
+        <li><b>Interrupção:</b> não trabalha, <b>recebe</b> salário e o tempo <b>conta</b>.</li>
+        <li><b>Suspensão:</b> não trabalha, <b>não recebe</b> salário do empregador e, em regra, o tempo <b>não conta</b>.</li>
+        <li>Ao voltar, o empregado tem direito às vantagens dadas à categoria no período (art. 471).</li></ul></div>
+      <div class="tbl-wrap"><table>
+        <tr><th>Interrupção (recebe e conta)</th><th>Suspensão (não recebe, não conta)</th></tr>
+        <tr><td>Férias · repouso semanal e feriados · primeiros 15 dias de doença · licença-maternidade (120 dias) · aborto não criminoso (2 semanas) · faltas justificadas do art. 473 · serviço eleitoral</td>
+            <td>Benefício do INSS a partir do 16º dia · aposentadoria por invalidez · licença não remunerada · suspensão disciplinar · curso de qualificação (2 a 5 meses) · greve</td></tr></table></div>
+      <div class="sub-topic"><h3>Pontos que merecem atenção</h3><ul>
+        <li><b>Doença:</b> dias 1 a 15 = interrupção (empregador paga); do 16º dia em diante = suspensão (INSS paga).</li>
+        <li><b>Acidente do trabalho:</b> suspensão “especial” — o FGTS continua sendo depositado e o tempo conta para certos efeitos.</li>
+        <li><b>Greve:</b> a regra é suspensão. Se acordo, convenção ou decisão manda pagar os dias parados, o período se aproxima de interrupção.</li>
+        <li><b>Suspensão disciplinar</b> por mais de <b>30 dias consecutivos</b> = rescisão injusta (art. 474).</li>
+        <li><b>Licença-maternidade:</b> 120 dias, sem prejuízo do emprego e do salário (art. 392). <b>Aborto não criminoso:</b> 2 semanas de repouso remunerado (art. 395).</li>
+        <li><b>Serviço eleitoral (mesário):</b> folga remunerada pelo <b>dobro dos dias</b> de convocação (não é salário em dobro).</li>
+        <li><b>Reunião ou treinamento exigido pelo empregador</b> não é afastamento: é tempo à disposição (art. 4º).</li>
+        <li><b>Intervalo para refeição</b> não conta na jornada (art. 71, § 2º), mas não é exemplo clássico de suspensão do contrato.</li></ul></div>
+      <div class="sub-topic"><h3>Faltas justificadas — art. 473 (sem perder o salário)</h3>
+        <div class="tbl-wrap"><table><tr><th>Motivo</th><th>Limite</th></tr>
+        <tr><td>Morte de cônjuge, ascendente, descendente, irmão ou dependente declarado</td><td>até 2 dias consecutivos</td></tr>
+        <tr><td>Casamento</td><td>até 3 dias consecutivos</td></tr>
+        <tr><td>Nascimento de filho / adoção</td><td>5 dias</td></tr>
+        <tr><td>Doação voluntária de sangue</td><td>1 dia a cada 12 meses</td></tr>
+        <tr><td>Alistamento eleitoral</td><td>até 2 dias</td></tr>
+        <tr><td>Serviço militar, vestibular, comparecer a juízo</td><td>pelo tempo necessário / dias comprovados</td></tr></table></div>
+        <div class="callout">Professores: o art. 320, § 3º assegura <b>9 dias</b> sem desconto por luto (cônjuge, pai, mãe ou filho). Há lista mais completa no art. 473; confira o texto atualizado.</div></div>
+      <div class="callout dica"><b>Como resolver:</b> trabalha? recebe do empregador? o tempo conta? existe exceção legal?</div>
+    </div></div>
+
+  <div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>Aula 7 · Contrato por prazo determinado<small>CLT, arts. 443, 445, 451, 479 a 481</small></div><span class="seta">▶</span></div>
+    <div class="module-body">
+      <div class="sub-topic"><h3>Limites</h3><ul>
+        <li>Contrato por prazo determinado só vale nas hipóteses do art. 443, § 2º. Duração geral máxima: <b>2 anos</b>.</li>
+        <li><b>Experiência:</b> no máximo <b>90 dias</b>. É teto, não duração obrigatória (pode ser 60, 85…).</li>
+        <li>Só pode ser prorrogado <b>uma vez</b>. Prorrogado mais de uma vez → passa a <b>prazo indeterminado</b> (art. 451).</li>
+        <li>A experiência busca avaliação dos <b>dois lados</b>: o empregador avalia o empregado e o empregado avalia o emprego.</li>
+        <li>Contratos de experiência muito curtos, repetidos, para uma necessidade permanente da empresa, podem indicar <b>fraude</b> (art. 9º). Norma coletiva pode fixar condições.</li></ul></div>
+      <div class="tbl-wrap"><table><tr><th>Exemplo de experiência</th><th>Resultado</th></tr>
+        <tr><td>60 + 30 dias</td><td>Uma prorrogação, total 90: válido</td></tr>
+        <tr><td>45 + 45 dias</td><td>Válido</td></tr>
+        <tr><td>30 + 30 + 30 dias</td><td>Duas prorrogações: vira prazo indeterminado</td></tr>
+        <tr><td>60 + 40 dias</td><td>Passa de 90 dias: não vale como experiência</td></tr></table></div>
+      <div class="sub-topic"><h3>Como o contrato pode terminar</h3><ul>
+        <li><b>Termo chegou:</b> sem aviso prévio e sem multa de 40% do FGTS. Recebe saldo de salário, férias proporcionais + 1/3, 13º proporcional e FGTS depositado.</li>
+        <li><b>Art. 479 — empregador rompe antes, sem justa causa:</b> paga <b>metade da remuneração</b> do que faltava até o fim do contrato (+ multa de 40% do FGTS). Ex.: R$ 3.000/mês e 60 dias faltando → metade de R$ 6.000 = <b>R$ 3.000</b>.</li>
+        <li><b>Art. 480 — empregado sai antes, sem justa causa:</b> indeniza os <b>prejuízos</b> que o empregador provar, limitados ao que o empregado receberia no art. 479.</li>
+        <li><b>Art. 481 — cláusula assecuratória</b> (direito recíproco de rescindir antes): aplicam-se as regras do contrato <b>por prazo indeterminado</b> (aviso prévio etc.), e <u>não</u> se soma o art. 479.</li>
+        <li><b>Justa causa do empregado:</b> saldo de salário e férias já adquiridas (+1/3); sem aviso, sem 40%, sem art. 479.</li></ul></div>
+      <div class="callout dica"><b>4 perguntas:</b> o contrato a termo é válido? O prazo chegou ao fim ou foi antecipado? Quem rompeu e houve falta grave? Há cláusula recíproca exercida?</div>
+    </div></div>
+
+  <div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>Aula 8 · Término, prorrogação e dispensa; férias<small>CLT, arts. 143, 146, 147, 443, 451, 452 · CF 7º, XVII</small></div><span class="seta">▶</span></div>
+    <div class="module-body">
+      <div class="sub-topic"><h3>Ideia da professora</h3><ul>
+        <li>No contrato a prazo as partes <b>já sabem quando acaba</b>. Por isso, terminando no prazo: <b>sem aviso prévio</b> (não há o que avisar) e <b>sem multa de 40%</b> (não é perda inesperada).</li>
+        <li>Se o prazo acaba, ninguém diz nada e o empregado <b>continua trabalhando</b>, o contrato vira <b>sem prazo</b> — e a turma concluiu que é o <b>mesmo contrato</b>, sem prazo “desde o início”.</li>
+        <li>Dispensado sem justa causa depois disso: <b>aviso prévio + 40% do FGTS</b> + demais verbas.</li></ul></div>
+      <div class="tbl-wrap"><table><tr><th>Verba</th><th>Termina no prazo</th><th>Dispensa sem justa causa (já sem prazo)</th></tr>
+        <tr><td>Saldo de salário</td><td>Sim</td><td>Sim</td></tr>
+        <tr><td>Aviso prévio</td><td>Não</td><td>Sim</td></tr>
+        <tr><td>Multa de 40% do FGTS</td><td>Não</td><td>Sim</td></tr>
+        <tr><td>Férias proporcionais + 1/3</td><td>Sim</td><td>Sim</td></tr>
+        <tr><td>13º proporcional</td><td>Sim</td><td>Sim</td></tr></table></div>
+      <div class="sub-topic"><h3>Detalhes cobrados em exemplos</h3><ul>
+        <li><b>Multa de 40%</b> = 40% sobre <b>todos os depósitos</b> do FGTS. Ex.: R$ 3.000 depositados → R$ 1.200.</li>
+        <li><b>Dias x meses:</b> escreva o prazo em <b>dias</b>. “Três meses” podem passar de 90 dias (novembro + dezembro + janeiro = 92).</li>
+        <li><b>Último dia:</b> se cai em feriado e ninguém avisa, e o empregado volta a trabalhar, o contrato vira sem prazo. Princípios do contrato: <b>força obrigatória</b> e <b>boa-fé</b>.</li>
+        <li><b>Terço constitucional</b> (CF art. 7º, XVII) ≠ <b>abono pecuniário</b> (CLT art. 143: converter 1/3 das férias em dinheiro). Segundo a professora, o terço “vem junto sempre”, até sobre os dias vendidos.</li>
+        <li><b>Férias vencidas</b> são devidas em qualquer causa (art. 146, caput). <b>Proporcionais</b> dependem da causa: devidas no término do contrato a prazo e na dispensa sem justa causa (art. 147); <b>negadas na justa causa</b> após 12 meses (art. 146, parágrafo único).</li>
+        <li>Justa causa precisa de <b>muita prova</b> (documentos, imagens de câmera, testemunhas).</li></ul></div>
+      <div class="callout perigo"><b>Atenção:</b> um material de apoio cita a EC 141/2026, que teria reduzido a jornada para 40h semanais e criado 2 dias de repouso semanal. Isso <u>não foi dito em aula</u>. Confira no texto oficial antes de usar em prova.</div>
+    </div></div>
+
+  <div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>Aula 9 · Justa causa: fundamento, prova e medida da pena<small>CLT, arts. 158, 166, 474, 482, 483</small></div><span class="seta">▶</span></div>
+    <div class="module-body">
+      <div class="sub-topic"><h3>Poder disciplinar tem limite</h3><ul>
+        <li>Penas: <b>advertência</b> (verbal ou escrita) → <b>suspensão</b> → <b>dispensa por justa causa</b>. Dispensa é a pena máxima.</li>
+        <li><b>Fato leve, pena leve; fato grave, pena grave.</b> Não existe regra de “três advertências”: depende da gravidade.</li>
+        <li>Assinar o regulamento não valida cláusula ilegal ou desproporcional (art. 9º).</li>
+        <li>Suspensão acima de 30 dias consecutivos = rescisão injusta (art. 474).</li></ul></div>
+      <div class="sub-topic"><h3>Princípios para punir</h3>
+        <div class="tbl-wrap"><table><tr><th>Princípio</th><th>Ideia</th></tr>
+        <tr><td><b>Tipicidade</b></td><td>A conduta deve caber numa hipótese legal (art. 482)</td></tr>
+        <tr><td><b>Proporcionalidade</b></td><td>Pena compatível com a gravidade e o contexto</td></tr>
+        <tr><td><b>Imediatidade</b></td><td>Reagir logo ao saber da falta (apurar com seriedade é diferente de ficar parado). Inércia = <b>perdão tácito</b></td></tr>
+        <tr><td><b>Singularidade (non bis in idem)</b></td><td>Um fato, uma punição. Nova falta é outro fato</td></tr>
+        <tr><td><b>Prova</b></td><td>O empregador deve provar a falta (CLT, art. 818, II)</td></tr></table></div></div>
+      <div class="sub-topic"><h3>EPI</h3><ul>
+        <li>Empresa deve <b>fornecer</b> EPI adequado e gratuito (art. 166), orientar e exigir o uso.</li>
+        <li>Empregado deve usar e seguir as instruções; <b>recusa injustificada</b> é ato faltoso (art. 158, parágrafo único). A pena ainda depende da gravidade e da prova.</li></ul></div>
+      <div class="sub-topic"><h3>Falta do empregado x falta do empregador</h3><ul>
+        <li><b>Art. 482:</b> falta do empregado → empregador dispensa por <b>justa causa</b>.</li>
+        <li><b>Art. 483:</b> falta do empregador (rigor excessivo, não cumprir o contrato, ofensas…) → empregado pede <b>rescisão indireta</b>.</li>
+        <li>Justa causa revertida na Justiça: não gera automaticamente reintegração nem dano moral; depende do caso.</li>
+        <li>Ações de indenização por dano moral decorrente da relação de trabalho: <b>Justiça do Trabalho</b> (CF, art. 114, VI).</li></ul></div>
+      <div class="sub-topic"><h3>Improbidade e incontinência / mau procedimento</h3><ul>
+        <li><b>Improbidade (a):</b> ato <b>desonesto</b> comprovado (furto, fraude, desvio). Não se pune “caráter”, e sim o ato.</li>
+        <li><b>Incontinência de conduta (b):</b> comportamento <b>sexual</b> inadequado (gestos obscenos, assédio).</li>
+        <li><b>Mau procedimento (b):</b> conduta irregular <b>sem</b> caráter sexual.</li>
+        <li>Condenação criminal (d) exige trânsito em julgado; as demais faltas <b>não</b> precisam esperar o processo penal.</li></ul></div>
+    </div></div>
+
+  <div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>Aula 10 · Hipóteses do art. 482<small>CLT, art. 482, alíneas a a m · arts. 474, 508</small></div><span class="seta">▶</span></div>
+    <div class="module-body">
+      <div class="tbl-wrap"><table>
+        <tr><th>Alínea</th><th>Hipótese</th><th>Ponto central</th></tr>
+        <tr><td>a</td><td>Improbidade</td><td>Ato desonesto comprovado</td></tr>
+        <tr><td>b</td><td>Incontinência de conduta / mau procedimento</td><td>Incontinência = sexual; mau procedimento = outras faltas de conduta (ex.: deixar amigo passar na catraca sem pagar)</td></tr>
+        <tr><td>c</td><td>Negociação habitual</td><td>Negociar por conta própria ou alheia, sem permissão, e concorrer com a empresa ou prejudicar o serviço. Pior: usar clientes do empregador (concorrência desleal)</td></tr>
+        <tr><td>d</td><td>Condenação criminal</td><td>Com trânsito em julgado e <b>sem</b> suspensão da execução da pena</td></tr>
+        <tr><td>e</td><td>Desídia</td><td>Falta leve (má vontade, indiferença) que só vira grave pela <b>reiteração</b>: escada de penas</td></tr>
+        <tr><td>f</td><td>Embriaguez habitual ou em serviço</td><td>Vício é tratado como <b>doença</b>: encaminhar a tratamento antes de dispensar e guardar a prova</td></tr>
+        <tr><td>g</td><td>Violação de segredo da empresa</td><td>Falta gravíssima (marcas, patentes, fórmulas, lançamentos)</td></tr>
+        <tr><td>h</td><td>Indisciplina / insubordinação</td><td>Indisciplina = descumprir <b>regra geral</b>; insubordinação = descumprir <b>ordem direta</b></td></tr>
+        <tr><td>i</td><td>Abandono de emprego</td><td>Elemento objetivo (mais de 30 dias) + subjetivo (intenção de não voltar). Comunicar por carta com AR</td></tr>
+        <tr><td>j / k</td><td>Ato lesivo da honra e ofensas físicas</td><td>No serviço contra qualquer pessoa (j) ou contra empregador/superiores (k); salvo legítima defesa</td></tr>
+        <tr><td>l</td><td>Jogos de azar</td><td>Apenas a prática <b>constante</b></td></tr>
+        <tr><td>m</td><td>Perda da habilitação</td><td>Incluída pela Reforma Trabalhista (2017); exige <b>conduta dolosa</b></td></tr></table></div>
+      <div class="sub-topic"><h3>Mais detalhes</h3><ul>
+        <li>Bancário: falta contumaz de pagamento de dívidas legalmente exigíveis é justa causa (art. 508).</li>
+        <li>Abandono: o prazo de 30 dias vem da jurisprudência (Súmula 32 do TST, quando o empregado não volta após a alta previdenciária). A prova do abandono decorre do princípio da continuidade da relação de emprego.</li>
+        <li>Perdão tácito: ato faltoso perdoado não pode ser usado para agravar punição futura.</li></ul></div>
+      <div class="sub-topic"><h3>O que o empregado recebe na justa causa</h3><ul>
+        <li>Saldo de salário · férias <b>vencidas</b> + 1/3 · baixa na CTPS (sem anotação desabonadora, art. 29, § 4º).</li>
+        <li><b>Sem</b>: aviso prévio, multa de 40%, 13º proporcional e férias proporcionais (para quem já tem mais de 12 meses).</li></ul></div>
+      <div class="callout dica"><b>Macete:</b> “a, b, c, d, e, f, g, h, i, j, k, l, m” — para cada caso, descubra primeiro a alínea; depois pergunte se é falta leve (escada de penas) ou grave por si só.</div>
+    </div></div>
+</section>
+
+<!-- ============ MAPAS ============ -->
+<section id="mapas" class="tab-content">
+  <h2>Mapas e comparativos</h2>
+
+  <h2 style="font-size:1.05rem">Interrupção x Suspensão</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th></th><th>Interrupção</th><th>Suspensão</th></tr>
+    <tr><td><b>Trabalha?</b></td><td>Não</td><td>Não</td></tr>
+    <tr><td><b>Empregador paga?</b></td><td>Sim</td><td>Em regra, não</td></tr>
+    <tr><td><b>Tempo conta?</b></td><td>Sim</td><td>Em regra, não</td></tr>
+    <tr><td><b>Exemplos</b></td><td>Férias, DSR, 15 primeiros dias de doença, licença-maternidade, art. 473</td><td>INSS do 16º dia, greve, licença não remunerada, suspensão disciplinar, qualificação</td></tr>
+  </table></div>
+
+  <h2 style="font-size:1.05rem">Como termina o contrato por prazo determinado</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th>Situação</th><th>Regra</th><th>Aviso / 40% / indenização</th></tr>
+    <tr><td>Termo chegou</td><td>Término normal</td><td>Sem aviso, sem 40%, sem art. 479</td></tr>
+    <tr><td>Empregador rompe antes, sem justa causa</td><td>Art. 479</td><td>Metade da remuneração do restante + 40% do FGTS</td></tr>
+    <tr><td>Empregado sai antes, sem justa causa</td><td>Art. 480</td><td>Indeniza prejuízo provado, com teto</td></tr>
+    <tr><td>Cláusula recíproca exercida</td><td>Art. 481</td><td>Regras do contrato sem prazo</td></tr>
+    <tr><td>Empregado cometeu falta grave</td><td>Art. 482</td><td>Saldo e férias vencidas; sem aviso, 40% ou art. 479</td></tr>
+    <tr><td>Continuou trabalhando após o termo</td><td>Virou sem prazo</td><td>Dispensa sem justa causa: aviso + 40%</td></tr>
+  </table></div>
+
+  <h2 style="font-size:1.05rem">Passo a passo diante de um caso de justa causa</h2>
+  <div class="flow">
+    <div class="flow-step"><b>1. Alínea</b>Qual hipótese do art. 482?</div><div class="flow-arrow">➜</div>
+    <div class="flow-step"><b>2. Gravidade</b>Leve (escada de penas) ou grave por si só?</div><div class="flow-arrow">➜</div>
+    <div class="flow-step"><b>3. Prova</b>Cada degrau e cada fato provado?</div><div class="flow-arrow">➜</div>
+    <div class="flow-step"><b>4. Tempo</b>Reagiu logo? (perdão tácito)</div><div class="flow-arrow">➜</div>
+    <div class="flow-step"><b>5. Singularidade</b>Um fato, uma punição.</div>
+  </div>
+
+  <h2 style="font-size:1.05rem">Parecidos que confundem</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th>Par</th><th>Diferença</th></tr>
+    <tr><td>Incontinência x mau procedimento</td><td>Sexual x outras faltas de conduta</td></tr>
+    <tr><td>Indisciplina x insubordinação</td><td>Regra geral x ordem direta</td></tr>
+    <tr><td>Improbidade x mau procedimento</td><td>Desonestidade x irregularidade de outra natureza</td></tr>
+    <tr><td>Art. 482 x art. 483</td><td>Falta do empregado x falta do empregador (rescisão indireta)</td></tr>
+    <tr><td>Terço constitucional x abono pecuniário</td><td>Acréscimo de 1/3 x “venda” de 1/3 das férias</td></tr>
+    <tr><td>Férias vencidas x proporcionais</td><td>Direito já adquirido (sempre devidas) x período incompleto (depende da causa)</td></tr>
+  </table></div>
+
+  <h2 style="font-size:1.05rem">Números</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th>Tema</th><th>Número</th></tr>
+    <tr><td>Contrato a prazo (máximo geral)</td><td>2 anos</td></tr>
+    <tr><td>Experiência (teto)</td><td>90 dias, uma prorrogação</td></tr>
+    <tr><td>Doença: empregador paga</td><td>15 primeiros dias</td></tr>
+    <tr><td>Licença-maternidade / aborto não criminoso</td><td>120 dias / 2 semanas</td></tr>
+    <tr><td>Suspensão disciplinar (limite)</td><td>30 dias consecutivos</td></tr>
+    <tr><td>Qualificação profissional</td><td>2 a 5 meses</td></tr>
+    <tr><td>Abandono de emprego</td><td>mais de 30 dias + intenção</td></tr>
+    <tr><td>Multa do FGTS</td><td>40% dos depósitos</td></tr>
+  </table></div>
+</section>
+
+<!-- ============ PEGADINHAS ============ -->
+<section id="pegadinhas" class="tab-content">
+  <h2>Alertas e pegadinhas</h2>
+  <div class="intro">Afirmações que parecem certas e estão erradas. Tente responder antes de ler a correção.</div>
+  <div id="lista-peg"></div>
+</section>
+
+<!-- ============ SIMULADO ============ -->
+<section id="quiz" class="tab-content">
+  <h2>Simulado com correção na hora</h2>
+  <div class="stats">
+    <div class="stat-box">Respondidas <span id="stat-total">0/0</span></div>
+    <div class="stat-box">Acertos <span id="stat-correct" style="color:var(--correct-green)">0</span></div>
+    <div class="stat-box">Erros <span id="stat-wrong" style="color:var(--wrong-red)">0</span></div>
+    <div class="stat-box">Aproveitamento <span id="stat-percent">0%</span></div>
+  </div>
+  <p><button class="btn" onclick="resetQuiz()">🔄 Refazer (embaralha as questões)</button></p>
+  <div id="quiz-container"></div>
+</section>
+
+<!-- ============ VÍDEOS ============ -->
+<section id="videos" class="tab-content">
+  <h2>Vídeos e podcasts</h2>
+  <div class="intro">Aqui entram os vídeos e podcasts feitos no NotebookLM e publicados no YouTube. Para incluir um, basta colocar o <b>código do vídeo</b> na lista <code>VIDEOS</code> no fim deste arquivo.</div>
+  <div id="video-area"></div>
+</section>
+
+</main>
+<footer>Material de apoio de estudo, organizado a partir das aulas. Não é publicação oficial da UNIP nem substitui a lei e as orientações do professor.</footer>
+
+<script>
+// ---- Vídeos: preencher com {titulo:"...", id:"CODIGO_DO_YOUTUBE"} ----
+var VIDEOS = [
+    // { titulo: "Suspensão e interrupção", id: "XXXXXXXXXXX" },
+];
+
+var PEGADINHAS = [
+  ["Na interrupção o empregador não paga salário.", "É o contrário: na interrupção o empregador paga e o tempo conta. Na suspensão, em regra, não paga e o tempo não conta."],
+  ["Todo afastamento por doença é suspensão.", "Os 15 primeiros dias são interrupção (empregador paga). Só a partir do 16º dia, com benefício do INSS, é suspensão."],
+  ["Se alguém recebe dinheiro do INSS, o afastamento é sempre suspensão.", "Na licença-maternidade, o pagamento vem do regime previdenciário, mas a classificação tradicional é interrupção (salário e efeitos preservados)."],
+  ["Greve é sempre suspensão sem pagamento.", "A regra é suspensão, mas acordo, convenção ou decisão pode determinar o pagamento dos dias parados, aproximando-os da interrupção."],
+  ["O mesário recebe salário em dobro.", "Recebe dispensa remunerada pelo <b>dobro dos dias</b> de convocação (folgas), não salário em dobro."],
+  ["Reunião exigida pelo empregador é afastamento.", "Não. O empregado está à disposição, e isso conta como tempo de serviço (art. 4º)."],
+  ["Experiência de 90 dias tem de ter exatamente 90 dias.", "90 dias é o <b>teto</b>. Pode ter 60, 85…"],
+  ["Se o total é de 90 dias, qualquer número de prorrogações vale.", "Há dois limites juntos: 90 dias no total <b>e</b> uma só prorrogação. Duas prorrogações tornam o contrato indeterminado."],
+  ["Quando o contrato a prazo chega ao fim, o empregado recebe aviso prévio e 40%.", "Não: término normal não gera aviso nem multa de 40%. Recebe saldo, férias proporcionais + 1/3, 13º proporcional e FGTS depositado."],
+  ["Se o empregado continua trabalhando depois do termo, o contrato acaba mesmo assim.", "Passa a ser sem prazo. Depois, na dispensa sem justa causa, há aviso prévio e 40%."],
+  ["O art. 479 dá 40% do FGTS.", "O art. 479 dá <b>metade da remuneração</b> do período que faltava. Os 40% são outra coisa (FGTS)."],
+  ["O art. 480 obriga o empregado a pagar sempre a metade do que faltava.", "A indenização é pelo <b>prejuízo provado</b> do empregador, limitada ao teto equivalente ao art. 479."],
+  ["Com cláusula assecuratória, soma-se o art. 479 ao aviso prévio.", "Não. Pelo art. 481 aplicam-se as regras do contrato sem prazo, sem somar o art. 479."],
+  ["Terço constitucional e abono pecuniário são a mesma coisa.", "Terço = acréscimo de 1/3 sobre as férias (CF). Abono pecuniário = converter 1/3 das férias em dinheiro (CLT, art. 143)."],
+  ["Na justa causa o empregado perde todas as férias.", "Perde as <b>proporcionais</b> (após 12 meses). As <b>vencidas</b> são devidas em qualquer causa (art. 146)."],
+  ["A assinatura do regulamento valida qualquer punição.", "Não. A punição precisa de fundamento legal, proporcionalidade e prova."],
+  ["São necessárias três advertências antes de qualquer dispensa por justa causa.", "Não existe esse número fixo. Falta grave pode justificar a dispensa direta; falta leve exige reiteração."],
+  ["Se o crime é também falta trabalhista, a empresa precisa esperar a sentença criminal.", "Só a alínea d (condenação criminal) exige trânsito em julgado. Improbidade, por exemplo, pode ser apreciada pela falta trabalhista."],
+  ["Condenação criminal com sursis também gera justa causa.", "Não. A alínea d exige condenação transitada em julgado e <b>sem</b> suspensão da execução da pena."],
+  ["Incontinência de conduta e mau procedimento são a mesma coisa.", "Incontinência liga-se ao comportamento <b>sexual</b>; mau procedimento é outra falta de conduta."],
+  ["Indisciplina é descumprir ordem direta.", "Isso é insubordinação. Indisciplina é descumprir regra geral (lei, regulamento)."],
+  ["O empregado alcoólatra pode ser dispensado direto por justa causa.", "A professora orientou tratar o vício como doença: encaminhar a tratamento e documentar o cuidado antes de punir com penas mais severas."],
+  ["Abandono de emprego é faltar um dia.", "Exige elemento objetivo (mais de 30 dias de ausência) e subjetivo (intenção de não voltar)."],
+  ["Para jogos de azar basta jogar uma vez no trabalho.", "A alínea l exige a prática <b>constante</b>."],
+  ["Perda da habilitação é justa causa em qualquer hipótese.", "Só se decorrer de conduta <b>dolosa</b> do empregado (alínea m)."],
+  ["Art. 482 e art. 483 tratam do mesmo assunto.", "482 = falta do empregado (justa causa). 483 = falta do empregador (rescisão indireta)."]
+];
+
+var QUESTOES = [
+  ["Na interrupção do contrato de trabalho:", ["O empregado não trabalha, não recebe e o tempo não conta","O empregado não trabalha, recebe e o tempo conta","O empregado trabalha e não recebe","O contrato termina"], 1, "Interrupção: não trabalha, recebe e o tempo conta."],
+  ["Empregada fica doente por 20 dias. Classificação:", ["Todos os dias são suspensão","Todos são interrupção","15 primeiros dias interrupção; do 16º em diante suspensão","O contrato se extingue no 16º dia"], 2, "Primeiros 15 dias pagos pelo empregador (interrupção); depois, benefício do INSS (suspensão)."],
+  ["Qual hipótese é interrupção?", ["Greve sem acordo de pagamento","Licença não remunerada","Licença-maternidade","Benefício previdenciário do 16º dia em diante"], 2, "Licença-maternidade: 120 dias sem prejuízo do emprego e do salário (art. 392)."],
+  ["Aborto não criminoso comprovado por atestado médico oficial dá direito a:", ["30 dias de suspensão","Repouso remunerado de 2 semanas","120 dias de licença","Um dia de falta"], 1, "Art. 395 da CLT."],
+  ["O mesário convocado pela Justiça Eleitoral tem direito a:", ["Salário em dobro","Folga remunerada pelo dobro dos dias de convocação","Suspensão sem salário","Nada"], 1, "Dispensa remunerada pelo dobro dos dias de convocação."],
+  ["Greve regular seguida de acordo que determina pagamento dos dias parados:", ["A lei impede qualquer pagamento","A greve extingue os contratos","A regra é suspensão, mas o acordo pode preservar remuneração e efeitos","Toda greve é interrupção desde o primeiro dia"], 2, "Lei de Greve: suspensão, com efeitos disciplinados por acordo, convenção ou decisão."],
+  ["O empregado é convocado pelo empregador para uma reunião fora do horário normal. Isso é:", ["Interrupção","Suspensão","Tempo à disposição do empregador","Falta justificada"], 2, "Cumprir ordem do empregador é trabalho/tempo à disposição (art. 4º)."],
+  ["O contrato de experiência não pode exceder:", ["30 dias","90 dias","6 meses","2 anos"], 1, "Art. 445, parágrafo único."],
+  ["Experiência de 30 + 30 + 30 dias:", ["É válida como contrato a prazo","Passa a ser por prazo indeterminado, por duas prorrogações","É nula","Exige homologação sindical"], 1, "O art. 451 permite uma única prorrogação."],
+  ["Um contrato de experiência de 85 dias é:", ["Inválido","Válido, pois 90 dias é apenas o teto","Válido só com acordo coletivo","Válido apenas se prorrogado"], 1, "O limite é máximo, não duração obrigatória."],
+  ["O contrato de experiência chega ao fim no prazo. Quanto ao aviso prévio e à multa de 40% do FGTS:", ["Ambos são devidos","Só o aviso é devido","Nenhum é devido apenas pelo término do prazo","Só a multa é devida"], 2, "Na lógica da professora: as partes já sabem o fim do contrato."],
+  ["Ao término normal da experiência, o empregado recebe:", ["Só o saldo de salário","Saldo, férias proporcionais + 1/3 e 13º proporcional","Metade da remuneração restante","Multa de 40% e aviso prévio"], 1, "Verbas proporcionais, sem aviso e sem multa."],
+  ["Prazo da experiência acaba e o empregado continua a trabalhar sem formalização. O contrato:", ["Se extingue","Vira novo contrato de 90 dias","Passa a ser por prazo indeterminado","É nulo"], 2, "A turma concluiu: é o mesmo contrato, que se tornou sem prazo."],
+  ["Depois de virar sem prazo, a secretária é dispensada sem justa causa aos 4 meses. Há:", ["Aviso prévio e multa de 40%","Nenhuma verba","Apenas saldo","Só 13º proporcional"], 0, "Virou contrato sem prazo: aviso prévio, 40% e verbas rescisórias."],
+  ["Depósitos de FGTS somam R$ 3.000. A multa de 40% é de:", ["R$ 1.200","R$ 3.000","R$ 120","R$ 12.000"], 0, "3.000 × 40% = 1.200."],
+  ["Art. 479: empregador despede sem justa causa, antes do termo, contrato a prazo sem cláusula assecuratória. Ele paga:", ["Metade da remuneração a que o empregado teria direito até o fim do contrato","Toda a remuneração do restante","40% do salário","Nada"], 0, "Indenização por metade da remuneração do período restante."],
+  ["Salário de R$ 2.400, faltavam 30 dias. A indenização do art. 479 é de:", ["R$ 1.200","R$ 2.400","R$ 960","R$ 0"], 0, "Metade do que faltava: 2.400 ÷ 2 = 1.200 (outras verbas à parte)."],
+  ["No art. 480, se o empregado sai antes do termo sem justa causa:", ["Paga sempre o valor máximo","Indeniza o prejuízo que o empregador provar, dentro do teto legal","Não paga nada","Recebe multa de 40%"], 1, "O teto é limite, não valor automático."],
+  ["Contrato a prazo com cláusula recíproca de rescisão antecipada, exercida pelo empregador sem justa causa. Aplica-se:", ["Art. 479 somado ao aviso","Art. 481: regras do contrato sem prazo, sem somar o art. 479","Art. 480","Término normal"], 1, "O art. 481 muda o regime rescisório."],
+  ["Terço constitucional de férias e abono pecuniário:", ["São o mesmo instituto","São institutos diferentes: acréscimo de 1/3 e conversão de 1/3 das férias em dinheiro","O abono pecuniário é devido ao empregador","O terço não existe na CF"], 1, "CF art. 7º, XVII e CLT art. 143."],
+  ["Empregado dispensado por justa causa, com 16 meses de serviço e sem ter tirado férias, tem direito a:", ["Nenhuma férias","Férias vencidas + 1/3, mas não as proporcionais","Só as proporcionais","Férias em dobro"], 1, "Art. 146, caput e parágrafo único."],
+  ["Qual verba NÃO é devida na dispensa por justa causa?", ["Saldo de salário","Férias vencidas","Aviso prévio","Baixa na CTPS"], 2, "Justa causa: sem aviso prévio e sem multa de 40%."],
+  ["“Ato leve, pena leve; ato grave, pena grave” significa:", ["A pena deve ser proporcional à gravidade da falta","Toda falta justifica dispensa","Só faltas graves são punidas","A pena não precisa de prova"], 0, "Proporcionalidade na aplicação das penalidades."],
+  ["Para dispensar por justa causa um empregado que pratica atos leves de desídia, deve-se:", ["Dispensar na primeira falta","Aplicar advertência verbal, escrita, suspensão, provando a reiteração","Esperar o pedido de demissão","Dispensar sem justa causa"], 1, "“Escada de atos leves”, com prova de cada degrau."],
+  ["Suspensão disciplinar por mais de 30 dias consecutivos:", ["É válida","Importa em rescisão injusta do contrato","Só vale com acordo","Depende do sindicato"], 1, "Art. 474."],
+  ["O empregador demora meses, sem apuração real, para punir uma falta que conhecia. Isso pode caracterizar:", ["Imediatidade","Perdão tácito","Dupla punição","Rescisão indireta"], 1, "Inércia injustificada após conhecer a falta."],
+  ["Empresa aplica advertência por um episódio e depois suspensão pelo mesmo episódio. Há:", ["Regularidade","Violação da vedação à dupla punição (non bis in idem)","Improbidade","Abandono"], 1, "Um fato, uma punição."],
+  ["Incontinência de conduta é:", ["Descumprimento de ordem direta","Comportamento ligado a questões sexuais","Faltar mais de 30 dias","Divulgar segredo"], 1, "Alínea b: o núcleo sexual distingue a incontinência."],
+  ["Empregado de teatro deixa amigo passar pela catraca sem pagar, sem intenção de lesar a empresa. A professora classificou como:", ["Mau procedimento","Incontinência de conduta","Abandono","Violação de segredo"], 0, "Falta de conduta sem caráter sexual: mau procedimento."],
+  ["A alínea c (negociação habitual) exige:", ["Negociar por conta própria ou alheia, de forma habitual e sem permissão, concorrendo com a empresa ou prejudicando o serviço","Condenação criminal","Embriaguez","Faltar 30 dias"], 0, "Texto da alínea c."],
+  ["A condenação criminal só gera justa causa (alínea d) se:", ["Houver apenas denúncia","O empregado estiver preso preventivamente","Houver trânsito em julgado e sem suspensão da execução da pena","Houver advertência prévia"], 2, "Presunção de inocência e texto da alínea d."],
+  ["Desídia (alínea e) é:", ["Falta gravíssima","Falta leve que se torna grave pela reiteração","Crime","Abandono"], 1, "Má vontade, indiferença; exige escada de penas."],
+  ["Diante de empregado com problema de álcool, a orientação da professora é:", ["Dispensar de imediato","Encaminhar a tratamento (vício é doença) e guardar a prova do cuidado","Ignorar","Publicar a dispensa em jornal"], 1, "Alcoolismo tratado como doença."],
+  ["Funcionário divulga a receita secreta de um produto da empresa. É:", ["Desídia","Violação de segredo da empresa, falta gravíssima","Jogos de azar","Mau procedimento leve"], 1, "Alínea g."],
+  ["Indisciplina x insubordinação:", ["São sinônimos","Indisciplina = regra geral; insubordinação = ordem direta","Indisciplina = ordem direta; insubordinação = regra geral","Só existem em empresa pública"], 1, "Entrar fumando onde é proibido e desobedecer ao “não fume” é as duas."],
+  ["Abandono de emprego exige:", ["Só mais de 30 dias de ausência","Só a intenção","Elemento objetivo (mais de 30 dias) e subjetivo (intenção de não voltar)","Um dia de falta"], 2, "Os dois elementos."],
+  ["Meio recomendado pela professora para comunicar o abandono:", ["Telefonema","Carta com aviso de recebimento (AR)","Recado a colegas","Esperar o empregado voltar"], 1, "“A melhor das medidas.”"],
+  ["Jogos de azar (alínea l) exigem:", ["Prática constante","Um único episódio","Perda de dinheiro","Jogo fora do horário"], 0, "Texto da alínea l."],
+  ["Perda da habilitação (alínea m) é justa causa quando decorre de:", ["Culpa leve","Decisão do sindicato","Ordem do empregador","Conduta dolosa do empregado"], 3, "Incluída pela Reforma Trabalhista; exige dolo."],
+  ["Sobre art. 482 e art. 483:", ["482: falta do empregado; 483: falta do empregador (rescisão indireta)","São idênticos","483 é justa causa do empregado","482 trata de férias"], 0, "Não troque os polos."],
+  ["A recusa injustificada ao uso de EPI fornecido pela empresa:", ["É irrelevante","É ato faltoso (art. 158), mas a pena depende da gravidade e da prova","Gera sempre dispensa direta","Gera sempre suspensão de 30 dias"], 1, "Há base legal, mas é preciso proporcionalidade."]
+];
+
+// ----- abas e módulos -----
+function switchTab(id, btn){
+  document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active')});
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('nav button').forEach(function(b){b.classList.remove('active')});
+  if(btn) btn.classList.add('active');
+  window.scrollTo({top:0});
+}
+function toggleModule(h){ h.parentElement.classList.toggle('open'); }
+
+// ----- pegadinhas -----
+(function(){
+  var el = document.getElementById('lista-peg');
+  el.innerHTML = PEGADINHAS.map(function(p){
+    return '<div class="peg"><div class="afirma">“' + p[0] + '”</div><div><span class="errada">Cuidado:</span> ' + p[1] + '</div></div>';
+  }).join('');
+})();
+
+// ----- vídeos -----
+(function(){
+  var area = document.getElementById('video-area');
+  if(!VIDEOS.length){
+    area.innerHTML = '<div class="vazio">Ainda não há vídeos publicados para este módulo. 🎬<br>Em breve entram aqui os vídeos e podcasts do NotebookLM.</div>';
+    return;
+  }
+  area.innerHTML = '<div class="video-grid">' + VIDEOS.map(function(v){
+    return '<div class="video-card"><div class="ratio"><iframe src="https://www.youtube.com/embed/' + v.id + '" allowfullscreen loading="lazy" title="' + v.titulo + '"></iframe></div><h4>' + v.titulo + '</h4></div>';
+  }).join('') + '</div>';
+})();
+
+// ----- simulado -----
+var ordem = [], respondidas = {}, acertos = 0, erros = 0;
+function shuffle(a){ for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;} return a; }
+function initQuizData(){
+  ordem = shuffle(QUESTOES.map(function(_,i){return i;}));
+  respondidas = {}; acertos = 0; erros = 0;
+}
+function renderQuiz(){
+  var box = document.getElementById('quiz-container');
+  box.innerHTML = ordem.map(function(qi, pos){
+    var q = QUESTOES[qi];
+    var ops = q[1].map(function(o, oi){
+      return '<button class="option-btn" id="q' + pos + '-o' + oi + '" onclick="checkAnswer(' + pos + ',' + oi + ')">' + String.fromCharCode(65+oi) + ') ' + o + '</button>';
+    }).join('');
+    return '<div class="q"><div class="enun">' + (pos+1) + '. ' + q[0] + '</div>' + ops + '<div class="explanation" id="exp-' + pos + '">' + q[3] + '</div></div>';
+  }).join('');
+  updateStats();
+}
+function checkAnswer(pos, escolha){
+  if(respondidas[pos] !== undefined) return;
+  var q = QUESTOES[ordem[pos]];
+  respondidas[pos] = escolha;
+  for(var i=0;i<q[1].length;i++){
+    var b = document.getElementById('q'+pos+'-o'+i);
+    b.disabled = true;
+    if(i === q[2]) b.classList.add('correct');
+    else if(i === escolha) b.classList.add('wrong');
+  }
+  if(escolha === q[2]) acertos++; else erros++;
+  document.getElementById('exp-'+pos).classList.add('show');
+  updateStats();
+}
+function updateStats(){
+  var total = acertos + erros;
+  document.getElementById('stat-total').textContent = total + '/' + QUESTOES.length;
+  document.getElementById('stat-correct').textContent = acertos;
+  document.getElementById('stat-wrong').textContent = erros;
+  document.getElementById('stat-percent').textContent = total ? Math.round(acertos*100/total) + '%' : '0%';
+}
+function resetQuiz(){ initQuizData(); renderQuiz(); window.scrollTo({top:0}); }
+initQuizData(); renderQuiz();
+</script>
+</body>
+</html>

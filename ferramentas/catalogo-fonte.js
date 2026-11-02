@@ -35,6 +35,7 @@ module.exports = {
             item("questoes", "Banco de questões de concurso 1", pagina("Trabalhista", "Questões de Concurso trabalhista 1.html")),
             item("questoes", "Banco de questões de concurso 2", pagina("Trabalhista", "Questões de Concurso trabalhista 2.html")),
           ],
+          np2: [item("guia", "Plataforma de estudos NP2 (aulas 6 a 10)", local("6/trabalho/np2.html"))],
         },
         {
           id: "contratos",
@@ -44,6 +45,7 @@ module.exports = {
             item("simulado", "Simulado de concursos (NP1)", pagina("TeoriaGeralContratos", "QuestõesNP1.html")),
             item("questoes", "Banco de questões de concursos", pagina("TeoriaGeralContratos", "Questoes-concursos.html")),
           ],
+          np2: [item("guia", "Plataforma de estudos NP2 (aulas 7 a 13)", local("6/contratos/np2.html"))],
         },
         {
           id: "sentenca-recursos",
@@ -64,6 +66,7 @@ module.exports = {
             item("simulado", "Crimes contra a vida: estudo e quiz", pagina("penal", "crimescontavida.html")),
             item("mapa", "Crimes contra a vida: mapa mental", pagina("penal", "index1.html")),
           ],
+          np2: [item("guia", "Plataforma de estudos NP2 (aborto, lesões, honra e estupro)", local("6/penal/np2.html"))],
         },
         { id: "ava-acao-penal", nome: "Ação Penal (AVA)" },
         { id: "ava-direito-globalizacao", nome: "Direito e Globalização (AVA)" },

@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proteção Penal ao Indivíduo · NP2 · Plataforma de estudos</title>
+<style>
+:root{--bg-primary:#0b132b;--bg-secondary:#1c2541;--bg-card:#2f3e46;--bg-hover:#3a506b;--accent-gold:#fbbf24;--accent-blue:#38bdf8;--accent-green:#34d399;--text-main:#f8fafc;--text-muted:#94a3b8;--correct-green:#22c55e;--wrong-red:#ef4444;--border-color:#475569}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg-primary);color:var(--text-main);line-height:1.6}
+header{background:var(--bg-secondary);padding:22px 16px 14px;text-align:center;border-bottom:2px solid var(--accent-gold)}
+header h1{margin:0 0 4px;font-size:1.6rem;color:var(--accent-gold)}
+header p{margin:0;color:var(--text-muted);font-size:.95rem}
+nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:12px;background:var(--bg-secondary);position:sticky;top:0;z-index:5;border-bottom:1px solid var(--border-color)}
+nav button{background:var(--bg-card);color:var(--text-main);border:1px solid var(--border-color);padding:9px 16px;border-radius:8px;cursor:pointer;font:inherit;font-weight:600}
+nav button:hover{background:var(--bg-hover)}
+nav button.active{background:var(--accent-gold);color:#0b132b;border-color:var(--accent-gold)}
+main{max-width:980px;margin:0 auto;padding:18px 14px 60px}
+.tab-content{display:none}.tab-content.active{display:block}
+h2{color:var(--accent-blue);margin:6px 0 14px}
+.intro{background:var(--bg-secondary);border-left:4px solid var(--accent-blue);padding:12px 16px;border-radius:8px;margin-bottom:18px;color:var(--text-muted)}
+.radar{background:#3b2f0b;border:1px solid var(--accent-gold);border-radius:10px;padding:12px 16px;margin-bottom:18px}
+.radar b{color:var(--accent-gold)}
+.module-block{background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:10px;margin-bottom:12px;overflow:hidden}
+.module-header{padding:14px 16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;font-weight:700;font-size:1.05rem}
+.module-header:hover{background:var(--bg-hover)}
+.module-header small{display:block;color:var(--text-muted);font-weight:400;font-size:.82rem}
+.module-header .seta{transition:transform .2s;color:var(--accent-gold)}
+.module-block.open .seta{transform:rotate(90deg)}
+.module-body{display:none;padding:4px 16px 16px}
+.module-block.open .module-body{display:block}
+.sub-topic{background:var(--bg-card);border-radius:8px;padding:12px 14px;margin-top:12px}
+.sub-topic h3{margin:0 0 6px;color:var(--accent-green);font-size:1rem}
+.sub-topic ul{margin:6px 0 0;padding-left:20px}
+.sub-topic li{margin:4px 0}
+.callout{border-left:4px solid var(--accent-gold);background:rgba(251,191,36,.08);padding:10px 14px;border-radius:6px;margin-top:12px}
+.callout.perigo{border-color:var(--wrong-red);background:rgba(239,68,68,.08)}
+.callout.dica{border-color:var(--accent-green);background:rgba(52,211,153,.08)}
+.lei{font-size:.9rem;color:var(--text-muted);font-style:italic}
+.tag{display:inline-block;background:var(--bg-primary);color:var(--accent-gold);border-radius:20px;padding:1px 10px;font-size:.78rem;margin-right:4px}
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:6px;margin:12px 0}
+.flow-step{background:var(--bg-card);border:1px solid var(--border-color);border-radius:8px;padding:8px 12px;flex:1 1 140px;font-size:.92rem}
+.flow-step b{color:var(--accent-blue);display:block}
+.flow-arrow{align-self:center;color:var(--accent-gold);font-size:1.3rem}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.92rem}
+th,td{border:1px solid var(--border-color);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--bg-hover);color:var(--accent-gold)}
+td{background:var(--bg-card)}
+.tbl-wrap{overflow-x:auto}
+.peg{background:var(--bg-card);border-radius:10px;padding:12px 16px;margin-bottom:10px;border-left:4px solid var(--wrong-red)}
+.peg .afirma{font-weight:700}
+.peg .errada{color:var(--wrong-red);font-weight:700}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+.stat-box{flex:1 1 140px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:8px;padding:8px 12px;text-align:center;font-size:.9rem;color:var(--text-muted)}
+.stat-box span{display:block;font-size:1.3rem;font-weight:700;color:var(--text-main)}
+.q{background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:10px;padding:14px 16px;margin-bottom:14px}
+.q .enun{font-weight:600;margin-bottom:10px}
+.option-btn{display:block;width:100%;text-align:left;background:var(--bg-card);color:var(--text-main);border:1px solid var(--border-color);border-radius:8px;padding:9px 12px;margin-bottom:7px;cursor:pointer;font:inherit}
+.option-btn:hover:not(:disabled){background:var(--bg-hover)}
+.option-btn.correct{background:rgba(34,197,94,.2);border-color:var(--correct-green)}
+.option-btn.wrong{background:rgba(239,68,68,.2);border-color:var(--wrong-red)}
+.option-btn:disabled{cursor:default}
+.explanation{display:none;margin-top:8px;padding:10px 12px;border-radius:8px;background:var(--bg-primary);color:var(--text-muted);font-size:.92rem}
+.explanation.show{display:block}
+.btn{background:var(--accent-gold);color:#0b132b;border:0;border-radius:8px;padding:9px 16px;font:inherit;font-weight:700;cursor:pointer}
+.video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.video-card{background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:10px;overflow:hidden}
+.video-card .ratio{position:relative;padding-top:56.25%}
+.video-card iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video-card h4{margin:0;padding:10px 12px;font-size:.95rem}
+.vazio{background:var(--bg-secondary);border:1px dashed var(--border-color);border-radius:10px;padding:26px;text-align:center;color:var(--text-muted)}
+footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:20px 14px}
+@media(max-width:600px){header h1{font-size:1.3rem}nav button{padding:8px 11px;font-size:.9rem}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Proteção Penal ao Indivíduo · NP2</h1>
+  <p>UNIP · Direito · 6º semestre · Prof. Cassola</p>
+</header>
+<nav>
+  <button class="active" onclick="switchTab('guia',this)">📘 Guia</button>
+  <button onclick="switchTab('mapas',this)">🗺️ Mapas</button>
+  <button onclick="switchTab('pegadinhas',this)">⚠️ Pegadinhas</button>
+  <button onclick="switchTab('quiz',this)">📝 Simulado</button>
+  <button onclick="switchTab('videos',this)">🎬 Vídeos</button>
+</nav>
+<main>
+
+<!-- ============ GUIA ============ -->
+<section id="guia" class="tab-content active">
+  <div class="intro">Resumo da <b>Parte Especial do Código Penal</b> (Prof. Cassola): <b>aborto, lesão corporal, crimes contra a honra e estupro</b> (conteúdo novo da NP2) e uma <b>revisão dos crimes contra a vida</b> da NP1, porque a NP2 é cumulativa. Clique nos módulos para abrir. Confira sempre a lei seca.</div>
+  <div class="radar"><b>📡 Radar da prova (o que o professor disse):</b>
+    <ul>
+      <li>A NP2 é <b>cumulativa</b>: o conteúdo da NP1 (homicídio, feminicídio, art. 122, infanticídio…) continua valendo.</li>
+      <li>Prova de <b>10 questões objetivas</b>, cada uma um <b>pequeno problema</b> com 4 alternativas: é preciso enquadrar os fatos na lei, não só decorar.</li>
+      <li>Método indicado: <b>leia primeiro a lei seca</b> (arts. 121, 121-A, 121-B, 122, 123 e 124 a 128), depois a doutrina; resolva casos e justifique cada elemento do tipo.</li>
+      <li>Honra: o foco da aula foi <b>distinguir calúnia, difamação e injúria</b> em casos concretos.</li>
+      <li>Estupro: o professor avisou que a prova cobra a matéria até a aula de 13/10 (confirme as datas com ele).</li>
+    </ul>
+  </div>
+
+  <div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>Revisão da NP1 · Crimes contra a vida<small>CP, arts. 121 a 123 · cumulativo na NP2</small></div><span class="seta">▶</span></div>
+    <div class="module-body">
+      <div class="sub-topic"><h3>Homicídio (art. 121)</h3><ul>
+        <li><b>Simples:</b> reclusão de 6 a 20 anos. Bem protegido: vida <b>extrauterina</b> (do início do parto até a morte).</li>
+        <li><b>Privilegiado (§ 1º):</b> causa de diminuição de 1/6 a 1/3 — relevante valor <b>social</b>, relevante valor <b>moral</b> ou <b>violenta emoção</b> logo em seguida a injusta provocação da vítima.</li>
+        <li><b>Qualificado (§ 2º):</b> reclusão de 12 a 30 anos e <b>hediondo</b>. Entre as qualificadoras: paga/promessa ou motivo torpe; motivo fútil; veneno, fogo, explosivo, asfixia, tortura ou meio insidioso/cruel/de perigo comum; traição, emboscada, dissimulação ou recurso que dificulte a defesa; para assegurar execução, ocultação, impunidade ou vantagem de outro crime; contra agentes de segurança e autoridades; arma de fogo de uso restrito ou proibido; contra menor de 14 anos; em instituição de ensino.</li>
+        <li><b>Qualificado-privilegiado:</b> é possível quando a qualificadora é <b>objetiva</b> (meio ou modo) e o privilégio é subjetivo; não é hediondo.</li>
+        <li><b>Culposo (§ 3º):</b> detenção de 1 a 3 anos. Aumento de 1/3 se houve inobservância de regra técnica, não prestou socorro, não diminuiu as consequências ou fugiu para evitar a prisão em flagrante. <b>Perdão judicial</b> (§ 5º) quando a consequência atinge o próprio agente de forma tão grave que a pena é desnecessária (Súmula 18 do STJ: sentença declaratória da extinção da punibilidade).</li>
+        <li>Homicídio culposo no trânsito: CTB, art. 302.</li>
+        <li>Diferença entre tentativa de homicídio e lesão corporal: o <b>animus</b> (de matar ou de lesionar).</li></ul></div>
+      <div class="sub-topic"><h3>Feminicídio (art. 121-A) e vicaricídio (art. 121-B)</h3><ul>
+        <li><b>Feminicídio:</b> crime autônomo, <b>20 a 40 anos</b>. Matar mulher por razões da condição do sexo feminino: violência doméstica e familiar e/ou menosprezo ou discriminação à condição de mulher. Aumento de 1/3 até 1/2 em hipóteses como gestação ou 3 meses após o parto, descumprimento de medida protetiva, presença de ascendente/descendente.</li>
+        <li><b>Femicídio</b> = mulher morta sem razões de gênero (homicídio comum).</li>
+        <li><b>Vicaricídio:</b> matar terceiro ligado à mulher (filho, pai, dependente) para causar a ela sofrimento, punição ou controle; 20 a 40 anos; hediondo.</li></ul></div>
+      <div class="sub-topic"><h3>Art. 122 · Induzimento, instigação ou auxílio ao suicídio ou à automutilação</h3><ul>
+        <li>Crime <b>formal</b> (consuma-se com a conduta); pena de 6 meses a 2 anos. Com lesão grave/gravíssima: 1 a 3 anos (§ 1º). Com morte: 2 a 6 anos (§ 2º).</li>
+        <li><b>Induzir</b> = criar a ideia; <b>instigar</b> = reforçar; <b>auxiliar</b> = ajudar materialmente. Quem executa o ato de matar (ex.: empurra a cadeira) responde por <b>homicídio</b>.</li>
+        <li>Vítima menor de 14 anos ou sem discernimento: se há lesão gravíssima → art. 129, § 2º; se há morte → homicídio (art. 121).</li>
+        <li>Pena dobrada se há motivo egoístico, torpe ou fútil, ou vítima menor de 18 anos; aumento se pela internet; dobro para líder de grupo.</li></ul></div>
+      <div class="sub-topic"><h3>Art. 123 · Infanticídio</h3><ul>
+        <li>Mãe mata o próprio filho, <b>durante o parto ou logo após</b>, sob influência do <b>estado puerperal</b>. Crime <b>próprio</b> (admite coautoria na posição predominante).</li></ul></div>
+    </div></div>
+
+  <div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>Aula 5 · Aborto<small>CP, arts. 124 a 128 · ADPF 54</small></div><span class="seta">▶</span></div>
+    <div class="module-body">
+      <div class="sub-topic"><h3>Ideia central</h3><ul>
+        <li>Protege a <b>vida intrauterina</b>. Posição apresentada em aula: a tutela específica começa com a <b>nidação</b> (implantação do embrião no útero).</li>
+        <li>Abortamento é a interrupção <b>dolosa</b> da gestação com morte do embrião/feto. <b>Não existe aborto culposo.</b></li>
+        <li>É crime <b>material</b>: consuma-se com a morte do produto da concepção. Admite <b>tentativa</b>.</li>
+        <li>Competência: <b>Tribunal do Júri</b> (arts. 124 a 127, consumados ou tentados).</li>
+        <li>A “pílula do dia seguinte” é contracepção de emergência; não configura aborto.</li></ul></div>
+      <div class="tbl-wrap"><table>
+        <tr><th></th><th>Art. 124</th><th>Art. 125</th><th>Art. 126</th></tr>
+        <tr><td><b>Quem</b></td><td>Gestante</td><td>Terceiro</td><td>Terceiro</td></tr>
+        <tr><td><b>Conduta</b></td><td>Provocar em si mesma <u>ou</u> consentir que outro provoque</td><td>Provocar <b>sem</b> consentimento</td><td>Provocar <b>com</b> consentimento válido</td></tr>
+        <tr><td><b>Pena</b></td><td>Detenção, 1 a 3 anos</td><td>Reclusão, 3 a 10 anos</td><td>Reclusão, 1 a 4 anos</td></tr>
+        <tr><td><b>Classificação</b></td><td>Crime de <b>mão própria</b> (sem coautoria; admite participação)</td><td>Crime comum</td><td>Crime comum</td></tr></table></div>
+      <div class="sub-topic"><h3>Pontos que mais caem</h3><ul>
+        <li><b>Exceção pluralística à teoria monista:</b> gestante que consente responde pelo art. 124; o terceiro executor responde pelo art. 126.</li>
+        <li><b>Consentimento inválido</b> (art. 126, parágrafo único): gestante <b>não maior de 14 anos</b>, alienada ou débil mental, ou consentimento obtido por fraude, grave ameaça ou violência → aplica-se a pena do <b>art. 125</b>.</li>
+        <li><b>Art. 127:</b> a pena dos <b>arts. 125 e 126</b> aumenta de 1/3 se a gestante sofre lesão grave, e é duplicada se morre (resultado <b>culposo</b>, preterdoloso). Não se aplica ao art. 124. Se o agente quis matar a gestante, há concurso com homicídio/feminicídio.</li>
+        <li>Se só queria lesionar a gestante e o aborto sobrevém por culpa: lesão corporal gravíssima (art. 129, § 2º, V).</li>
+        <li>Comparação com o infanticídio: aborto é antes do parto; infanticídio, durante ou logo após.</li></ul></div>
+      <div class="sub-topic"><h3>Art. 128 · Aborto permitido</h3><ul>
+        <li>Não se pune o aborto praticado por <b>médico</b> se: <b>I – aborto necessário</b> (sem outro meio de salvar a vida da gestante); <b>II – gravidez resultante de estupro</b>, com consentimento da gestante (ou do representante legal, se incapaz).</li>
+        <li><b>Autorização judicial</b> e <b>boletim de ocorrência não são exigidos</b> para o atendimento de aborto legal por estupro (Ministério da Saúde).</li>
+        <li><b>Anencefalia:</b> não é inciso do art. 128; decorre da <b>ADPF 54</b> (STF, 2012). O Código tem duas hipóteses expressas + uma reconhecida pelo STF.</li>
+        <li>Aborto por razão econômica não tem excludente.</li></ul></div>
+      <div class="callout dica"><b>Roteiro:</b> momento (antes do parto?) → quem executou → consentimento válido? → dolo → resultado (feto/gestante) → permissão do art. 128 ou ADPF 54 → Júri.</div>
+    </div></div>
+
+  <div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>Aula 6 · Lesão corporal<small>CP, art. 129</small></div><span class="seta">▶</span></div>
+    <div class="module-body">
+      <div class="sub-topic"><h3>Leve x grave x gravíssima</h3>
+        <div class="tbl-wrap"><table><tr><th></th><th>Leve (caput)</th><th>Grave (§ 1º)</th><th>Gravíssima (§ 2º)</th></tr>
+        <tr><td><b>Pena</b></td><td>Detenção, 3 meses a 1 ano</td><td>Reclusão, 1 a 5 anos</td><td>Reclusão, 2 a 8 anos</td></tr>
+        <tr><td><b>Resultado</b></td><td>Nenhum dos §§ 1º e 2º</td><td>I incapacidade para ocupações habituais por mais de 30 dias · II perigo de vida · III debilidade permanente de membro, sentido ou função · IV aceleração de parto</td><td>I incapacidade permanente para o trabalho · II enfermidade incurável · III perda ou inutilização de membro, sentido ou função · IV deformidade permanente · V aborto</td></tr>
+        <tr><td><b>Ação penal</b></td><td>Pública condicionada à representação (Lei 9.099, art. 88), infração de menor potencial ofensivo</td><td>Pública incondicionada</td><td>Pública incondicionada</td></tr></table></div>
+        <div class="callout">“Gravíssima” é nome da doutrina; a lei só diz “natureza grave” no § 1º.</div></div>
+      <div class="sub-topic"><h3>Pares que se confundem</h3><ul>
+        <li><b>Debilidade</b> (§ 1º, III) = enfraquecimento; <b>perda ou inutilização</b> (§ 2º, III) = privação total.</li>
+        <li><b>Aceleração de parto</b> (feto nasce vivo, antes da hora) x <b>aborto</b> (feto morre).</li>
+        <li><b>Perigo de vida</b> precisa ser concreto e comprovado por perícia; a incapacidade de mais de 30 dias exige exame complementar após o 30º dia (CPP, art. 168, § 2º).</li>
+        <li>Perigo de vida, aborto e aceleração de parto são resultados <b>preterdolosos</b> (dolo na lesão, culpa no resultado).</li></ul></div>
+      <div class="sub-topic"><h3>Outras formas</h3><ul>
+        <li><b>Seguida de morte (§ 3º):</b> reclusão de 4 a 12 anos; preterdolosa; <b>não vai ao Júri</b>. Se assumiu o risco de matar → homicídio com dolo eventual.</li>
+        <li><b>Diminuição (§ 4º):</b> 1/6 a 1/3 (relevante valor social/moral ou violenta emoção). <b>Substituição por multa (§ 5º)</b> nas leves com privilégio ou recíprocas.</li>
+        <li><b>Culposa (§ 6º):</b> detenção de 2 meses a 1 ano; sem graduação leve/grave; condicionada à representação (no trânsito, o CTB; incondicionada nas hipóteses do art. 291, § 1º). <b>Perdão judicial</b> (§ 8º).</li>
+        <li><b>Violência doméstica (§ 9º)</b> e <b>contra a mulher por razões do sexo feminino (§ 13º)</b>: ação incondicionada na Lei Maria da Penha (Lei 9.099 não se aplica).</li>
+        <li>Lesão funcional (§ 12): aumento contra agentes de segurança e autoridades.</li></ul></div>
+      <div class="callout dica"><b>Regra de bolso:</b> houve resultado do § 1º ou 2º? Se não, é leve. Se sim: reduzido, temporário ou de risco → grave; total, permanente, incurável ou que mata o feto → gravíssima.</div>
+    </div></div>
+
+  <div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>Aula 7 · Crimes contra a honra<small>CP, arts. 138 a 145 · Lei 7.716, art. 2º-A</small></div><span class="seta">▶</span></div>
+    <div class="module-body">
+      <div class="sub-topic"><h3>Os três crimes lado a lado</h3>
+        <div class="tbl-wrap"><table><tr><th></th><th>Calúnia (138)</th><th>Difamação (139)</th><th>Injúria (140)</th></tr>
+        <tr><td><b>O que é</b></td><td>Imputar <b>falsamente fato definido como crime</b></td><td>Imputar <b>fato</b> ofensivo à reputação</td><td>Ofender a <b>dignidade ou decoro</b> (xingamento / qualidade negativa)</td></tr>
+        <tr><td><b>Honra</b></td><td>Objetiva (reputação)</td><td>Objetiva</td><td>Subjetiva (autoestima)</td></tr>
+        <tr><td><b>Consuma quando…</b></td><td>Terceiro toma conhecimento</td><td>Terceiro toma conhecimento</td><td>A <b>própria vítima</b> toma conhecimento</td></tr>
+        <tr><td><b>Pena</b></td><td>Detenção, 6 meses a 2 anos, <b>e</b> multa</td><td>Detenção, 3 meses a 1 ano, <b>e</b> multa</td><td>Detenção, 1 a 6 meses, <b>ou</b> multa</td></tr>
+        <tr><td><b>Exceção da verdade</b></td><td>Cabe, com 3 limites</td><td>Só se o ofendido é funcionário público e a ofensa é relativa às funções</td><td>Não cabe</td></tr>
+        <tr><td><b>Retratação (art. 143)</b></td><td>Sim, antes da sentença</td><td>Sim, antes da sentença</td><td>Não</td></tr></table></div></div>
+      <div class="sub-topic"><h3>Calúnia</h3><ul>
+        <li>Fato <b>determinado</b>, definido como <b>crime</b> (contravenção não serve) e <b>falso</b>, com dolo. Dizer só “assassino” é, em regra, injúria.</li>
+        <li>Quem, sabendo falsa, <b>propala ou divulga</b> a imputação também responde (§ 1º). Punível a calúnia contra os <b>mortos</b> (§ 2º). Não há calúnia culposa.</li>
+        <li>Não se admite a prova da verdade: crime de ação privada sem condenação definitiva; imputação ao Presidente da República ou chefe de governo estrangeiro; ofendido absolvido por sentença irrecorrível.</li></ul></div>
+      <div class="sub-topic"><h3>Difamação e injúria</h3><ul>
+        <li>Difamação: fato desabonador, mesmo <b>verdadeiro</b> (ex.: relatar relacionamento extraconjugal para desabonar alguém).</li>
+        <li>Injúria: perdão judicial se o ofendido provocou de forma reprovável ou houve retorsão imediata (§ 1º). <b>Injúria real</b> (§ 2º): violência ou vias de fato aviltantes (ex.: tapa para humilhar). <b>§ 3º:</b> religião, pessoa idosa ou com deficiência (1 a 3 anos).</li>
+        <li><b>Injúria racial</b> (raça, cor, etnia, procedência nacional): art. 2º-A da <b>Lei 7.716/89</b>, reclusão de 2 a 5 anos e multa; inafiançável, imprescritível, ação pública incondicionada. Não é equiparada a hediondo.</li></ul></div>
+      <div class="sub-topic"><h3>Disposições comuns</h3><ul>
+        <li><b>Art. 141:</b> aumento de 1/3 (contra Presidente, funcionário público em razão da função, na presença de várias pessoas ou meio que facilite a divulgação, criança, adolescente, maior de 60 anos ou pessoa com deficiência); <b>dobro</b> se mediante paga; <b>triplo</b> se nas redes sociais; <b>dobro</b> contra a mulher por razões do sexo feminino.</li>
+        <li><b>Art. 142:</b> não é punível a ofensa em juízo pela parte ou procurador, a crítica literária/artística/científica e a opinião de funcionário no dever do ofício — só para <b>injúria e difamação</b>, não para calúnia.</li>
+        <li><b>Art. 144:</b> pedido de explicações em juízo (não suspende o prazo da queixa).</li>
+        <li><b>Art. 145 — ação penal:</b> regra é <b>privada</b> (queixa). Requisição do Ministro da Justiça se contra o Presidente; representação se contra funcionário em razão da função (Súmula 714 STF: legitimidade concorrente) e na injúria do art. 140, § 3º. Injúria real com lesão: lesão leve → condicionada; grave → incondicionada. Prazo de queixa/representação: 6 meses da ciência da autoria (decadência).</li>
+        <li>Multa penal não é indenização à vítima; o dano moral é cobrado na esfera civil.</li></ul></div>
+    </div></div>
+
+  <div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>Aula de 13/10 · Estupro e dignidade sexual<small>CP, arts. 213, 215-A, 217-A, 225, 226, 234-B</small></div><span class="seta">▶</span></div>
+    <div class="module-body">
+      <div class="sub-topic"><h3>Evolução da lei</h3>
+        <div class="tbl-wrap"><table><tr><th>Quando</th><th>O que mudou</th></tr>
+        <tr><td>Antes de 2009</td><td>“Crimes contra os costumes”. Estupro (art. 213) só com conjunção carnal, vítima mulher; outros atos libidinosos eram atentado violento ao pudor (art. 214). Ação privada.</td></tr>
+        <tr><td>Lei 12.015/2009</td><td>“Crimes contra a <b>dignidade sexual</b>”. O art. 213 reúne os dois; art. 214 revogado (<b>sem abolitio criminis</b>); vítima homem ou mulher; ação condicionada à representação.</td></tr>
+        <tr><td>Lei 13.718/2018</td><td>Ação <b>pública incondicionada</b>; cria a <b>importunação sexual</b> (art. 215-A); estupro coletivo e corretivo como causas de aumento.</td></tr></table></div></div>
+      <div class="sub-topic"><h3>Art. 213 — estupro</h3><ul>
+        <li><b>Constranger alguém, mediante violência ou grave ameaça</b>, a ter conjunção carnal ou a praticar ou permitir que com ele se pratique outro ato libidinoso. Reclusão de 6 a 10 anos.</li>
+        <li>Bem jurídico: <b>liberdade sexual</b> (dignidade da pessoa humana). Vítima: qualquer pessoa; a mulher casada também pode ser vítima.</li>
+        <li><b>Conjunção carnal</b> = crime <b>bipróprio</b> (pênis na vagina). <b>Outro ato libidinoso</b> = crime <b>comum</b>.</li>
+        <li><b>Tipo misto alternativo:</b> conjunção carnal + outro ato no mesmo contexto = <b>um só crime</b> (as duas condutas pesam na pena-base).</li>
+        <li>Pode haver estupro <b>sem contato físico</b> (ex.: obrigar a vítima, sob grave ameaça, a se masturbar) e <b>estupro virtual</b> (ameaçar divulgar fotos íntimas para exigir atos libidinosos). Não é extorsão: não visa vantagem econômica.</li>
+        <li><b>Dolo genérico</b> (não se exige fim de satisfazer a lascívia, posição majoritária).</li>
+        <li><b>Consumação:</b> introdução, ainda que <b>parcial</b>, na conjunção carnal; sem ejaculação. Admite <b>tentativa</b>.</li></ul></div>
+      <div class="sub-topic"><h3>Qualificadoras, vulnerável e aumentos</h3><ul>
+        <li><b>§ 1º:</b> lesão corporal grave <b>ou</b> vítima com 14 a 17 anos → reclusão de 8 a 12 anos. <b>§ 2º:</b> morte → 12 a 30 anos. Resultado agravador a título de culpa (preterdoloso).</li>
+        <li><b>Art. 217-A (vulnerável):</b> conjunção carnal ou ato libidinoso com <b>menor de 14 anos</b>; reclusão de 10 a 18 anos e multa (Lei 15.280/2025 — confira o texto atual).</li>
+        <li><b>Art. 226:</b> aumento de 1/4 (concurso de 2 ou mais pessoas); metade (agente com autoridade sobre a vítima: ascendente, padrasto, tio, tutor, empregador…); <b>1/3 a 2/3</b> (estupro coletivo e corretivo). Terceira fase da pena.</li>
+        <li><b>Ação penal</b> pública incondicionada (art. 225) e processo em <b>segredo de justiça</b> (art. 234-B).</li></ul></div>
+      <div class="sub-topic"><h3>Art. 215-A — importunação sexual</h3><ul>
+        <li>Ato libidinoso contra alguém, <b>sem anuência</b>, para satisfazer a própria lascívia ou a de terceiro, <b>sem violência ou grave ameaça</b> (ex.: “encoxada” no transporte). Reclusão de 1 a 5 anos, se não constitui crime mais grave.</li>
+        <li>Com violência ou grave ameaça → estupro.</li></ul></div>
+      <div class="callout dica"><b>Roteiro:</b> menor de 14 anos? → 217-A. Violência ou grave ameaça? → 213 (senão, 215-A). Conjunção carnal ou outro ato? Consumou? Resultado (lesão grave/morte) ou vítima de 14 a 17? Aumentos do art. 226? Ação pública incondicionada.</div>
+    </div></div>
+</section>
+
+<!-- ============ MAPAS ============ -->
+<section id="mapas" class="tab-content">
+  <h2>Mapas e comparativos</h2>
+
+  <h2 style="font-size:1.05rem">Aborto: quem fez o quê</h2>
+  <div class="flow">
+    <div class="flow-step"><b>Gestante executa</b>Art. 124 (autoaborto).</div><div class="flow-arrow">➜</div>
+    <div class="flow-step"><b>Gestante só consente</b>Gestante: art. 124 · Executor: art. 126.</div><div class="flow-arrow">➜</div>
+    <div class="flow-step"><b>Terceiro sem consentimento (ou inválido)</b>Art. 125.</div><div class="flow-arrow">➜</div>
+    <div class="flow-step"><b>Resultado na gestante</b>Art. 127 (só nos arts. 125 e 126).</div>
+  </div>
+
+  <h2 style="font-size:1.05rem">Penas que precisam estar na ponta da língua</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th>Crime</th><th>Pena</th></tr>
+    <tr><td>Homicídio simples</td><td>Reclusão, 6 a 20 anos</td></tr>
+    <tr><td>Homicídio qualificado</td><td>Reclusão, 12 a 30 anos (hediondo)</td></tr>
+    <tr><td>Homicídio culposo</td><td>Detenção, 1 a 3 anos</td></tr>
+    <tr><td>Feminicídio / vicaricídio</td><td>Reclusão, 20 a 40 anos</td></tr>
+    <tr><td>Art. 122 (caput / § 1º / § 2º)</td><td>6 meses a 2 anos / 1 a 3 anos / 2 a 6 anos</td></tr>
+    <tr><td>Aborto 124 / 125 / 126</td><td>Detenção 1–3 / reclusão 3–10 / reclusão 1–4</td></tr>
+    <tr><td>Lesão leve / grave / gravíssima</td><td>Detenção 3m–1a / reclusão 1–5 / reclusão 2–8</td></tr>
+    <tr><td>Lesão seguida de morte</td><td>Reclusão, 4 a 12 anos</td></tr>
+    <tr><td>Calúnia / difamação / injúria</td><td>6m–2a + multa / 3m–1a + multa / 1–6 meses ou multa</td></tr>
+    <tr><td>Injúria racial (Lei 7.716, art. 2º-A)</td><td>Reclusão, 2 a 5 anos e multa</td></tr>
+    <tr><td>Estupro / qualificado / com morte</td><td>6–10 / 8–12 / 12–30 anos</td></tr>
+    <tr><td>Estupro de vulnerável</td><td>10 a 18 anos e multa</td></tr>
+    <tr><td>Importunação sexual</td><td>1 a 5 anos</td></tr>
+  </table></div>
+
+  <h2 style="font-size:1.05rem">Quem julga?</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th>Crime</th><th>Julgamento</th></tr>
+    <tr><td>Homicídio doloso, feminicídio, art. 122 (suicídio), infanticídio, aborto (124 a 127)</td><td>Tribunal do Júri</td></tr>
+    <tr><td>Homicídio culposo</td><td>Juiz singular</td></tr>
+    <tr><td>Automutilação sem intenção de matar (art. 122)</td><td>Segundo o professor, fora do Júri</td></tr>
+    <tr><td>Lesão corporal seguida de morte</td><td>Juiz singular (não vai ao Júri)</td></tr>
+    <tr><td>Crimes contra a honra</td><td>Não são do Júri</td></tr>
+  </table></div>
+
+  <h2 style="font-size:1.05rem">Ação penal</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th>Crime</th><th>Ação penal</th></tr>
+    <tr><td>Lesão leve / culposa</td><td>Pública condicionada à representação (exceções: violência doméstica, art. 291 do CTB)</td></tr>
+    <tr><td>Lesão grave, gravíssima, seguida de morte</td><td>Pública incondicionada</td></tr>
+    <tr><td>Calúnia, difamação e injúria simples</td><td>Privada (queixa)</td></tr>
+    <tr><td>Honra contra funcionário em razão da função; injúria do art. 140, § 3º</td><td>Pública condicionada à representação</td></tr>
+    <tr><td>Honra contra o Presidente da República</td><td>Requisição do Ministro da Justiça</td></tr>
+    <tr><td>Injúria racial (Lei 7.716)</td><td>Pública incondicionada</td></tr>
+    <tr><td>Crimes sexuais</td><td>Pública incondicionada, em segredo de justiça</td></tr>
+  </table></div>
+
+  <h2 style="font-size:1.05rem">Estupro x importunação x vulnerável</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th></th><th>Estupro (213)</th><th>Importunação (215-A)</th><th>Vulnerável (217-A)</th></tr>
+    <tr><td><b>Vítima</b></td><td>Qualquer pessoa</td><td>Qualquer pessoa</td><td>Menor de 14 anos</td></tr>
+    <tr><td><b>Violência / grave ameaça</b></td><td>Sim</td><td>Não</td><td>Não é preciso</td></tr>
+    <tr><td><b>Pena</b></td><td>6 a 10 anos</td><td>1 a 5 anos</td><td>10 a 18 anos</td></tr>
+  </table></div>
+</section>
+
+<!-- ============ PEGADINHAS ============ -->
+<section id="pegadinhas" class="tab-content">
+  <h2>Alertas e pegadinhas</h2>
+  <div class="intro">Afirmações que parecem certas e estão erradas. Tente responder antes de ler a correção.</div>
+  <div id="lista-peg"></div>
+</section>
+
+<!-- ============ SIMULADO ============ -->
+<section id="quiz" class="tab-content">
+  <h2>Simulado com correção na hora</h2>
+  <div class="stats">
+    <div class="stat-box">Respondidas <span id="stat-total">0/0</span></div>
+    <div class="stat-box">Acertos <span id="stat-correct" style="color:var(--correct-green)">0</span></div>
+    <div class="stat-box">Erros <span id="stat-wrong" style="color:var(--wrong-red)">0</span></div>
+    <div class="stat-box">Aproveitamento <span id="stat-percent">0%</span></div>
+  </div>
+  <p><button class="btn" onclick="resetQuiz()">🔄 Refazer (embaralha as questões)</button></p>
+  <div id="quiz-container"></div>
+</section>
+
+<!-- ============ VÍDEOS ============ -->
+<section id="videos" class="tab-content">
+  <h2>Vídeos e podcasts</h2>
+  <div class="intro">Aqui entram os vídeos e podcasts feitos no NotebookLM e publicados no YouTube. Para incluir um, basta colocar o <b>código do vídeo</b> na lista <code>VIDEOS</code> no fim deste arquivo.</div>
+  <div id="video-area"></div>
+</section>
+
+</main>
+<footer>Material de apoio de estudo, organizado a partir das aulas. Não é publicação oficial da UNIP nem substitui a lei e as orientações do professor.</footer>
+
+<script>
+// ---- Vídeos: preencher com {titulo:"...", id:"CODIGO_DO_YOUTUBE"} ----
+var VIDEOS = [
+    // { titulo: "Crimes contra a honra", id: "XXXXXXXXXXX" },
+];
+
+var PEGADINHAS = [
+  ["O consentimento da gestante torna o aborto atípico.", "Não. A gestante que consente responde pelo art. 124 e o terceiro que executa, pelo art. 126."],
+  ["Quem ajuda a gestante no autoaborto é sempre coautor do art. 124.", "O art. 124 é crime de mão própria: não há coautoria, mas pode haver participação (induzir, instigar, fornecer o meio)."],
+  ["Gestante de 13 anos consentiu: o terceiro responde pelo art. 126.", "O consentimento é inválido; aplica-se a pena do art. 125."],
+  ["O art. 127 se aplica ao autoaborto.", "Só aos arts. 125 e 126. Ele aumenta de 1/3 (lesão grave) ou duplica a pena (morte) da gestante, por resultado culposo."],
+  ["Existe aborto culposo.", "Não. Aborto é sempre doloso; só o homicídio tem forma culposa entre os crimes contra a vida."],
+  ["Se o feto não morre, não há crime.", "Pode haver tentativa (ex.: agressão no ventre com dolo de matar o feto)."],
+  ["O art. 128 tem três hipóteses, incluindo a anencefalia.", "Tem duas (aborto necessário e gravidez por estupro). A anencefalia decorre da ADPF 54 do STF."],
+  ["Para o aborto legal por estupro é preciso boletim de ocorrência e autorização judicial.", "Nenhum dos dois é requisito do atendimento; exige-se o consentimento da gestante (ou do representante legal)."],
+  ["Dificuldade financeira justifica o aborto.", "Não há excludente para o chamado aborto econômico."],
+  ["Lesão corporal gravíssima é o nome que a lei usa no § 2º.", "É nome da doutrina. A lei só usa “natureza grave” no § 1º."],
+  ["Incapacidade para as ocupações habituais por mais de 30 dias exige apenas a palavra da vítima.", "Exige exame de corpo de delito complementar após o 30º dia."],
+  ["Debilidade permanente e perda de membro são a mesma coisa.", "Debilidade = enfraquecimento (§ 1º); perda ou inutilização = privação total (§ 2º)."],
+  ["Aceleração de parto e aborto são iguais.", "Na aceleração o feto nasce vivo (§ 1º, IV); no aborto o feto morre (§ 2º, V)."],
+  ["Lesão corporal seguida de morte vai ao Júri.", "Não: é preterdolosa e julgada pelo juiz singular. Se houve dolo eventual de matar, é homicídio."],
+  ["Lesão culposa também se divide em leve, grave e gravíssima.", "Não há graduação; a lesão é considerada só na dosimetria."],
+  ["Chamar alguém de “assassino” é sempre calúnia.", "Calúnia exige fato determinado definido como crime. O simples xingamento é, em regra, injúria."],
+  ["Se o fato é verdadeiro, não há difamação.", "A verdade, por si só, não afasta a difamação; a exceção só cabe se o ofendido é funcionário público e a ofensa é relativa às funções."],
+  ["Imputar contravenção penal é calúnia.", "Calúnia exige imputação de crime; contravenção não serve."],
+  ["Existe calúnia culposa quando a pessoa “deveria saber” que era falso.", "Não. É necessário dolo; descuido não basta."],
+  ["A injúria se consuma quando um terceiro ouve.", "Consuma-se quando a própria vítima toma conhecimento."],
+  ["Calúnia, difamação e injúria admitem retratação.", "O art. 143 vale só para calúnia e difamação, antes da sentença."],
+  ["A exclusão do art. 142 também vale para a calúnia.", "Só para injúria e difamação."],
+  ["Injúria racial está no art. 140, § 3º, do CP.", "Passou à Lei 7.716/89, art. 2º-A (2 a 5 anos). O § 3º trata de religião, pessoa idosa ou com deficiência."],
+  ["A injúria racial é crime hediondo.", "É crime de racismo (inafiançável e imprescritível), mas não é hediondo por esse motivo."],
+  ["Nas redes sociais o aumento é de 1/3.", "Pelo art. 141, § 2º, a pena é aplicada em triplo."],
+  ["Pedir explicações em juízo suspende o prazo para a queixa.", "Não suspende nem interrompe o prazo decadencial."],
+  ["O estupro só pode ter vítima mulher.", "O tipo diz “alguém”: homem ou mulher. A conjunção carnal é bipróprio; outro ato libidinoso é crime comum."],
+  ["Estupro exige contato físico.", "Não necessariamente: constranger a vítima, sob grave ameaça, a praticar ato libidinoso já configura."],
+  ["Estupro virtual é extorsão.", "Não: o fim é satisfazer a lascívia, não obter vantagem econômica."],
+  ["Conjunção carnal + outro ato libidinoso no mesmo contexto são dois crimes.", "É crime único (tipo misto alternativo), com reflexo na pena-base."],
+  ["A revogação do art. 214 foi abolitio criminis.", "Não. A conduta continua punida no art. 213."],
+  ["A consumação exige penetração completa e ejaculação.", "Introdução parcial já consuma a conjunção carnal."],
+  ["Vítima menor de 14 anos é a qualificadora do § 1º.", "O § 1º trata de vítima entre 14 e 18 anos. Menor de 14 → art. 217-A."],
+  ["A ação penal no estupro depende de representação.", "É pública incondicionada desde a Lei 13.718/2018, em segredo de justiça."],
+  ["Ato libidinoso sem violência nem grave ameaça é estupro.", "É importunação sexual (art. 215-A), se não for crime mais grave."],
+  ["A prova da NP2 cobra só a matéria nova.", "O professor avisou que a NP2 é cumulativa."]
+];
+
+var QUESTOES = [
+  ["Ana usa contracepção de emergência. Não havia gravidez implantada. Em relação ao aborto:", ["Praticou autoaborto consumado","Praticou tentativa de autoaborto","Não houve aborto: é contracepção de emergência","Praticou o crime do art. 126"], 2, "A contracepção de emergência não interrompe gravidez estabelecida."],
+  ["Gestante ingere substância abortiva e o feto morre. Um amigo apenas a incentivou. Solução:", ["Ambos coautores do art. 124","Gestante autora do art. 124; amigo pode ser partícipe","Gestante no art. 126; amigo no art. 124","Só o amigo responde"], 1, "Art. 124 é crime de mão própria: sem coautoria, mas com participação."],
+  ["Beatriz, capaz, consente que terceiro provoque o aborto, e o feto morre. Solução:", ["Ambos respondem pelo art. 126","Ambos pelo art. 124","Beatriz pelo art. 124 e o executor pelo art. 126","Só o executor responde"], 2, "Exceção pluralística à teoria monista."],
+  ["Terceiro provoca aborto em gestante de 13 anos, com aparente concordância. Ele responde:", ["Pelo art. 126 sem alteração","Fica isento","Pelo art. 124","Com a pena do art. 125, pois o consentimento é inválido"], 3, "Art. 126, parágrafo único: gestante não maior de 14 anos."],
+  ["Caio golpeia o ventre da gestante com dolo de matar o feto, sem consentimento. A equipe médica salva o feto. Há:", ["Tentativa do art. 125","Lesão culposa apenas","Crime impossível","Tentativa do art. 124"], 0, "Houve início de execução, dolo de abortar e ausência de consentimento."],
+  ["Terceiro provoca aborto com consentimento válido e a gestante sofre lesão grave culposa. Aplica-se:", ["Art. 124 com pena duplicada","Art. 126 com aumento de 1/3 (art. 127)","Art. 125 sem aumento","Apenas lesão grave"], 1, "Art. 127: aumento de 1/3 pela lesão grave."],
+  ["O agente quis matar o feto e também a gestante e ambas morrem. A solução é:", ["Só duplicar a pena (art. 127)","Autoaborto qualificado","Concurso entre aborto e homicídio/feminicídio","Somente homicídio"], 2, "O art. 127 pressupõe resultado culposo."],
+  ["Mulher engravida por estupro, não fez BO e não tem autorização judicial. O aborto legal:", ["É necessariamente crime","Só o juiz pode autorizar","BO e autorização judicial não são requisitos; observam-se o relato e o consentimento","Basta o consentimento do suposto autor"], 2, "Art. 128, II e orientação do Ministério da Saúde."],
+  ["Exame confirma anencefalia e a gestante opta pela antecipação do parto. É correto:", ["É o inciso III do art. 128","A não incidência penal decorre da ADPF 54","Exige condenação prévia do responsável","É aborto econômico"], 1, "O art. 128 tem dois incisos; a anencefalia vem da ADPF 54."],
+  ["Sobre o aborto e a competência:", ["Juiz singular","Só o art. 125 vai ao Júri","Só o consumado vai ao Júri","Dolosos, consumados ou tentados, são do Júri"], 3, "Arts. 124 a 127: Tribunal do Júri."],
+  ["Quem quer apenas lesionar a gestante e causa culposamente o aborto responde por:", ["Art. 125","Lesão corporal gravíssima (art. 129, § 2º, V)","Homicídio culposo","Art. 126"], 1, "O dolo é a bússola: lesão com resultado aborto."],
+  ["Lesão corporal que resulta em incapacidade para as ocupações habituais por mais de 30 dias é:", ["Leve","Grave (§ 1º)","Gravíssima (§ 2º)","Culposa"], 1, "§ 1º, I."],
+  ["Qual resultado torna a lesão gravíssima?", ["Perigo de vida","Debilidade permanente de membro","Deformidade permanente","Aceleração de parto"], 2, "§ 2º, IV."],
+  ["Diferença entre aceleração de parto e aborto como resultado da lesão:", ["Na aceleração o feto nasce vivo; no aborto morre","São iguais","Na aceleração a gestante morre","No aborto o feto nasce vivo"], 0, "Aceleração de parto (§ 1º, IV) x aborto (§ 2º, V)."],
+  ["A vítima fica incapacitada por 20 dias. A lesão é:", ["Grave","Gravíssima","Leve","Seguida de morte"], 2, "Só há lesão grave se a incapacidade passar de 30 dias."],
+  ["Lesão corporal seguida de morte (art. 129, § 3º):", ["É crime doloso contra a vida e vai ao Júri","É preterdolosa e não vai ao Júri","É homicídio doloso","É lesão culposa"], 1, "Dolo na lesão, culpa na morte."],
+  ["A ação penal na lesão corporal leve, em regra, é:", ["Privada","Pública incondicionada","Pública condicionada à representação","Requisição do Ministro da Justiça"], 2, "Lei 9.099, art. 88 (exceto violência doméstica contra a mulher)."],
+  ["A afirma a C, sabendo ser falso, que B matou D em episódio determinado. C toma conhecimento. Há:", ["Injúria","Calúnia consumada","Difamação porque B não ouviu","Fato atípico"], 1, "Fato definido como crime, falso e dolo; consuma-se com a ciência do terceiro."],
+  ["A chama B de “desprezível” diretamente, sem narrar fato, e B entende. É:", ["Calúnia","Difamação","Injúria consumada","Injúria só se terceiro ouvir"], 2, "Qualidade negativa; consuma-se com a ciência da vítima."],
+  ["A relata a C episódio verdadeiro de relacionamento extraconjugal de B para ofender sua reputação. A verdade:", ["Não afasta a difamação","Torna a divulgação lícita","Transforma em calúnia","Exige a Lei 7.716"], 0, "Difamação: fato ofensivo à reputação, ainda que verdadeiro."],
+  ["A recebe imputação criminosa falsa contra B, sabe que é falsa e a retransmite com fim de ofender. Em relação ao art. 138, § 1º:", ["Exige que tenha inventado a história","Não alcança divulgação escrita","Pune descuido sem dolo","Pode ser responsabilizado por propalar ou divulgar a imputação falsa"], 3, "Quem, sabendo falsa, propala ou divulga responde."],
+  ["B é servidor. A difamação refere-se só à vida privada. Quanto à exceção da verdade (art. 139):", ["Basta ser servidor","Falta ofensa relativa ao exercício das funções","É sempre admitida","Só na injúria"], 1, "Exige servidor e ofensa funcional."],
+  ["Insulto em razão da raça, ofendendo a dignidade da vítima, hoje está:", ["No art. 140, § 3º","Fora de qualquer lei penal","No art. 2º-A da Lei 7.716/89, com pena de 2 a 5 anos e multa","No art. 138"], 2, "Lei 14.532/2023 levou a injúria racial à Lei 7.716."],
+  ["Calúnia em post público de rede social: a pena é:", ["Aplicada em triplo","Aumentada de 1/3","Reduzida","Apenas multa"], 0, "Art. 141, § 2º."],
+  ["Acusado de difamação desdiz completamente a imputação antes da sentença. Em tese:", ["A retratação depende da vítima","Só cabe retratação na injúria","Só é possível depois da sentença","Incide a retratação cabal do art. 143"], 3, "Retratação cabal, antes da sentença, na calúnia ou difamação."],
+  ["O pedido de explicações em juízo (art. 144):", ["Suspende o prazo decadencial","Não interrompe nem suspende o prazo decadencial","É sentença condenatória","Torna a resposta insatisfatória calúnia"], 1, "É medida facultativa e preparatória."],
+  ["Ofensa a servidor em razão da função, segundo a Súmula 714 do STF:", ["Só o Ministro da Justiça age","Nunca cabe queixa","Há legitimidade concorrente: ofendido por queixa e MP com representação","É sempre incondicionada"], 2, "Legitimidade concorrente."],
+  ["Qual situação NÃO está coberta pelo art. 142?", ["Ofensa em juízo pela parte ou advogado, na discussão da causa","Crítica artística sem intenção de injuriar","Opinião de funcionário no dever do ofício","Imputar falsamente um crime em audiência"], 3, "O art. 142 não alcança a calúnia."],
+  ["A lei 12.015/2009 mudou o nome do Título VI de:", ["“Crimes contra a pessoa” para “contra o patrimônio”","“Crimes contra os costumes” para “crimes contra a dignidade sexual”","“Crimes contra a honra” para “contra a dignidade”","Nada"], 1, "Saiu a ideia de “bons costumes”."],
+  ["A revogação do art. 214 (atentado violento ao pudor):", ["Foi abolitio criminis","Não foi abolitio criminis: a conduta passou a integrar o art. 213","A conduta virou contravenção","Deixou de ser punida"], 1, "Mudou o lugar da punição."],
+  ["Conjunção carnal e cópula anal mediante violência, no mesmo contexto, contra a mesma vítima:", ["Dois crimes em concurso material","Dois em concurso formal","Atípico","Um só crime de estupro (tipo misto alternativo)"], 3, "As duas condutas são consideradas na pena-base."],
+  ["Obrigar a vítima, mediante grave ameaça, a se masturbar, sem tocá-la:", ["Estupro","Importunação sexual","Ameaça apenas","Fato atípico"], 0, "Constranger a praticar ato libidinoso: estupro sem contato físico."],
+  ["Ameaçar divulgar fotos íntimas se a vítima não praticar atos libidinosos pela webcam é:", ["Extorsão","Ameaça apenas","Importunação sexual","Estupro"], 3, "O fim é a lascívia, não a vantagem patrimonial."],
+  ["O estupro exige, em posição prevalente:", ["Fim especial de satisfazer a lascívia","Dolo genérico","Culpa consciente","Dolo de matar"], 1, "Basta o dolo de constranger ao ato."],
+  ["A conjunção carnal se consuma quando:", ["Há ejaculação","A penetração é completa","Há introdução, ainda que parcial","A vítima faz boletim de ocorrência"], 2, "Introdução parcial já consuma."],
+  ["O § 1º do art. 213 (8 a 12 anos) aplica-se quando:", ["A vítima tem menos de 14 anos","Há dois agentes","A vítima é casada","Resulta lesão grave ou a vítima tem de 14 a 17 anos"], 3, "Menor de 14 anos é art. 217-A."],
+  ["Estupro coletivo ou corretivo (art. 226, IV) aumenta a pena de:", ["1/3 a 2/3","1/4","Metade","O dobro"], 0, "Terceira fase da dosimetria."],
+  ["Um homem se esfrega em uma mulher no ônibus, sem violência nem grave ameaça. É:", ["Estupro","Importunação sexual (art. 215-A)","Ato obsceno","Contravenção penal"], 1, "A contravenção foi revogada pela Lei 13.718/2018."],
+  ["A ação penal nos crimes sexuais é:", ["Privada","Condicionada à representação","Privada subsidiária","Pública incondicionada, em segredo de justiça"], 3, "Arts. 225 e 234-B."],
+  ["Homicídio qualificado-privilegiado é possível quando:", ["A qualificadora é subjetiva","A qualificadora é objetiva (meio ou modo)","Nunca","Só se for culposo"], 1, "O privilégio é subjetivo; é compatível com qualificadora objetiva."],
+  ["Entre os crimes do Título I, qual NÃO é do Tribunal do Júri, segundo as aulas?", ["Homicídio culposo","Homicídio doloso","Infanticídio","Aborto"], 0, "Homicídio culposo é julgado pelo juiz singular."],
+  ["Feminicídio (art. 121-A) exige:", ["Que a vítima seja mulher, por razões da condição do sexo feminino","Qualquer homicídio de mulher","Que o autor seja homem","Vínculo de casamento"], 0, "Sem razões de gênero seria femicídio (homicídio comum)."],
+  ["O art. 122 (induzimento, instigação ou auxílio ao suicídio) é:", ["Crime material","Crime formal","Crime culposo","Sempre julgado pelo Júri"], 1, "Consuma-se com a conduta; a lei permite qualificadoras por lesão grave ou morte."],
+  ["Quem empurra a cadeira para a vítima se enforcar responde por:", ["Art. 122 (auxílio)","Homicídio","Omissão de socorro","Fato atípico"], 1, "Praticou ato executório de matar."],
+  ["Infanticídio (art. 123) exige que a mãe mate o filho:", ["Em qualquer momento","Durante o parto ou logo após, sob influência do estado puerperal","Só antes do parto","Por motivo fútil"], 1, "Elemento temporal e estado puerperal."]
+];
+
+// ----- abas e módulos -----
+function switchTab(id, btn){
+  document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active')});
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('nav button').forEach(function(b){b.classList.remove('active')});
+  if(btn) btn.classList.add('active');
+  window.scrollTo({top:0});
+}
+function toggleModule(h){ h.parentElement.classList.toggle('open'); }
+
+// ----- pegadinhas -----
+(function(){
+  var el = document.getElementById('lista-peg');
+  el.innerHTML = PEGADINHAS.map(function(p){
+    return '<div class="peg"><div class="afirma">“' + p[0] + '”</div><div><span class="errada">Cuidado:</span> ' + p[1] + '</div></div>';
+  }).join('');
+})();
+
+// ----- vídeos -----
+(function(){
+  var area = document.getElementById('video-area');
+  if(!VIDEOS.length){
+    area.innerHTML = '<div class="vazio">Ainda não há vídeos publicados para este módulo. 🎬<br>Em breve entram aqui os vídeos e podcasts do NotebookLM.</div>';
+    return;
+  }
+  area.innerHTML = '<div class="video-grid">' + VIDEOS.map(function(v){
+    return '<div class="video-card"><div class="ratio"><iframe src="https://www.youtube.com/embed/' + v.id + '" allowfullscreen loading="lazy" title="' + v.titulo + '"></iframe></div><h4>' + v.titulo + '</h4></div>';
+  }).join('') + '</div>';
+})();
+
+// ----- simulado -----
+var ordem = [], respondidas = {}, acertos = 0, erros = 0;
+function shuffle(a){ for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;} return a; }
+function initQuizData(){
+  ordem = shuffle(QUESTOES.map(function(_,i){return i;}));
+  respondidas = {}; acertos = 0; erros = 0;
+}
+function renderQuiz(){
+  var box = document.getElementById('quiz-container');
+  box.innerHTML = ordem.map(function(qi, pos){
+    var q = QUESTOES[qi];
+    var ops = q[1].map(function(o, oi){
+      return '<button class="option-btn" id="q' + pos + '-o' + oi + '" onclick="checkAnswer(' + pos + ',' + oi + ')">' + String.fromCharCode(65+oi) + ') ' + o + '</button>';
+    }).join('');
+    return '<div class="q"><div class="enun">' + (pos+1) + '. ' + q[0] + '</div>' + ops + '<div class="explanation" id="exp-' + pos + '">' + q[3] + '</div></div>';
+  }).join('');
+  updateStats();
+}
+function checkAnswer(pos, escolha){
+  if(respondidas[pos] !== undefined) return;
+  var q = QUESTOES[ordem[pos]];
+  respondidas[pos] = escolha;
+  for(var i=0;i<q[1].length;i++){
+    var b = document.getElementById('q'+pos+'-o'+i);
+    b.disabled = true;
+    if(i === q[2]) b.classList.add('correct');
+    else if(i === escolha) b.classList.add('wrong');
+  }
+  if(escolha === q[2]) acertos++; else erros++;
+  document.getElementById('exp-'+pos).classList.add('show');
+  updateStats();
+}
+function updateStats(){
+  var total = acertos + erros;
+  document.getElementById('stat-total').textContent = total + '/' + QUESTOES.length;
+  document.getElementById('stat-correct').textContent = acertos;
+  document.getElementById('stat-wrong').textContent = erros;
+  document.getElementById('stat-percent').textContent = total ? Math.round(acertos*100/total) + '%' : '0%';
+}
+function resetQuiz(){ initQuizData(); renderQuiz(); window.scrollTo({top:0}); }
+initQuizData(); renderQuiz();
+</script>
+</body>
+</html>

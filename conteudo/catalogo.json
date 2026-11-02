@@ -42,6 +42,13 @@
               "titulo": "Banco de questões de concurso 2",
               "url": "https://abnerlmachado.github.io/Trabalhista/Quest%C3%B5es%20de%20Concurso%20trabalhista%202.html"
             }
+          ],
+          "np2": [
+            {
+              "tipo": "guia",
+              "titulo": "Plataforma de estudos NP2 (aulas 6 a 10)",
+              "url": "paginas/6/trabalho/np2.html"
+            }
           ]
         },
         {
@@ -62,6 +69,13 @@
               "tipo": "questoes",
               "titulo": "Banco de questões de concursos",
               "url": "https://abnerlmachado.github.io/TeoriaGeralContratos/Questoes-concursos.html"
+            }
+          ],
+          "np2": [
+            {
+              "tipo": "guia",
+              "titulo": "Plataforma de estudos NP2 (aulas 7 a 13)",
+              "url": "paginas/6/contratos/np2.html"
             }
           ]
         },
@@ -114,6 +128,13 @@
               "tipo": "mapa",
               "titulo": "Crimes contra a vida: mapa mental",
               "url": "https://abnerlmachado.github.io/penal/index1.html"
+            }
+          ],
+          "np2": [
+            {
+              "tipo": "guia",
+              "titulo": "Plataforma de estudos NP2 (aborto, lesões, honra e estupro)",
+              "url": "paginas/6/penal/np2.html"
             }
           ]
         },

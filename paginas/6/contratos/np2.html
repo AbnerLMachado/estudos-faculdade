@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contratos em Geral · NP2 · Plataforma de estudos</title>
+<style>
+:root{--bg-primary:#0b132b;--bg-secondary:#1c2541;--bg-card:#2f3e46;--bg-hover:#3a506b;--accent-gold:#fbbf24;--accent-blue:#38bdf8;--accent-green:#34d399;--text-main:#f8fafc;--text-muted:#94a3b8;--correct-green:#22c55e;--wrong-red:#ef4444;--border-color:#475569}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg-primary);color:var(--text-main);line-height:1.6}
+header{background:var(--bg-secondary);padding:22px 16px 14px;text-align:center;border-bottom:2px solid var(--accent-gold)}
+header h1{margin:0 0 4px;font-size:1.6rem;color:var(--accent-gold)}
+header p{margin:0;color:var(--text-muted);font-size:.95rem}
+nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:12px;background:var(--bg-secondary);position:sticky;top:0;z-index:5;border-bottom:1px solid var(--border-color)}
+nav button{background:var(--bg-card);color:var(--text-main);border:1px solid var(--border-color);padding:9px 16px;border-radius:8px;cursor:pointer;font:inherit;font-weight:600}
+nav button:hover{background:var(--bg-hover)}
+nav button.active{background:var(--accent-gold);color:#0b132b;border-color:var(--accent-gold)}
+main{max-width:980px;margin:0 auto;padding:18px 14px 60px}
+.tab-content{display:none}.tab-content.active{display:block}
+h2{color:var(--accent-blue);margin:6px 0 14px}
+.intro{background:var(--bg-secondary);border-left:4px solid var(--accent-blue);padding:12px 16px;border-radius:8px;margin-bottom:18px;color:var(--text-muted)}
+.radar{background:#3b2f0b;border:1px solid var(--accent-gold);border-radius:10px;padding:12px 16px;margin-bottom:18px}
+.radar b{color:var(--accent-gold)}
+.module-block{background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:10px;margin-bottom:12px;overflow:hidden}
+.module-header{padding:14px 16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;font-weight:700;font-size:1.05rem}
+.module-header:hover{background:var(--bg-hover)}
+.module-header small{display:block;color:var(--text-muted);font-weight:400;font-size:.82rem}
+.module-header .seta{transition:transform .2s;color:var(--accent-gold)}
+.module-block.open .seta{transform:rotate(90deg)}
+.module-body{display:none;padding:4px 16px 16px}
+.module-block.open .module-body{display:block}
+.sub-topic{background:var(--bg-card);border-radius:8px;padding:12px 14px;margin-top:12px}
+.sub-topic h3{margin:0 0 6px;color:var(--accent-green);font-size:1rem}
+.sub-topic ul{margin:6px 0 0;padding-left:20px}
+.sub-topic li{margin:4px 0}
+.callout{border-left:4px solid var(--accent-gold);background:rgba(251,191,36,.08);padding:10px 14px;border-radius:6px;margin-top:12px}
+.callout.perigo{border-color:var(--wrong-red);background:rgba(239,68,68,.08)}
+.callout.dica{border-color:var(--accent-green);background:rgba(52,211,153,.08)}
+.lei{font-size:.9rem;color:var(--text-muted);font-style:italic}
+.tag{display:inline-block;background:var(--bg-primary);color:var(--accent-gold);border-radius:20px;padding:1px 10px;font-size:.78rem;margin-right:4px}
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:6px;margin:12px 0}
+.flow-step{background:var(--bg-card);border:1px solid var(--border-color);border-radius:8px;padding:8px 12px;flex:1 1 140px;font-size:.92rem}
+.flow-step b{color:var(--accent-blue);display:block}
+.flow-arrow{align-self:center;color:var(--accent-gold);font-size:1.3rem}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.92rem}
+th,td{border:1px solid var(--border-color);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--bg-hover);color:var(--accent-gold)}
+td{background:var(--bg-card)}
+.tbl-wrap{overflow-x:auto}
+.peg{background:var(--bg-card);border-radius:10px;padding:12px 16px;margin-bottom:10px;border-left:4px solid var(--wrong-red)}
+.peg .afirma{font-weight:700}
+.peg .errada{color:var(--wrong-red);font-weight:700}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+.stat-box{flex:1 1 140px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:8px;padding:8px 12px;text-align:center;font-size:.9rem;color:var(--text-muted)}
+.stat-box span{display:block;font-size:1.3rem;font-weight:700;color:var(--text-main)}
+.q{background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:10px;padding:14px 16px;margin-bottom:14px}
+.q .enun{font-weight:600;margin-bottom:10px}
+.option-btn{display:block;width:100%;text-align:left;background:var(--bg-card);color:var(--text-main);border:1px solid var(--border-color);border-radius:8px;padding:9px 12px;margin-bottom:7px;cursor:pointer;font:inherit}
+.option-btn:hover:not(:disabled){background:var(--bg-hover)}
+.option-btn.correct{background:rgba(34,197,94,.2);border-color:var(--correct-green)}
+.option-btn.wrong{background:rgba(239,68,68,.2);border-color:var(--wrong-red)}
+.option-btn:disabled{cursor:default}
+.explanation{display:none;margin-top:8px;padding:10px 12px;border-radius:8px;background:var(--bg-primary);color:var(--text-muted);font-size:.92rem}
+.explanation.show{display:block}
+.btn{background:var(--accent-gold);color:#0b132b;border:0;border-radius:8px;padding:9px 16px;font:inherit;font-weight:700;cursor:pointer}
+.video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.video-card{background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:10px;overflow:hidden}
+.video-card .ratio{position:relative;padding-top:56.25%}
+.video-card iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video-card h4{margin:0;padding:10px 12px;font-size:.95rem}
+.vazio{background:var(--bg-secondary);border:1px dashed var(--border-color);border-radius:10px;padding:26px;text-align:center;color:var(--text-muted)}
+footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:20px 14px}
+@media(max-width:600px){header h1{font-size:1.3rem}nav button{padding:8px 11px;font-size:.9rem}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Contratos em Geral · NP2</h1>
+  <p>UNIP · Direito · 6º semestre · Prof. Rodrigo da Costa Ratto Cavalheiro</p>
+</header>
+<nav>
+  <button class="active" onclick="switchTab('guia',this)">📘 Guia</button>
+  <button onclick="switchTab('mapas',this)">🗺️ Mapas</button>
+  <button onclick="switchTab('pegadinhas',this)">⚠️ Pegadinhas</button>
+  <button onclick="switchTab('quiz',this)">📝 Simulado</button>
+  <button onclick="switchTab('videos',this)">🎬 Vídeos</button>
+</nav>
+<main>
+
+<!-- ============ GUIA ============ -->
+<section id="guia" class="tab-content active">
+  <div class="intro">Resumo organizado das <b>aulas 7 a 13</b> (slides da professora/professor e anotações das aulas). Clique em cada módulo para abrir. Este material é de apoio — confira sempre o texto da lei.</div>
+  <div class="radar"><b>📡 Radar da prova (o que foi dito em aula):</b>
+    <ul>
+      <li>Prazos dos vícios redibitórios: <b>não vai cobrar de cor</b> — se precisar, o prazo vem no enunciado.</li>
+      <li>Intervenção de terceiros (parte processual da evicção): <b>não vai cobrar</b>.</li>
+      <li>Contratos reais (tradição como requisito de formação): disse que <b>talvez pergunte na prova 2</b>.</li>
+      <li>Datas ditas em aula: NP2 em <b>09/11</b>, substitutiva 23/11, exame 30/11 (confira no calendário oficial).</li>
+    </ul>
+  </div>
+
+  <div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>Aula 7 · Interpretação dos contratos<small>arts. 112, 113, 114, 423, 424 · teorias subjetiva e objetiva</small></div><span class="seta">▶</span></div>
+    <div class="module-body">
+      <div class="sub-topic"><h3>Interpretar x integrar</h3><ul>
+        <li><b>Interpretar</b> = descobrir o sentido e o alcance do que as partes declararam.</li>
+        <li><b>Integrar</b> = preencher lacunas do contrato com normas, usos, boa-fé e equidade.</li></ul></div>
+      <div class="sub-topic"><h3>Teorias</h3><ul>
+        <li><b>Subjetiva:</b> vale a intenção real das partes.</li>
+        <li><b>Objetiva:</b> vale o que foi declarado, como um terceiro razoável entenderia.</li>
+        <li>O Código Civil adota uma linha <b>eclética</b>: parte da declaração, mas não ignora a intenção (art. 112).</li></ul></div>
+      <div class="sub-topic"><h3>Regras que cai muito</h3><ul>
+        <li>Art. 112: na declaração de vontade, atende-se mais à <b>intenção</b> do que ao sentido literal da linguagem.</li>
+        <li>Art. 113: interpretar conforme a <b>boa-fé</b> e os <b>usos do lugar</b> da celebração.</li>
+        <li>Art. 114: negócios <b>benéficos</b> (ex.: doação, fiança) e renúncia se interpretam <b>restritivamente</b>.</li>
+        <li>Arts. 423 e 424: contrato de <b>adesão</b> com cláusulas ambíguas → interpretação <b>mais favorável ao aderente</b>; é nula a renúncia antecipada a direito que resulte da natureza do negócio.</li>
+        <li>Princípios que orientam: <b>boa-fé</b> e <b>preservação do contrato</b> (aproveitar o contrato sempre que possível).</li>
+        <li>No consumo, o CDC (arts. 46 e 47) manda interpretar as cláusulas de modo <b>mais favorável ao consumidor</b>.</li></ul></div>
+      <div class="callout dica"><b>Macete:</b> dúvida em contrato de adesão ou de consumo → lado mais fraco (aderente/consumidor). Dúvida em doação/fiança/renúncia → interpreta apertado.</div>
+    </div></div>
+
+  <div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>Aula 8 · Estipulação em favor de terceiro<small>CC, arts. 436 a 438</small></div><span class="seta">▶</span></div>
+    <div class="module-body">
+      <div class="sub-topic"><h3>Conceito e partes</h3><ul>
+        <li>Dois contratam e combinam que a vantagem vai para um <b>terceiro</b> que não participou.</li>
+        <li><b>Estipulante</b> (quem pede a vantagem) · <b>Promitente</b> (quem promete cumprir) · <b>Beneficiário</b> (quem recebe).</li>
+        <li>Exemplo clássico: <b>seguro de vida</b> — segurado = estipulante; seguradora = promitente; indicado = beneficiário.</li></ul></div>
+      <div class="sub-topic"><h3>Características</h3><ul>
+        <li>O vínculo nasce da vontade de estipulante e promitente; o beneficiário <b>não precisa consentir</b>, mas pode <b>recusar</b>.</li>
+        <li>A vantagem é <b>gratuita</b> para o beneficiário (sem contraprestação).</li>
+        <li>Beneficiário pode ser <b>incapaz, até nascituro</b>, e basta ser <b>determinável</b>.</li>
+        <li>Objeto: dar, fazer ou não fazer.</li></ul></div>
+      <div class="sub-topic"><h3>Artigos</h3><ul>
+        <li><b>Art. 436:</b> o estipulante pode exigir o cumprimento; o terceiro também pode, se anuir (sujeitando-se às condições do contrato).</li>
+        <li><b>Art. 437:</b> se ao terceiro foi dado o direito de exigir, o estipulante <b>não pode exonerar</b> o devedor.</li>
+        <li><b>Art. 438:</b> o estipulante pode <b>substituir o beneficiário</b>, sem anuência de ninguém, se reservou esse direito — por ato entre vivos ou testamento.</li></ul></div>
+      <div class="callout"><b>Estipulação ≠ mandato ≠ promessa de fato de terceiro.</b> No mandato o representante age <i>em nome</i> do representado (procuração). Na estipulação o terceiro só recebe vantagem. Na promessa de fato, alguém promete que o terceiro fará algo.</div>
+      <div class="callout perigo"><b>Atualização:</b> o slide cita o art. 793 do CC (seguro). A nova Lei do Seguro (Lei 15.040/2024) trouxe regras próprias para o seguro de vida e mudou parte desse tema. Para a prova, siga o que o professor usou em aula, mas saiba que existe a lei nova.</div>
+    </div></div>
+
+  <div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>Aula 9 · Promessa de fato de terceiro<small>CC, arts. 439 e 440</small></div><span class="seta">▶</span></div>
+    <div class="module-body">
+      <div class="sub-topic"><h3>Ideia central</h3><ul>
+        <li>Uma pessoa (<b>promitente</b>) promete a outra que um <b>terceiro</b> vai praticar determinado fato, <b>sem ter poderes</b> para obrigá-lo.</li>
+        <li>O terceiro <b>não está obrigado</b> a nada enquanto não ratificar.</li></ul></div>
+      <div class="flow">
+        <div class="flow-step"><b>1ª fase · Promessa</b>Contrato válido, mas “imperfeito”: só promitente e outro contratante estão obrigados.</div>
+        <div class="flow-arrow">➜</div>
+        <div class="flow-step"><b>2ª fase · Decisão do terceiro</b>Se <b>ratifica</b>, passa a ser parte e o promitente se libera. Se recusa, o promitente responde.</div>
+      </div>
+      <div class="sub-topic"><h3>Artigos</h3><ul>
+        <li><b>Art. 439:</b> quem promete fato de terceiro responde por <b>perdas e danos</b> se o terceiro não o executar.</li>
+        <li><b>Parágrafo único:</b> não há essa responsabilidade se o terceiro é o <b>cônjuge</b> do promitente, o ato depende da anuência dele e, pelo regime de bens, a indenização atingiria os bens do próprio cônjuge.</li>
+        <li><b>Art. 440:</b> se o terceiro <b>se obrigou</b> e depois faltou, <b>nenhuma obrigação</b> resta ao promitente.</li></ul></div>
+      <div class="sub-topic"><h3>Detalhes</h3><ul>
+        <li>A obrigação do promitente é de <b>resultado</b> (obter a ratificação). “Vou tentar” seria obrigação de meio.</li>
+        <li>Com a ratificação, os efeitos são <b>retroativos</b>.</li>
+        <li>Sem forma especial; pode ser até tácita.</li>
+        <li>Exemplo: promessa de apresentação de um artista; se o artista não aceitar, quem prometeu responde.</li></ul></div>
+    </div></div>
+
+  <div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>Aula 10 · Vícios redibitórios<small>CC, arts. 441 a 446 · CDC, arts. 18 e 26</small></div><span class="seta">▶</span></div>
+    <div class="module-body">
+      <div class="sub-topic"><h3>Conceito (art. 441)</h3><ul>
+        <li>Defeito <b>oculto</b> na coisa recebida em contrato <b>comutativo</b>, que a torna imprópria ao uso ou diminui seu valor. Aplica-se também a <b>doações onerosas</b>.</li>
+        <li>Requisito-chave: o defeito <b>não pode ser aparente</b>; o comprador não tinha como saber na hora da compra.</li>
+        <li>Em regra: contratos bilaterais, onerosos, comutativos (compra e venda).</li></ul></div>
+      <div class="sub-topic"><h3>O que o comprador pode fazer</h3><ul>
+        <li><b>Ação redibitória:</b> rejeita a coisa e desfaz o contrato (devolve o bem, recebe o dinheiro).</li>
+        <li><b>Ação estimatória (quanti minoris):</b> fica com a coisa e pede <b>abatimento do preço</b> (art. 442).</li>
+        <li>Vendedor <b>não sabia</b> do vício → devolve o valor + despesas do contrato. Vendedor <b>sabia</b> → devolve tudo + <b>perdas e danos</b> (art. 443).</li>
+        <li>Se a coisa perece por vício que já existia na entrega, o vendedor continua responsável (art. 444).</li>
+        <li>Coisas vendidas em conjunto: defeito de uma <b>não</b> autoriza rejeitar todas (art. 503).</li></ul></div>
+      <div class="sub-topic"><h3>Prazos (decadência) — só para consulta</h3>
+        <div class="tbl-wrap"><table><tr><th>Regime</th><th>Prazo</th></tr>
+        <tr><td>CC, art. 445 — móvel</td><td>30 dias da entrega efetiva (se já estava na posse, conta da alienação, reduzido à metade)</td></tr>
+        <tr><td>CC, art. 445 — imóvel</td><td>1 ano da entrega efetiva</td></tr>
+        <tr><td>Vício que só aparece depois (§ 1º)</td><td>Conta da ciência, no máximo 180 dias (móvel) ou 1 ano (imóvel)</td></tr>
+        <tr><td>Com cláusula de garantia (art. 446)</td><td>Não correm os prazos durante a garantia, mas o defeito deve ser denunciado em 30 dias da descoberta</td></tr>
+        <tr><td>CDC art. 26 — vício aparente</td><td>30 dias (não durável) · 90 dias (durável)</td></tr>
+        <tr><td>CDC art. 26, § 3º — vício oculto</td><td>Conta de quando o defeito fica evidente</td></tr></table></div></div>
+      <div class="sub-topic"><h3>CC x CDC</h3><ul>
+        <li>CC: não exige culpa para a garantia; perdas e danos só se o vendedor sabia (má-fé).</li>
+        <li>CDC (art. 18): fornecedores respondem <b>solidariamente</b>; vício de qualidade ou quantidade; protege produtos <b>e serviços</b>; vícios aparentes e ocultos.</li>
+        <li>CDC art. 18, § 1º: vício não sanado em <b>30 dias</b> → consumidor escolhe: <b>troca</b> do produto, <b>devolução</b> do dinheiro corrigido (sem prejuízo de perdas e danos) ou <b>abatimento</b> proporcional.</li>
+        <li>As partes podem ajustar o prazo de 30 dias entre <b>7 e 180 dias</b>; no contrato de adesão, em cláusula separada (art. 18, § 2º).</li>
+        <li>Uso imediato das alternativas quando o conserto comprometer o produto ou ele for essencial (§ 3º).</li></ul></div>
+      <div class="callout"><b>Exemplos da aula:</b> geladeira 220V comprada para casa 120V; carro usado com motor fundido em uma semana; casa com goteiras só aparecem nas chuvas de verão.</div>
+    </div></div>
+
+  <div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>Aula 11 · Evicção<small>CC, arts. 447 a 457</small></div><span class="seta">▶</span></div>
+    <div class="module-body">
+      <div class="sub-topic"><h3>Conceito</h3><ul>
+        <li>Perda total ou parcial da coisa (posse, propriedade ou uso) por <b>decisão que a atribui a um terceiro</b>, com direito <b>anterior</b> ao contrato.</li>
+        <li>O problema não está na coisa, e sim na <b>titularidade</b> (vício de direito).</li>
+        <li>Origem: latim <i>evincere</i> (vencer, tirar).</li></ul></div>
+      <div class="flow">
+        <div class="flow-step"><b>Alienante</b>Quem vendeu e responde pelos riscos da evicção.</div>
+        <div class="flow-arrow">➜</div>
+        <div class="flow-step"><b>Evicto</b>Quem comprou e perdeu o bem.</div>
+        <div class="flow-arrow">⬅</div>
+        <div class="flow-step"><b>Evictor</b>O terceiro que reivindica e vence.</div>
+      </div>
+      <div class="sub-topic"><h3>Requisitos (todos juntos)</h3><ul>
+        <li><b>Perda</b> da coisa (total ou parcial).</li>
+        <li><b>Onerosidade</b> da aquisição (também em hasta pública).</li>
+        <li><b>Anterioridade</b> do direito do evictor.</li>
+        <li><b>Ignorância</b> do adquirente sobre o risco (se sabia que a coisa era alheia ou litigiosa, não pode demandar — art. 457).</li>
+        <li><b>Decisão</b> que reconhece o direito do terceiro (parte da doutrina admite também ato administrativo).</li></ul>
+        <div class="callout perigo">Perda por <b>caso fortuito ou força maior</b> (furto, roubo, perecimento) <b>não</b> é evicção.</div></div>
+      <div class="sub-topic"><h3>O que o evicto recebe</h3><ul>
+        <li>Restituição do <b>preço</b> (valor da coisa na época da evicção), <b>frutos</b> que teve de devolver, despesas do contrato, prejuízos diretos, custas e honorários (art. 450).</li>
+        <li>Benfeitorias necessárias ou úteis não abonadas (art. 453).</li>
+        <li><b>Evicção parcial considerável:</b> escolhe entre rescindir o contrato ou receber a parte do preço do desfalque. <b>Não considerável:</b> só indenização (art. 455).</li></ul></div>
+      <div class="sub-topic"><h3>Cláusulas</h3><ul>
+        <li>As partes podem <b>reforçar, diminuir ou excluir</b> a garantia, por cláusula expressa (art. 448).</li>
+        <li>Mesmo com cláusula de exclusão, o evicto recebe o <b>preço</b> de volta se não sabia do risco ou, informado, não o assumiu (art. 449).</li>
+        <li>O art. 456 foi revogado pelo CPC/2015 (denunciação da lide agora no CPC).</li></ul></div>
+      <div class="sub-topic"><h3>Prazo da ação</h3><ul>
+        <li>No slide da aula: <b>3 anos</b> (reparação civil, CC art. 206, § 3º, V).</li>
+        <li class="lei">Há decisões recentes do STJ tratando prazo de 10 anos para evicção em responsabilidade contratual. Se a questão pedir “segundo o slide/professor”, use 3 anos; confira o enunciado.</li></ul></div>
+      <div class="callout"><b>Exemplos:</b> carro vendido por quem não era dono; bem que já garantia uma dívida do vendedor; bem penhorado ou desapropriado; locação em que outro é declarado dono do imóvel.</div>
+    </div></div>
+
+  <div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>Aula 12 · Contrato com pessoa a declarar<small>CC, arts. 467 a 471</small></div><span class="seta">▶</span></div>
+    <div class="module-body">
+      <div class="sub-topic"><h3>Conceito</h3><ul>
+        <li>Na hora de contratar, uma parte <b>reserva a faculdade de indicar</b> quem adquirirá os direitos e assumirá as obrigações (art. 467).</li>
+        <li>Serve para evitar <b>dupla transmissão</b> ou esconder a identidade do interessado (ex.: pessoa famosa que faria o preço subir).</li></ul></div>
+      <div class="flow">
+        <div class="flow-step"><b>1. Cláusula</b>Reserva feita na celebração.</div><div class="flow-arrow">➜</div>
+        <div class="flow-step"><b>2. Indicação</b>Comunicada em <b>5 dias</b> (se não houver outro prazo combinado).</div><div class="flow-arrow">➜</div>
+        <div class="flow-step"><b>3. Aceitação</b>Do nomeado, na <b>mesma forma</b> do contrato.</div><div class="flow-arrow">➜</div>
+        <div class="flow-step"><b>4. Efeito</b>Nomeado assume direitos e obrigações <b>desde a celebração</b> (art. 469).</div>
+      </div>
+      <div class="sub-topic"><h3>Quando o contrato fica só entre os originários (arts. 470 e 471)</h3><ul>
+        <li>Não houve indicação, ou o nomeado <b>recusou</b>.</li>
+        <li>O nomeado era <b>insolvente</b> e a outra parte não sabia.</li>
+        <li>O nomeado era <b>incapaz</b> ou insolvente no momento da nomeação.</li></ul></div>
+      <div class="callout"><b>Pessoa a declarar x promessa de fato de terceiro:</b> na pessoa a declarar <u>não se sabe</u> quem será o terceiro (objetivo: evitar dupla contratação ou mudança de condições). Na promessa de fato, o terceiro <u>já é conhecido</u> e se contrata justamente pelo vínculo do promitente com ele.</div>
+    </div></div>
+
+  <div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>Aula 13 · Extinção do contrato<small>CC, arts. 472 a 480 · 417 a 420 · CDC art. 49</small></div><span class="seta">▶</span></div>
+    <div class="module-body">
+      <div class="sub-topic"><h3>Três formas de acabar</h3><ul>
+        <li><b>Cumprimento integral</b> — o normal.</li>
+        <li><b>Resolução</b> — descumprimento (culposo ou não) das obrigações.</li>
+        <li><b>Resilição</b> — vontade das partes: <b>bilateral</b> (distrato) ou <b>unilateral</b>.</li></ul></div>
+      <div class="sub-topic"><h3>Causas anteriores ou contemporâneas à formação</h3><ul>
+        <li><b>Nulidade</b> (ex.: contrato com absolutamente incapaz sem representação).</li>
+        <li><b>Cláusula resolutiva</b>: <b>expressa</b> opera de pleno direito; <b>tácita</b> (art. 475, em todo contrato bilateral) depende de <b>interpelação judicial</b> (art. 474).</li>
+        <li><b>Direito de arrependimento</b>: pode estar no contrato (com <b>arras penitenciais</b>, art. 420 — quem deu perde, quem recebeu devolve em dobro) ou na lei (CDC art. 49: <b>7 dias</b> em compra fora do estabelecimento).</li></ul></div>
+      <div class="sub-topic"><h3>Causas supervenientes</h3><ul>
+        <li><b>Distrato</b> (art. 472): feito pela <b>mesma forma</b> do contrato; só se as obrigações ainda não foram cumpridas.</li>
+        <li><b>Resilição unilateral</b>: só quando a lei permite (ex.: mandato, depósito, locação com aviso).</li>
+        <li><b>Resolução por inexecução voluntária</b>: inadimplemento culposo → perdas e danos. Execução única: efeito retroativo (<i>ex tunc</i>); execução continuada: para frente (<i>ex nunc</i>).</li>
+        <li><b>Resolução por inexecução involuntária</b>: caso fortuito ou força maior → <b>sem perdas e danos</b>, mas há restituição do que foi recebido.</li>
+        <li><b>Onerosidade excessiva</b> (arts. 478 a 480): contrato de execução continuada/diferida + evento <b>extraordinário e imprevisível</b> + vantagem extrema para a outra parte. Pede resolução (efeitos desde a <b>citação</b>); o réu pode evitar oferecendo modificar equitativamente (art. 479). Base: cláusula <i>rebus sic stantibus</i>.</li>
+        <li><b>Morte</b> de um contratante: extingue se o contrato é <i>intuitu personae</i> (personalíssimo); senão, a dívida fica no patrimônio deixado.</li></ul></div>
+      <div class="sub-topic"><h3>Exceção de contrato não cumprido (arts. 476 e 477)</h3><ul>
+        <li>No contrato bilateral, ninguém pode exigir a prestação do outro <b>antes de cumprir a sua</b> (art. 476).</li>
+        <li>Se um dos lados tem o patrimônio diminuído a ponto de duvidar do cumprimento, o outro pode recusar a sua prestação até receber garantia (art. 477).</li></ul></div>
+    </div></div>
+</section>
+
+<!-- ============ MAPAS ============ -->
+<section id="mapas" class="tab-content">
+  <h2>Mapas e comparativos</h2>
+  <div class="intro">Quadros para revisar rápido. A pergunta de ouro de cada tema é: <b>quem é o terceiro, quem consentiu e quem responde?</b></div>
+
+  <h2 style="font-size:1.05rem">Os três institutos com terceiros</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th></th><th>Estipulação em favor de terceiro</th><th>Promessa de fato de terceiro</th><th>Pessoa a declarar</th></tr>
+    <tr><td><b>Artigos</b></td><td>436 a 438</td><td>439 e 440</td><td>467 a 471</td></tr>
+    <tr><td><b>O terceiro…</b></td><td>recebe uma vantagem</td><td>deve praticar um fato</td><td>entra no lugar de uma parte</td></tr>
+    <tr><td><b>Vontade do terceiro</b></td><td>pode aceitar ou recusar o benefício</td><td>ratifica (ou não) o fato</td><td>aceita a nomeação, na mesma forma do contrato</td></tr>
+    <tr><td><b>Se o terceiro não entra</b></td><td>benefício não se impõe</td><td>promitente responde por perdas e danos</td><td>contrato fica entre os originários</td></tr>
+    <tr><td><b>Identidade do terceiro</b></td><td>determinado ou determinável</td><td>conhecido</td><td>desconhecida da outra parte no início</td></tr>
+    <tr><td><b>Exemplo</b></td><td>seguro de vida</td><td>promessa de show de artista</td><td>compra por intermediário que depois indica o comprador final</td></tr>
+  </table></div>
+
+  <h2 style="font-size:1.05rem">Vício redibitório x Evicção</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th></th><th>Vício redibitório</th><th>Evicção</th></tr>
+    <tr><td><b>Onde está o problema</b></td><td>No <b>objeto</b> (defeito oculto)</td><td>Na <b>titularidade</b> (perda para o dono legítimo)</td></tr>
+    <tr><td><b>Terceiro</b></td><td>Não participa</td><td>Central: o evictor</td></tr>
+    <tr><td><b>Responsabilidade</b></td><td>Sempre do alienante (garantia legal)</td><td>Pode ser reforçada, diminuída ou excluída por cláusula expressa</td></tr>
+    <tr><td><b>Soluções</b></td><td>Redibir o contrato ou abater o preço</td><td>Restituição do preço + frutos + prejuízos + custas</td></tr>
+    <tr><td><b>Prazo</b></td><td>Decadência (30 dias / 1 ano…)</td><td>Prescrição da reparação (3 anos, no slide)</td></tr>
+    <tr><td><b>Exemplo</b></td><td>Motor fundido, goteira, voltagem errada</td><td>Carro que não era do vendedor</td></tr>
+  </table></div>
+
+  <h2 style="font-size:1.05rem">Como acaba o contrato</h2>
+  <div class="flow">
+    <div class="flow-step"><b>Cumprimento</b>Tudo cumprido.</div>
+    <div class="flow-step"><b>Resilição</b>Vontade: distrato (os dois) ou unilateral (um, se a lei permitir).</div>
+    <div class="flow-step"><b>Resolução</b>Descumprimento: culposo (perdas e danos) ou fortuito (sem perdas e danos) ou onerosidade excessiva.</div>
+    <div class="flow-step"><b>Outras</b>Nulidade, cláusula resolutiva, arrependimento, morte (intuitu personae).</div>
+  </div>
+
+  <h2 style="font-size:1.05rem">Prazos e números</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th>Tema</th><th>Número</th></tr>
+    <tr><td>Indicação do nomeado (pessoa a declarar), se nada foi combinado</td><td>5 dias da conclusão do contrato</td></tr>
+    <tr><td>Vício do produto sem conserto (CDC art. 18)</td><td>30 dias (ajustável entre 7 e 180)</td></tr>
+    <tr><td>Reclamar vício aparente (CDC art. 26)</td><td>30 dias não durável · 90 dias durável</td></tr>
+    <tr><td>Arrependimento do consumidor (CDC art. 49)</td><td>7 dias</td></tr>
+    <tr><td>Vício redibitório (CC art. 445)</td><td>30 dias móvel · 1 ano imóvel</td></tr>
+    <tr><td>Reparação da evicção (slide)</td><td>3 anos</td></tr>
+  </table></div>
+</section>
+
+<!-- ============ PEGADINHAS ============ -->
+<section id="pegadinhas" class="tab-content">
+  <h2>Alertas e pegadinhas</h2>
+  <div class="intro">Afirmações que parecem certas e estão erradas. Tente responder antes de ler a correção.</div>
+  <div id="lista-peg"></div>
+</section>
+
+<!-- ============ SIMULADO ============ -->
+<section id="quiz" class="tab-content">
+  <h2>Simulado com correção na hora</h2>
+  <div class="stats">
+    <div class="stat-box">Respondidas <span id="stat-total">0/0</span></div>
+    <div class="stat-box">Acertos <span id="stat-correct" style="color:var(--correct-green)">0</span></div>
+    <div class="stat-box">Erros <span id="stat-wrong" style="color:var(--wrong-red)">0</span></div>
+    <div class="stat-box">Aproveitamento <span id="stat-percent">0%</span></div>
+  </div>
+  <p><button class="btn" onclick="resetQuiz()">🔄 Refazer (embaralha as questões)</button></p>
+  <div id="quiz-container"></div>
+</section>
+
+<!-- ============ VÍDEOS ============ -->
+<section id="videos" class="tab-content">
+  <h2>Vídeos e podcasts</h2>
+  <div class="intro">Aqui entram os vídeos e podcasts feitos no NotebookLM e publicados no YouTube. Para incluir um, basta colocar o <b>código do vídeo</b> na lista <code>VIDEOS</code> no fim deste arquivo.</div>
+  <div id="video-area"></div>
+</section>
+
+</main>
+<footer>Material de apoio de estudo, organizado a partir das aulas. Não é publicação oficial da UNIP nem substitui a lei e as orientações do professor.</footer>
+
+<script>
+// ---- Vídeos: preencher com {titulo:"...", id:"CODIGO_DO_YOUTUBE"} ----
+var VIDEOS = [
+  // { titulo: "Estipulação, promessa e pessoa a declarar", id: "XXXXXXXXXXX" },
+];
+
+var PEGADINHAS = [
+  ["Todo contrato que beneficia um terceiro quebra o princípio da relatividade.", "A relatividade admite efeitos favoráveis ao terceiro, desde que ele não seja obrigado sem vontade. A estipulação em favor de terceiro é o exemplo."],
+  ["O beneficiário da estipulação precisa dar algo em troca.", "A vantagem é gratuita para ele. Se houver contraprestação, descaracteriza a estipulação."],
+  ["Só o beneficiário pode exigir o cumprimento na estipulação.", "O estipulante também pode exigir (art. 436). O terceiro pode, se anuir."],
+  ["O beneficiário tem de ser pessoa capaz e já determinada.", "Pode ser incapaz, até nascituro, e basta ser determinável."],
+  ["Quem promete fato de terceiro é representante dele.", "Não. Representação exige procuração/poderes. O promitente promete obter o fato e responde pessoalmente."],
+  ["Se o terceiro se obrigou e depois faltou, o promitente continua responsável.", "Errado. Pelo art. 440, depois que o terceiro se obriga, nenhuma obrigação resta ao promitente."],
+  ["Na promessa de fato de terceiro, o promitente garante que o terceiro cumprirá o contrato.", "Ele garante a <b>ratificação</b> (obrigação de resultado), não que o terceiro vá executar. Depois de ratificado, quem responde é o terceiro."],
+  ["O vendedor de boa-fé nunca responde por vício redibitório.", "Responde: restitui o valor e as despesas do contrato. Só não paga perdas e danos se não conhecia o vício (art. 443)."],
+  ["Se o defeito foi informado ao comprador, ainda é vício oculto.", "O defeito conhecido do comprador não é oculto. Mas isso não vale para outro defeito que o vendedor escondeu."],
+  ["Vício redibitório e evicção são a mesma coisa.", "Vício: defeito oculto <b>no objeto</b>. Evicção: perda do bem por direito de terceiro, ou seja, problema de <b>titularidade</b>."],
+  ["A responsabilidade pela evicção nunca pode ser excluída.", "Pode ser reforçada, diminuída ou excluída por cláusula expressa (art. 448). Mas, mesmo excluída, o evicto recupera o preço se não sabia do risco (art. 449)."],
+  ["Furto do bem comprado gera evicção.", "Não. Caso fortuito/força maior não é evicção: falta a perda por direito anterior de terceiro."],
+  ["Quem sabia que a coisa era alheia ou litigiosa pode cobrar por evicção.", "Não pode (art. 457): assumiu o risco."],
+  ["O prazo de 5 dias para indicar o nomeado é sempre o máximo.", "É prazo <b>supletivo</b>. As partes podem combinar outro (art. 468)."],
+  ["O nomeado só assume o contrato a partir do dia em que aceita.", "Assume desde a <b>celebração</b> (art. 469), com efeito retroativo."],
+  ["A aceitação do nomeado pode ser de qualquer forma.", "Deve ter a <b>mesma forma</b> usada no contrato (art. 468, parágrafo único)."],
+  ["Se o nomeado era insolvente, o credor fica sem devedor.", "O contrato fica eficaz apenas entre os contratantes originários (arts. 470 e 471)."],
+  ["O distrato pode ser feito de qualquer forma.", "Deve seguir a <b>mesma forma</b> exigida para o contrato (art. 472)."],
+  ["A cláusula resolutiva tácita opera sozinha.", "A <b>expressa</b> opera de pleno direito; a <b>tácita</b> depende de interpelação judicial (art. 474)."],
+  ["Onerosidade excessiva exige apenas que o contrato tenha ficado mais caro.", "Exige também evento <b>extraordinário e imprevisível</b>, contrato de execução continuada/diferida e vantagem extrema para a outra parte (art. 478)."],
+  ["Na resolução por caso fortuito há perdas e danos.", "Não há perdas e danos, mas o que foi recebido deve ser restituído."],
+  ["No slide, o distrato aparece com efeito ex tunc.", "Atenção: muitos autores tratam o distrato como produzindo efeitos para frente (ex nunc), respeitando o que já foi cumprido. Na prova, siga o enunciado e o que o professor disse; em caso de dúvida, pergunte."]
+];
+
+var QUESTOES = [
+  ["Em contrato entre A e B, ficou combinado que B entregará gratuitamente um equipamento a C, que não participou. Trata-se de:", ["Cessão de posição contratual","Estipulação em favor de terceiro","Promessa de fato de terceiro","Contrato com pessoa a declarar"], 1, "Há vantagem gratuita para um terceiro que não participou: estipulação em favor de terceiro (arts. 436 a 438)."],
+  ["Na estipulação em favor de terceiro, é correto afirmar que:", ["Só o beneficiário pode exigir a prestação.","O estipulante nunca pode substituir o beneficiário.","O estipulante pode exigir o cumprimento e, nos termos da lei, o terceiro também.","O beneficiário deve oferecer contraprestação."], 2, "Art. 436: o estipulante pode exigir; o terceiro também, se anuir."],
+  ["No seguro de vida, quem é o promitente?", ["O segurado","A seguradora","O beneficiário","O corretor"], 1, "Segurado = estipulante; seguradora = promitente; indicado = beneficiário."],
+  ["P promete a Q que T fará uma apresentação artística. T não deu poderes a P e recusa. Em regra:", ["T responde por inadimplemento.","P responde por perdas e danos.","Q nada pode exigir.","O contrato é inexistente."], 1, "Art. 439: quem promete fato de terceiro responde por perdas e danos se ele não o executar."],
+  ["T assume expressamente o fato prometido por P e depois falta. Segundo o art. 440:", ["P continua necessariamente responsável.","P e T respondem sempre solidariamente.","Nenhuma obrigação haverá para P.","T não pode ser responsabilizado."], 2, "Depois que o terceiro se obrigou, o promitente fica livre (art. 440)."],
+  ["A obrigação do promitente na promessa de fato de terceiro é:", ["De meio, apenas tentar","De resultado: obter a ratificação do terceiro","Subsidiária, como a do fiador","Inexistente"], 1, "Ele promete obter o consentimento (resultado), não apenas se esforçar."],
+  ["Vício redibitório é:", ["Defeito oculto na coisa que a torna imprópria ao uso ou diminui seu valor","Perda da coisa para o dono legítimo","Erro na formação da vontade","Descumprimento do prazo de entrega"], 0, "Art. 441: defeito oculto na coisa, em contrato comutativo."],
+  ["Descoberto o vício redibitório, no Código Civil o adquirente pode:", ["Só pedir conserto","Redibir o contrato ou pedir abatimento do preço","Pedir prisão civil do vendedor","Exigir apenas um bem novo"], 1, "Arts. 441 e 442: ação redibitória ou estimatória."],
+  ["O vendedor desconhecia o vício. Segundo o art. 443, ele:", ["Fica livre de qualquer restituição","Devolve o valor recebido mais as despesas do contrato","Paga sempre perdas e danos","Só devolve metade"], 1, "Sem conhecer o vício: valor + despesas. Conhecendo: devolve com perdas e danos."],
+  ["Maria comprou uma geladeira 220V para casa de 120V. Isso é:", ["Necessariamente vício redibitório, pois a tensão impede o uso","Evicção","Contrato com pessoa a declarar","Estipulação em favor de terceiro"], 0, "A questão da aula usa esse exemplo como vício que impossibilita o uso do bem."],
+  ["No CDC (art. 18, § 1º), o vício do produto não sanado em 30 dias permite ao consumidor escolher:", ["Somente a troca","Troca, devolução do dinheiro ou abatimento proporcional","Somente indenização moral","Apenas novo prazo de 30 dias"], 1, "Três alternativas à escolha do consumidor: substituição, restituição imediata ou abatimento."],
+  ["Prazo para reclamar de vício aparente de produto durável (CDC art. 26):", ["30 dias","60 dias","90 dias","5 anos"], 2, "Não durável/serviço: 30 dias; durável: 90 dias."],
+  ["Na evicção, os personagens são:", ["Alienante, evicto e evictor","Credor, devedor e fiador","Estipulante, promitente e beneficiário","Mandante, mandatário e terceiro"], 0, "Alienante vende; evicto perde; evictor faz valer o direito anterior."],
+  ["A vende a B um carro que, na verdade, era de C. C recupera o carro na Justiça. B é:", ["Alienante","Evictor","Evicto","Promitente"], 2, "B perdeu o bem: é o evicto."],
+  ["Qual situação NÃO configura evicção?", ["Venda por quem não era dono","Bem penhorado por dívida anterior do vendedor","Furto do bem depois da compra","Bem desapropriado por causa anterior"], 2, "Furto/roubo (caso fortuito) é fato alheio, não perda por direito anterior de terceiro."],
+  ["Evicção parcial considerável (art. 455) dá ao evicto o direito de:", ["Apenas indenização","Escolher entre rescindir o contrato ou receber a parte do preço do desfalque","Nada","Exigir o dobro"], 1, "Se não for considerável, só indenização."],
+  ["Sobre cláusula de exclusão da garantia da evicção (arts. 448 e 449):", ["É sempre nula","Exclui qualquer indenização sem exceção","É possível, mas o evicto recupera o preço se não sabia do risco","Só vale se for verbal"], 2, "A cláusula é permitida; o art. 449 protege o evicto que não sabia ou não assumiu o risco."],
+  ["No contrato com pessoa a declarar, se nada foi combinado, a indicação deve ser comunicada em:", ["24 horas","5 dias da conclusão do contrato","30 dias","Qualquer tempo"], 1, "Art. 468: 5 dias, se outro prazo não foi estipulado."],
+  ["A pessoa nomeada aceita validamente. Seus direitos e obrigações surgem:", ["Só a partir da aceitação","Da primeira prestação","Desde a celebração do contrato","Do registro judicial"], 2, "Art. 469: assume desde o momento em que o contrato foi celebrado."],
+  ["O contrato com pessoa a declarar fica eficaz só entre os originários quando:", ["O nomeado aceita","O nomeado se recusa a aceitar","A indicação é feita em 5 dias","O contrato é por escrito"], 1, "Art. 470, I: sem indicação ou com recusa do nomeado."],
+  ["Diferença entre pessoa a declarar e promessa de fato de terceiro:", ["Na pessoa a declarar o terceiro é desconhecido no início; na promessa já é conhecido","São idênticas","Na promessa o terceiro nunca é conhecido","Só a promessa exige forma escrita"], 0, "A promessa de fato se faz justamente pelo vínculo do promitente com um terceiro conhecido."],
+  ["Resilição bilateral é:", ["Resolução por culpa","Distrato","Nulidade","Onerosidade excessiva"], 1, "Os dois contratantes, por vontade, desfazem o vínculo: distrato (art. 472)."],
+  ["O distrato deve seguir:", ["Qualquer forma","A mesma forma exigida para o contrato","Sempre escritura pública","Sempre forma verbal"], 1, "Art. 472."],
+  ["Cláusula resolutiva tácita (art. 474):", ["Opera de pleno direito","Depende de interpelação judicial","Não existe","Só vale em contrato unilateral"], 1, "A expressa opera de pleno direito; a tácita depende de interpelação judicial."],
+  ["Requisito da resolução por onerosidade excessiva:", ["Evento previsível","Contrato de execução instantânea","Evento extraordinário e imprevisível, com vantagem extrema para a outra parte","Culpa do devedor"], 2, "Art. 478: execução continuada ou diferida, evento extraordinário e imprevisível."],
+  ["Na resolução por caso fortuito ou força maior:", ["Há sempre perdas e danos","Não há perdas e danos, mas há restituição do que foi recebido","O contrato continua","Há multa dobrada"], 1, "Inexecução involuntária não gera perdas e danos."],
+  ["Pela exceção de contrato não cumprido (art. 476), em contrato bilateral:", ["Qualquer parte pode exigir a do outro antes de cumprir a sua","Nenhum contratante pode exigir a prestação do outro antes de cumprir a sua","Só o credor pode se recusar","Não se aplica a contratos bilaterais"], 1, "Art. 476."],
+  ["No CDC, o prazo de arrependimento em compra fora do estabelecimento é de:", ["24 horas","3 dias","7 dias","30 dias"], 2, "Art. 49 do CDC."],
+  ["Na interpretação de contrato de adesão com cláusulas ambíguas, aplica-se:", ["Interpretação mais favorável ao aderente","Interpretação mais favorável ao proponente","Nulidade do contrato","Interpretação sempre literal"], 0, "Art. 423 do CC (e art. 47 do CDC nas relações de consumo)."]
+];
+
+// ----- abas e módulos -----
+function switchTab(id, btn){
+  document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active')});
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('nav button').forEach(function(b){b.classList.remove('active')});
+  if(btn) btn.classList.add('active');
+  window.scrollTo({top:0});
+}
+function toggleModule(h){ h.parentElement.classList.toggle('open'); }
+
+// ----- pegadinhas -----
+(function(){
+  var el = document.getElementById('lista-peg');
+  el.innerHTML = PEGADINHAS.map(function(p){
+    return '<div class="peg"><div class="afirma">“' + p[0] + '”</div><div><span class="errada">Cuidado:</span> ' + p[1] + '</div></div>';
+  }).join('');
+})();
+
+// ----- vídeos -----
+(function(){
+  var area = document.getElementById('video-area');
+  if(!VIDEOS.length){
+    area.innerHTML = '<div class="vazio">Ainda não há vídeos publicados para este módulo. 🎬<br>Em breve entram aqui os vídeos e podcasts do NotebookLM.</div>';
+    return;
+  }
+  area.innerHTML = '<div class="video-grid">' + VIDEOS.map(function(v){
+    return '<div class="video-card"><div class="ratio"><iframe src="https://www.youtube.com/embed/' + v.id + '" allowfullscreen loading="lazy" title="' + v.titulo + '"></iframe></div><h4>' + v.titulo + '</h4></div>';
+  }).join('') + '</div>';
+})();
+
+// ----- simulado -----
+var ordem = [], respondidas = {}, acertos = 0, erros = 0;
+function shuffle(a){ for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;} return a; }
+function initQuizData(){
+  ordem = shuffle(QUESTOES.map(function(_,i){return i;}));
+  respondidas = {}; acertos = 0; erros = 0;
+}
+function renderQuiz(){
+  var box = document.getElementById('quiz-container');
+  box.innerHTML = ordem.map(function(qi, pos){
+    var q = QUESTOES[qi];
+    var ops = q[1].map(function(o, oi){
+      return '<button class="option-btn" id="q' + pos + '-o' + oi + '" onclick="checkAnswer(' + pos + ',' + oi + ')">' + String.fromCharCode(65+oi) + ') ' + o + '</button>';
+    }).join('');
+    return '<div class="q"><div class="enun">' + (pos+1) + '. ' + q[0] + '</div>' + ops + '<div class="explanation" id="exp-' + pos + '">' + q[3] + '</div></div>';
+  }).join('');
+  updateStats();
+}
+function checkAnswer(pos, escolha){
+  if(respondidas[pos] !== undefined) return;
+  var q = QUESTOES[ordem[pos]];
+  respondidas[pos] = escolha;
+  for(var i=0;i<q[1].length;i++){
+    var b = document.getElementById('q'+pos+'-o'+i);
+    b.disabled = true;
+    if(i === q[2]) b.classList.add('correct');
+    else if(i === escolha) b.classList.add('wrong');
+  }
+  if(escolha === q[2]) acertos++; else erros++;
+  document.getElementById('exp-'+pos).classList.add('show');
+  updateStats();
+}
+function updateStats(){
+  var total = acertos + erros;
+  document.getElementById('stat-total').textContent = total + '/' + QUESTOES.length;
+  document.getElementById('stat-correct').textContent = acertos;
+  document.getElementById('stat-wrong').textContent = erros;
+  document.getElementById('stat-percent').textContent = total ? Math.round(acertos*100/total) + '%' : '0%';
+}
+function resetQuiz(){ initQuizData(); renderQuiz(); window.scrollTo({top:0}); }
+initQuizData(); renderQuiz();
+</script>
+</body>
+</html>
