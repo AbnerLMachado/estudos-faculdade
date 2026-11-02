@@ -46,7 +46,7 @@ module.exports = {
             item("simulado", "Simulado de concursos (NP1)", pagina("TeoriaGeralContratos", "QuestõesNP1.html")),
             item("questoes", "Banco de questões de concursos", pagina("TeoriaGeralContratos", "Questoes-concursos.html")),
           ],
-          np2: [item("guia", "Plataforma de estudos NP2 (aulas 7 a 13)", local("6/contratos/np2.html"))],
+          np2: [item("guia", "Plataforma de estudos NP2 (aulas 8 a 13, com as orientações da prova)", local("6/contratos/np2.html"))],
         },
         {
           id: "sentenca-recursos",
