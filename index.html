@@ -46,7 +46,7 @@
   .topo h1 { margin: 0; font-size: 1.15rem; line-height: 1.2; }
   .topo p { margin: 0; font-size: .8rem; color: var(--text-muted); }
   #menu {
-    display: none;
+    display: inline-flex; align-items: center; justify-content: center;
     width: 42px; height: 42px; border-radius: 10px;
     border: 1px solid var(--border-color); background: var(--bg-primary); font-size: 1.3rem;
   }
@@ -123,9 +123,39 @@
   .vazio strong { color: var(--text-main); font-size: 1.1rem; }
   footer { font-size: .72rem; color: var(--text-muted); padding: 2px 2px 6px; }
 
+  /* ---------- página inicial ---------- */
+  body.inicio #lateral, body.inicio #menu { display: none; }
+  body.recolhida #lateral { display: none; }
+  body.inicio #cab, body.inicio #modulos, body.inicio #paginas, body.inicio #visor, body.inicio #vazio { display: none; }
+  #inicio { display: none; }
+  body.inicio #inicio { display: block; max-width: 1100px; width: 100%; margin: 0 auto; }
+  #inicio h2 { margin: 6px 0 4px; font-size: 1.6rem; }
+  #inicio .sub { margin: 0 0 14px; color: var(--text-muted); }
+  #inicio #semestres-inicio { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+  #cartoes { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+  .cartao {
+    background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 14px;
+    padding: 14px; display: flex; flex-direction: column; gap: 10px;
+  }
+  .cartao:hover { border-color: var(--accent-blue); }
+  .cartao.vazia { opacity: .75; }
+  .cartao .nome { text-align: left; background: none; border: 0; padding: 0; font-size: 1.02rem; font-weight: 700; line-height: 1.3; }
+  .cartao .nome:hover { color: var(--accent-gold); }
+  .cartao .prof { margin: -4px 0 0; font-size: .8rem; color: var(--text-muted); }
+  .cartao .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; }
+  .chip { padding: 5px 11px; border-radius: 999px; border: 1px solid var(--border-color); background: var(--bg-primary); font-size: .8rem; font-weight: 600; }
+  .chip.tem { border-color: var(--accent-green); color: var(--accent-green); }
+  .chip.tem:hover { background: var(--bg-hover); }
+  .chip.nao { color: var(--text-muted); border-style: dashed; cursor: default; font-weight: 400; }
+  .ferramentas-inicio { margin-top: 22px; }
+  .ferramentas-inicio .mat-btn { width: auto; border: 1px solid var(--border-color); background: var(--bg-secondary); }
+  .voltar { width: 100%; text-align: left; padding: 9px 11px; margin-bottom: 14px; border-radius: 10px; border: 1px solid var(--accent-gold); background: transparent; color: var(--accent-gold); font-weight: 700; }
+  .voltar:hover { background: var(--bg-hover); }
+  .topo .inicio-link { background: none; border: 0; padding: 0; text-align: left; }
+
   /* ---------- celular ---------- */
   @media (max-width: 860px) {
-    #menu { display: inline-flex; align-items: center; justify-content: center; }
+    body.recolhida #lateral { display: block; } /* no celular o menu é gaveta, não usa "recolhida" */
     #lateral {
       position: fixed; z-index: 20; top: var(--altura-topo); bottom: 0; left: 0; width: min(86vw, 340px);
       transform: translateX(-102%); transition: transform .2s ease; box-shadow: 4px 0 24px rgba(0,0,0,.5);
@@ -139,15 +169,16 @@
 </head>
 <body>
 <header class="topo">
-  <button id="menu" type="button" aria-label="Abrir menu de semestres e matérias" aria-expanded="false" aria-controls="lateral">☰</button>
-  <div>
+  <button id="menu" type="button" aria-label="Mostrar ou esconder o menu de matérias" title="Mostrar ou esconder o menu" aria-expanded="false" aria-controls="lateral">☰</button>
+  <button type="button" class="inicio-link" id="ir-inicio" aria-label="Voltar à página inicial">
     <h1 id="titulo">Estudos de Direito · UNIP</h1>
     <p>Escolha o semestre, a matéria e o módulo</p>
-  </div>
+  </button>
 </header>
 
 <div class="layout">
   <aside id="lateral" aria-label="Semestres e matérias">
+    <button type="button" class="voltar" id="voltar-inicio">← Todas as matérias</button>
     <p class="rotulo">Semestre</p>
     <div id="semestres" role="group" aria-label="Semestres"></div>
     <p class="rotulo">Matéria</p>
@@ -158,6 +189,16 @@
 
   <main id="principal">
     <noscript><p>Este site precisa do JavaScript ativado para funcionar.</p></noscript>
+    <section id="inicio" aria-label="Escolha a matéria">
+      <h2>Escolha a matéria</h2>
+      <p class="sub">Primeiro o semestre, depois a matéria. Dentro dela você escolhe NP1 ou NP2.</p>
+      <div id="semestres-inicio" role="group" aria-label="Semestres"></div>
+      <div id="cartoes"></div>
+      <div class="ferramentas-inicio" id="ferramentas-inicio" hidden>
+        <p class="rotulo">Ferramentas</p>
+        <ul id="ferramentas-cartoes" style="list-style:none;margin:0;padding:0;display:flex;gap:8px;flex-wrap:wrap"></ul>
+      </div>
+    </section>
     <div id="cab"></div>
     <div class="abas" id="modulos" role="group" aria-label="Módulo"></div>
     <ul id="paginas" aria-label="Materiais do módulo"></ul>
@@ -206,7 +247,7 @@
     return { sem: p[0] || null, mat: p[1] || null, mod: p[2] || null, pag: parseInt(p[3], 10) || 0 };
   }
   function escreverHash() {
-    var h = "#/" + [estado.sem, estado.mat, estado.mod, estado.pag].filter(function (x) { return x !== null && x !== undefined; }).join("/");
+    var h = estado.mat ? "#/" + [estado.sem, estado.mat, estado.mod, estado.pag].filter(function (x) { return x !== null && x !== undefined; }).join("/") : "#/" + (estado.sem || "");
     if (location.hash !== h) history.replaceState(null, "", h);
   }
 
@@ -215,8 +256,8 @@
     var sem = achaSemestre(estado.sem) || achaSemestre((ler(CHAVE_ULTIMA) || {}).sem) || DADOS.semestres[0];
     estado.sem = sem.id;
     var mat = achaMateria(sem, estado.mat);
-    if (!mat) mat = sem.materias.find(function (m) { return totalPaginas(m) > 0; }) || sem.materias[0];
     estado.mat = mat ? mat.id : null;
+    if (!mat) { estado.mod = null; estado.pag = 0; return; } // sem matéria escolhida: página inicial
     var comConteudo = modulosComConteudo(mat || {});
     if (MODULOS.indexOf(estado.mod) === -1 || (comConteudo.length > 0 && comConteudo.indexOf(estado.mod) === -1)) {
       estado.mod = comConteudo[0] || "np1";
@@ -241,6 +282,50 @@
       b.appendChild(criar("small", {}, s.periodo));
       b.addEventListener("click", function () { estado.sem = s.id; estado.mat = null; estado.mod = null; estado.pag = 0; atualizar(); });
       area.appendChild(b);
+    });
+  }
+
+  function desenharInicio() {
+    var sem = achaSemestre(estado.sem);
+    var area = el("semestres-inicio"); limpar(area);
+    DADOS.semestres.slice().sort(function (a, b) { return Number(b.id) - Number(a.id); }).forEach(function (s) {
+      var b = criar("button", { type: "button", "class": "sem-btn", "aria-pressed": String(s.id === estado.sem) }, s.id + "º semestre");
+      b.appendChild(criar("small", {}, s.periodo));
+      b.addEventListener("click", function () { estado.sem = s.id; atualizar(); });
+      area.appendChild(b);
+    });
+    var cartoes = el("cartoes"); limpar(cartoes);
+    sem.materias.forEach(function (m) {
+      var n = totalPaginas(m);
+      var c = criar("div", { "class": "cartao" + (n === 0 ? " vazia" : "") });
+      var nome = criar("button", { type: "button", "class": "nome" }, m.nome);
+      nome.addEventListener("click", function () { estado.mat = m.id; estado.mod = null; estado.pag = 0; atualizar(); window.scrollTo(0, 0); });
+      c.appendChild(nome);
+      if (m.professor) c.appendChild(criar("p", { "class": "prof" }, m.professor));
+      var chips = criar("div", { "class": "chips" });
+      if (n === 0) {
+        chips.appendChild(criar("span", { "class": "chip nao" }, "em breve"));
+      } else {
+        MODULOS.forEach(function (mod) {
+          var q = paginasDe(m, mod).length;
+          if (mod === "geral" && q === 0) return;
+          if (q === 0) { chips.appendChild(criar("span", { "class": "chip nao" }, NOMES_MODULO[mod] + " · em breve")); return; }
+          var ch = criar("button", { type: "button", "class": "chip tem" }, NOMES_MODULO[mod] + " · " + q + (q === 1 ? " página" : " páginas"));
+          ch.addEventListener("click", function () { estado.mat = m.id; estado.mod = mod; estado.pag = 0; atualizar(); window.scrollTo(0, 0); });
+          chips.appendChild(ch);
+        });
+      }
+      c.appendChild(chips);
+      cartoes.appendChild(c);
+    });
+    var ferr = DADOS.ferramentas || [];
+    el("ferramentas-inicio").hidden = ferr.length === 0;
+    var fl = el("ferramentas-cartoes"); limpar(fl);
+    ferr.forEach(function (t) {
+      var li = document.createElement("li");
+      var b = criar("button", { type: "button", "class": "mat-btn" }, ICONES.ferramenta + " " + t.titulo);
+      b.addEventListener("click", function () { window.open(t.url, "_blank", "noopener"); });
+      li.appendChild(b); fl.appendChild(li);
     });
   }
 
@@ -334,6 +419,8 @@
     gravar(CHAVE_ULTIMA, { sem: estado.sem });
     var sem = achaSemestre(estado.sem), mat = achaMateria(sem, estado.mat);
     document.title = (mat ? mat.nome + " · " : "") + "Estudos de Direito · UNIP";
+    document.body.classList.toggle("inicio", !mat);
+    if (!mat) { fecharMenu(); desenharInicio(); return; }
     desenharSemestres();
     desenharMaterias();
     desenharCabecalho();
@@ -343,10 +430,27 @@
 
   /* ---- menu no celular ---- */
   function fecharMenu() { el("lateral").classList.remove("aberta"); el("menu").setAttribute("aria-expanded", "false"); }
+  var CHAVE_LATERAL = "estudos-direito:lateral-recolhida";
+  var celular = window.matchMedia("(max-width: 860px)");
+  function aplicarLateral() {
+    var recolhida = ler(CHAVE_LATERAL) === true;
+    document.body.classList.toggle("recolhida", recolhida);
+    if (!celular.matches) el("menu").setAttribute("aria-expanded", String(!recolhida));
+  }
   el("menu").addEventListener("click", function () {
-    var aberta = el("lateral").classList.toggle("aberta");
-    el("menu").setAttribute("aria-expanded", String(aberta));
+    if (celular.matches) {
+      var aberta = el("lateral").classList.toggle("aberta");
+      el("menu").setAttribute("aria-expanded", String(aberta));
+    } else {
+      gravar(CHAVE_LATERAL, ler(CHAVE_LATERAL) !== true);
+      aplicarLateral();
+    }
   });
+  if (celular.addEventListener) celular.addEventListener("change", function () { fecharMenu(); aplicarLateral(); });
+  aplicarLateral();
+  function irInicio() { estado.mat = null; estado.mod = null; estado.pag = 0; fecharMenu(); atualizar(); window.scrollTo(0, 0); }
+  el("ir-inicio").addEventListener("click", irInicio);
+  el("voltar-inicio").addEventListener("click", irInicio);
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") fecharMenu(); });
 
   /* ---- tela cheia ---- */
