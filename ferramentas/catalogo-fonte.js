@@ -57,6 +57,7 @@ module.exports = {
             item("questoes", "Banco de questões 3", pagina("SentencaseRecursos", "questoes3.html")),
             item("questoes", "Banco de questões 4", pagina("SentencaseRecursos", "questoes4.html")),
           ],
+          np2: [item("guia", "Plataforma de estudos NP2 (recursos, com revisão do módulo 1)", local("6/sentenca-recursos/np2.html"))],
         },
         {
           id: "protecao-penal",

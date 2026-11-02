@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sentença e Recursos Civil · NP2 · Plataforma de estudos</title>
+<style>
+:root{--bg-primary:#0b132b;--bg-secondary:#1c2541;--bg-card:#2f3e46;--bg-hover:#3a506b;--accent-gold:#fbbf24;--accent-blue:#38bdf8;--accent-green:#34d399;--text-main:#f8fafc;--text-muted:#94a3b8;--correct-green:#22c55e;--wrong-red:#ef4444;--border-color:#475569}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg-primary);color:var(--text-main);line-height:1.6}
+header{background:var(--bg-secondary);padding:22px 16px 14px;text-align:center;border-bottom:2px solid var(--accent-gold)}
+header h1{margin:0 0 4px;font-size:1.6rem;color:var(--accent-gold)}
+header p{margin:0;color:var(--text-muted);font-size:.95rem}
+nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:12px;background:var(--bg-secondary);position:sticky;top:0;z-index:5;border-bottom:1px solid var(--border-color)}
+nav button{background:var(--bg-card);color:var(--text-main);border:1px solid var(--border-color);padding:9px 16px;border-radius:8px;cursor:pointer;font:inherit;font-weight:600}
+nav button:hover{background:var(--bg-hover)}
+nav button.active{background:var(--accent-gold);color:#0b132b;border-color:var(--accent-gold)}
+main{max-width:980px;margin:0 auto;padding:18px 14px 60px}
+.tab-content{display:none}.tab-content.active{display:block}
+h2{color:var(--accent-blue);margin:6px 0 14px}
+.intro{background:var(--bg-secondary);border-left:4px solid var(--accent-blue);padding:12px 16px;border-radius:8px;margin-bottom:18px;color:var(--text-muted)}
+.radar{background:#3b2f0b;border:1px solid var(--accent-gold);border-radius:10px;padding:12px 16px;margin-bottom:18px}
+.radar b{color:var(--accent-gold)}
+.module-block{background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:10px;margin-bottom:12px;overflow:hidden}
+.module-header{padding:14px 16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;font-weight:700;font-size:1.05rem}
+.module-header:hover{background:var(--bg-hover)}
+.module-header small{display:block;color:var(--text-muted);font-weight:400;font-size:.82rem}
+.module-header .seta{transition:transform .2s;color:var(--accent-gold)}
+.module-block.open .seta{transform:rotate(90deg)}
+.module-body{display:none;padding:4px 16px 16px}
+.module-block.open .module-body{display:block}
+.sub-topic{background:var(--bg-card);border-radius:8px;padding:12px 14px;margin-top:12px}
+.sub-topic h3{margin:0 0 6px;color:var(--accent-green);font-size:1rem}
+.sub-topic ul{margin:6px 0 0;padding-left:20px}
+.sub-topic li{margin:4px 0}
+.callout{border-left:4px solid var(--accent-gold);background:rgba(251,191,36,.08);padding:10px 14px;border-radius:6px;margin-top:12px}
+.callout.perigo{border-color:var(--wrong-red);background:rgba(239,68,68,.08)}
+.callout.dica{border-color:var(--accent-green);background:rgba(52,211,153,.08)}
+.lei{font-size:.9rem;color:var(--text-muted);font-style:italic}
+.tag{display:inline-block;background:var(--bg-primary);color:var(--accent-gold);border-radius:20px;padding:1px 10px;font-size:.78rem;margin-right:4px}
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:6px;margin:12px 0}
+.flow-step{background:var(--bg-card);border:1px solid var(--border-color);border-radius:8px;padding:8px 12px;flex:1 1 140px;font-size:.92rem}
+.flow-step b{color:var(--accent-blue);display:block}
+.flow-arrow{align-self:center;color:var(--accent-gold);font-size:1.3rem}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.92rem}
+th,td{border:1px solid var(--border-color);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--bg-hover);color:var(--accent-gold)}
+td{background:var(--bg-card)}
+.tbl-wrap{overflow-x:auto}
+.peg{background:var(--bg-card);border-radius:10px;padding:12px 16px;margin-bottom:10px;border-left:4px solid var(--wrong-red)}
+.peg .afirma{font-weight:700}
+.peg .errada{color:var(--wrong-red);font-weight:700}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+.stat-box{flex:1 1 140px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:8px;padding:8px 12px;text-align:center;font-size:.9rem;color:var(--text-muted)}
+.stat-box span{display:block;font-size:1.3rem;font-weight:700;color:var(--text-main)}
+.q{background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:10px;padding:14px 16px;margin-bottom:14px}
+.q .enun{font-weight:600;margin-bottom:10px}
+.option-btn{display:block;width:100%;text-align:left;background:var(--bg-card);color:var(--text-main);border:1px solid var(--border-color);border-radius:8px;padding:9px 12px;margin-bottom:7px;cursor:pointer;font:inherit}
+.option-btn:hover:not(:disabled){background:var(--bg-hover)}
+.option-btn.correct{background:rgba(34,197,94,.2);border-color:var(--correct-green)}
+.option-btn.wrong{background:rgba(239,68,68,.2);border-color:var(--wrong-red)}
+.option-btn:disabled{cursor:default}
+.explanation{display:none;margin-top:8px;padding:10px 12px;border-radius:8px;background:var(--bg-primary);color:var(--text-muted);font-size:.92rem}
+.explanation.show{display:block}
+.btn{background:var(--accent-gold);color:#0b132b;border:0;border-radius:8px;padding:9px 16px;font:inherit;font-weight:700;cursor:pointer}
+.video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.video-card{background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:10px;overflow:hidden}
+.video-card .ratio{position:relative;padding-top:56.25%}
+.video-card iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video-card h4{margin:0;padding:10px 12px;font-size:.95rem}
+.vazio{background:var(--bg-secondary);border:1px dashed var(--border-color);border-radius:10px;padding:26px;text-align:center;color:var(--text-muted)}
+footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:20px 14px}
+@media(max-width:600px){header h1{font-size:1.3rem}nav button{padding:8px 11px;font-size:.9rem}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Sentença e Recursos Civil · NP2</h1>
+  <p>UNIP · Direito · 6º semestre · Processo Civil</p>
+</header>
+<nav>
+  <button class="active" onclick="switchTab('guia',this)">📘 Guia</button>
+  <button onclick="switchTab('mapas',this)">🗺️ Mapas</button>
+  <button onclick="switchTab('pegadinhas',this)">⚠️ Pegadinhas</button>
+  <button onclick="switchTab('quiz',this)">📝 Simulado</button>
+  <button onclick="switchTab('videos',this)">🎬 Vídeos</button>
+</nav>
+<main>
+
+<!-- ============ GUIA ============ -->
+<section id="guia" class="tab-content active">
+  <div class="intro">Resumo de <b>Sentença e Recursos Civil</b> para a NP2, organizado a partir dos slides e textos das aulas (sentenças, teoria geral dos recursos, apelação, agravo, embargos de declaração, RE, REsp e agravo em REsp/RE). Clique nos módulos para abrir. Confira sempre a lei seca (CPC).</div>
+  <div class="radar"><b>📡 Radar da prova — o que a professora disse que vai cobrar (fim do último áudio):</b>
+    <ul>
+      <li><b>Todos os recursos</b> e os <b>efeitos dos recursos</b></li>
+      <li><b>Requisitos de admissibilidade especiais</b> dos recursos excepcionais (REsp e RE) — incluindo <b>prequestionamento</b> e <b>repercussão geral</b></li>
+      <li><b>Embargos de declaração</b></li>
+      <li><b>Apelação</b>: quando cabe? · <b>Agravo de instrumento</b>: quando cabe?</li>
+      <li><b>AREsp</b> e o <b>art. 1.042 do CPC</b></li>
+      <li><b>Classificação das sentenças</b> · <b>princípios recursais</b> · <b>decisão interlocutória</b></li>
+      <li style="color:#fecaca"><b>NÃO cai recurso ordinário.</b></li>
+    </ul>
+    <b>Reforço da aula de 29/10 (“cai tudo”):</b>
+    <ul>
+      <li>A matéria é <b>cumulativa</b>: o <b>módulo 1</b> também cai (sentença terminativa x definitiva, classificação das sentenças, sentença x interlocutória, princípios recursais, coisa julgada).</li>
+      <li><b>Efeitos dos recursos</b>: ela quer saber se você entendeu para que serve cada efeito (regressivo e suspensivo costumam aparecer; o devolutivo, nas questões mais simples).</li>
+      <li><b>Prequestionamento</b> existe no RE e no REsp. Quem não discutiu a matéria deve <b>pré-questionar por embargos de declaração</b> — mesmo não conhecidos, valem como prequestionamento (art. 1.025).</li>
+      <li>Agravo de instrumento = <b>decisão interlocutória + hipótese do art. 1.015</b>. Se não cabe agravo e a parte é prejudicada, alega-se em <b>preliminar de apelação</b>.</li>
+      <li><b>Agravo em REsp/RE (art. 1.042)</b>: cai o <b>conceito</b> (é pouco usado e parece o agravo interno). <b>Agravo interno</b> e <b>princípios recursais</b> “já caíram” na prova anterior.</li>
+      <li>Pode aparecer a classificação do <b>pedido</b>: <b>alternativo, cumulativo ou subsidiário</b>.</li>
+      <li>Sobre a <b>classificação das sentenças</b>: “cai de novo”, com aplicação prática.</li>
+    </ul>
+  </div>
+
+  <div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>0 · Revisão do módulo 1 (cai na NP2)<small>Sentença, 485 x 487, coisa julgada, classificação, princípios · CPC, arts. 203 a 205, 485 a 489, 502 a 508</small></div><span class="seta">▶</span></div>
+    <div class="module-body">
+      <div class="callout"><b>Matéria cumulativa:</b> a professora vai cobrar o primeiro módulo. Este bloco reúne o que ela anunciou como prova.</div>
+      <div class="sub-topic"><h3>Sentença e os atos do juiz</h3><ul>
+        <li><b>Sentença (art. 203, § 1º):</b> pronunciamento do juiz que, com fundamento nos <b>arts. 485 ou 487</b>, <b>encerra a fase cognitiva do procedimento comum</b> ou <b>extingue a execução</b>. Não é “ato que sempre põe fim ao processo”: depois dela pode haver recurso ou cumprimento de sentença.</li>
+        <li><b>Decisão interlocutória (§ 2º):</b> pronunciamento decisório que <b>não</b> é sentença. Pergunta-chave: encerrou a fase cognitiva? Se sim, sentença; se decidiu só uma questão ou parcela e o processo continua, interlocutória.</li>
+        <li><b>Quatro nomes</b> anunciados: <b>sentença, decisão interlocutória, despacho e ato ordinatório</b>. Pela literalidade do art. 203, os pronunciamentos <i>do juiz</i> são três (sentença, interlocutória e despacho); o ato meramente ordinatório é do <b>servidor</b> (§ 4º), com revisão do juiz. O “despacho saneador” é, na verdade, decisão interlocutória (art. 357).</li>
+        <li><b>Juízo de admissibilidade</b> (pode ser examinado?) x <b>juízo de mérito</b> (a pretensão procede?).</li></ul></div>
+      <div class="sub-topic"><h3>Sentença terminativa x definitiva (art. 485 x 487)</h3>
+        <div class="tbl-wrap"><table><tr><th></th><th>Terminativa</th><th>Definitiva</th></tr>
+        <tr><td><b>Base</b></td><td>Art. 485</td><td>Art. 487</td></tr>
+        <tr><td><b>Mérito</b></td><td>Não resolve</td><td>Resolve</td></tr>
+        <tr><td><b>Estabilidade</b></td><td>Coisa julgada <b>formal</b> (dentro do processo)</td><td>Coisa julgada <b>material</b> (após o trânsito)</td></tr>
+        <tr><td><b>Nova ação</b></td><td>Em princípio possível, nos limites do art. 486 (corrigir o vício, pagar custas e honorários)</td><td>A mesma demanda não pode ser repetida</td></tr></table></div>
+        <ul><li><b>Art. 485</b> (exemplos): indeferimento da inicial; paralisação por mais de 1 ano ou abandono por mais de 30 dias (intimação pessoal em 5 dias); ausência de pressupostos; <b>perempção, litispendência ou coisa julgada</b>; ilegitimidade ou falta de interesse; convenção de arbitragem; <b>homologação da desistência da ação</b>.</li>
+        <li><b>Art. 487</b>: acolher ou rejeitar o pedido; <b>decidir prescrição ou decadência</b> (é mérito, sentença definitiva); homologar reconhecimento da procedência, <b>transação</b> ou <b>renúncia à pretensão</b>.</li></ul></div>
+      <div class="sub-topic"><h3>Perempção, litispendência e coisa julgada (art. 485, V)</h3><ul>
+        <li><b>Litispendência:</b> duas ações idênticas (partes, pedido e causa de pedir) ao mesmo tempo.</li>
+        <li><b>Coisa julgada:</b> demanda idêntica já decidida, com decisão de mérito imutável.</li>
+        <li><b>Perempção:</b> o autor deu causa a <b>três extinções por abandono</b>; não pode mais propor ação contra o réu com o mesmo objeto, mas pode alegar o direito em defesa.</li></ul></div>
+      <div class="sub-topic"><h3>Desistência x renúncia (pegadinha anunciada)</h3>
+        <div class="tbl-wrap"><table><tr><th></th><th>Desistência da ação</th><th>Renúncia à pretensão</th></tr>
+        <tr><td><b>Base</b></td><td>Art. 485, VIII</td><td>Art. 487, III, c</td></tr>
+        <tr><td><b>Mérito</b></td><td>Não resolvido</td><td>Resolvido</td></tr>
+        <tr><td><b>Sentença</b></td><td>Terminativa</td><td>Definitiva</td></tr>
+        <tr><td><b>Efeito</b></td><td>Coisa julgada formal; pode propor de novo</td><td>Coisa julgada material; não pode repetir a pretensão</td></tr>
+        <tr><td><b>Consentimento</b></td><td>Depois da contestação, exige o consentimento do réu</td><td>Ato de disposição do direito</td></tr></table></div></div>
+      <div class="sub-topic"><h3>Julgamento antecipado (integral x parcial) e improcedência liminar</h3><ul>
+        <li><b>Integral (art. 355):</b> sem necessidade de outras provas (ou revelia); encerra a fase → <b>sentença</b> → <b>apelação</b>.</li>
+        <li><b>Parcial (art. 356):</b> decide pedido ou parcela; o processo continua → <b>decisão interlocutória</b> de mérito → <b>agravo de instrumento</b> (§ 5º). Pode ser liquidada/executada desde logo. <b>É a resposta de “o que NÃO é sentença”.</b></li>
+        <li><b>Improcedência liminar (art. 332):</b> mérito rejeitado antes da citação, se contraria súmula do STF/STJ, repetitivos, IRDR/IAC, súmula de TJ sobre direito local, ou há prescrição/decadência. É sentença, cabe apelação; o juiz pode se retratar em 5 dias.</li></ul></div>
+      <div class="sub-topic"><h3>Elementos da sentença e fundamentação</h3><ul>
+        <li>Art. 489: <b>relatório, fundamentos e dispositivo</b>. No Juizado Especial Cível o <b>relatório é dispensado</b> (Lei 9.099, art. 38).</li>
+        <li><b>Fundamentação:</b> garantia constitucional (<b>CF, art. 93, IX</b>) e legal (CPC, arts. 11 e 489). Sem ela, a decisão é <b>nula</b>. Não é fundamentada a decisão que só reproduz a lei, usa conceito indeterminado, serve para qualquer caso, ignora argumentos ou cita precedente sem relacionar ao caso (art. 489, § 1º).</li>
+        <li><b>Invalidar x reformar x integrar:</b> falta de fundamentação → apelação pedindo <b>nulidade</b>; erro de julgamento → <b>reforma</b>; omissão/contradição/obscuridade/erro material → <b>embargos de declaração</b>.</li></ul></div>
+      <div class="sub-topic"><h3>Classificação das sentenças (cai de novo)</h3><ul>
+        <li><b>Ternária (Liebman):</b> declaratória, constitutiva, condenatória. <b>Quinária (Pontes de Miranda):</b> + <b>mandamental</b> e <b>executiva lato sensu</b>.</li>
+        <li>Associe nome + verbo + efeito + exemplo: declaratória (reconhece; em regra <i>ex tunc</i>; ex.: paternidade) · constitutiva (cria, modifica ou extingue; em regra <i>ex nunc</i>; ex.: divórcio) · condenatória (impõe prestação; forma título) · mandamental (ordem reforçada por coerção; mandado de segurança) · executiva lato sensu (satisfaz no mesmo processo; reintegração de posse).</li></ul></div>
+      <div class="sub-topic"><h3>Trânsito em julgado e coisa julgada (arts. 502 a 508)</h3><ul>
+        <li><b>Trânsito em julgado</b> = fato processual: a decisão não está mais sujeita a recurso (prazo esgotado ou vias recursais exauridas). <b>Coisa julgada material</b> = autoridade que torna a decisão de <b>mérito</b> <b>imutável e indiscutível</b> (art. 502). Toda coisa julgada pressupõe trânsito; nem todo trânsito gera coisa julgada material (a sentença do art. 485 transita e gera só coisa julgada formal).</li>
+        <li>A coisa julgada é <b>garantia constitucional</b> (CF, art. 5º, XXXVI). Opera entre as partes e <b>não prejudica terceiros</b> (art. 506).</li>
+        <li><b>Formação:</b> decisão judicial de <b>mérito</b> + <b>cognição exauriente</b> + <b>trânsito em julgado</b>. <b>Liminar</b> (cognição superficial, sem ouvir a parte contrária) <b>não faz coisa julgada material</b>. Decisão administrativa não gera coisa julgada do CPC.</li>
+        <li><b>Preclusão</b> (perda de faculdade processual: temporal, lógica ou consumativa) ≠ coisa julgada material. Interlocutória só de questão processual preclui; não faz coisa julgada.</li>
+        <li><b>Regime:</b> <i>pro et contra</i> (regra: forma-se qualquer que seja o resultado); exceções: <i>secundum eventum litis</i> (ações coletivas, CDC art. 103) e <i>secundum eventum probationis</i> (improcedência por insuficiência de provas permite nova ação coletiva com nova prova).</li>
+        <li><b>Limites objetivos:</b> recai sobre a <b>questão principal expressamente decidida</b> (art. 503). <b>Não recai</b> sobre os <b>motivos</b> nem sobre a <b>verdade dos fatos</b> (art. 504). O art. 508 traz o efeito preclusivo: consideram-se deduzidas e repelidas as alegações que poderiam ter sido opostas.</li>
+        <li><b>Questão prejudicial</b> (art. 503, § 1º) também faz coisa julgada, se, <u>cumulativamente</u>: (I) o julgamento do mérito depende dela; (II) houve <b>contraditório prévio e efetivo</b> (não há na revelia); (III) o juízo tem <b>competência em razão da matéria e da pessoa</b> para decidi-la como questão principal; e (§ 2º) não há restrição probatória ou limitação à cognição.</li>
+        <li>Podem formar coisa julgada: <b>sentença, decisão interlocutória de mérito</b> (art. 356), <b>acórdão</b> e <b>decisão monocrática do relator</b>. Pode haver <b>mais de uma coisa julgada no mesmo processo</b> (capítulos).</li>
+        <li><b>Prazo:</b> 15 dias úteis, exclui-se o dia do começo e inclui-se o do vencimento (arts. 219, 224 e 1.003, § 5º). No DJe, a disponibilização não é a publicação: publica-se no 1º dia útil seguinte e o prazo começa no dia útil posterior.</li></ul></div>
+      <div class="sub-topic"><h3>Espécies de pedido</h3><ul>
+        <li><b>Cumulativo:</b> vários pedidos, para serem todos acolhidos.</li>
+        <li><b>Subsidiário (eventual):</b> o segundo só é examinado se o primeiro não for acolhido; há ordem de preferência.</li>
+        <li><b>Alternativo:</b> o autor pede uma coisa ou outra, sem preferência; acolhido um deles, não há sucumbência para recorrer quanto ao outro.</li></ul></div>
+    </div></div>
+
+  <div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>1 · Atos do juiz, sentenças e decisões<small>CPC, arts. 203, 485, 487, 1.001 · classificação das sentenças</small></div><span class="seta">▶</span></div>
+    <div class="module-body">
+      <div class="sub-topic"><h3>Pronunciamentos do juiz (art. 203)</h3><ul>
+        <li><b>Sentença:</b> com base nos arts. 485 e 487, põe fim à fase cognitiva do procedimento comum e extingue a execução. → <b>Apelação</b> (e embargos de declaração).</li>
+        <li><b>Decisão interlocutória:</b> tem conteúdo decisório, mas não encerra o processo ou a fase. → <b>Agravo de instrumento</b> (se estiver no art. 1.015) e embargos de declaração.</li>
+        <li><b>Despacho:</b> demais pronunciamentos de mero andamento. <b>Não cabe recurso</b> (art. 1.001). Cuidado: vale o <b>conteúdo</b>, não o nome — “despacho” com conteúdo decisório é decisão interlocutória.</li>
+        <li><b>Decisão monocrática:</b> do relator no tribunal (art. 932). → <b>Agravo interno</b>.</li>
+        <li><b>Acórdão:</b> decisão colegiada do tribunal → embargos de declaração, RE, REsp (e recurso ordinário, que <u>não cai</u>).</li>
+        <li>Atos ordinatórios (juntada, vista) são praticados pelo servidor e revistos pelo juiz.</li></ul></div>
+      <div class="tbl-wrap"><table><tr><th>Decisão</th><th>Recurso</th></tr>
+        <tr><td>Sentença</td><td>Apelação · embargos de declaração</td></tr>
+        <tr><td>Decisão interlocutória</td><td>Agravo de instrumento (rol do art. 1.015) · embargos de declaração</td></tr>
+        <tr><td>Decisão monocrática do relator</td><td>Agravo interno</td></tr>
+        <tr><td>Acórdão</td><td>Embargos de declaração · RE · REsp</td></tr>
+        <tr><td>Despacho</td><td>Nenhum</td></tr></table></div>
+      <div class="sub-topic"><h3>Sentença: terminativa x definitiva</h3><ul>
+        <li><b>Terminativa:</b> sem resolução de mérito (art. 485). Faz coisa julgada formal.</li>
+        <li><b>Definitiva:</b> com resolução de mérito (art. 487). Faz coisa julgada material.</li>
+        <li>Elementos: relatório, fundamentação e dispositivo. Faltando um, em regra a sentença é nula (erro in procedendo).</li></ul></div>
+      <div class="sub-topic"><h3>Classificação das sentenças (pelo conteúdo)</h3><ul>
+        <li><b>Teoria ternária (Liebman):</b> declaratória, constitutiva e condenatória.</li>
+        <li><b>Teoria quinária (Pontes de Miranda):</b> as três acima + <b>executiva lato sensu</b> + <b>mandamental</b> (as duas últimas são subespécies de condenatória).</li></ul>
+        <div class="tbl-wrap"><table><tr><th>Tipo</th><th>O que faz</th><th>Efeito / exemplo</th></tr>
+        <tr><td><b>Declaratória</b></td><td>Declara existência, inexistência ou modo de ser de relação jurídica</td><td>Certeza jurídica; em regra <i>ex tunc</i></td></tr>
+        <tr><td><b>Constitutiva</b></td><td>Cria, modifica ou extingue relação jurídica (positiva ou negativa)</td><td><i>Ex nunc</i>; ex.: divórcio, anulação de casamento (necessária), resilição (facultativa)</td></tr>
+        <tr><td><b>Condenatória</b></td><td>Declara o direito e impõe ao réu uma prestação (fazer, não fazer, entregar ou pagar)</td><td>Cria título executivo; defesa por impugnação</td></tr>
+        <tr><td><b>Executiva lato sensu</b></td><td>Autoexecutável: dispensa processo/fase de execução</td><td>Despejo, reintegração e imissão na posse</td></tr>
+        <tr><td><b>Mandamental</b></td><td>Ordem judicial; atinge a vontade do réu (multa, desobediência)</td><td>Ex.: mandado de segurança</td></tr></table></div></div>
+      <div class="sub-topic"><h3>Juízo de admissibilidade x juízo de mérito</h3><ul>
+        <li><b>Admissibilidade:</b> exame formal do recurso (cumpriu os requisitos?). Se não, <b>não conhece</b>. Não há resolução do mérito.</li>
+        <li><b>Mérito:</b> só depois. Pense em <b>pedido</b>: <b>erro in procedendo</b> (vício no procedimento → <b>anulação</b>) ou <b>erro in judicando</b> (juízo errado de fatos/direito → <b>reforma</b>).</li></ul></div>
+    </div></div>
+
+  <div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>2 · Teoria geral dos recursos<small>CPC, arts. 994 a 1.008 · princípios, requisitos e efeitos</small></div><span class="seta">▶</span></div>
+    <div class="module-body">
+      <div class="sub-topic"><h3>Conceito e características</h3><ul>
+        <li>Recurso é o remédio processual para submeter decisão a nova apreciação, em regra por órgão diferente, para <b>modificar, invalidar, esclarecer ou integrar</b> a decisão.</li>
+        <li>Interposto na <b>mesma relação processual</b> (não é ação). Impede a preclusão e a coisa julgada enquanto pendente.</li>
+        <li><b>Rol taxativo (art. 994):</b> apelação, agravo de instrumento, agravo interno, embargos de declaração, recurso ordinário, REsp, RE, agravo em REsp/RE e embargos de divergência.</li>
+        <li>Em regra interpõe-se no órgão <i>a quo</i>; exceção: <b>agravo de instrumento</b>, direto no tribunal. Embargos de declaração são julgados pelo mesmo órgão que decidiu.</li>
+        <li>A decisão do órgão <i>ad quem</i>, quando conhece do recurso, <b>substitui</b> a recorrida. Recurso não conhecido não impede o trânsito em julgado só se interposto de má-fé (Súmula 401/STJ: prazo da rescisória só começa quando não cabe mais recurso).</li>
+        <li>Só cabe recurso de <b>pronunciamento do juiz</b> (não do MP ou serventuário) com conteúdo decisório. Despachos não são recorríveis.</li></ul></div>
+      <div class="sub-topic"><h3>Princípios recursais</h3>
+        <div class="tbl-wrap"><table><tr><th>Princípio</th><th>Ideia</th></tr>
+        <tr><td><b>Duplo grau de jurisdição</b></td><td>Direito de revisão por órgão superior</td></tr>
+        <tr><td><b>Taxatividade</b></td><td>Só são recursos os previstos em lei (art. 994)</td></tr>
+        <tr><td><b>Singularidade (unirrecorribilidade)</b></td><td>Para cada decisão, um só recurso (sólido em 1º grau; contra acórdão cabem vários)</td></tr>
+        <tr><td><b>Correspondência</b></td><td>Cada decisão tem seu recurso adequado</td></tr>
+        <tr><td><b>Dialeticidade</b></td><td>O recurso deve apontar os motivos do inconformismo (razões)</td></tr>
+        <tr><td><b>Fungibilidade</b></td><td>Aceita-se um recurso por outro se há dúvida plausível, não erro grosseiro (arts. 1.024, § 3º, 1.032, 1.033)</td></tr>
+        <tr><td><b>Voluntariedade</b></td><td>Recorre quem quer, e só do que quer (devolução limitada)</td></tr>
+        <tr><td><b>Proibição da <i>reformatio in pejus</i></b></td><td>O recorrente não pode ter situação pior que a da decisão recorrida (exceto matéria de ordem pública)</td></tr>
+        <tr><td><b>Complementariedade</b></td><td>Pode-se complementar o recurso quando embargos alteram a decisão (art. 1.024, § 4º)</td></tr>
+        <tr><td><b>Consumação</b></td><td>Interposto o recurso, esgota-se o ato; não se interpõe outro igual (preclusão consumativa)</td></tr>
+        <tr><td><b>Primazia do mérito, cooperação, vedação de decisão surpresa</b></td><td>Arts. 4º, 6º, 10 e 932, parágrafo único (prazo de 5 dias para sanar vício antes de não conhecer)</td></tr></table></div></div>
+      <div class="sub-topic"><h3>Requisitos de admissibilidade</h3><ul>
+        <li><b>Intrínsecos</b> (ligados à decisão): <b>cabimento</b>, <b>legitimidade</b> (partes, MP, terceiro prejudicado) e <b>interesse recursal</b> (sucumbência) — mais a inexistência de fato extintivo/impeditivo do direito de recorrer.</li>
+        <li><b>Extrínsecos</b> (externos): <b>tempestividade</b>, <b>preparo</b>, <b>regularidade formal</b>.</li>
+        <li><b>Prazo:</b> 15 dias úteis para os recursos em geral; <b>5 dias</b> para embargos de declaração. Prazo em dobro: MP, Fazenda, Defensoria e Advocacia Pública. Embargos de declaração <b>interrompem</b> o prazo dos demais recursos.</li>
+        <li><b>Preparo:</b> comprova-se na interposição; se faltar, o recorrente é intimado para recolher em <b>dobro</b>, sob pena de <b>deserção</b>. Isentos: MP, Fazenda Pública e beneficiários da justiça gratuita. Embargos de declaração não têm preparo.</li>
+        <li><b>Renúncia</b> (antes de recorrer) e <b>aquiescência</b> (aceitar a decisão) extinguem o direito de recorrer. <b>Desistência</b> (depois de recorrer) impede o julgamento; pode ser a qualquer tempo, sem anuência do recorrido.</li>
+        <li>Terceiro prejudicado: demonstra que a decisão pode atingir direito de que se afirme titular. O advogado só recorre em nome próprio dos <b>honorários</b>.</li></ul></div>
+      <div class="sub-topic"><h3>Efeitos dos recursos</h3>
+        <div class="tbl-wrap"><table><tr><th>Efeito</th><th>O que é</th></tr>
+        <tr><td><b>Devolutivo</b></td><td>Todo recurso: devolve ao órgão julgador o conhecimento da matéria. Extensão = o que foi impugnado; profundidade = todos os fundamentos (art. 1.013, § 1º a 3º)</td></tr>
+        <tr><td><b>Suspensivo</b></td><td>Suspende os efeitos da decisão. Regra: recursos <u>não</u> têm (art. 995). Exceção: a apelação, em regra, tem (art. 1.012). Pode ser <i>ope legis</i> ou <i>ope judicis</i></td></tr>
+        <tr><td><b>Regressivo (retratação)</b></td><td>Permite ao próprio juiz reconsiderar (ex.: apelação contra indeferimento da inicial, agravos)</td></tr>
+        <tr><td><b>Translativo</b></td><td>O tribunal conhece de matérias de ordem pública mesmo sem pedido</td></tr>
+        <tr><td><b>Expansivo</b></td><td>Resultado vai além do pedido: subjetivo (litisconsórcio unitário) ou objetivo (prejudicialidade)</td></tr>
+        <tr><td><b>Ativo</b></td><td>Antecipação da tutela recursal pelo relator</td></tr></table></div></div>
+      <div class="sub-topic"><h3>Inovação</h3><ul>
+        <li>Em regra, <b>não</b> se inova no recurso. Exceções: fato superveniente (art. 493), questões de fato por força maior (art. 1.014) e matéria de ordem pública.</li></ul></div>
+    </div></div>
+
+  <div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>3 · Apelação<small>CPC, arts. 1.009 a 1.014 · cabe contra sentença</small></div><span class="seta">▶</span></div>
+    <div class="module-body">
+      <div class="sub-topic"><h3>Quando cabe?</h3><ul>
+        <li>Cabe contra <b>qualquer sentença</b> (arts. 485 e 487), de conhecimento ou que extingue a execução, de jurisdição contenciosa ou voluntária.</li>
+        <li><b>Exceções:</b> a sentença que <b>decreta a falência</b> desafia agravo (Lei 11.101, art. 100); a que julga improcedente o pedido de falência cabe apelação. Na execução fiscal de pequeno valor, embargos infringentes.</li>
+        <li><b>Não se apela só para atacar interlocutória</b>. Mas as decisões interlocutórias <u>não agraváveis</u> (fora do art. 1.015) <b>não precluem</b> e são reexaminadas se alegadas em <b>preliminar de apelação</b> (pelo apelante) ou nas <b>contrarrazões</b> (pelo apelado) — art. 1.009, § 1º. O apelante é intimado para responder em 15 dias (§ 2º).</li></ul></div>
+      <div class="sub-topic"><h3>Requisitos e processamento</h3><ul>
+        <li><b>Prazo: 15 dias</b> (úteis). Interposta por <b>petição ao juiz de 1º grau</b>, com as <b>razões</b> (art. 1.010): nomes/qualificação, fato e direito, razões do pedido de reforma ou nulidade, pedido de nova decisão.</li>
+        <li><b>Preparo</b> (lei estadual de custas). O juiz de 1º grau <b>não faz juízo de admissibilidade</b>: intima o apelado para contrarrazões (15 dias) e remete ao tribunal.</li>
+        <li>No tribunal: relator, voto, julgamento por <b>3 juízes</b>. Pode haver decisão monocrática (art. 932, III a V) → <b>agravo interno</b>.</li>
+        <li><b>Indeferimento da inicial</b> ou <b>improcedência liminar</b>: o juiz tem <b>5 dias para se retratar</b>; se não, cita o réu para contrarrazões.</li>
+        <li><b>Art. 942</b> (técnica de julgamento, não é recurso): se o resultado da apelação <b>não for unânime</b>, o julgamento prossegue com outros julgadores, sem requerimento. Também se aplica ao AI contra decisão de mérito e à rescisória.</li></ul></div>
+      <div class="sub-topic"><h3>Efeitos da apelação</h3><ul>
+        <li><b>Devolutivo</b> (art. 1.013): o tribunal julga o que foi impugnado; se há mais de um fundamento e só um foi acolhido, devolve-se os demais; pode julgar o mérito de imediato (<b>teoria da causa madura</b>, § 3º) se reformar sentença do art. 485, a sentença for incongruente, houver omissão de pedido ou falta de fundamentação.</li>
+        <li><b>Suspensivo:</b> a regra é ter. <b>Não tem</b> (art. 1.012, § 1º) contra sentença que: homologa divisão/demarcação; condena a pagar alimentos; extingue sem mérito ou julga improcedentes embargos à execução; julga procedente pedido de instituir arbitragem; confirma, concede ou revoga tutela provisória; decreta interdição.</li>
+        <li><b>Regressivo:</b> só em extinção sem resolução de mérito (art. 485, § 7º) e improcedência liminar (art. 332, § 3º).</li>
+        <li><b>Translativo:</b> ordem pública (prescrição, decadência, pressupostos, nulidades).</li></ul></div>
+    </div></div>
+
+  <div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>4 · Agravo de instrumento e agravo interno<small>CPC, arts. 1.015 a 1.021</small></div><span class="seta">▶</span></div>
+    <div class="module-body">
+      <div class="sub-topic"><h3>Hoje temos</h3><ul>
+        <li><b>Agravo de instrumento</b> e <b>agravo interno</b>; fora deste capítulo, o <b>agravo em REsp/RE</b> (art. 1.042). O <b>agravo retido</b> acabou.</li></ul></div>
+      <div class="sub-topic"><h3>Quando cabe o agravo de instrumento? (art. 1.015 — rol taxativo)</h3><ul>
+        <li>I – <b>tutelas provisórias</b> (cautelar, antecipada, urgência e evidência)</li>
+        <li>II – <b>mérito do processo</b> (julgamento antecipado parcial do mérito; não agravar = coisa julgada, e não preclusão)</li>
+        <li>III – rejeição da alegação de <b>convenção de arbitragem</b></li>
+        <li>IV – incidente de <b>desconsideração da personalidade jurídica</b></li>
+        <li>V – <b>gratuidade da justiça</b>: cabe quando <u>rejeita</u> o pedido ou <u>acolhe</u> a revogação; não cabe se defere ou rejeita revogação</li>
+        <li>VI – <b>exibição ou posse</b> de documento ou coisa</li>
+        <li>VII – <b>exclusão de litisconsorte</b> (só se excluir)</li>
+        <li>VIII – rejeição do pedido de <b>limitação do litisconsórcio</b></li>
+        <li>IX – admissão ou inadmissão de <b>intervenção de terceiros</b></li>
+        <li>X – <b>efeito suspensivo aos embargos à execução</b> (concessão, modificação ou revogação)</li>
+        <li>XI – <b>redistribuição do ônus da prova</b> (art. 373, § 1º)</li>
+        <li>XII – vetado · XIII – <b>outros casos previstos em lei</b> (ex.: decretação de falência)</li>
+        <li><b>Parágrafo único:</b> decisões na <b>liquidação</b>, <b>cumprimento de sentença</b>, <b>execução</b> e <b>inventário</b>.</li></ul>
+        <div class="callout">As interlocutórias fora do rol não são “irrecorríveis”: não são recorríveis <i>em separado</i> e são impugnadas na apelação/contrarrazões. <i>Complemento:</i> o STJ admite agravo fora do rol, excepcionalmente, em caso de urgência (taxatividade mitigada).</div></div>
+      <div class="sub-topic"><h3>Processamento</h3><ul>
+        <li>É o <b>único recurso interposto diretamente no tribunal</b> (art. 1.016). Prazo: <b>15 dias</b>. Preparo conforme a lei estadual.</li>
+        <li>Petição: nomes das partes, fato e direito, razões do pedido de reforma/invalidação e nome e endereço dos advogados.</li>
+        <li><b>Peças obrigatórias:</b> petição inicial, contestação, petição que gerou a decisão, a decisão agravada, certidão de intimação (ou outro documento de tempestividade) e procurações. Faltando peça, o relator dá <b>5 dias</b> para sanar (art. 932, parágrafo único).</li>
+        <li>Em autos físicos, o agravante informa o juízo de 1º grau em <b>3 dias</b> (art. 1.018, § 2º); no processo eletrônico é facultativo.</li>
+        <li>O relator pode: não conhecer, dar ou negar provimento monocraticamente, atribuir <b>efeito suspensivo ou ativo</b> (só a pedido; relevante fundamentação e risco de dano grave), intimar o agravado (<b>15 dias</b>), ouvir o MP (15 dias) e pedir dia para julgamento em até <b>1 mês</b>. Julgamento por 3 juízes.</li>
+        <li>O juiz de 1º grau pode <b>retratar-se</b> (efeito regressivo); se for total, o agravo fica prejudicado.</li>
+        <li>Art. 942: aplica-se ao AI contra decisão de mérito, quando não unânime e reforma a decisão.</li></ul></div>
+      <div class="sub-topic"><h3>Agravo interno (art. 1.021)</h3><ul>
+        <li>Cabe contra <b>qualquer decisão monocrática do relator</b>, para o colegiado. Prazo: <b>15 dias</b>.</li>
+        <li>Agravado responde em 15 dias; o relator pode se retratar. O colegiado não pode só repetir os fundamentos da decisão agravada.</li>
+        <li>Se manifestamente inadmissível ou improcedente, por votação unânime, multa de <b>1% a 5%</b> do valor da causa.</li></ul></div>
+    </div></div>
+
+  <div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>5 · Embargos de declaração<small>CPC, arts. 1.022 a 1.026</small></div><span class="seta">▶</span></div>
+    <div class="module-body">
+      <div class="sub-topic"><h3>Cabimento e vícios (art. 1.022)</h3><ul>
+        <li>Cabem contra <b>qualquer decisão judicial</b> (interlocutória, sentença, acórdão), em qualquer processo, para: <b>esclarecer obscuridade</b>, <b>eliminar contradição</b>, <b>suprir omissão</b> ou <b>corrigir erro material</b>.</li>
+        <li><b>Omissão:</b> não se manifestar sobre ponto que devia. Considera-se omissa a decisão que não segue tese de <b>casos repetitivos / assunção de competência</b> ou que incorre nas hipóteses do <b>art. 489, § 1º</b> (decisão sem fundamentação: só repete a lei, usa conceito indeterminado sem explicar, serve para qualquer caso, não enfrenta todos os argumentos, invoca precedente/súmula sem relacionar ao caso, deixa de aplicar precedente sem distinção).</li>
+        <li>O juiz deve examinar <b>todos os pedidos</b>; nem sempre todos os fundamentos.</li>
+        <li>Errar o nome do vício (chamar contradição de obscuridade) não impede o conhecimento.</li></ul></div>
+      <div class="sub-topic"><h3>Requisitos e processamento</h3><ul>
+        <li><b>Prazo: 5 dias</b>. <b>Sem preparo.</b> Por petição ao próprio juízo/tribunal que decidiu (no Juizado, podem ser orais).</li>
+        <li><b>Interrompem</b> o prazo para outros recursos, de todos os litigantes, mesmo se não admitidos (inclusive contra decisão interlocutória: o prazo do agravo recomeça).</li>
+        <li>Contrarrazões em <b>5 dias</b> só se o acolhimento puder modificar a decisão (art. 1.023, § 2º). O juiz julga em <b>5 dias</b>. Contra decisão monocrática do relator, decide-se monocraticamente.</li>
+        <li><b>Multa</b> por embargos protelatórios: até <b>2%</b> do valor da causa; em reiteração, até <b>10%</b> (e o novo recurso exige depósito, salvo Fazenda e gratuidade). Após dois embargos protelatórios, não se admitem novos (art. 1.026, § 4º).</li>
+        <li>O órgão pode conhecer dos embargos como <b>agravo interno</b> (fungibilidade, art. 1.024, § 3º).</li></ul></div>
+      <div class="sub-topic"><h3>Efeitos</h3><ul>
+        <li><b>Devolutivo</b> (ao próprio prolator) e <b>translativo</b>. <b>Sem efeito suspensivo</b>, salvo se concedido (art. 1.026, § 1º: probabilidade de provimento ou risco de dano grave).</li>
+        <li><b>Efeito modificativo (infringente):</b> pode ocorrer como <b>consequência natural</b> de sanar o vício, mas os embargos <u>não servem</u> para o juiz mudar de convicção ou reexaminar a prova.</li>
+        <li><b>Prequestionamento:</b> embargos opostos para esse fim consideram-se incluídos no acórdão, ainda que rejeitados, se o tribunal superior reconhecer vício (<b>art. 1.025</b>; Súmula 98 do STJ).</li></ul></div>
+    </div></div>
+
+  <div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>6 · Recurso extraordinário (RE) e especial (REsp)<small>CF, arts. 102, III e 105, III · CPC, arts. 1.029 a 1.041</small></div><span class="seta">▶</span></div>
+    <div class="module-body">
+      <div class="sub-topic"><h3>Ideia geral</h3><ul>
+        <li>Recursos <b>excepcionais</b>, de fundamentação vinculada. <b>Não são terceira apelação</b>: só discutem <b>direito</b>, nunca reexame de fatos, provas ou cláusulas contratuais.</li>
+        <li>Exigem causa decidida em <b>única ou última instância</b> (esgotamento das vias ordinárias). Rigoroso juízo de admissibilidade.</li>
+        <li>Prazo: <b>15 dias úteis</b>. Interpostos perante a <b>presidência ou vice-presidência</b> do tribunal de origem, que intima o recorrido para contrarrazões (15 dias).</li></ul></div>
+      <div class="tbl-wrap"><table>
+        <tr><th></th><th>RE · STF</th><th>REsp · STJ</th></tr>
+        <tr><td><b>Função</b></td><td>Guardião da Constituição</td><td>Uniformizar a lei federal infraconstitucional</td></tr>
+        <tr><td><b>Cabimento</b></td><td>a) contrariar a CF · b) declarar inconstitucional tratado/lei federal · c) julgar válida lei/ato local contestado diante da CF · d) julgar válida lei local contestada diante de lei federal</td><td>a) contrariar ou negar vigência a tratado/lei federal · b) julgar válido ato de governo local contestado diante de lei federal · c) dar à lei federal interpretação divergente de outro tribunal</td></tr>
+        <tr><td><b>Decisão atacada</b></td><td>Única ou última instância (até de Colégio Recursal)</td><td>De TRF ou TJ (tribunais); em regra não de Colégio Recursal</td></tr>
+        <tr><td><b>Filtro</b></td><td><b>Repercussão geral</b></td><td><b>Relevância da questão federal</b></td></tr></table></div>
+      <div class="sub-topic"><h3>Requisitos especiais de admissibilidade</h3><ul>
+        <li><b>Regularidade formal:</b> petição e razões, com o enquadramento constitucional (art. 1.029).</li>
+        <li><b>Prequestionamento:</b> a questão constitucional/federal deve ter sido discutida no acórdão (Súmulas 282 e 356/STF; 211/STJ). Se houve omissão, opõem-se <b>embargos de declaração</b> (art. 1.022, II); o art. 1.025 prevê o prequestionamento ficto.</li>
+        <li><b>Vedado reexame de fatos/provas e de cláusula contratual:</b> Súmulas 7 e 5/STJ; 279 e 454/STF.</li>
+        <li><b>Impugnar todos os fundamentos</b> do acórdão (Súmula 283/STF) e fundamentar com clareza (Súmula 284/STF).</li>
+        <li><b>Divergência no REsp:</b> prova e <b>cotejo analítico</b> entre acórdão recorrido e paradigma, com similitude fática e jurídica (art. 1.029, § 1º).</li>
+        <li><b>Preparo</b> (taxa judiciária e porte de remessa e retorno).</li>
+        <li><b>Repercussão geral (RE):</b> relevância econômica, política, social ou jurídica que ultrapasse os interesses subjetivos da causa (CF, art. 102, § 3º; CPC, art. 1.035). Há repercussão quando o acórdão contraria súmula/jurisprudência dominante do STF ou declara inconstitucional tratado/lei federal. Decisão irrecorrível; se não reconhecida, o RE não é conhecido e os sobrestados ficam sem seguimento; se reconhecida, suspendem-se os processos e o RE é julgado em 1 ano.</li>
+        <li><b>Relevância no REsp:</b> exigência de tópico específico (art. 1.035-A, Lei 15.484/2026; conforme a data de publicação do acórdão). Presunção constitucional em hipóteses do art. 105, § 3º (ex.: ações penais, improbidade, causas de valor elevado, acórdão contrário à jurisprudência dominante do STJ).</li>
+        <li>Admitido por um fundamento, devolve-se ao tribunal superior o conhecimento dos demais (art. 1.034, parágrafo único).</li>
+        <li>Se um RE trata de ofensa só <b>reflexa</b> à Constituição, o STF o remete ao STJ como REsp (art. 1.033); se o REsp trata de questão constitucional, o relator dá 15 dias para demonstrar repercussão geral (art. 1.032).</li></ul></div>
+      <div class="sub-topic"><h3>Na origem (art. 1.030) e repetitivos</h3><ul>
+        <li>A presidência/vice-presidência pode: <b>negar seguimento</b> (RE sem repercussão geral ou acórdão alinhado ao STF/STJ em repetitivos), <b>devolver ao órgão julgador</b> para retratação, <b>sobrestar</b>, <b>selecionar recurso representativo</b> ou fazer o <b>juízo de admissibilidade</b> e remeter.</li>
+        <li><b>Recursos repetitivos</b> (arts. 1.036 a 1.041): são afetados recursos representativos, suspensos os demais e a tese tem efeito vinculante (precedente obrigatório).</li>
+        <li>RE e REsp contra o mesmo acórdão: vão primeiro ao <b>STJ</b>; depois ao STF se o RE não estiver prejudicado.</li>
+        <li><b>Efeito suspensivo</b> não é automático: probabilidade de provimento + risco de dano grave (arts. 995 e 1.029, § 5º).</li></ul></div>
+    </div></div>
+
+  <div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>7 · Agravo em REsp/RE (AREsp/ARE) e embargos de divergência<small>CPC, arts. 1.030, 1.042, 1.043 e 1.044</small></div><span class="seta">▶</span></div>
+    <div class="module-body">
+      <div class="sub-topic"><h3>O que é o agravo do art. 1.042?</h3><ul>
+        <li>Recurso para <b>destrancar</b> o REsp ou o RE <b>inadmitido</b> pela presidência/vice-presidência do tribunal de origem. Não é novo REsp/RE: discute se os motivos da inadmissão estão corretos.</li>
+        <li>Interposto <b>perante a presidência/vice do tribunal de origem</b>; o agravado responde em <b>15 dias</b>; o prolator pode <b>retratar-se</b> ou remeter ao STJ/STF. <b>Um agravo para cada recurso</b> inadmitido; se AREsp e ARE, os autos vão primeiro ao STJ.</li>
+        <li><b>Prazo:</b> 15 dias úteis. <b>Independe de custas e despesas postais</b> (art. 1.042, § 2º).</li>
+        <li><b>Dialeticidade:</b> deve impugnar <b>especificamente cada fundamento</b> da inadmissão; não pode repetir o REsp/RE nem inovar na tese.</li></ul></div>
+      <div class="sub-topic"><h3>Qual recurso interpor? (árvore de decisão)</h3>
+        <div class="tbl-wrap"><table><tr><th>Fundamento da decisão do tribunal de origem</th><th>Recurso</th></tr>
+        <tr><td>Aplicou precedente qualificado (repercussão geral, repetitivos, relevância) — art. 1.030, I</td><td><b>Agravo interno</b> (art. 1.030, § 2º), ao colegiado do próprio tribunal</td></tr>
+        <tr><td>Sobrestou recurso à espera de precedente — art. 1.030, III</td><td><b>Agravo interno</b></td></tr>
+        <tr><td>Inadmitiu por outro fundamento (intempestividade, falta de prequestionamento, deficiência de fundamentação…) — art. 1.030, V</td><td><b>Agravo do art. 1.042</b> (AREsp/ARE)</td></tr>
+        <tr><td>Seleção de recurso representativo / retratação (art. 1.030, II e IV)</td><td>Em regra, irrecorríveis</td></tr></table></div>
+        <div class="callout perigo"><b>Erro clássico:</b> usar o art. 1.042 quando a decisão se baseou em precedente qualificado. A via correta é o agravo interno; escolher errado pode levar ao não conhecimento.</div></div>
+      <div class="sub-topic"><h3>Como responder aos óbices mais comuns</h3><ul>
+        <li><b>Falta de prequestionamento:</b> mostrar onde a questão foi debatida; embargos de declaração e art. 1.025.</li>
+        <li><b>Reexame de fatos/provas:</b> demonstrar que é qualificação jurídica de fatos já fixados.</li>
+        <li><b>Fundamentação deficiente:</b> relacionar a norma, o trecho do acórdão e a violação.</li>
+        <li><b>Dissídio:</b> cotejo analítico.</li>
+        <li><b>Ofensa reflexa à CF:</b> demonstrar que a questão é constitucional direta.</li></ul></div>
+      <div class="sub-topic"><h3>Embargos de divergência (arts. 1.043 e 1.044)</h3><ul>
+        <li>Cabem contra acórdão de <b>órgão fracionário do STF ou STJ</b> em RE ou REsp que <b>divergir</b> de outro órgão do mesmo tribunal (acórdãos de mérito, ou um de mérito e outro que não conheceu mas apreciou a controvérsia).</li>
+        <li>Uniformizam a jurisprudência <b>interna</b> do tribunal superior; não se confundem com o REsp por divergência entre tribunais diferentes.</li></ul></div>
+      <div class="callout"><b>Recurso ordinário</b> (STF/STJ contra denegação de mandado de segurança etc.): a professora avisou que <b>não cai</b> na prova.</div>
+    </div></div>
+</section>
+
+<!-- ============ MAPAS ============ -->
+<section id="mapas" class="tab-content">
+  <h2>Mapas e comparativos</h2>
+
+  <h2 style="font-size:1.05rem">Qual recurso para qual decisão?</h2>
+  <div class="flow">
+    <div class="flow-step"><b>Sentença</b>Apelação (15 dias)</div><div class="flow-arrow">➜</div>
+    <div class="flow-step"><b>Interlocutória do art. 1.015</b>Agravo de instrumento (15 dias, direto no tribunal)</div><div class="flow-arrow">➜</div>
+    <div class="flow-step"><b>Decisão do relator</b>Agravo interno (15 dias)</div><div class="flow-arrow">➜</div>
+    <div class="flow-step"><b>Acórdão</b>RE / REsp (15 dias)</div>
+  </div>
+
+  <h2 style="font-size:1.05rem">Todos os recursos (art. 994)</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th>Recurso</th><th>Prazo</th><th>Preparo</th><th>Observação</th></tr>
+    <tr><td>Apelação</td><td>15 dias</td><td>Sim (lei estadual)</td><td>Sem juízo de admissibilidade na origem; em regra tem efeito suspensivo</td></tr>
+    <tr><td>Agravo de instrumento</td><td>15 dias</td><td>Conforme lei estadual</td><td>Direto no tribunal; rol taxativo</td></tr>
+    <tr><td>Agravo interno</td><td>15 dias</td><td>Não há</td><td>Contra decisão do relator; multa de 1% a 5%</td></tr>
+    <tr><td>Embargos de declaração</td><td>5 dias</td><td>Não há</td><td>Interrompem prazo dos demais; multa de 2% (até 10%)</td></tr>
+    <tr><td>Recurso extraordinário</td><td>15 dias</td><td>Sim</td><td>Repercussão geral; questão constitucional</td></tr>
+    <tr><td>Recurso especial</td><td>15 dias</td><td>Sim</td><td>Lei federal; relevância; divergência</td></tr>
+    <tr><td>Agravo em REsp/RE (art. 1.042)</td><td>15 dias</td><td>Não depende de custas e porte postal</td><td>Destrancar RE/REsp inadmitido</td></tr>
+    <tr><td>Embargos de divergência</td><td>15 dias</td><td>—</td><td>Divergência interna do STF/STJ</td></tr>
+    <tr><td>Recurso ordinário</td><td>—</td><td>—</td><td><b>Não cai na prova</b></td></tr>
+  </table></div>
+
+  <h2 style="font-size:1.05rem">Efeitos dos recursos em resumo</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th>Recurso</th><th>Devolutivo</th><th>Suspensivo</th><th>Regressivo</th><th>Translativo</th></tr>
+    <tr><td>Apelação</td><td>Sim</td><td>Regra sim (art. 1.012)</td><td>Só em art. 485 e improcedência liminar</td><td>Sim</td></tr>
+    <tr><td>Agravo de instrumento</td><td>Sim</td><td>Não (relator pode conceder)</td><td>Sim (retratação)</td><td>Sim</td></tr>
+    <tr><td>Embargos de declaração</td><td>Sim (ao prolator)</td><td>Não (pode ser concedido)</td><td>—</td><td>Sim</td></tr>
+    <tr><td>RE / REsp</td><td>Sim</td><td>Não (excepcional)</td><td>—</td><td>Limitado</td></tr>
+  </table></div>
+
+  <h2 style="font-size:1.05rem">Requisitos de admissibilidade</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th>Intrínsecos</th><th>Extrínsecos</th><th>Especiais (RE/REsp)</th></tr>
+    <tr><td>Cabimento · legitimidade · interesse · inexistência de fato extintivo/impeditivo</td><td>Tempestividade · preparo · regularidade formal</td><td>Prequestionamento · repercussão geral / relevância · sem reexame de provas · impugnar todos os fundamentos · cotejo analítico (divergência)</td></tr>
+  </table></div>
+
+  <h2 style="font-size:1.05rem">Caminho do RE e do REsp</h2>
+  <div class="flow">
+    <div class="flow-step"><b>1. Acórdão</b>TJ ou TRF</div><div class="flow-arrow">➜</div>
+    <div class="flow-step"><b>2. RE/REsp</b>Perante a presidência/vice do tribunal de origem</div><div class="flow-arrow">➜</div>
+    <div class="flow-step"><b>3. Art. 1.030</b>Nega seguimento, sobresta, retratação, representativo ou admite</div><div class="flow-arrow">➜</div>
+    <div class="flow-step"><b>4. Reação</b>Agravo interno (precedente) ou AREsp/ARE (art. 1.042)</div>
+  </div>
+</section>
+
+<!-- ============ PEGADINHAS ============ -->
+<section id="pegadinhas" class="tab-content">
+  <h2>Alertas e pegadinhas</h2>
+  <div class="intro">Afirmações que parecem certas e estão erradas. Tente responder antes de ler a correção.</div>
+  <div id="lista-peg"></div>
+</section>
+
+<!-- ============ SIMULADO ============ -->
+<section id="quiz" class="tab-content">
+  <h2>Simulado com correção na hora</h2>
+  <div class="stats">
+    <div class="stat-box">Respondidas <span id="stat-total">0/0</span></div>
+    <div class="stat-box">Acertos <span id="stat-correct" style="color:var(--correct-green)">0</span></div>
+    <div class="stat-box">Erros <span id="stat-wrong" style="color:var(--wrong-red)">0</span></div>
+    <div class="stat-box">Aproveitamento <span id="stat-percent">0%</span></div>
+  </div>
+  <p><button class="btn" onclick="resetQuiz()">🔄 Refazer (embaralha as questões)</button></p>
+  <div id="quiz-container"></div>
+</section>
+
+<!-- ============ VÍDEOS ============ -->
+<section id="videos" class="tab-content">
+  <h2>Vídeos e podcasts</h2>
+  <div class="intro">Aqui entram os vídeos e podcasts feitos no NotebookLM e publicados no YouTube. Para incluir um, basta colocar o <b>código do vídeo</b> na lista <code>VIDEOS</code> no fim deste arquivo.</div>
+  <div id="video-area"></div>
+</section>
+
+</main>
+<footer>Material de apoio de estudo, organizado a partir das aulas. Não é publicação oficial da UNIP nem substitui a lei e as orientações do professor.</footer>
+
+<script>
+// ---- Vídeos: preencher com {titulo:"...", id:"CODIGO_DO_YOUTUBE"} ----
+var VIDEOS = [
+    // { titulo: "Recurso especial e extraordinário", id: "XXXXXXXXXXX" },
+];
+
+var PEGADINHAS = [
+  ["Cabe recurso de despacho.", "Não. Despachos são de mero andamento e não admitem recurso (art. 1.001). Cuidado: o que vale é o conteúdo; “despacho” que decide é decisão interlocutória."],
+  ["Contra a sentença cabe apelação e agravo de instrumento.", "Singularidade: para a sentença, apelação (e embargos de declaração). Agravo de instrumento é para interlocutórias do art. 1.015."],
+  ["Toda decisão interlocutória é impugnável por agravo de instrumento.", "Só as do rol taxativo do art. 1.015 (e do parágrafo único). As demais são impugnadas na preliminar de apelação ou nas contrarrazões."],
+  ["Decisão interlocutória fora do rol do art. 1.015 é irrecorrível e precluiu.", "Não precluiu: é “irrecorrível em separado”. Pode ser reexaminada na apelação ou contrarrazões."],
+  ["Pode-se apelar apenas para atacar uma decisão interlocutória.", "Não. A apelação é contra a sentença; a interlocutória é levantada como preliminar de apelação ou nas contrarrazões."],
+  ["A apelação é interposta diretamente no tribunal.", "É interposta no juízo de 1º grau, que não faz juízo de admissibilidade. Quem é interposto direto no tribunal é o agravo de instrumento."],
+  ["A apelação não tem efeito suspensivo.", "A regra é ter efeito suspensivo; as exceções estão no art. 1.012, § 1º (alimentos, tutela provisória, embargos à execução, interdição etc.)."],
+  ["A sentença que decreta a falência desafia apelação.", "Cabe agravo (Lei 11.101, art. 100). A que julga improcedente o pedido de falência é apelável."],
+  ["O art. 942 (técnica de julgamento não unânime) é um recurso.", "Não é recurso: aplica-se de ofício, sem requerimento, quando o julgamento não é unânime."],
+  ["Não conhecido o recurso, a coisa julgada sempre retroage ao fim do prazo.", "O entendimento é que o recurso não conhecido também impede o trânsito em julgado, salvo má-fé (Súmula 401/STJ)."],
+  ["Despesas: embargos de declaração exigem preparo.", "Não exigem preparo. O prazo é de 5 dias."],
+  ["Embargos de declaração suspendem o prazo dos outros recursos.", "Interrompem: o prazo recomeça por inteiro, para todos os litigantes."],
+  ["Embargos de declaração servem para o juiz mudar de opinião.", "Não. Só sanam obscuridade, contradição, omissão e erro material. Pode haver alteração como consequência natural do vício sanado, não por mudança de convicção."],
+  ["Embargos de declaração só cabem contra sentença e acórdão.", "Cabem contra qualquer decisão judicial, inclusive interlocutórias."],
+  ["Embargos protelatórios geram multa de 10%.", "Multa de até 2% do valor da causa; em reiteração, até 10%."],
+  ["Agravo interno cabe contra decisão colegiada.", "Cabe contra decisão monocrática do relator, para o colegiado (art. 1.021)."],
+  ["O agravo de instrumento tem prazo de 10 dias.", "O prazo é de 15 dias úteis."],
+  ["A decisão que defere a gratuidade da justiça é agravável.", "Não: cabe agravo quando a gratuidade é rejeitada ou revogada. Se deferida, impugna-se em preliminar de apelação ou contrarrazões."],
+  ["O relator pode conceder efeito suspensivo ao agravo de ofício.", "Só a requerimento do agravante (relevante fundamentação e risco de dano grave)."],
+  ["Recurso extraordinário e especial servem para reexaminar provas.", "Não. Só discutem direito (Súmulas 7 e 5/STJ; 279 e 454/STF)."],
+  ["REsp cabe contra decisão de Colégio Recursal de Juizado.", "Em regra não: o REsp exige decisão de TRF ou TJ. O RE, em tese, cabe contra decisão de única ou última instância, até do Colégio Recursal."],
+  ["Basta ter questão constitucional para caber RE.", "Também é preciso demonstrar repercussão geral (e prequestionamento, sem ofensa só reflexa)."],
+  ["Repercussão geral é requisito do REsp.", "É do RE. No REsp o filtro é a relevância da questão federal (art. 1.035-A, conforme a regra temporal)."],
+  ["O prequestionamento dispensa embargos de declaração.", "Se o tribunal foi omisso, opõem-se embargos de declaração; pelo art. 1.025, os elementos ficam incluídos no acórdão mesmo se rejeitados, se houver vício."],
+  ["RE e REsp são interpostos diretamente no STF e no STJ.", "São interpostos perante a presidência/vice-presidência do tribunal de origem."],
+  ["Contra decisão que nega seguimento por aplicar precedente repetitivo cabe AREsp.", "Cabe agravo interno (art. 1.030, § 2º). AREsp é para inadmissão por outros fundamentos."],
+  ["O agravo do art. 1.042 exige pagar custas e porte postal.", "Independe de custas e despesas postais (§ 2º)."],
+  ["Basta repetir o REsp no AREsp.", "É preciso impugnar especificamente cada fundamento da inadmissão (dialeticidade). Copiar o REsp ou deixar fundamento sem resposta leva ao não conhecimento."],
+  ["Recurso ordinário é cobrado na prova.", "A professora avisou que NÃO cai recurso ordinário."],
+  ["Sentença executiva lato sensu e mandamental são espécies da teoria ternária.", "São da teoria quinária (Pontes de Miranda), como subespécies de condenatória. A ternária (Liebman) tem declaratória, constitutiva e condenatória."],
+  ["Erro in procedendo leva à reforma da decisão.", "Leva à anulação (vício de procedimento). Erro in judicando leva à reforma."],
+  ["O despacho saneador é mero despacho.","O saneamento envolve decisão sobre questões (art. 357): tem natureza de decisão interlocutória."],
+  ["Pelo art. 203, os pronunciamentos do juiz são quatro: sentença, interlocutória, despacho e ato ordinatório.","Pela literalidade, os pronunciamentos do juiz são três. O ato ordinatório é praticado pelo servidor (§ 4º). Em sala, a professora reuniu os quatro nomes no mesmo quadro."],
+  ["Sentença é o ato que sempre põe fim ao processo.","Encerra a fase cognitiva (ou extingue a execução). Depois pode haver recurso e cumprimento de sentença."],
+  ["O julgamento antecipado parcial do mérito é sentença.","É decisão interlocutória (art. 356, § 5º), impugnável por agravo de instrumento. O julgamento antecipado integral (art. 355) é que é sentença."],
+  ["Reconhecer a prescrição ou a decadência é sentença terminativa.","É resolução de mérito (art. 487, II): sentença definitiva."],
+  ["Desistência da ação e renúncia à pretensão são a mesma coisa.","Desistência: art. 485, VIII, sem mérito, terminativa. Renúncia: art. 487, III, c, com mérito, definitiva."],
+  ["Após a contestação, o autor pode desistir da ação sem ouvir o réu.","Depois da contestação, a desistência exige o consentimento do réu."],
+  ["Perempção é o mesmo que litispendência.","Perempção: três extinções por abandono imputáveis ao autor. Litispendência: ação idêntica ainda pendente."],
+  ["Trânsito em julgado e coisa julgada material são sinônimos.","Trânsito é o fato de a decisão não caber mais recurso; coisa julgada material é a autoridade da decisão de mérito que transitou. A sentença do art. 485 transita, mas só faz coisa julgada formal."],
+  ["A liminar concedida sem ouvir o réu faz coisa julgada material.","Não. Falta cognição exauriente; a decisão é provisória."],
+  ["A coisa julgada recai sobre os motivos da sentença.","Recai sobre a questão principal expressamente decidida (art. 503). Os motivos e a verdade dos fatos ficam fora (art. 504)."],
+  ["A decisão administrativa faz coisa julgada material do CPC.","Não. Pode haver estabilidade na esfera administrativa, mas permanece o acesso ao Judiciário (CF, art. 5º, XXXV)."],
+  ["Só a sentença faz coisa julgada.","Podem fazer também a decisão interlocutória de mérito (art. 356), o acórdão e a decisão monocrática do relator."],
+  ["Os embargos de declaração não servem como prequestionamento se forem rejeitados.","Pelo art. 1.025, os elementos suscitados consideram-se incluídos no acórdão mesmo se os embargos forem rejeitados, se o tribunal superior reconhecer o vício."],
+  ["O art. 1.042 vale para qualquer inadmissão de RE/REsp.","Exceto quando a decisão se funda em precedente qualificado (repercussão geral, relevância da questão federal ou repetitivos): aí cabe agravo interno."],
+  ["Pedido alternativo e pedido subsidiário são iguais.","Alternativo: uma coisa ou outra, sem preferência. Subsidiário: o segundo só é analisado se o primeiro for rejeitado."]
+];
+
+var QUESTOES = [
+  ["O pronunciamento que, com base nos arts. 485 e 487, põe fim à fase cognitiva do procedimento comum é:", ["Despacho","Decisão interlocutória","Sentença","Acórdão"], 2, "Art. 203, § 1º."],
+  ["Contra sentença o recurso cabível é:", ["Agravo de instrumento","Apelação","Agravo interno","Recurso especial direto"], 1, "Sentença → apelação (e embargos de declaração)."],
+  ["Do despacho de mero expediente:", ["Cabe agravo de instrumento","Cabe apelação","Cabem embargos de declaração apenas","Não cabe recurso"], 3, "Art. 1.001."],
+  ["Contra decisão monocrática do relator cabe:", ["Apelação","Agravo interno","Agravo de instrumento","Embargos de divergência"], 1, "Art. 1.021."],
+  ["Sentença executiva lato sensu e mandamental pertencem à teoria:", ["Ternária de Liebman","Quinária de Pontes de Miranda","Binária","Quaternária"], 1, "A teoria quinária soma essas duas às três da ternária."],
+  ["Sentença que dispensa processo de execução, como a de despejo, é:", ["Declaratória","Constitutiva","Executiva lato sensu","Terminativa"], 2, "É autoexecutável."],
+  ["A sentença de divórcio, que extingue o vínculo, é:", ["Declaratória","Constitutiva negativa","Condenatória","Mandamental"], 1, "Extingue relação jurídica."],
+  ["A sentença que tem natureza de ordem e atinge a vontade do réu é:", ["Declaratória","Mandamental","Constitutiva","Terminativa"], 1, "Ex.: mandado de segurança."],
+  ["Sentença terminativa é aquela que:", ["Resolve o mérito","Não resolve o mérito (art. 485)","É proferida pelo tribunal","Julga embargos"], 1, "Faz só coisa julgada formal."],
+  ["Erro in procedendo leva a:", ["Anulação da decisão","Reforma da decisão","Condenação em multa","Perda do prazo"], 0, "Vício de procedimento → anulação."],
+  ["Erro in judicando leva a:", ["Anulação","Reforma da decisão","Retratação obrigatória","Preclusão"], 1, "Juízo errado sobre fatos ou direito."],
+  ["O princípio da singularidade (unirrecorribilidade) significa que:", ["Cada parte só pode recorrer uma vez","Para cada decisão cabe, em regra, um único recurso","Só o autor recorre","O recurso é único para todo o processo"], 1, "É também chamado de unicidade."],
+  ["O princípio da dialeticidade exige:", ["Que o recurso seja oral","Que o recurso indique as razões do inconformismo","Que haja dois recursos","Que o tribunal ouça o juiz"], 1, "Todo recurso precisa de fundamentação."],
+  ["Aceitar um recurso por outro quando há dúvida plausível é o princípio da:", ["Consumação","Fungibilidade","Voluntariedade","Taxatividade"], 1, "Não se aplica a erro grosseiro."],
+  ["Se só o réu apelou, o tribunal não pode piorar sua situação. Isso é:", ["Reformatio in pejus permitida","Proibição da reformatio in pejus","Efeito translativo","Efeito regressivo"], 1, "Exceto matéria de ordem pública."],
+  ["São requisitos intrínsecos de admissibilidade:", ["Tempestividade e preparo","Cabimento, legitimidade e interesse","Preparo e regularidade formal","Apenas o prazo"], 1, "Os extrínsecos são tempestividade, preparo e regularidade formal."],
+  ["Se falta o preparo, o recorrente deve ser intimado para recolher:", ["Em dobro, sob pena de deserção","Pela metade","Em triplo","Nada, o recurso é rejeitado"], 0, "Art. 1.007, § 4º."],
+  ["Estão dispensados de preparo:", ["Advogados","MP, Fazenda Pública e beneficiários da justiça gratuita","Apenas o MP","Pessoas jurídicas"], 1, "Art. 1.007, § 1º."],
+  ["A renúncia ao direito de recorrer ocorre:", ["Depois de interposto o recurso","Antes de interpor o recurso","Só no tribunal","Só com anuência do recorrido"], 1, "Já a desistência é posterior à interposição."],
+  ["O efeito pelo qual o tribunal conhece de matéria de ordem pública sem que tenha sido alegada é o:", ["Devolutivo","Suspensivo","Translativo","Regressivo"], 2, "Ex.: prescrição, pressupostos processuais."],
+  ["O efeito que permite ao próprio juiz reconsiderar a decisão recorrida é o:", ["Regressivo (retratação)","Suspensivo","Expansivo","Ativo"], 0, "Ex.: apelação contra indeferimento da inicial."],
+  ["Em regra, os recursos:", ["Têm efeito suspensivo","Não têm efeito suspensivo (art. 995)","Dispensam razões","Suspendem sempre a execução"], 1, "A apelação é a exceção."],
+  ["A apelação NÃO tem efeito suspensivo contra a sentença que:", ["Julga procedente pedido comum","Condena a pagar alimentos","Declara a prescrição","Extingue o processo por desistência"], 1, "Art. 1.012, § 1º, II."],
+  ["O prazo da apelação é de:", ["5 dias","10 dias","15 dias","30 dias"], 2, "Prazo geral dos recursos no CPC (dias úteis)."],
+  ["Na apelação, o juiz de 1º grau:", ["Faz juízo de admissibilidade e pode indeferir","Não faz juízo de admissibilidade: intima o apelado e remete ao tribunal","Julga a apelação","Pode aplicar multa"], 1, "Art. 1.010, § 3º."],
+  ["Interlocutória fora do rol do art. 1.015 pode ser impugnada:", ["Por mandado de segurança sempre","Em preliminar de apelação ou nas contrarrazões","Não pode ser impugnada","Por agravo interno"], 1, "Art. 1.009, § 1º."],
+  ["Na apelação contra indeferimento da inicial, o juiz tem para se retratar:", ["5 dias","15 dias","24 horas","30 dias"], 0, "Em seguida cita o réu para contrarrazões."],
+  ["Art. 942 do CPC (técnica de julgamento) aplica-se quando o resultado da apelação:", ["For unânime","Não for unânime","For monocrático","For de embargos"], 1, "Convocam-se outros julgadores, sem requerimento."],
+  ["O agravo de instrumento é interposto:", ["No juízo de 1º grau","Diretamente no tribunal","No STJ","Oralmente"], 1, "Art. 1.016: único recurso interposto direto no tribunal."],
+  ["O rol do art. 1.015 do CPC é:", ["Exemplificativo","Taxativo","Inexistente","Aplicável só a sentenças"], 1, "Numerus clausus."],
+  ["Cabe agravo de instrumento contra decisão que:", ["Defere a gratuidade da justiça","Rejeita o pedido de gratuidade da justiça","Mantém o litisconsorte","Marca audiência"], 1, "Art. 1.015, V."],
+  ["Cabe agravo de instrumento contra decisão sobre:", ["Tutela provisória","Data de audiência","Juntada de documento comum","Nomeação de perito qualquer"], 0, "Art. 1.015, I."],
+  ["Quem pode conceder efeito suspensivo ao agravo de instrumento?", ["O juiz, de ofício","O relator, a pedido do agravante","O escrivão","O STJ sempre"], 1, "Relevante fundamentação e risco de dano grave ou de difícil reparação."],
+  ["Das decisões monocráticas do relator, o agravo interno tem prazo de:", ["5 dias","10 dias","15 dias","30 dias"], 2, "Art. 1.021."],
+  ["Agravo interno manifestamente inadmissível ou improcedente, por votação unânime, gera multa de:", ["1% a 5% do valor da causa","10% a 20%","Nenhuma","50%"], 0, "Reverte em favor do agravado."],
+  ["Os embargos de declaração têm prazo de:", ["5 dias","10 dias","15 dias","30 dias"], 0, "E não têm preparo."],
+  ["Os embargos de declaração cabem para:", ["Reformar a decisão por injusta","Sanar omissão, contradição, obscuridade e erro material","Apresentar provas novas","Mudar o juiz"], 1, "Art. 1.022."],
+  ["Os embargos de declaração, no que se refere ao prazo dos demais recursos:", ["Suspendem","Interrompem","Não afetam","Extinguem"], 1, "Mesmo se não admitidos."],
+  ["Multa por embargos de declaração protelatórios:", ["Até 2% do valor da causa; até 10% se reiterado","1% a 5%","Fixa de R$ 100","Não há multa"], 0, "Art. 1.026, §§ 2º e 3º."],
+  ["Uma decisão que só repete o texto da lei sem explicar sua relação com o caso é:", ["Fundamentada","Omissa, nos termos do art. 489, § 1º","Obscura apenas","Válida"], 1, "Art. 1.022, parágrafo único, II."],
+  ["Para fins de prequestionamento, o art. 1.025 do CPC prevê que:", ["Os embargos são sempre inúteis","Elementos suscitados nos embargos consideram-se incluídos no acórdão, se o tribunal superior reconhecer vício","Só o STF conhece","Não há prequestionamento ficto"], 1, "Mesmo se os embargos forem rejeitados ou inadmitidos."],
+  ["O recurso extraordinário é dirigido ao:", ["STJ","STF","TJ","TST"], 1, "Guardião da Constituição."],
+  ["O recurso especial é dirigido ao:", ["STF","STJ","Tribunal de Justiça","TRF"], 1, "Uniformiza a lei federal."],
+  ["Requisito próprio do RE é a:", ["Repercussão geral","Relevância trabalhista","Competência do TJ","Exceção de pré-executividade"], 0, "CF, art. 102, § 3º; CPC, art. 1.035."],
+  ["Repercussão geral é:", ["Discussão de relevância econômica, política, social ou jurídica que ultrapassa os interesses subjetivos da causa","Número de partes","Valor da causa","Efeito suspensivo"], 0, "Decisão irrecorrível."],
+  ["Prequestionamento significa que:", ["A questão federal/constitucional foi debatida no acórdão recorrido","A parte pagou o preparo antes","O recurso foi protocolado antes","O juiz de 1º grau concordou"], 0, "Súmulas 282 e 356/STF; 211/STJ."],
+  ["A Súmula 7 do STJ veda, no REsp:", ["O reexame de prova","O uso de embargos","A apelação","A repercussão"], 0, "Também a Súmula 279 do STF no RE."],
+  ["A Súmula 5 do STJ trata de:", ["Interpretação de cláusula contratual","Prazo da apelação","Multa","Honorários"], 0, "Vedado o reexame no REsp."],
+  ["Hipótese de cabimento do REsp:", ["Julgar válida lei local contestada em face da CF","Contrariar ou negar vigência a lei federal","Declarar inconstitucional lei federal","Qualquer injustiça"], 1, "Art. 105, III, a."],
+  ["RE e REsp são interpostos perante:", ["O STF e o STJ","A presidência ou vice-presidência do tribunal de origem","O juiz de 1º grau","O CNJ"], 1, "Que intima o recorrido para contrarrazões em 15 dias."],
+  ["O STF considera reflexa a ofensa à CF, que depende de interpretar lei federal. Então:", ["Julga o RE normalmente","Remete ao STJ para julgamento como REsp","Extingue o processo","Aplica multa"], 1, "Art. 1.033."],
+  ["O agravo do art. 1.042 busca:", ["Rediscutir a prova","Destrancar o REsp ou RE inadmitido","Substituir a apelação","Pedir tutela"], 1, "Impugnando os fundamentos da inadmissão."],
+  ["O agravo em recurso especial (AREsp) independe de:", ["Prazo","Custas e despesas postais","Razões","Procurador"], 1, "Art. 1.042, § 2º."],
+  ["Contra decisão que nega seguimento ao REsp por aplicar tese de recursos repetitivos cabe:", ["AREsp do art. 1.042","Agravo interno (art. 1.030, § 2º)","Apelação","Recurso ordinário"], 1, "Escolher o AREsp pode levar ao não conhecimento."],
+  ["Embargos de divergência cabem:", ["Contra decisão de juiz de 1º grau","Contra acórdão de órgão fracionário do STF ou STJ que diverge de outro órgão do mesmo tribunal","Contra sentença","Contra despacho"], 1, "Arts. 1.043 e 1.044."],
+  ["Quanto ao recurso ordinário, a professora disse que:", ["Cai na prova","Não cai na prova","Cai só na NP1","Substitui a apelação"], 1, "“NÃO CAI RECURSO ORDINÁRIO.”"],
+  ["Segundo a literalidade do art. 203, os pronunciamentos do juiz são:",["Sentença, decisão interlocutória e despacho","Sentença, interlocutória, despacho e ato ordinatório","Sentença e acórdão","Despacho, ato ordinatório e certidão"],0,"O ato ordinatório é do servidor (§ 4º)."],
+  ["O julgamento antecipado parcial do mérito (art. 356) é:",["Sentença apelável","Decisão interlocutória agravável","Despacho","Sentença terminativa"],1,"Art. 356, § 5º; também art. 1.015, II."],
+  ["Reconhecimento de prescrição ou decadência é:",["Resolução de mérito (art. 487, II)","Extinção sem mérito","Ato ordinatório","Coisa julgada formal apenas"],0,"Gera sentença definitiva."],
+  ["Homologação de desistência da ação resulta em sentença:",["Definitiva, com coisa julgada material","Terminativa, sem resolução do mérito","Mandamental","Condenatória"],1,"Art. 485, VIII."],
+  ["Homologação de renúncia à pretensão resulta em sentença:",["Terminativa","Definitiva (art. 487, III, c)","Sem eficácia","Interlocutória"],1,"Resolve o mérito."],
+  ["Autor causa três extinções por abandono. Isso configura:",["Litispendência","Perempção","Coisa julgada","Preclusão lógica"],1,"Não pode mais propor ação com o mesmo objeto contra o réu; pode alegar o direito em defesa."],
+  ["Litispendência é:",["Ação idêntica já decidida","Ação idêntica ainda pendente","Abandono de três ações","Recurso pendente"],1,"Mesmas partes, pedido e causa de pedir."],
+  ["A improcedência liminar do pedido (art. 332) é:",["Mérito rejeitado antes da citação do réu, nas hipóteses legais","Extinção sem mérito por abandono","Decisão interlocutória","Sentença que depende de contestação"],0,"É sentença; cabe apelação, com retratação em 5 dias."],
+  ["Os elementos essenciais da sentença (art. 489) são:",["Relatório, fundamentos e dispositivo","Ementa e acórdão","Pedido e causa de pedir","Citação e sentença"],0,"No JEC o relatório é dispensado."],
+  ["A obrigação de fundamentar as decisões tem assento:",["Apenas no CPC","Na CF, art. 93, IX, e no CPC","Apenas em súmula","Apenas no regimento"],1,"Decisão sem fundamentação é nula."],
+  ["Sentença que apenas copia ementas sem relacionar ao caso deve ser atacada por apelação com pedido de:",["Reforma","Invalidação (nulidade por falta de fundamentação)","Embargos infringentes","Reconsideração"],1,"Vício de validade: art. 489, § 1º."],
+  ["Coisa julgada material é:",["A decisão de mérito imutável e indiscutível, não mais sujeita a recurso","Qualquer decisão do juiz","A decisão liminar","A sentença sem mérito"],0,"Art. 502."],
+  ["Trânsito em julgado é:",["A autoridade da decisão","O fato de a decisão não estar mais sujeita a recurso","O ato do escrivão","A publicação da sentença"],1,"A certidão apenas o documenta."],
+  ["A decisão liminar proferida sem ouvir a parte contrária:",["Faz coisa julgada material","Não faz coisa julgada material","Faz coisa julgada apenas contra o autor","É irrecorrível"],1,"Falta cognição exauriente."],
+  ["Segundo os arts. 503 e 504, a coisa julgada recai sobre:",["Os motivos da sentença","A questão principal expressamente decidida","A verdade dos fatos","Qualquer ponto da fundamentação"],1,"Motivos e verdade dos fatos ficam de fora."],
+  ["Para a questão prejudicial fazer coisa julgada (art. 503, § 1º) é preciso, entre outros requisitos:",["Que haja revelia","Contraditório prévio e efetivo e competência em razão da matéria e da pessoa","Competência apenas territorial","Cognição superficial"],1,"Os requisitos são cumulativos."],
+  ["Pode haver mais de uma coisa julgada no mesmo processo?",["Não","Sim, por exemplo, com o julgamento antecipado parcial do mérito","Só em ação coletiva","Só no tribunal"],1,"Capítulos diferentes estabilizam em momentos diferentes."],
+  ["Qual decisão pode formar coisa julgada material?",["Despacho","Decisão interlocutória de mérito","Ato ordinatório","Decisão interlocutória sobre prova"],1,"A que resolve só questão processual apenas preclui."],
+  ["Preclusão lógica ocorre quando:",["O prazo expira","Pratica-se ato incompatível com outro anteriormente praticado","O direito já foi exercido","O juiz muda de ideia"],1,"Temporal: prazo; consumativa: já exercido."],
+  ["O agravo de instrumento cabe contra:",["Qualquer decisão interlocutória","Decisão interlocutória que se enquadre no art. 1.015","Qualquer sentença","Qualquer despacho"],1,"Interlocutória + hipótese do art. 1.015."],
+  ["O juiz indefere uma testemunha e depois julga improcedente. Se não cabe agravo, o autor deve:",["Desistir","Alegar o cerceamento de defesa em preliminar de apelação","Entrar com ação rescisória","Aguardar o trânsito"],1,"Art. 1.009, § 1º."],
+  ["Para interpor REsp sobre matéria que o tribunal não debateu, o advogado deve antes:",["Pedir ao STJ","Opor embargos de declaração para prequestionar","Interpor agravo de instrumento","Nada"],1,"Mesmo não conhecidos, valem como prequestionamento (art. 1.025)."],
+  ["Pedido que só é examinado se o anterior não for acolhido é:",["Alternativo","Subsidiário","Cumulativo","Sucessivo livre"],1,"Há ordem de preferência."],
+  ["O pedido em que o autor aceita qualquer das opções, sem preferência, é:",["Subsidiário","Alternativo","Cumulativo","Principal"],1,"Acolhida uma, não há sucumbência quanto à outra."],
+  ["O art. 1.042 do CPC, na redação atual, não admite o agravo quando a inadmissão se funda em:",["Falta de preparo","Aplicação de entendimento firmado em repercussão geral, relevância ou recursos repetitivos","Intempestividade","Falta de procuração"],1,"Nesses casos cabe agravo interno (art. 1.030, § 2º)."]
+];
+// ----- abas e módulos -----
+function switchTab(id, btn){
+  document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active')});
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('nav button').forEach(function(b){b.classList.remove('active')});
+  if(btn) btn.classList.add('active');
+  window.scrollTo({top:0});
+}
+function toggleModule(h){ h.parentElement.classList.toggle('open'); }
+
+// ----- pegadinhas -----
+(function(){
+  var el = document.getElementById('lista-peg');
+  el.innerHTML = PEGADINHAS.map(function(p){
+    return '<div class="peg"><div class="afirma">“' + p[0] + '”</div><div><span class="errada">Cuidado:</span> ' + p[1] + '</div></div>';
+  }).join('');
+})();
+
+// ----- vídeos -----
+(function(){
+  var area = document.getElementById('video-area');
+  if(!VIDEOS.length){
+    area.innerHTML = '<div class="vazio">Ainda não há vídeos publicados para este módulo. 🎬<br>Em breve entram aqui os vídeos e podcasts do NotebookLM.</div>';
+    return;
+  }
+  area.innerHTML = '<div class="video-grid">' + VIDEOS.map(function(v){
+    return '<div class="video-card"><div class="ratio"><iframe src="https://www.youtube.com/embed/' + v.id + '" allowfullscreen loading="lazy" title="' + v.titulo + '"></iframe></div><h4>' + v.titulo + '</h4></div>';
+  }).join('') + '</div>';
+})();
+
+// ----- simulado -----
+var ordem = [], respondidas = {}, acertos = 0, erros = 0;
+function shuffle(a){ for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;} return a; }
+function initQuizData(){
+  ordem = shuffle(QUESTOES.map(function(_,i){return i;}));
+  respondidas = {}; acertos = 0; erros = 0;
+}
+function renderQuiz(){
+  var box = document.getElementById('quiz-container');
+  box.innerHTML = ordem.map(function(qi, pos){
+    var q = QUESTOES[qi];
+    var ops = q[1].map(function(o, oi){
+      return '<button class="option-btn" id="q' + pos + '-o' + oi + '" onclick="checkAnswer(' + pos + ',' + oi + ')">' + String.fromCharCode(65+oi) + ') ' + o + '</button>';
+    }).join('');
+    return '<div class="q"><div class="enun">' + (pos+1) + '. ' + q[0] + '</div>' + ops + '<div class="explanation" id="exp-' + pos + '">' + q[3] + '</div></div>';
+  }).join('');
+  updateStats();
+}
+function checkAnswer(pos, escolha){
+  if(respondidas[pos] !== undefined) return;
+  var q = QUESTOES[ordem[pos]];
+  respondidas[pos] = escolha;
+  for(var i=0;i<q[1].length;i++){
+    var b = document.getElementById('q'+pos+'-o'+i);
+    b.disabled = true;
+    if(i === q[2]) b.classList.add('correct');
+    else if(i === escolha) b.classList.add('wrong');
+  }
+  if(escolha === q[2]) acertos++; else erros++;
+  document.getElementById('exp-'+pos).classList.add('show');
+  updateStats();
+}
+function updateStats(){
+  var total = acertos + erros;
+  document.getElementById('stat-total').textContent = total + '/' + QUESTOES.length;
+  document.getElementById('stat-correct').textContent = acertos;
+  document.getElementById('stat-wrong').textContent = erros;
+  document.getElementById('stat-percent').textContent = total ? Math.round(acertos*100/total) + '%' : '0%';
+}
+function resetQuiz(){ initQuizData(); renderQuiz(); window.scrollTo({top:0}); }
+initQuizData(); renderQuiz();
+</script>
+</body>
+</html>
