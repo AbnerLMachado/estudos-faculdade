@@ -152,6 +152,9 @@
   .voltar { width: 100%; text-align: left; padding: 9px 11px; margin-bottom: 14px; border-radius: 10px; border: 1px solid var(--accent-gold); background: transparent; color: var(--accent-gold); font-weight: 700; }
   .voltar:hover { background: var(--bg-hover); }
   .topo .inicio-link { background: none; border: 0; padding: 0; text-align: left; }
+  #botao-inicio { margin-left: auto; padding: 8px 14px; border-radius: 10px; border: 1px solid var(--accent-gold); background: transparent; color: var(--accent-gold); font-weight: 700; white-space: nowrap; }
+  #botao-inicio:hover { background: var(--bg-hover); }
+  body.inicio #botao-inicio { display: none; }
 
   /* ---------- celular ---------- */
   @media (max-width: 860px) {
@@ -174,6 +177,7 @@
     <h1 id="titulo">Estudos de Direito · UNIP</h1>
     <p>Escolha o semestre, a matéria e o módulo</p>
   </button>
+  <button type="button" id="botao-inicio">🏠 Início</button>
 </header>
 
 <div class="layout">
@@ -451,6 +455,7 @@
   function irInicio() { estado.mat = null; estado.mod = null; estado.pag = 0; fecharMenu(); atualizar(); window.scrollTo(0, 0); }
   el("ir-inicio").addEventListener("click", irInicio);
   el("voltar-inicio").addEventListener("click", irInicio);
+  el("botao-inicio").addEventListener("click", irInicio);
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") fecharMenu(); });
 
   /* ---- tela cheia ---- */
