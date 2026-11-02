@@ -25,6 +25,7 @@ module.exports = {
           nome: "Teoria Geral do Direito Tributário",
           professor: "Prof.ª Ana Laura",
           np1: [item("guia", "Plataforma de estudos NP1", pagina("Tributario", "Np1-Tributario-2026.html"))],
+          np2: [item("guia", "Plataforma de estudos NP2 (espécies, limitações, imunidades, obrigação e crédito)", local("6/tributario/np2.html"))],
         },
         {
           id: "trabalho",

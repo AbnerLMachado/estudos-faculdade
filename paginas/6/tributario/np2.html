@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teoria Geral do Direito Tributário · NP2 · Plataforma de estudos</title>
+<style>
+:root{--bg-primary:#0b132b;--bg-secondary:#1c2541;--bg-card:#2f3e46;--bg-hover:#3a506b;--accent-gold:#fbbf24;--accent-blue:#38bdf8;--accent-green:#34d399;--text-main:#f8fafc;--text-muted:#94a3b8;--correct-green:#22c55e;--wrong-red:#ef4444;--border-color:#475569}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg-primary);color:var(--text-main);line-height:1.6}
+header{background:var(--bg-secondary);padding:22px 16px 14px;text-align:center;border-bottom:2px solid var(--accent-gold)}
+header h1{margin:0 0 4px;font-size:1.6rem;color:var(--accent-gold)}
+header p{margin:0;color:var(--text-muted);font-size:.95rem}
+nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:12px;background:var(--bg-secondary);position:sticky;top:0;z-index:5;border-bottom:1px solid var(--border-color)}
+nav button{background:var(--bg-card);color:var(--text-main);border:1px solid var(--border-color);padding:9px 16px;border-radius:8px;cursor:pointer;font:inherit;font-weight:600}
+nav button:hover{background:var(--bg-hover)}
+nav button.active{background:var(--accent-gold);color:#0b132b;border-color:var(--accent-gold)}
+main{max-width:980px;margin:0 auto;padding:18px 14px 60px}
+.tab-content{display:none}.tab-content.active{display:block}
+h2{color:var(--accent-blue);margin:6px 0 14px}
+.intro{background:var(--bg-secondary);border-left:4px solid var(--accent-blue);padding:12px 16px;border-radius:8px;margin-bottom:18px;color:var(--text-muted)}
+.radar{background:#3b2f0b;border:1px solid var(--accent-gold);border-radius:10px;padding:12px 16px;margin-bottom:18px}
+.radar b{color:var(--accent-gold)}
+.module-block{background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:10px;margin-bottom:12px;overflow:hidden}
+.module-header{padding:14px 16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;font-weight:700;font-size:1.05rem}
+.module-header:hover{background:var(--bg-hover)}
+.module-header small{display:block;color:var(--text-muted);font-weight:400;font-size:.82rem}
+.module-header .seta{transition:transform .2s;color:var(--accent-gold)}
+.module-block.open .seta{transform:rotate(90deg)}
+.module-body{display:none;padding:4px 16px 16px}
+.module-block.open .module-body{display:block}
+.sub-topic{background:var(--bg-card);border-radius:8px;padding:12px 14px;margin-top:12px}
+.sub-topic h3{margin:0 0 6px;color:var(--accent-green);font-size:1rem}
+.sub-topic ul{margin:6px 0 0;padding-left:20px}
+.sub-topic li{margin:4px 0}
+.callout{border-left:4px solid var(--accent-gold);background:rgba(251,191,36,.08);padding:10px 14px;border-radius:6px;margin-top:12px}
+.callout.perigo{border-color:var(--wrong-red);background:rgba(239,68,68,.08)}
+.callout.dica{border-color:var(--accent-green);background:rgba(52,211,153,.08)}
+.lei{font-size:.9rem;color:var(--text-muted);font-style:italic}
+.tag{display:inline-block;background:var(--bg-primary);color:var(--accent-gold);border-radius:20px;padding:1px 10px;font-size:.78rem;margin-right:4px}
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:6px;margin:12px 0}
+.flow-step{background:var(--bg-card);border:1px solid var(--border-color);border-radius:8px;padding:8px 12px;flex:1 1 140px;font-size:.92rem}
+.flow-step b{color:var(--accent-blue);display:block}
+.flow-arrow{align-self:center;color:var(--accent-gold);font-size:1.3rem}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.92rem}
+th,td{border:1px solid var(--border-color);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--bg-hover);color:var(--accent-gold)}
+td{background:var(--bg-card)}
+.tbl-wrap{overflow-x:auto}
+.peg{background:var(--bg-card);border-radius:10px;padding:12px 16px;margin-bottom:10px;border-left:4px solid var(--wrong-red)}
+.peg .afirma{font-weight:700}
+.peg .errada{color:var(--wrong-red);font-weight:700}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+.stat-box{flex:1 1 140px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:8px;padding:8px 12px;text-align:center;font-size:.9rem;color:var(--text-muted)}
+.stat-box span{display:block;font-size:1.3rem;font-weight:700;color:var(--text-main)}
+.q{background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:10px;padding:14px 16px;margin-bottom:14px}
+.q .enun{font-weight:600;margin-bottom:10px}
+.option-btn{display:block;width:100%;text-align:left;background:var(--bg-card);color:var(--text-main);border:1px solid var(--border-color);border-radius:8px;padding:9px 12px;margin-bottom:7px;cursor:pointer;font:inherit}
+.option-btn:hover:not(:disabled){background:var(--bg-hover)}
+.option-btn.correct{background:rgba(34,197,94,.2);border-color:var(--correct-green)}
+.option-btn.wrong{background:rgba(239,68,68,.2);border-color:var(--wrong-red)}
+.option-btn:disabled{cursor:default}
+.explanation{display:none;margin-top:8px;padding:10px 12px;border-radius:8px;background:var(--bg-primary);color:var(--text-muted);font-size:.92rem}
+.explanation.show{display:block}
+.btn{background:var(--accent-gold);color:#0b132b;border:0;border-radius:8px;padding:9px 16px;font:inherit;font-weight:700;cursor:pointer}
+.video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.video-card{background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:10px;overflow:hidden}
+.video-card .ratio{position:relative;padding-top:56.25%}
+.video-card iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video-card h4{margin:0;padding:10px 12px;font-size:.95rem}
+.vazio{background:var(--bg-secondary);border:1px dashed var(--border-color);border-radius:10px;padding:26px;text-align:center;color:var(--text-muted)}
+footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:20px 14px}
+@media(max-width:600px){header h1{font-size:1.3rem}nav button{padding:8px 11px;font-size:.9rem}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Teoria Geral do Direito Tributário · NP2</h1>
+  <p>UNIP · Direito · 6º semestre · Prof.ª Ana Laura</p>
+</header>
+<nav>
+  <button class="active" onclick="switchTab('guia',this)">📘 Guia</button>
+  <button onclick="switchTab('mapas',this)">🗺️ Mapas</button>
+  <button onclick="switchTab('pegadinhas',this)">⚠️ Pegadinhas</button>
+  <button onclick="switchTab('quiz',this)">📝 Simulado</button>
+  <button onclick="switchTab('videos',this)">🎬 Vídeos</button>
+</nav>
+<main>
+
+<!-- ============ GUIA ============ -->
+<section id="guia" class="tab-content active">
+  <div class="intro">Resumo de <b>Teoria Geral do Direito Tributário</b> para a NP2 (Prof.ª Ana Laura): espécies tributárias, limitações ao poder de tributar (princípios e imunidades), obrigação, lançamento, crédito, responsabilidade e prazos — com a base da NP1 que sustenta tudo. A prova é <b>individual, objetiva e sem consulta</b>. Clique nos módulos para abrir e confira sempre a lei seca (CF e CTN).</div>
+  <div class="radar"><b>📡 Radar da prova (o que a professora indicou):</b>
+    <ul>
+      <li><b>Sinal direto de cobrança:</b> a diferença entre <b>fato gerador em abstrato</b> (previsão legal) e <b>fato gerador em concreto</b> (a ocorrência), com obrigação e lançamento — inclusive no exemplo do IPVA.</li>
+      <li>Ênfase em sala: <b>legalidade</b> e <b>anterioridade</b> (separar as exceções e combinar prazos), <b>imunidades</b> (sindicatos <i>dos trabalhadores</i>; livros e suportes) e <b>empréstimo compulsório</b>.</li>
+      <li>Reiterados: modalidades de lançamento; obrigação principal x acessória; <b>excluir x suspender x extinguir</b> o crédito.</li>
+      <li>Lista de leitura da professora (NP1+NP2): CF arts. 145 a 150, 154; CTN arts. 3º a 5º, 7º, 8º, 16, 77 a 81, 96 a 100, 106, 109 a 110, 112 a 114, 119, 121, 126; <b>Súmulas Vinculantes 19, 29 e 41</b> e <b>Súmula 670</b> do STF; <b>COSIP</b> (CF, art. 149-A).</li>
+      <li>Roteiro de resolução: <b>espécie → competência e lei → limite constitucional → fato e obrigação → crédito → quem responde.</b></li>
+    </ul>
+  </div>
+
+  <div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>1 · Base: conceito, fontes e competência (NP1)<small>CF, arts. 145 a 149-A, 154 · CTN, arts. 96 a 100, 109, 110</small></div><span class="seta">▶</span></div>
+    <div class="module-body">
+      <div class="sub-topic"><h3>Conceito e relações</h3><ul>
+        <li>Ramo do <b>direito público</b>; regula a relação entre o Fisco (sujeito ativo) e o contribuinte ou responsável (sujeito passivo). Disciplina a instituição, arrecadação e fiscalização de tributos e <b>protege o cidadão</b> limitando o poder de tributar (princípios e imunidades).</li>
+        <li><b>Pacto federativo:</b> União = Estados = Distrito Federal = Municípios (não há hierarquia; cada um recebeu da CF a sua competência).</li>
+        <li><b>Direito de superposição:</b> CTN, art. 109 (princípios de direito privado servem para pesquisar conceitos, não para definir efeitos tributários) e art. 110 (a lei tributária não pode alterar institutos de direito privado usados pela Constituição para definir competências).</li></ul></div>
+      <div class="sub-topic"><h3>Fontes</h3><ul>
+        <li><b>Legislação tributária</b> (CTN, art. 96) = leis, tratados e convenções internacionais, decretos e normas complementares. “Legislação” é o gênero; “lei” é fonte primária.</li>
+        <li><b>Constituição:</b> <u>não cria tributos</u>; atribui competência, classifica tributos, limita o poder de tributar e reparte receitas.</li>
+        <li><b>Lei complementar</b> (maioria absoluta) em regra não cria tributos. <b>Exceções (a LC cria):</b> empréstimos compulsórios (art. 148), imposto sobre grandes fortunas (153, VII), impostos residuais (154, I), contribuições residuais (195, § 4º), imposto seletivo, IBS e CBS. Criar esses por lei ordinária ou MP é inconstitucional.</li>
+        <li><b>CF, art. 146:</b> cabe à LC dispor sobre conflitos de competência, regular as limitações ao poder de tributar e estabelecer <b>normas gerais</b> (definição de tributos e espécies, fatos geradores, bases de cálculo e contribuintes dos impostos; obrigação, lançamento, crédito, prescrição e decadência).</li>
+        <li><b>Lei ordinária</b> da pessoa política competente cria os tributos em geral. <b>Resoluções do Senado</b> fixam alíquotas (ITCMD máxima; ICMS; IPVA mínima).</li>
+        <li><b>Decretos</b> (fontes secundárias): o conteúdo e alcance restringem-se aos da lei (CTN, art. 99). <b>Normas complementares</b> (art. 100) ≠ <b>leis complementares</b>.</li>
+        <li>O <b>CTN</b> nasceu como lei ordinária (5.172/1966) e tem <b>força de lei complementar</b>: só LC pode alterá-lo (ex.: LC 104/2001; LC 214/2025; LC 236/2026, que reformou o CTN).</li></ul></div>
+      <div class="sub-topic"><h3>Competência tributária x capacidade tributária ativa</h3>
+        <div class="tbl-wrap"><table><tr><th></th><th>Competência tributária</th><th>Capacidade tributária ativa</th></tr>
+        <tr><td><b>O que é</b></td><td>Aptidão para <b>criar</b> o tributo por lei (legislar)</td><td>Aptidão para <b>arrecadar e fiscalizar</b> (administrar)</td></tr>
+        <tr><td><b>Delegável?</b></td><td><b>Não</b> (indelegável; irrenunciável; incaducável; privativa)</td><td><b>Sim</b> (função administrativa; CTN, art. 7º). Pode caducar e prescrever</td></tr>
+        <tr><td><b>Facultativa?</b></td><td>Sim (exceção: o ICMS é obrigatório)</td><td>Obrigatória</td></tr></table></div>
+        <ul><li><b>Espécies de competência:</b> privativa, comum, cumulativa, residual, extraordinária e compartilhada. A competência para normas gerais é da <b>União, por LC</b> (art. 146, III).</li>
+        <li><b>Sujeito ativo</b> (CTN, art. 119): a pessoa jurídica de direito público titular da competência para exigir. O banco que recebe o pagamento não vira titular.</li></ul></div>
+      <div class="sub-topic"><h3>Aspectos da norma de incidência (regra-matriz)</h3><ul>
+        <li>Antecedente: <b>material</b> (o quê), <b>temporal</b> (quando), <b>espacial</b> (onde). Consequente: <b>pessoal</b> (quem: sujeito ativo e passivo) e <b>quantitativo</b> (quanto: base de cálculo x alíquota).</li>
+        <li>Exemplo: IPTU de imóvel de R$ 500.000 com alíquota de 1% → R$ 5.000. Finalidade/destino da receita <u>não</u> é fato gerador.</li></ul></div>
+    </div></div>
+
+  <div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>2 · Tributo e espécies<small>CTN, arts. 3º a 5º, 15, 16, 77 a 81 · CF, arts. 145 a 149-A</small></div><span class="seta">▶</span></div>
+    <div class="module-body">
+      <div class="sub-topic"><h3>Conceito de tributo (CTN, art. 3º)</h3><ul>
+        <li>Prestação <b>pecuniária</b> (em moeda ou cujo valor nela se exprima), <b>compulsória</b>, que <b>não constitui sanção de ato ilícito</b>, instituída <b>em lei</b> e cobrada por atividade administrativa <b>plenamente vinculada</b>.</li>
+        <li><b>Tributo ≠ multa:</b> o tributo arrecada; a multa coíbe o ilícito. <b>Taxa ≠ tarifa/preço público</b> (a tarifa não é tributo).</li>
+        <li>Receita <b>derivada</b>. Interpretar o fato gerador abstraindo-se da validade jurídica dos atos e dos seus efeitos (<b>pecunia non olet</b>, CTN, art. 118): rendimentos de atividades ilícitas podem ser tributados (o que se tributa é o resultado econômico, não o crime).</li>
+        <li>Não se admite interdição de estabelecimento ou apreensão de mercadorias como meio coercitivo de cobrança (STF, Súmulas 70 e 323).</li></ul></div>
+      <div class="sub-topic"><h3>Espécies (teoria pentapartida, adotada pelo STF)</h3>
+        <div class="tbl-wrap"><table><tr><th>Espécie</th><th>Fato gerador / critério</th><th>Observações</th></tr>
+        <tr><td><b>Imposto</b></td><td>Situação independente de atividade estatal específica relativa ao contribuinte (CTN, art. 16)</td><td>Não vinculado. Pessoalidade e capacidade econômica (CF, art. 145, § 1º). Ordinários (arts. 153, 155, 156), residuais (154, I) e extraordinários de guerra (154, II)</td></tr>
+        <tr><td><b>Taxa</b></td><td><b>Poder de polícia</b> ou <b>serviço público específico e divisível</b>, efetivo ou potencial (CF, art. 145, II; CTN, arts. 77 a 79)</td><td>Não pode ter base de cálculo própria de imposto (art. 145, § 2º). Tributo vinculado e retributivo. Súmulas Vinculantes 19, 29 e 41; Súmulas 545, 595 e 667 do STF</td></tr>
+        <tr><td><b>Contribuição de melhoria</b></td><td>Obra pública de que decorra <b>valorização imobiliária</b> (CF, art. 145, III; CTN, art. 81)</td><td>Limite total: a despesa realizada; limite individual: o acréscimo de valor de cada imóvel. Tributo causal</td></tr>
+        <tr><td><b>Empréstimo compulsório</b></td><td>Causa: calamidade pública, guerra externa ou sua iminência, ou investimento público urgente e de relevante interesse nacional (CF, art. 148)</td><td><b>União, por lei complementar</b>; restituição; receita <b>vinculada</b> à despesa que o fundamentou</td></tr>
+        <tr><td><b>Contribuições especiais</b></td><td>Finalidade constitucional: sociais, CIDE e de interesse de categorias (art. 149), COSIP (149-A)</td><td>A União institui (art. 149). Exceções: entes podem instituir a contribuição do regime próprio dos seus servidores (§ 1º); <b>Municípios e DF</b> a <b>COSIP</b> (iluminação pública, monitoramento)</td></tr></table></div></div>
+      <div class="sub-topic"><h3>As “duas vinculações” (alta prioridade)</h3><ul>
+        <li><b>Do fato gerador:</b> depende de atuação estatal específica? (imposto: não; taxa e contribuição de melhoria: sim).</li>
+        <li><b>Da receita:</b> o dinheiro tem destino obrigatório? (empréstimo compulsório e contribuições: sim; imposto, em regra, não — o CTN, art. 4º, manda olhar o fato gerador, não o nome nem o destino).</li></ul></div>
+      <div class="sub-topic"><h3>Empréstimo compulsório (armadilhas)</h3><ul>
+        <li><b>Guerra, calamidade e investimento são causas autorizadoras</b>, não o fato gerador (a LC descreve o fato gerador).</li>
+        <li><b>Art. 148, I</b> (calamidade/guerra): sem anterioridade anual e sem noventena. <b>Art. 148, II</b> (investimento): <b>as duas</b>, cumulativamente.</li>
+        <li>Instituir por <b>medida provisória</b> é inconstitucional (reserva de LC). Desviar o dinheiro (<b>tredestinação</b>) ou não aplicá-lo na finalidade viola o parágrafo único do art. 148.</li></ul></div>
+      <div class="callout">A <b>anuidade da OAB</b> é de natureza não tributária; os demais conselhos profissionais seguem regime próprio (não equipare todos).</div>
+    </div></div>
+
+  <div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>3 · Princípios (limitações ao poder de tributar)<small>CF, arts. 145 a 152 · CTN, arts. 97, 105, 106, 144</small></div><span class="seta">▶</span></div>
+    <div class="module-body">
+      <div class="sub-topic"><h3>Ideia geral</h3><ul>
+        <li>Limitações = <b>princípios</b> e <b>imunidades</b>; protegem o contribuinte e o pacto federativo. Violar uma torna a tributação <b>inconstitucional</b> (e não só ilegal). Estão no art. 150, mas o rol <b>não é exaustivo</b> (“sem prejuízo de outras garantias”). São direitos fundamentais (cláusulas pétreas).</li></ul></div>
+      <div class="sub-topic"><h3>Legalidade (CF, arts. 5º, II e 150, I; CTN, art. 97)</h3><ul>
+        <li>Instituir ou <b>majorar</b> tributo exige <b>lei</b>. A mesma forma serve para extinguir (paralelismo, art. 150, § 6º). Reserva legal também para: fato gerador e sujeito passivo, alíquota e base de cálculo, penalidades, e hipóteses de exclusão, suspensão e extinção do crédito (CTN, art. 97).</li>
+        <li><b>Exceções (alíquotas por ato do Executivo):</b> <b>II, IE, IPI e IOF</b> (art. 153, § 1º — dentro das condições e limites da lei); <b>CIDE-combustíveis</b> (reduzir e restabelecer, art. 177, § 4º) e <b>ICMS-combustíveis</b> (convênio entre os Estados).</li>
+        <li><b>Atualização monetária</b> da base de cálculo (IPTU, IPVA) não é majoração (CTN, art. 97, § 2º; Súmula 160/STJ). <b>Obrigações acessórias</b> podem ser fixadas por ato infralegal.</li></ul></div>
+      <div class="sub-topic"><h3>Isonomia e capacidade contributiva (art. 150, II; 145, § 1º)</h3><ul>
+        <li>Veda tratamento desigual entre contribuintes em situação equivalente, <b>proibida qualquer distinção em razão de ocupação profissional ou função</b>. Igualdade não é pagar o mesmo valor: os impostos serão pessoais e graduados pela capacidade econômica “sempre que possível”.</li>
+        <li>A capacidade tributária passiva independe da capacidade civil (CTN, art. 126). <i>Non olet</i> também decorre da isonomia.</li></ul></div>
+      <div class="sub-topic"><h3>Segurança jurídica (não surpresa): irretroatividade, anterioridade e noventena</h3><ul>
+        <li><b>Irretroatividade (art. 150, III, a):</b> a lei que institui ou aumenta tributo não alcança fatos geradores anteriores. <b>Sem exceções constitucionais.</b></li>
+        <li><b>Anterioridade anual (III, b):</b> não se cobra no <b>mesmo exercício</b> em que a lei foi publicada (exercício: 1º/1 a 31/12). <b>Noventena (III, c):</b> não se cobra antes de <b>90 dias</b> da publicação. As duas valem <b>juntas</b>: aplica-se a que terminar por último. Não se aplicam à <b>redução</b> nem à extinção do tributo. A lei que <b>revoga isenção</b> observa a anterioridade.</li>
+        <li>SV 50: lei que altera só o <b>prazo de recolhimento</b> não se sujeita à anterioridade.</li></ul>
+        <div class="tbl-wrap"><table><tr><th>Hipótese</th><th>Anual?</th><th>90 dias?</th></tr>
+        <tr><td>II, IE, IOF</td><td>Não</td><td>Não</td></tr>
+        <tr><td>IPI</td><td>Não</td><td><b>Sim</b></td></tr>
+        <tr><td>IR</td><td><b>Sim</b></td><td>Não</td></tr>
+        <tr><td>Imposto extraordinário de guerra (154, II)</td><td>Não</td><td>Não</td></tr>
+        <tr><td>Empréstimo compulsório — art. 148, I</td><td>Não</td><td>Não</td></tr>
+        <tr><td>Empréstimo compulsório — art. 148, II</td><td>Sim</td><td>Sim</td></tr>
+        <tr><td>IPTU/IPVA: <b>fixação da base de cálculo</b></td><td>Sim</td><td>Não</td></tr>
+        <tr><td>IPTU/IPVA: aumento de <b>alíquota</b></td><td>Sim</td><td>Sim</td></tr>
+        <tr><td>CIDE-combustíveis e ICMS-combustíveis (restabelecer alíquota)</td><td>Não</td><td>Sim (noventena preservada)</td></tr></table></div>
+        <div class="callout dica"><b>Macete:</b> lei publicada em dezembro pode atravessar o ano com os 90 dias ainda correndo. “Janeiro” cumpre a anual, mas não substitui a noventena. Noventena = 90 dias, não três meses.</div></div>
+      <div class="sub-topic"><h3>Normas com eficácia retroativa (CTN, arts. 106 e 144)</h3><ul>
+        <li>A lei aplica-se a ato ou fato pretérito: se for <b>expressamente interpretativa</b> (sem penalidade); e, para ato <b>não definitivamente julgado</b>: se deixa de defini-lo como infração, deixa de tratá-lo como contrário a exigência de ação ou omissão (sem fraude e sem falta de pagamento) ou comina <b>penalidade menos severa</b> (retroatividade benigna).</li>
+        <li>Também retroagem: lei que regula formalidades do lançamento (art. 144, § 1º), lei de <b>anistia</b> e declaração de inconstitucionalidade com efeitos <i>ex tunc</i>. O <b>lançamento</b> rege-se pela lei vigente na data do fato gerador (art. 144).</li></ul></div>
+      <div class="sub-topic"><h3>Outros princípios</h3><ul>
+        <li><b>Vedação do confisco</b> (art. 150, IV): tributo com efeito de confisco. O STF tem tratado multas excessivas como confiscatórias (ADI 551; referências: moratória 20%, punitiva 100% a 150% na reincidência).</li>
+        <li><b>Liberdade de tráfego</b> (art. 150, V): vedadas limitações ao tráfego por tributos interestaduais/intermunicipais, <b>ressalvado o pedágio</b> (preço público, ADI 800).</li>
+        <li><b>Uniformidade geográfica</b> (art. 151, I): só para a <b>União</b>; admite incentivos para equilibrar o desenvolvimento regional. <b>Não discriminação por procedência ou destino</b> (art. 152): para Estados, DF e Municípios.</li>
+        <li><b>Específicos:</b> não cumulatividade (IPI, ICMS, IBS, CBS), progressividade (IR, IPTU, ITCMD) e seletividade (IPI, ICMS).</li>
+        <li><b>Reforma tributária (EC 132/2023), art. 145, §§ 3º e 4º:</b> o sistema observa <b>simplicidade, transparência, justiça tributária, cooperação e defesa do meio ambiente</b>; as alterações buscarão atenuar efeitos regressivos.</li></ul></div>
+    </div></div>
+
+  <div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>4 · Imunidades<small>CF, art. 150, VI e §§ 2º a 4º · CTN, art. 14</small></div><span class="seta">▶</span></div>
+    <div class="module-body">
+      <div class="sub-topic"><h3>Imunidade x isenção x alíquota zero x não incidência</h3>
+        <div class="tbl-wrap"><table><tr><th>Figura</th><th>Origem</th><th>Ideia</th></tr>
+        <tr><td><b>Imunidade</b></td><td>Constituição</td><td>Hipótese de não incidência constitucionalmente qualificada: a CF delimita a competência e impede a lei de tributar</td></tr>
+        <tr><td><b>Isenção</b></td><td>Lei do ente competente</td><td>Dispensa legal; <b>exclui o crédito</b> (CTN, art. 175)</td></tr>
+        <tr><td><b>Alíquota zero</b></td><td>Lei</td><td>A hipótese existe, mas o percentual zero zera o resultado</td></tr>
+        <tr><td><b>Não incidência pura e simples</b></td><td>—</td><td>O fato não se enquadra na hipótese (ex.: bicicleta comum não é veículo automotor do IPVA)</td></tr></table></div>
+        <ul><li>A imunidade alcança, em regra, <b>impostos</b> (art. 150, VI). Há imunidade de taxas (art. 5º, XXXIV etc.) e de contribuições sociais (arts. 149, § 2º, I e 195, § 7º, na CF chamadas de “isenção”). <b>Não há imunidade</b> para contribuição de melhoria nem para empréstimo compulsório. Aviso: IBS e CBS observam as imunidades (art. 149-B).</li></ul></div>
+      <div class="sub-topic"><h3>Imunidades do art. 150, VI (impostos)</h3>
+        <div class="tbl-wrap"><table><tr><th>Alínea</th><th>Quem / o quê</th><th>Pontos de prova</th></tr>
+        <tr><td><b>a — recíproca</b></td><td>Patrimônio, renda e serviços, uns dos outros (União, Estados, DF e Municípios); estende-se a <b>autarquias e fundações</b> públicas e à empresa pública de serviço postal (§ 2º)</td><td>Só quanto às <b>finalidades essenciais</b>. Não vale para atividade econômica regida pelo regime privado ou com contraprestação/tarifa (§ 3º). Empresa pública e sociedade de economia mista não têm imunidade automática (STF: ECT, Infraero, Codesp; Tema 1140 para estatal de serviço essencial sem lucro). Imóvel público cedido a empresa privada: incide IPTU (Tema 437)</td></tr>
+        <tr><td><b>b — religiosa</b></td><td>Entidades religiosas e templos de qualquer culto, inclusive organizações assistenciais e beneficentes</td><td>Só patrimônio, renda e serviços das finalidades essenciais (§ 4º). Não abrange a maçonaria. Para o IPTU, vale mesmo se a entidade for <b>locatária</b> (art. 156, § 1º-A). Não dispensa obrigações acessórias</td></tr>
+        <tr><td><b>c — condicional</b></td><td>Partidos políticos e suas fundações, <b>entidades sindicais dos trabalhadores</b>, instituições de educação e de assistência social sem fins lucrativos, <b>atendidos os requisitos da lei</b></td><td>CTN, art. 14: não distribuir patrimônio ou renda; aplicar integralmente no País os recursos nos objetivos institucionais; manter escrituração. Sindicato patronal não entra. Imóvel alugado continua imune ao IPTU se os aluguéis forem aplicados nas atividades essenciais (SV 52; Súmula 724/STF)</td></tr>
+        <tr><td><b>d — objetiva</b></td><td>Livros, jornais, periódicos e o papel destinado à sua impressão</td><td>Inclui e-books e e-readers (SV 57), álbuns de figurinhas, apostilas, filmes e papéis fotográficos necessários (Súmula 657). <b>Não</b> alcança o maquinário da gráfica nem livro em branco. A proteção independe do conteúdo</td></tr>
+        <tr><td><b>e — musical</b></td><td>Fonogramas e videofonogramas musicais produzidos no Brasil, com obras de autores brasileiros e/ou interpretadas por artistas brasileiros, e seus suportes (material ou digital)</td><td><b>Salvo</b> a etapa de replicação industrial de mídias ópticas de leitura a laser (CD/DVD/Blu-ray pagam IPI)</td></tr></table></div>
+        <ul><li>Classificações: <b>subjetiva</b> (a, b, c), <b>objetiva</b> (d), <b>mista</b> (e), <b>genéricas</b> (art. 150, VI) e <b>específicas</b> (ex.: IE, IOF, ITR, ITCMD, IPVA, ICMS, IPTU, ITBI).</li></ul></div>
+    </div></div>
+
+  <div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>5 · Obrigação, fato gerador, lançamento e crédito<small>CTN, arts. 113, 114, 116, 139, 142, 147, 150</small></div><span class="seta">▶</span></div>
+    <div class="module-body">
+      <div class="sub-topic"><h3>Fato gerador em abstrato x em concreto (sinal direto de prova)</h3>
+        <div class="flow">
+          <div class="flow-step"><b>Previsão legal</b>Hipótese abstrata: o que a lei descreve.</div><div class="flow-arrow">➜</div>
+          <div class="flow-step"><b>Ocorrência</b>Fato concreto que realiza a hipótese.</div><div class="flow-arrow">➜</div>
+          <div class="flow-step"><b>Obrigação</b>Nasce <u>com o fato gerador</u>.</div><div class="flow-arrow">➜</div>
+          <div class="flow-step"><b>Lançamento</b>Declara a obrigação já nascida e <b>constitui o crédito</b>.</div>
+        </div>
+        <ul><li><b>Fato gerador da obrigação principal</b> = situação definida em lei como necessária e suficiente à sua ocorrência (CTN, art. 114). O <b>crédito</b> decorre da obrigação principal e tem a mesma natureza (art. 139).</li></ul></div>
+      <div class="sub-topic"><h3>Obrigação principal x acessória (art. 113)</h3><ul>
+        <li><b>Principal:</b> surge com o fato gerador; objeto é <b>pagar tributo ou penalidade pecuniária</b> (“falou em dinheiro”). Extingue-se com o crédito.</li>
+        <li><b>Acessória</b> (a doutrina prefere “instrumental”): prestações de <b>fazer ou não fazer</b> no interesse da arrecadação ou fiscalização (escriturar, declarar, não rasurar livros). <b>Não segue a sorte da principal</b>: o templo imune não paga imposto, mas deve manter a escrituração. A inobservância converte-se em obrigação principal quanto à multa (§ 3º).</li>
+        <li><b>Multa não é tributo</b> (art. 3º), mas pagá-la é obrigação principal.</li></ul></div>
+      <div class="sub-topic"><h3>Sujeitos</h3><ul>
+        <li><b>Sujeito passivo</b> (art. 121): <b>contribuinte</b> (relação pessoal e direta com o fato gerador) ou <b>responsável</b> (por disposição expressa de lei).</li>
+        <li>O sujeito passivo é definido pela <b>lei</b>. <b>Contrato</b> entre particulares (ex.: inquilino paga o IPTU) vale entre eles, mas não pode ser oposto à Fazenda para mudar o sujeito passivo (art. 123).</li>
+        <li><b>Capacidade tributária passiva</b> independe da capacidade civil, de limitações a atividades e de a pessoa jurídica estar regularmente constituída (art. 126). Uma criança pode ser contribuinte; isso não responsabiliza automaticamente os pais.</li></ul></div>
+      <div class="sub-topic"><h3>Lançamento (art. 142) e suas modalidades</h3><ul>
+        <li><b>Constituir o crédito</b> é competência privativa da <b>autoridade administrativa</b>, por procedimento que verifica o fato gerador, determina a matéria tributável, calcula o tributo, identifica o sujeito passivo e propõe a penalidade. A atividade é <b>vinculada e obrigatória</b>.</li></ul>
+        <div class="tbl-wrap"><table><tr><th>Modalidade</th><th>Como funciona</th></tr>
+        <tr><td><b>De ofício (direto)</b></td><td>A autoridade apura e lança; o contribuinte paga. Ex.: IPTU e IPVA. Também a revisão de ofício em caso de infração</td></tr>
+        <tr><td><b>Por declaração (misto)</b></td><td>O sujeito passivo ou terceiro <b>informa fatos</b> (art. 147); a autoridade apura e lança; o contribuinte paga (“pingue-pongue”)</td></tr>
+        <tr><td><b>Por homologação</b></td><td>A lei manda <b>antecipar o pagamento</b> sem exame prévio; a autoridade homologa depois (art. 150). Se a lei não fixar prazo, <b>5 anos</b> do fato gerador; passado o prazo sem manifestação, considera-se homologado, salvo dolo, fraude ou simulação</td></tr></table></div>
+        <ul><li>Cuidado: chamar qualquer declaração de “art. 147”. Súmula 436/STJ: a entrega de declaração reconhecendo o débito <b>constitui</b> o crédito, dispensada outra providência do Fisco (não convalida valores omitidos).</li></ul></div>
+    </div></div>
+
+  <div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>6 · Crédito: excluir, suspender e extinguir<small>CTN, arts. 151, 156, 172, 175, 176, 180</small></div><span class="seta">▶</span></div>
+    <div class="module-body">
+      <div class="tbl-wrap"><table>
+        <tr><th>Operação</th><th>O que muda</th><th>Exemplos</th></tr>
+        <tr><td><b>Exclusão</b> (art. 175)</td><td>Impede a constituição do crédito</td><td><b>Isenção</b> e <b>anistia</b></td></tr>
+        <tr><td><b>Suspensão</b> (art. 151)</td><td>Suspende a <b>exigibilidade</b>, sem apagar a dívida</td><td>Moratória; depósito do montante integral; impugnações e recursos administrativos; liminar em mandado de segurança; liminar ou tutela em outras ações; parcelamento</td></tr>
+        <tr><td><b>Extinção</b> (art. 156)</td><td>Extingue o crédito</td><td>Pagamento; compensação; remissão; prescrição e decadência; dação em pagamento de bem imóvel</td></tr></table></div>
+      <div class="sub-topic"><h3>Detalhes</h3><ul>
+        <li><b>Isenção:</b> lei competente, com condições e requisitos (art. 176). <b>Anistia:</b> perdoa <b>infrações</b> anteriores à lei (art. 180), exceto crimes, atos com dolo, fraude ou simulação e conluio. <b>Remissão:</b> perdão (total ou parcial) do <b>crédito</b>, autorizada por lei: é extinção, não anistia.</li>
+        <li><b>Parcelamento</b> suspende (não é quitação); a adesão não paga a dívida. A liminar suspende só quando <b>concedida</b>; ajuizar sozinho não basta.</li>
+        <li>Atualização pela LC 236/2026: o art. 151 passou a ter outras hipóteses de suspensão (VII a X: arbitragem, transação, mediação, seguro/fiança em execução fiscal). Os seis incisos clássicos não são mais lista exaustiva.</li></ul></div>
+    </div></div>
+
+  <div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>7 · Responsabilidade, decadência e prescrição<small>CTN, arts. 128 a 137, 156, 165, 173, 174</small></div><span class="seta">▶</span></div>
+    <div class="module-body">
+      <div class="sub-topic"><h3>Responsabilidade de sucessores e de terceiros</h3><ul>
+        <li><b>Art. 130:</b> créditos de impostos sobre propriedade, domínio útil ou posse de imóveis, taxas e contribuição de melhoria sub-rogam-se na pessoa do <b>adquirente</b>, salvo prova de quitação no título (na arrematação, sub-roga-se sobre o preço).</li>
+        <li><b>Art. 131</b> (adquirente de bens, espólio, sucessor), <b>art. 132</b> (fusão, transformação, incorporação), <b>art. 133</b> (aquisição de estabelecimento: integral se o alienante cessa; subsidiária se continua ou reinicia em até 6 meses).</li>
+        <li><b>Art. 134</b> (responsabilidade <b>solidária</b>, só se for impossível exigir do contribuinte): os pais, pelos tributos dos filhos menores, e outros; só alcança multas de caráter moratório. <b>Art. 135</b> (responsabilidade <b>pessoal</b>): mandatários, prepostos, empregados e diretores, gerentes ou representantes, por atos com <b>excesso de poderes ou infração de lei, contrato social ou estatutos</b>.</li>
+        <li><b>Súmula 430/STJ:</b> o simples inadimplemento da sociedade não gera, por si só, responsabilidade do sócio-gerente.</li></ul></div>
+      <div class="sub-topic"><h3>Decadência, prescrição e restituição</h3><ul>
+        <li><b>Decadência</b> (art. 173): o direito de a Fazenda <b>constituir</b> o crédito extingue-se em <b>5 anos</b>, a contar do 1º dia do exercício seguinte àquele em que o lançamento poderia ter sido efetuado (no lançamento por homologação, ver o art. 150, § 4º).</li>
+        <li><b>Prescrição</b> (art. 174): a ação de <b>cobrança</b> prescreve em <b>5 anos</b> da constituição definitiva do crédito.</li>
+        <li>Prescrição e decadência <b>extinguem</b> o crédito (art. 156, V). Por isso, o STJ admite <b>restituição</b> do pagamento de crédito já prescrito (diferente do direito civil). A <b>restituição</b> (art. 165) exige pagamento <b>indevido ou maior que o devido</b>; não basta a dívida ser antiga.</li></ul></div>
+    </div></div>
+</section>
+
+<!-- ============ MAPAS ============ -->
+<section id="mapas" class="tab-content">
+  <h2>Mapas e comparativos</h2>
+
+  <h2 style="font-size:1.05rem">Caminho do raciocínio na prova</h2>
+  <div class="flow">
+    <div class="flow-step"><b>1. Espécie</b>Imposto, taxa, melhoria, empréstimo ou contribuição?</div><div class="flow-arrow">➜</div>
+    <div class="flow-step"><b>2. Competência e lei</b>Quem institui? LC ou lei ordinária?</div><div class="flow-arrow">➜</div>
+    <div class="flow-step"><b>3. Limite</b>Princípios ou imunidade protegem o caso?</div><div class="flow-arrow">➜</div>
+    <div class="flow-step"><b>4. Fato e obrigação</b>Abstrato x concreto; principal x acessória.</div><div class="flow-arrow">➜</div>
+    <div class="flow-step"><b>5. Crédito</b>Lançamento; excluir, suspender ou extinguir.</div><div class="flow-arrow">➜</div>
+    <div class="flow-step"><b>6. Quem responde</b>Contribuinte, responsável, sucessor; prazos.</div>
+  </div>
+
+  <h2 style="font-size:1.05rem">Pares que mais confundem</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th>Par</th><th>Diferença</th></tr>
+    <tr><td>Competência x capacidade tributária ativa</td><td>Criar o tributo (indelegável) x arrecadar e fiscalizar (delegável)</td></tr>
+    <tr><td>Legislação x lei</td><td>Gênero (leis, tratados, decretos, normas complementares) x fonte primária</td></tr>
+    <tr><td>Lei complementar x norma complementar</td><td>Fonte primária x fonte secundária (CTN, art. 100)</td></tr>
+    <tr><td>Tributo x multa</td><td>Arrecadar x coibir o ilícito</td></tr>
+    <tr><td>Taxa x tarifa (preço público)</td><td>Tributo x não tributo (sem exigência de lei)</td></tr>
+    <tr><td>Causa do empréstimo x fato gerador</td><td>Guerra/calamidade/investimento autorizam; a LC descreve o fato gerador</td></tr>
+    <tr><td>IPI x IR</td><td>IPI: só noventena; IR: só anual</td></tr>
+    <tr><td>Base de cálculo x alíquota (IPTU/IPVA)</td><td>Base: só anual; alíquota: anual e noventena</td></tr>
+    <tr><td>Imunidade x isenção</td><td>Constituição x lei; a isenção exclui o crédito</td></tr>
+    <tr><td>Obrigação x crédito</td><td>Nasce com o fato gerador x constituído pelo lançamento</td></tr>
+    <tr><td>Declaração (art. 147) x homologação (art. 150)</td><td>Informar fatos para o Fisco apurar x antecipar o pagamento e ser homologado</td></tr>
+    <tr><td>Suspender x extinguir</td><td>Suspende a exigibilidade x acaba com o crédito</td></tr>
+    <tr><td>Anistia x remissão</td><td>Perdoa infração x perdoa o crédito (extinção)</td></tr>
+    <tr><td>Capacidade tributária passiva x responsabilidade</td><td>Ser capaz de ser sujeito passivo x responder por dívida alheia por lei</td></tr>
+  </table></div>
+
+  <h2 style="font-size:1.05rem">Imunidades, em um quadro</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th>Alínea</th><th>Protegido</th><th>Chave</th></tr>
+    <tr><td>a</td><td>Entes federados e suas autarquias/fundações</td><td>Finalidades essenciais; sem atividade econômica/tarifa</td></tr>
+    <tr><td>b</td><td>Templos e entidades religiosas</td><td>Patrimônio, renda e serviços das finalidades essenciais; pode ser locatária (IPTU)</td></tr>
+    <tr><td>c</td><td>Partidos, sindicatos <u>dos trabalhadores</u>, educação e assistência social sem fins lucrativos</td><td>Requisitos do art. 14 do CTN</td></tr>
+    <tr><td>d</td><td>Livros, jornais, periódicos e papel</td><td>Objetiva; e-book e e-reader (SV 57); não o maquinário</td></tr>
+    <tr><td>e</td><td>Fonogramas e videofonogramas musicais brasileiros</td><td>Salvo a replicação industrial de mídias ópticas</td></tr>
+  </table></div>
+
+  <h2 style="font-size:1.05rem">Números e súmulas</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th>Tema</th><th>Ponto</th></tr>
+    <tr><td>Noventena</td><td>90 dias (CF, art. 150, III, c)</td></tr>
+    <tr><td>Homologação tácita</td><td>5 anos do fato gerador (CTN, art. 150, § 4º)</td></tr>
+    <tr><td>Decadência / prescrição</td><td>5 anos / 5 anos (arts. 173 e 174)</td></tr>
+    <tr><td>SV 19, 29 e 41; Súmulas 545, 595, 667</td><td>Taxas (STF)</td></tr>
+    <tr><td>SV 50</td><td>Prazo de recolhimento não se sujeita à anterioridade</td></tr>
+    <tr><td>SV 52 e Súmula 724</td><td>Imóvel alugado de entidade imune; aluguéis aplicados nas atividades essenciais</td></tr>
+    <tr><td>SV 57</td><td>E-book e e-reader são imunes</td></tr>
+    <tr><td>Súmula 436/STJ</td><td>Declaração do débito constitui o crédito</td></tr>
+    <tr><td>Súmula 430/STJ</td><td>Inadimplemento da sociedade não responsabiliza o sócio-gerente</td></tr>
+    <tr><td>Súmula 670/STF</td><td>Serviço de iluminação pública não pode ser remunerado por taxa</td></tr>
+  </table></div>
+</section>
+
+<!-- ============ PEGADINHAS ============ -->
+<section id="pegadinhas" class="tab-content">
+  <h2>Alertas e pegadinhas</h2>
+  <div class="intro">Afirmações que parecem certas e estão erradas. Tente responder antes de ler a correção.</div>
+  <div id="lista-peg"></div>
+</section>
+
+<!-- ============ SIMULADO ============ -->
+<section id="quiz" class="tab-content">
+  <h2>Simulado com correção na hora</h2>
+  <div class="stats">
+    <div class="stat-box">Respondidas <span id="stat-total">0/0</span></div>
+    <div class="stat-box">Acertos <span id="stat-correct" style="color:var(--correct-green)">0</span></div>
+    <div class="stat-box">Erros <span id="stat-wrong" style="color:var(--wrong-red)">0</span></div>
+    <div class="stat-box">Aproveitamento <span id="stat-percent">0%</span></div>
+  </div>
+  <p><button class="btn" onclick="resetQuiz()">🔄 Refazer (embaralha as questões)</button></p>
+  <div id="quiz-container"></div>
+</section>
+
+<!-- ============ VÍDEOS ============ -->
+<section id="videos" class="tab-content">
+  <h2>Vídeos e podcasts</h2>
+  <div class="intro">Aqui entram os vídeos e podcasts feitos no NotebookLM e publicados no YouTube. Para incluir um, basta colocar o <b>código do vídeo</b> na lista <code>VIDEOS</code> no fim deste arquivo.</div>
+  <div id="video-area"></div>
+</section>
+
+</main>
+<footer>Material de apoio de estudo, organizado a partir das aulas. Não é publicação oficial da UNIP nem substitui a lei e as orientações do professor.</footer>
+
+<script>
+// ---- Vídeos: preencher com {titulo:"...", id:"CODIGO_DO_YOUTUBE"} ----
+var VIDEOS = [
+    // { titulo: "Imunidades tributárias", id: "XXXXXXXXXXX" },
+];
+
+var PEGADINHAS = [
+  ["A Constituição cria os tributos.", "A CF não cria tributos: atribui competência, classifica, limita e reparte receitas. Quem cria é a lei da pessoa política competente."],
+  ["Lei complementar nunca cria tributo.", "Em regra não cria, mas cria: empréstimo compulsório, imposto sobre grandes fortunas, impostos residuais, contribuições residuais, imposto seletivo, IBS e CBS."],
+  ["Empréstimo compulsório pode ser criado por medida provisória em calamidade.", "Não. Exige lei complementar (art. 148); MP é vedada em matéria reservada a LC."],
+  ["Guerra e calamidade são o fato gerador do empréstimo compulsório.", "São causas autorizadoras. A LC descreve o fato gerador."],
+  ["O empréstimo compulsório do art. 148, II (investimento) dispensa anterioridade.", "Só o do art. 148, I (calamidade/guerra) dispensa. O de investimento exige anual e noventena."],
+  ["O dinheiro do empréstimo compulsório pode ser usado em qualquer despesa.", "A receita é vinculada à despesa que fundamentou a instituição (art. 148, parágrafo único); desviar é tredestinação."],
+  ["Competência tributária pode ser delegada.", "É indelegável. O que se delega é a capacidade tributária ativa (arrecadar e fiscalizar)."],
+  ["O banco que recebe o tributo passa a ser sujeito ativo.", "Sujeito ativo é a pessoa jurídica de direito público titular da competência (CTN, art. 119)."],
+  ["Taxa e tarifa são o mesmo que tributo.", "Tarifa/preço público não é tributo e dispensa lei para ser criada."],
+  ["Taxa pode ter base de cálculo própria de imposto.", "Não pode (CF, art. 145, § 2º; CTN, art. 77, parágrafo único)."],
+  ["Tributo é sanção de ato ilícito.", "Por definição, não é (CTN, art. 3º). Multa é que coíbe o ilícito. Mas o resultado econômico de atividade ilícita pode ser tributado (pecunia non olet)."],
+  ["Se o fato gerador for ilícito, não se paga tributo.", "O art. 118 do CTN manda abstrair da validade dos atos: o que importa é o fato econômico."],
+  ["O decreto pode criar tributo se tiver urgência.", "Não. O decreto se limita ao conteúdo e alcance da lei (CTN, art. 99); só alguns tributos têm alíquota alterável por ato do Executivo, nos limites da lei."],
+  ["Pode-se majorar qualquer alíquota por decreto.", "Só as exceções: II, IE, IPI e IOF (nos limites da lei), CIDE e ICMS-combustíveis em regimes próprios."],
+  ["Atualizar o valor monetário da base de cálculo exige lei, pois é majoração.", "Não é majoração (CTN, art. 97, § 2º; Súmula 160/STJ)."],
+  ["O IPI dispensa a noventena.", "O IPI dispensa só a anterioridade anual; a noventena se aplica. O IR é o contrário: só anual."],
+  ["Lei que aumenta imposto publicada em dezembro permite cobrança em janeiro.", "Janeiro cumpre a anual; a noventena (90 dias) continua valendo, quando aplicável."],
+  ["Noventena é a mesma coisa que 3 meses.", "São 90 dias, contados da publicação, não 3 meses."],
+  ["A fixação da base de cálculo do IPTU precisa respeitar a noventena.", "A fixação da base de IPTU e IPVA dispensa a noventena (mas não a anual). Já o aumento de alíquota exige as duas."],
+  ["A irretroatividade tem exceções constitucionais.", "Não tem. A retroatividade benigna vem do CTN, art. 106 (interpretativa, infração, penalidade menos severa)."],
+  ["A anterioridade vale para a redução de tributos.", "Só para instituir ou aumentar. Redução e extinção podem valer de imediato."],
+  ["A mudança do prazo de pagamento do tributo exige anterioridade.", "Não (Súmula Vinculante 50)."],
+  ["A lei que revoga isenção pode ser cobrada de imediato.", "Revogar isenção observa a anterioridade."],
+  ["A igualdade tributária significa que todos pagam o mesmo valor.", "Veda tratamento desigual entre equivalentes, sem distinção por ocupação profissional; permite graduar pela capacidade econômica."],
+  ["O pedágio é taxa e fere a liberdade de tráfego.", "O art. 150, V ressalva o pedágio, e o STF o trata como preço público (ADI 800)."],
+  ["A uniformidade tributária se aplica a Estados e Municípios.", "O art. 151, I é para a União. Estados, DF e Municípios têm a vedação do art. 152 (não discriminar por procedência ou destino)."],
+  ["Imunidade e isenção são a mesma coisa.", "Imunidade vem da Constituição; isenção vem da lei e exclui o crédito."],
+  ["A imunidade recíproca vale para toda atividade de empresa estatal.", "Não vale para atividade econômica em regime privado ou com tarifa (art. 150, § 3º); empresa pública e sociedade de economia mista não têm imunidade automática."],
+  ["A imunidade religiosa vale para todo o patrimônio da igreja.", "Só patrimônio, renda e serviços relacionados às finalidades essenciais (art. 150, § 4º). Não dispensa obrigações acessórias."],
+  ["A entidade religiosa precisa ser dona do imóvel para ter imunidade de IPTU.", "Não: o art. 156, § 1º-A garante a imunidade ainda que seja só locatária."],
+  ["A imunidade das entidades sindicais vale para o sindicato patronal.", "A alínea c fala em sindicatos dos trabalhadores."],
+  ["A entidade imune que aluga imóvel perde a imunidade do IPTU.", "Não perde se os aluguéis forem aplicados nas atividades essenciais (SV 52)."],
+  ["A imunidade dos livros alcança a máquina da gráfica.", "Alcança livros, jornais, periódicos, papel e, por jurisprudência, e-books e suportes; não o maquinário."],
+  ["Autor e intérprete precisam ser brasileiros na imunidade musical.", "É “e/ou”: basta obra de autor brasileiro e/ou interpretada por artista brasileiro. O fonograma deve ser produzido no Brasil."],
+  ["A obrigação tributária nasce com o lançamento.", "Nasce com o fato gerador; o lançamento constitui o crédito."],
+  ["Obrigação acessória é só a que acompanha a principal.", "Quem tem imunidade não tem obrigação principal, mas mantém as acessórias (escriturar, declarar)."],
+  ["A multa é tributo.", "Não é (CTN, art. 3º), mas pagar multa é obrigação principal (art. 113, § 1º)."],
+  ["O contrato de locação que passa o IPTU ao inquilino muda o sujeito passivo perante o Fisco.", "Não. O art. 123 do CTN diz que convenções particulares não se opõem à Fazenda."],
+  ["Criança menor não pode ser contribuinte.", "Pode: a capacidade tributária passiva independe da capacidade civil (CTN, art. 126)."],
+  ["Toda declaração do contribuinte é lançamento por declaração (art. 147).", "O art. 147 trata de informações de fato para o Fisco apurar. Pela Súmula 436/STJ, declarar o débito constitui o crédito, mas não é a mesma coisa."],
+  ["A homologação tácita ocorre em 10 anos.", "Sem prazo na lei, 5 anos do fato gerador (CTN, art. 150, § 4º), salvo dolo, fraude ou simulação."],
+  ["Parcelamento extingue o crédito.", "Suspende a exigibilidade; a quitação é que extingue."],
+  ["Isenção extingue o crédito.", "A isenção exclui o crédito (art. 175). Extinguem: pagamento, compensação, remissão, prescrição, decadência."],
+  ["Anistia e remissão são iguais.", "Anistia perdoa infrações anteriores à lei; remissão perdoa o crédito (é causa de extinção)."],
+  ["Ajuizar mandado de segurança já suspende a exigibilidade.", "A suspensão exige a concessão da liminar."],
+  ["O sócio sempre responde pela dívida da empresa.", "Só se houver excesso de poderes ou infração de lei, contrato social ou estatutos (CTN, art. 135). Súmula 430/STJ: inadimplemento não basta."],
+  ["Os pais respondem sempre pelo tributo do filho menor.", "Responsabilidade solidária do art. 134, I, só se for impossível exigir do contribuinte, e quanto às multas, só as moratórias."],
+  ["O adquirente de imóvel nunca responde pelas dívidas anteriores.", "Os créditos sobre o imóvel (IPTU, taxas, contribuição de melhoria) sub-rogam-se no adquirente, salvo quitação provada no título (art. 130)."],
+  ["Prescrição e decadência são o mesmo prazo.", "Decadência: prazo para constituir o crédito. Prescrição: prazo para cobrar o crédito já constituído. Ambos de 5 anos."],
+  ["Pagamento de crédito prescrito não pode ser devolvido (como no direito civil).", "No tributário, o STJ admite a restituição, porque a prescrição extingue o crédito."]
+];
+
+var QUESTOES = [
+  ["O Código Tributário Nacional, nascido como lei ordinária, hoje só pode ser alterado por:", ["Lei ordinária","Lei complementar","Decreto","Resolução do Senado"], 1, "Tem força de lei complementar."],
+  ["A Constituição Federal, em matéria tributária:", ["Cria os tributos","Atribui competência, classifica tributos e limita o poder de tributar","Só define taxas","Dispensa lei"], 1, "Ela não cria tributos."],
+  ["Entre os tributos que podem ser instituídos por lei complementar está:", ["IPTU","Empréstimo compulsório","ITBI","Taxa de polícia"], 1, "CF, art. 148."],
+  ["Competência tributária é:", ["Arrecadar e fiscalizar","Aptidão para criar o tributo por lei","Cobrar judicialmente","Delegar a particulares"], 1, "A capacidade tributária ativa é que é arrecadar e fiscalizar."],
+  ["Pode ser delegada:", ["A competência tributária","A capacidade tributária ativa","A competência para criar tributos","A competência para as normas gerais"], 1, "CTN, art. 7º."],
+  ["Competência para estabelecer normas gerais em matéria tributária:", ["Dos Municípios","Da União, por lei complementar","Dos Estados","Do Senado, por resolução"], 1, "CF, art. 146, III."],
+  ["A hipótese de cobrança de IPTU de imóvel de R$ 500.000 com alíquota de 1% apresenta, no aspecto quantitativo:", ["R$ 5.000","R$ 50.000","R$ 500","R$ 5"], 0, "Base de cálculo × alíquota."],
+  ["Taxa é o tributo cujo fato gerador é:", ["Situação independente de atuação estatal","Poder de polícia ou serviço público específico e divisível","Valorização imobiliária","Qualquer receita"], 1, "CF, art. 145, II."],
+  ["Contribuição de melhoria decorre de:", ["Qualquer serviço","Obra pública com valorização imobiliária","Poder de polícia","Renda"], 1, "Limite total: despesa realizada; limite individual: acréscimo de valor."],
+  ["A tarifa (preço público):", ["É tributo","Não é tributo","Exige lei complementar","É imposto"], 1, "Taxa é tributo; tarifa não."],
+  ["Tributo não constitui sanção de ato ilícito. Então a multa:", ["É tributo","Não é tributo","É imposto","É taxa"], 1, "CTN, art. 3º."],
+  ["O princípio “pecunia non olet” significa que:", ["Só atos lícitos são tributados","O fato gerador é interpretado abstraindo-se da licitude do ato","A multa substitui o tributo","Não há tributação de renda"], 1, "CTN, art. 118."],
+  ["Imposto é o tributo cuja obrigação tem por fato gerador:", ["Atividade estatal específica","Situação independente de atividade estatal específica relativa ao contribuinte","Obra pública","Serviço divisível"], 1, "CTN, art. 16."],
+  ["O empréstimo compulsório pode ser instituído:", ["Pela União, por lei complementar","Pelos Estados, por lei ordinária","Pelos Municípios, por decreto","Pela União, por medida provisória"], 0, "CF, art. 148."],
+  ["Em calamidade pública, o empréstimo compulsório (art. 148, I):", ["Exige anterioridade anual e noventena","Dispensa as duas anterioridades","Só exige noventena","Não pode ser cobrado"], 1, "Já o do art. 148, II (investimento) exige as duas."],
+  ["A receita do empréstimo compulsório:", ["Pode ir para qualquer despesa","É vinculada à despesa que fundamentou a instituição","É sempre restituída em 1 ano","É partilhada com os Municípios"], 1, "Art. 148, parágrafo único."],
+  ["Guerra, calamidade pública e investimento urgente são, no empréstimo compulsório:", ["O fato gerador","Causas autorizadoras","A base de cálculo","A alíquota"], 1, "A LC descreve o fato gerador."],
+  ["A contribuição para o custeio da iluminação pública (art. 149-A) pode ser instituída por:", ["União","Estados","Municípios e Distrito Federal","Qualquer ente"], 2, "COSIP."],
+  ["O princípio da legalidade tributária (CF, art. 150, I) proíbe:", ["Exigir ou aumentar tributo sem lei que o estabeleça","Qualquer isenção","Alterar bases por lei","Cobrar taxa"], 0, "Reserva legal."],
+  ["Podem ter alíquotas alteradas pelo Executivo, nos limites da lei:", ["IPTU, ITBI, IR","II, IE, IPI e IOF","ICMS e ISS","ITCMD e IPVA"], 1, "CF, art. 153, § 1º."],
+  ["A atualização monetária da base de cálculo do IPTU:", ["É majoração e exige lei","Não é majoração (CTN, art. 97, § 2º)","É vedada","Exige LC"], 1, "Súmula 160/STJ."],
+  ["Uma lei publicada em 10 de dezembro majora a alíquota do IPTU. A cobrança:", ["Pode começar em 11 de dezembro","Só vale a partir do exercício seguinte, respeitados os 90 dias","Pode começar em janeiro, sem noventena","Não precisa de lei"], 1, "Aumento de alíquota de IPTU exige anual e noventena."],
+  ["O IPI, quanto às anterioridades:", ["Dispensa anual e noventena","Dispensa a anual, mas observa a noventena","Observa a anual, mas dispensa a noventena","Observa as duas"], 1, "O IR é o contrário."],
+  ["O Imposto de Renda, quanto às anterioridades:", ["Dispensa a noventena e observa a anual","Dispensa a anual e observa a noventena","Dispensa ambas","Observa ambas"], 0, "CF, art. 150, § 1º."],
+  ["II, IE e IOF:", ["Dispensam anual e noventena","Exigem anual e noventena","Só exigem anual","Só exigem noventena"], 0, "Regimes extrafiscais."],
+  ["A fixação da base de cálculo de IPTU e IPVA:", ["Exige anual e noventena","Exige a anual, mas dispensa a noventena","Dispensa a anual","Dispensa as duas"], 1, "Art. 150, § 1º."],
+  ["A lei que institui tributo não pode alcançar fatos geradores anteriores à sua vigência. É o princípio da:", ["Anterioridade","Irretroatividade","Noventena","Uniformidade"], 1, "Art. 150, III, a."],
+  ["Sobre a retroatividade benigna do CTN, art. 106, a lei se aplica a ato pretérito quando:", ["Cria tributo novo","Comina penalidade menos severa, para ato não definitivamente julgado","Aumenta a multa","Cria nova infração"], 1, "Art. 106, II, c."],
+  ["A mudança só do prazo de recolhimento do tributo:", ["Exige noventena","Exige anterioridade anual","Não se sujeita à anterioridade (SV 50)","Exige LC"], 2, "Súmula Vinculante 50."],
+  ["A vedação à distinção em razão da ocupação profissional decorre do princípio da:", ["Legalidade","Isonomia (art. 150, II)","Noventena","Uniformidade"], 1, "Também se vincula à capacidade contributiva."],
+  ["A vedação de tributo “que não seja uniforme em todo o território nacional” (art. 151, I) dirige-se:", ["Aos Municípios","À União","Aos Estados","A todos os entes"], 1, "Estados, DF e Municípios: art. 152."],
+  ["A ressalva do art. 150, V (tráfego de pessoas e bens) é:", ["O ICMS","O pedágio","A taxa de polícia","O IPVA"], 1, "O STF o trata como preço público (ADI 800)."],
+  ["Imunidade é:", ["Dispensa legal do tributo","Limitação constitucional da competência: hipótese de não incidência constitucionalmente qualificada","Alíquota zero","Remissão"], 1, "Isenção é dispensa legal."],
+  ["A isenção:", ["É de origem constitucional","Depende de lei do ente competente e exclui o crédito","Extingue o crédito","Suspende o crédito"], 1, "CTN, arts. 175 e 176."],
+  ["O IPVA não incide sobre a bicicleta comum. Isso é:", ["Imunidade","Isenção","Não incidência (o fato não se enquadra na hipótese)","Remissão"], 2, "Não é preciso inventar imunidade."],
+  ["A imunidade recíproca (art. 150, VI, a) estende-se, quanto às finalidades essenciais:", ["A empresas privadas","A autarquias e fundações públicas","A qualquer sociedade de economia mista","A partidos"], 1, "Art. 150, § 2º."],
+  ["A imunidade recíproca NÃO alcança:", ["Patrimônio da União ligado às finalidades essenciais","Serviços relacionados à exploração de atividade econômica regida pelo regime privado","Fundações públicas","Autarquias"], 1, "Art. 150, § 3º."],
+  ["Entidade religiosa que é apenas locatária do templo:", ["Perde a imunidade","Mantém a imunidade de IPTU (art. 156, § 1º-A)","Paga IPTU em dobro","Depende de lei local"], 1, "EC 116/2022."],
+  ["A imunidade das alíneas b e c compreende somente:", ["Todo o patrimônio","Patrimônio, renda e serviços relacionados às finalidades essenciais","Apenas a renda","Apenas imóveis"], 1, "Art. 150, § 4º."],
+  ["Quais requisitos do CTN, art. 14, a entidade da alínea c deve cumprir?", ["Distribuir lucros e manter filiais","Não distribuir patrimônio ou renda, aplicar integralmente no País os recursos e manter escrituração","Ter fins lucrativos","Ter sede no exterior"], 1, "Mensalidade e superávit não bastam para negar a imunidade."],
+  ["A alínea c cita sindicatos:", ["Patronais","Dos trabalhadores","De qualquer categoria","Só de servidores"], 1, "Entidades sindicais dos trabalhadores."],
+  ["Imóvel de entidade imune alugado a terceiros, com aluguéis aplicados nas atividades essenciais:", ["Perde a imunidade","Continua imune ao IPTU (SV 52)","Paga IPTU pela metade","Paga ITBI"], 1, "Súmula 724/STF."],
+  ["A imunidade do art. 150, VI, d, abrange:", ["Maquinário da gráfica","E-books e suportes exclusivos, como e-readers","Qualquer celular","Livro em branco"], 1, "SV 57."],
+  ["Na imunidade musical (alínea e), fica fora da proteção:", ["O fonograma produzido no Brasil","A etapa de replicação industrial de mídias ópticas de leitura a laser","O arquivo digital","O vinil"], 1, "CD/DVD pagam IPI na replicação."],
+  ["A obrigação tributária principal nasce:", ["Com o lançamento","Com o fato gerador","Com a inscrição em dívida ativa","Com o pagamento"], 1, "CTN, art. 113, § 1º."],
+  ["O crédito tributário é constituído:", ["Com a ocorrência do fato gerador","Pelo lançamento","Pela lei","Pela prescrição"], 1, "Art. 142."],
+  ["Fato gerador em abstrato é:", ["A ocorrência concreta","A previsão da lei (hipótese de incidência)","O lançamento","O pagamento"], 1, "Em concreto: a situação que realiza a hipótese."],
+  ["Obrigação acessória (instrumental) tem por objeto:", ["Pagar tributo","Prestações de fazer ou não fazer no interesse da arrecadação ou fiscalização","Pagar multa","Pagar juros"], 1, "Ex.: escriturar livros, declarar."],
+  ["O templo imune ao imposto:", ["Também está dispensado das obrigações acessórias","Deve cumprir as obrigações acessórias","Não pode ter livros","Paga IPI"], 1, "A acessória não segue a sorte da principal."],
+  ["Pagar multa por infração tributária é obrigação:", ["Acessória","Principal","Instrumental","Inexistente"], 1, "Objeto pecuniário."],
+  ["Contribuinte é quem:", ["Responde por dívida alheia por lei","Tem relação pessoal e direta com o fato gerador","É o sócio da empresa","É o banco"], 1, "CTN, art. 121, parágrafo único, I."],
+  ["Cláusula de contrato de locação que passa o IPTU ao inquilino:", ["Muda o sujeito passivo perante o Município","Vale entre as partes, mas não se opõe à Fazenda (art. 123)","É nula entre as partes","Dispensa o lançamento"], 1, "O sujeito passivo é definido por lei."],
+  ["A capacidade tributária passiva:", ["Exige capacidade civil","Independe da capacidade civil (art. 126)","Exige empresa regular","Exige maioridade"], 1, "Uma criança pode ser contribuinte."],
+  ["O IPTU e o IPVA são, nos exemplos da aula, lançados:", ["Por homologação","De ofício","Por autolançamento","Por arbitramento"], 1, "A autoridade apura e lança; o contribuinte paga."],
+  ["No lançamento por homologação, o contribuinte:", ["Apenas paga após o lançamento","Antecipa o pagamento sem exame prévio, e a autoridade homologa depois","Nunca paga","Só declara"], 1, "CTN, art. 150."],
+  ["Se a lei não fixar prazo para a homologação, ele é de:", ["1 ano","5 anos do fato gerador","10 anos","30 dias"], 1, "Salvo dolo, fraude ou simulação."],
+  ["A Súmula 436 do STJ diz que a entrega de declaração reconhecendo o débito:", ["Não constitui o crédito","Constitui o crédito tributário","Extingue o crédito","Só vale com notificação"], 1, "Dispensada qualquer outra providência do Fisco."],
+  ["Isenção e anistia:", ["Suspendem a exigibilidade","Excluem o crédito (art. 175)","Extinguem o crédito","São obrigações acessórias"], 1, "Exclusão do crédito."],
+  ["Suspende a exigibilidade do crédito:", ["Prescrição","Depósito do montante integral","Remissão","Pagamento"], 1, "CTN, art. 151, II."],
+  ["Extingue o crédito tributário:", ["Parcelamento","Moratória","Remissão","Depósito do montante integral"], 2, "Art. 156 (também pagamento, compensação, prescrição, decadência)."],
+  ["A anistia abrange:", ["Infrações cometidas antes da vigência da lei","Infrações futuras","Crimes e fraudes, sempre","Apenas o tributo"], 0, "Art. 180."],
+  ["Responsabilidade pessoal de diretores e gerentes (CTN, art. 135) exige:", ["Mero inadimplemento da empresa","Atos com excesso de poderes ou infração de lei, contrato social ou estatutos","Ser acionista","Ser filho do sócio"], 1, "Súmula 430/STJ."],
+  ["O adquirente de imóvel responde pelos tributos sobre o imóvel (art. 130):", ["Nunca","Em regra sim, salvo quitação provada no título","Só se for pessoa jurídica","Só os que vencerem depois"], 1, "Sub-rogação."],
+  ["O prazo para a Fazenda constituir o crédito (decadência) é, em regra, de:", ["5 anos","2 anos","10 anos","20 anos"], 0, "CTN, art. 173."],
+  ["A ação de cobrança do crédito tributário prescreve em:", ["2 anos","5 anos, contados da constituição definitiva","10 anos","20 anos"], 1, "CTN, art. 174."]
+];
+
+// ----- abas e módulos -----
+function switchTab(id, btn){
+  document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active')});
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('nav button').forEach(function(b){b.classList.remove('active')});
+  if(btn) btn.classList.add('active');
+  window.scrollTo({top:0});
+}
+function toggleModule(h){ h.parentElement.classList.toggle('open'); }
+
+// ----- pegadinhas -----
+(function(){
+  var el = document.getElementById('lista-peg');
+  el.innerHTML = PEGADINHAS.map(function(p){
+    return '<div class="peg"><div class="afirma">“' + p[0] + '”</div><div><span class="errada">Cuidado:</span> ' + p[1] + '</div></div>';
+  }).join('');
+})();
+
+// ----- vídeos -----
+(function(){
+  var area = document.getElementById('video-area');
+  if(!VIDEOS.length){
+    area.innerHTML = '<div class="vazio">Ainda não há vídeos publicados para este módulo. 🎬<br>Em breve entram aqui os vídeos e podcasts do NotebookLM.</div>';
+    return;
+  }
+  area.innerHTML = '<div class="video-grid">' + VIDEOS.map(function(v){
+    return '<div class="video-card"><div class="ratio"><iframe src="https://www.youtube.com/embed/' + v.id + '" allowfullscreen loading="lazy" title="' + v.titulo + '"></iframe></div><h4>' + v.titulo + '</h4></div>';
+  }).join('') + '</div>';
+})();
+
+// ----- simulado -----
+var ordem = [], respondidas = {}, acertos = 0, erros = 0;
+function shuffle(a){ for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;} return a; }
+function initQuizData(){
+  ordem = shuffle(QUESTOES.map(function(_,i){return i;}));
+  respondidas = {}; acertos = 0; erros = 0;
+}
+function renderQuiz(){
+  var box = document.getElementById('quiz-container');
+  box.innerHTML = ordem.map(function(qi, pos){
+    var q = QUESTOES[qi];
+    var ops = q[1].map(function(o, oi){
+      return '<button class="option-btn" id="q' + pos + '-o' + oi + '" onclick="checkAnswer(' + pos + ',' + oi + ')">' + String.fromCharCode(65+oi) + ') ' + o + '</button>';
+    }).join('');
+    return '<div class="q"><div class="enun">' + (pos+1) + '. ' + q[0] + '</div>' + ops + '<div class="explanation" id="exp-' + pos + '">' + q[3] + '</div></div>';
+  }).join('');
+  updateStats();
+}
+function checkAnswer(pos, escolha){
+  if(respondidas[pos] !== undefined) return;
+  var q = QUESTOES[ordem[pos]];
+  respondidas[pos] = escolha;
+  for(var i=0;i<q[1].length;i++){
+    var b = document.getElementById('q'+pos+'-o'+i);
+    b.disabled = true;
+    if(i === q[2]) b.classList.add('correct');
+    else if(i === escolha) b.classList.add('wrong');
+  }
+  if(escolha === q[2]) acertos++; else erros++;
+  document.getElementById('exp-'+pos).classList.add('show');
+  updateStats();
+}
+function updateStats(){
+  var total = acertos + erros;
+  document.getElementById('stat-total').textContent = total + '/' + QUESTOES.length;
+  document.getElementById('stat-correct').textContent = acertos;
+  document.getElementById('stat-wrong').textContent = erros;
+  document.getElementById('stat-percent').textContent = total ? Math.round(acertos*100/total) + '%' : '0%';
+}
+function resetQuiz(){ initQuizData(); renderQuiz(); window.scrollTo({top:0}); }
+initQuizData(); renderQuiz();
+</script>
+</body>
+</html>

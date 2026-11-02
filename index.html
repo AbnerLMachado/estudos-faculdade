@@ -46,7 +46,7 @@
   .topo h1 { margin: 0; font-size: 1.15rem; line-height: 1.2; }
   .topo p { margin: 0; font-size: .8rem; color: var(--text-muted); }
   #menu {
-    display: inline-flex; align-items: center; justify-content: center;
+    display: none;
     width: 42px; height: 42px; border-radius: 10px;
     border: 1px solid var(--border-color); background: var(--bg-primary); font-size: 1.3rem;
   }
@@ -126,6 +126,28 @@
   /* ---------- página inicial ---------- */
   body.inicio #lateral, body.inicio #menu { display: none; }
   body.recolhida #lateral { display: none; }
+  body.inicio #trilho { display: none; }
+  #trilho { display: none; }
+  body.recolhida #trilho {
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    width: 64px; flex-shrink: 0; overflow-y: auto; padding: 12px 6px;
+    background: var(--bg-secondary); border-right: 1px solid var(--border-color);
+  }
+  .trilho-btn {
+    width: 44px; height: 44px; flex-shrink: 0; border-radius: 12px; border: 1px solid var(--border-color);
+    background: var(--bg-primary); color: var(--text-main); font-size: .82rem; font-weight: 700;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .trilho-btn:hover { background: var(--bg-hover); }
+  .trilho-btn[aria-current="true"] { background: var(--accent-blue); color: #04202e; border-color: var(--accent-blue); }
+  .trilho-btn.vazia { opacity: .45; }
+  .trilho-btn.exp { border-color: var(--accent-gold); color: var(--accent-gold); font-size: 1.1rem; }
+  .trilho-sep { width: 28px; height: 1px; background: var(--border-color); flex-shrink: 0; }
+  .lat-topo { display: flex; gap: 8px; margin-bottom: 14px; }
+  .lat-topo .voltar { margin-bottom: 0; flex: 1; }
+  .recolher { width: 44px; flex-shrink: 0; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-primary); font-size: 1.2rem; font-weight: 700; }
+  .recolher:hover { background: var(--bg-hover); }
+  #fundo-menu { display: none; }
   body.inicio #cab, body.inicio #modulos, body.inicio #paginas, body.inicio #visor, body.inicio #vazio { display: none; }
   #inicio { display: none; }
   body.inicio #inicio { display: block; max-width: 1100px; width: 100%; margin: 0 auto; }
@@ -159,6 +181,9 @@
   /* ---------- celular ---------- */
   @media (max-width: 860px) {
     body.recolhida #lateral { display: block; } /* no celular o menu é gaveta, não usa "recolhida" */
+    body.recolhida #trilho { display: none; }
+    #menu { display: inline-flex; align-items: center; justify-content: center; }
+    #fundo-menu.aberto { display: block; position: fixed; z-index: 19; top: var(--altura-topo); left: 0; right: 0; bottom: 0; background: rgba(0,0,0,.45); }
     #lateral {
       position: fixed; z-index: 20; top: var(--altura-topo); bottom: 0; left: 0; width: min(86vw, 340px);
       transform: translateX(-102%); transition: transform .2s ease; box-shadow: 4px 0 24px rgba(0,0,0,.5);
@@ -181,8 +206,13 @@
 </header>
 
 <div class="layout">
+  <nav id="trilho" aria-label="Menu recolhido"></nav>
+  <div id="fundo-menu"></div>
   <aside id="lateral" aria-label="Semestres e matérias">
-    <button type="button" class="voltar" id="voltar-inicio">← Todas as matérias</button>
+    <div class="lat-topo">
+      <button type="button" class="recolher" id="recolher" aria-label="Recolher o menu" title="Recolher o menu">«</button>
+      <button type="button" class="voltar" id="voltar-inicio">← Todas as matérias</button>
+    </div>
     <p class="rotulo">Semestre</p>
     <div id="semestres" role="group" aria-label="Semestres"></div>
     <p class="rotulo">Matéria</p>
@@ -333,6 +363,25 @@
     });
   }
 
+  function desenharTrilho() {
+    var sem = achaSemestre(estado.sem);
+    var t = el("trilho"); limpar(t);
+    var exp = criar("button", { type: "button", "class": "trilho-btn exp", "aria-label": "Mostrar o menu", title: "Mostrar o menu" }, "»");
+    exp.addEventListener("click", function () { gravar(CHAVE_LATERAL, false); aplicarLateral(); });
+    t.appendChild(exp);
+    var casa = criar("button", { type: "button", "class": "trilho-btn", "aria-label": "Início", title: "Início" }, "🏠");
+    casa.addEventListener("click", irInicio);
+    t.appendChild(casa);
+    t.appendChild(criar("span", { "class": "trilho-sep" }));
+    var ignora = { de: 1, da: 1, do: 1, e: 1, ao: 1, "(AVA)": 1 };
+    sem.materias.forEach(function (m) {
+      var iniciais = m.nome.split(/\s+/).filter(function (p) { return p.length > 2 && !ignora[p]; }).slice(0, 2).map(function (p) { return p.charAt(0).toUpperCase(); }).join("") || m.nome.slice(0, 2);
+      var b = criar("button", { type: "button", "class": "trilho-btn" + (totalPaginas(m) === 0 ? " vazia" : ""), title: m.nome, "aria-label": m.nome, "aria-current": String(m.id === estado.mat) }, iniciais);
+      b.addEventListener("click", function () { estado.mat = m.id; estado.mod = null; estado.pag = 0; atualizar(); });
+      t.appendChild(b);
+    });
+  }
+
   function desenharMaterias() {
     var sem = achaSemestre(estado.sem);
     var lista = el("materias"); limpar(lista);
@@ -426,6 +475,7 @@
     document.body.classList.toggle("inicio", !mat);
     if (!mat) { fecharMenu(); desenharInicio(); return; }
     desenharSemestres();
+    desenharTrilho();
     desenharMaterias();
     desenharCabecalho();
     desenharPaginas();
@@ -433,7 +483,7 @@
   }
 
   /* ---- menu no celular ---- */
-  function fecharMenu() { el("lateral").classList.remove("aberta"); el("menu").setAttribute("aria-expanded", "false"); }
+  function fecharMenu() { el("lateral").classList.remove("aberta"); el("fundo-menu").classList.remove("aberto"); el("menu").setAttribute("aria-expanded", "false"); }
   var CHAVE_LATERAL = "estudos-direito:lateral-recolhida";
   var celular = window.matchMedia("(max-width: 860px)");
   function aplicarLateral() {
@@ -444,12 +494,18 @@
   el("menu").addEventListener("click", function () {
     if (celular.matches) {
       var aberta = el("lateral").classList.toggle("aberta");
+      el("fundo-menu").classList.toggle("aberto", aberta);
       el("menu").setAttribute("aria-expanded", String(aberta));
     } else {
       gravar(CHAVE_LATERAL, ler(CHAVE_LATERAL) !== true);
       aplicarLateral();
     }
   });
+  el("recolher").addEventListener("click", function () {
+    if (celular.matches) fecharMenu();
+    else { gravar(CHAVE_LATERAL, true); aplicarLateral(); }
+  });
+  el("fundo-menu").addEventListener("click", fecharMenu);
   if (celular.addEventListener) celular.addEventListener("change", function () { fecharMenu(); aplicarLateral(); });
   aplicarLateral();
   function irInicio() { estado.mat = null; estado.mod = null; estado.pag = 0; fecharMenu(); atualizar(); window.scrollTo(0, 0); }
