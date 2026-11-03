@@ -121,7 +121,8 @@
     border: 2px dashed var(--border-color); border-radius: 12px; padding: 30px; color: var(--text-muted);
   }
   .vazio strong { color: var(--text-main); font-size: 1.1rem; }
-  footer { font-size: .72rem; color: var(--text-muted); padding: 2px 2px 6px; }
+  footer { font-size: .72rem; color: var(--text-muted); padding: 6px 2px 8px; line-height: 1.45; }
+  footer strong { color: var(--text-main); }
 
   /* ---------- página inicial ---------- */
   body.inicio #lateral, body.inicio #menu { display: none; }
@@ -237,7 +238,7 @@
     #paginas, .abas, #cab { flex-shrink: 0; }
     #paginas { flex-wrap: nowrap; overflow-x: auto; gap: 6px; padding-bottom: 2px; }
     .pag-btn { white-space: nowrap; padding: 6px 10px; font-size: .8rem; }
-    footer { display: none; }
+    footer { font-size: .66rem; padding: 4px 2px 6px; }
     #visor { min-height: 72vh; min-height: 72dvh; }
     .barra-visor { padding: 4px 8px; }
     .barra-visor span { display: none; }
@@ -300,7 +301,10 @@
       </div>
       <iframe id="quadro" title="Material de estudo" allow="fullscreen; autoplay; encrypted-media; picture-in-picture; clipboard-write"></iframe>
     </section>
-    <footer>Material de estudo compilado e organizado por alunos; não substitui as aulas, os livros nem as orientações dos professores.</footer>
+    <footer>
+      <strong>Desenvolvido por Abner Machado</strong> · © 2026. Todos os direitos reservados; a cópia ou republicação sem autorização não é permitida.<br>
+      Material de estudo organizado a partir de materiais dos professores e de anotações em sala. Os vídeos, áudios e parte dos resumos são produzidos com apoio de inteligência artificial e <b>podem conter erros</b>. Não substitui as aulas, os livros, a lei nem as orientações dos professores: confira sempre as fontes oficiais.
+    </footer>
   </main>
 </div>
 
