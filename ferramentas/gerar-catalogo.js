@@ -23,6 +23,9 @@ for (const s of fonte.semestres) {
     }
   }
 }
+for (const p of (fonte.provas?.itens ?? [])) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(p.data) || Number.isNaN(Date.parse(p.data))) problemas.push("data de prova inválida: " + p.materia + " " + p.data);
+}
 if (problemas.length > 0) {
   console.error("Catálogo com problemas:\n- " + problemas.join("\n- "));
   process.exit(1);

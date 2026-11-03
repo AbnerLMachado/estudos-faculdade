@@ -220,6 +220,20 @@ module.exports = {
       ],
     },
   ],
+  /* Calendário de provas (atualizado em 19/10): data em AAAA-MM-DD. O cartão some da tela inicial depois do dia da última prova. */
+  provas: {
+    titulo: "Calendário NP2 · 2026",
+    itens: [
+      { data: "2026-11-03", materia: "Proteção Penal ao Indivíduo", professor: "Cassola" },
+      { data: "2026-11-04", materia: "Direito Individual do Trabalho", professor: "Noemia" },
+      { data: "2026-11-05", materia: "Direito e Globalização", professor: "Cecília", ava: true },
+      { data: "2026-11-09", materia: "Contratos em Geral", professor: "Rodrigo" },
+      { data: "2026-11-10", materia: "Métodos de Pesquisa", professor: "Cassola", ava: true },
+      { data: "2026-11-11", materia: "Teoria Geral do Direito Tributário", professor: "Ana Laura", obs: "2ª aula" },
+      { data: "2026-11-12", materia: "Sentença e Recursos Civil", professor: "Cecília" },
+      { data: "2026-11-16", materia: "Ação Penal", professor: "Rodrigo", ava: true },
+    ],
+  },
   ferramentas: [
     item("ferramenta", "Calculadora de notas", pagina("calculanota", "")),
   ],

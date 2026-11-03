@@ -192,6 +192,31 @@
     #principal { padding: 12px; }
     #visor { min-height: 70vh; }
   }
+  /* ---------- calendário de provas (só lembrete, não clicável) ---------- */
+  #calendario-provas { margin: 4px 0 22px; }
+  #calendario-provas h3 { margin: 0 0 10px; font-size: 1.05rem; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  #calendario-provas h3 small { font-weight: 400; color: var(--text-muted); font-size: .8rem; }
+  #lista-provas { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(215px, 1fr)); gap: 10px; }
+  .prova {
+    --cor: var(--accent-blue); --fundo: rgba(56, 189, 248, .10);
+    display: flex; gap: 12px; align-items: center; padding: 12px 14px; border-radius: 14px;
+    background: var(--fundo); border: 1px solid var(--cor); border-left-width: 5px; cursor: default; user-select: none;
+  }
+  .prova.amanha { --cor: #fbbf24; --fundo: rgba(251, 191, 36, .14); }
+  .prova.hoje { --cor: #ef4444; --fundo: rgba(239, 68, 68, .18); }
+  .prova.passou { --cor: #64748b; --fundo: rgba(100, 116, 139, .12); opacity: .7; }
+  .prova .data { min-width: 52px; text-align: center; line-height: 1.1; }
+  .prova .data b { display: block; font-size: 1.55rem; color: var(--cor); }
+  .prova .data span { font-size: .68rem; text-transform: uppercase; letter-spacing: .06em; color: var(--text-muted); }
+  .prova .info { min-width: 0; }
+  .prova .materia { font-weight: 700; font-size: .93rem; line-height: 1.25; }
+  .prova .prof { font-size: .76rem; color: var(--text-muted); margin-top: 2px; }
+  .prova .estado { display: inline-block; margin-top: 5px; padding: 2px 9px; border-radius: 999px; font-size: .7rem; font-weight: 700; background: var(--cor); color: #0b132b; }
+  .prova.passou .estado { color: #e2e8f0; background: #475569; }
+  .prova .ava { margin-left: 4px; font-size: .62rem; font-weight: 700; padding: 1px 6px; border-radius: 6px; border: 1px solid var(--text-muted); color: var(--text-muted); vertical-align: middle; }
+  @media (max-width: 860px) { #lista-provas { grid-template-columns: repeat(2, 1fr); gap: 8px; } .prova { flex-direction: column; align-items: flex-start; gap: 6px; padding: 10px 11px; } .prova .data { display: flex; gap: 6px; align-items: baseline; text-align: left; } .prova .data b { font-size: 1.3rem; } }
+  @media (max-width: 380px) { #lista-provas { grid-template-columns: 1fr; } }
+
   /* ---------- tela cheia própria (o iPhone não aceita a nativa) ---------- */
   body.tela-cheia { overflow: hidden; }
   body.tela-cheia #visor { position: fixed; inset: 0; z-index: 60; margin: 0; min-height: 0; height: 100vh; height: 100dvh; border-radius: 0; border: 0; }
@@ -250,6 +275,10 @@
   <main id="principal">
     <noscript><p>Este site precisa do JavaScript ativado para funcionar.</p></noscript>
     <section id="inicio" aria-label="Escolha a matéria">
+      <div id="calendario-provas" hidden>
+        <h3>📅 <span id="titulo-provas"></span> <small>lembrete das provas</small></h3>
+        <ul id="lista-provas"></ul>
+      </div>
       <h2>Escolha a matéria</h2>
       <p class="sub">Primeiro o semestre, depois a matéria. Dentro dela você escolhe NP1 ou NP2.</p>
       <div id="semestres-inicio" role="group" aria-label="Semestres"></div>
@@ -345,7 +374,49 @@
     });
   }
 
+  /* ---- calendário de provas: azul, amarelo (falta 1 dia), vermelho (hoje), cinza (passou) ---- */
+  function hojeISO() {
+    try { return new Intl.DateTimeFormat("en-CA", { timeZone: "America/Sao_Paulo" }).format(new Date()); }
+    catch (e) { var d = new Date(); return d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2); }
+  }
+  function diasEntre(deISO, ateISO) { // dias de calendário (ignora horas e horário de verão)
+    var a = deISO.split("-"), b = ateISO.split("-");
+    return Math.round((Date.UTC(+b[0], +b[1] - 1, +b[2]) - Date.UTC(+a[0], +a[1] - 1, +a[2])) / 86400000);
+  }
+  var SEMANA = ["domingo", "segunda", "terça", "quarta", "quinta", "sexta", "sábado"];
+  var MESES = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
+  function desenharProvas() {
+    var cfg = DADOS.provas, caixa = el("calendario-provas");
+    var itens = ((cfg && cfg.itens) || []).slice().sort(function (x, y) { return x.data < y.data ? -1 : 1; });
+    var hoje = hojeISO();
+    var ultima = itens.length ? itens[itens.length - 1].data : null;
+    if (!ultima || hoje > ultima) { caixa.hidden = true; return; } // depois da última prova, some sozinho
+    caixa.hidden = false;
+    el("titulo-provas").textContent = cfg.titulo || "Calendário de provas";
+    var ul = el("lista-provas"); limpar(ul);
+    itens.forEach(function (p) {
+      var falta = diasEntre(hoje, p.data);
+      var classe = falta < 0 ? "passou" : falta === 0 ? "hoje" : falta === 1 ? "amanha" : "";
+      var texto = falta < 0 ? "Já passou" : falta === 0 ? "Hoje!" : falta === 1 ? "Amanhã" : "Faltam " + falta + " dias";
+      var d = p.data.split("-");
+      var dia = new Date(Date.UTC(+d[0], +d[1] - 1, +d[2])).getUTCDay();
+      var li = criar("li", { "class": "prova " + classe });
+      var data = criar("div", { "class": "data" });
+      data.appendChild(criar("b", {}, d[2]));
+      data.appendChild(criar("span", {}, MESES[+d[1] - 1] + " · " + SEMANA[dia]));
+      var info = criar("div", { "class": "info" });
+      var mat = criar("div", { "class": "materia" }, p.materia);
+      if (p.ava) mat.appendChild(criar("span", { "class": "ava" }, "AVA"));
+      info.appendChild(mat);
+      info.appendChild(criar("div", { "class": "prof" }, "Prof. " + p.professor + (p.obs ? " · " + p.obs : "")));
+      info.appendChild(criar("span", { "class": "estado" }, texto));
+      li.appendChild(data); li.appendChild(info);
+      ul.appendChild(li);
+    });
+  }
+
   function desenharInicio() {
+    desenharProvas();
     var sem = achaSemestre(estado.sem);
     var area = el("semestres-inicio"); limpar(area);
     DADOS.semestres.slice().sort(function (a, b) { return Number(b.id) - Number(a.id); }).forEach(function (s) {
