@@ -197,6 +197,12 @@
   body.cab-recolhido #cab, body.cab-recolhido #modulos, body.cab-recolhido #paginas { display: none; }
   #alterna-cab { border-color: var(--accent-gold) !important; color: var(--accent-gold) !important; font-weight: 700; }
   body.cab-recolhido #visor { min-height: 0; }
+  /* recolhido: some também o topo do site; "Início" e "☰" passam para a barra do material */
+  body.cab-recolhido:not(.inicio) { --altura-topo: 0px; }
+  body.cab-recolhido:not(.inicio) .topo { display: none; }
+  .so-recolhido { display: none; }
+  body.cab-recolhido .so-recolhido { display: inline-block; }
+  body.cab-recolhido #principal { padding-top: 8px; }
 
   /* ---------- calendário de provas (só lembrete, não clicável) ---------- */
   #calendario-provas { margin: 4px 0 22px; }
@@ -248,7 +254,8 @@
     #visor { min-height: 72vh; min-height: 72dvh; }
     .barra-visor { padding: 4px 8px; }
     .barra-visor span { display: none; }
-    .barra-visor a, .barra-visor button { flex: 1; text-align: center; font-size: .74rem; padding: 5px 6px; }
+    .barra-visor a, .barra-visor button { flex: 1; text-align: center; font-size: .74rem; padding: 5px 6px; white-space: nowrap; }
+    #bv-menu { flex: 0 0 38px !important; font-size: 1rem !important; }
   }
   @media (prefers-reduced-motion: reduce) { #lateral { transition: none; } }
 </style>
@@ -301,9 +308,11 @@
     <div id="vazio" class="vazio" hidden></div>
     <section id="visor" aria-label="Material de estudo" hidden>
       <div class="barra-visor">
+        <button id="bv-menu" type="button" class="so-recolhido" title="Menu de matérias" aria-label="Menu de matérias">☰</button>
+        <button id="bv-inicio" type="button" class="so-recolhido" title="Página inicial" aria-label="Página inicial">🏠 Início</button>
         <button id="alterna-cab" type="button" aria-expanded="true" title="Recolher ou mostrar o cabeçalho da matéria">▲ Recolher</button>
         <span id="visor-titulo"></span>
-        <a id="nova-aba" target="_blank" rel="noopener">Abrir em nova aba ↗</a>
+        <a id="nova-aba" target="_blank" rel="noopener">Nova aba ↗</a>
         <button id="tela-cheia" type="button">Tela cheia</button>
       </div>
       <iframe id="quadro" title="Material de estudo" allow="fullscreen; autoplay; encrypted-media; picture-in-picture; clipboard-write"></iframe>
@@ -625,13 +634,28 @@
   /* ---- tela cheia ---- */
   /* cabeçalho da matéria: recolhe para cima e lembra a escolha */
   var CHAVE_CAB = "estudos-direito:cab-recolhido";
+  var ESTILO_QUADRO = "header:not(.questoes-navbar) :is(h1,h2,h3,p,[class*='brand'],[class*='badge'],[class*='subtitle']){display:none!important}" +
+    "header:not(.questoes-navbar):not(:has(button,a,nav,input,select)){display:none!important}";
+  function aplicarNoQuadro() {
+    try {
+      var doc = el("quadro").contentDocument; if (!doc || !doc.head) return;
+      var st = doc.getElementById("estudos-recolhe-cab");
+      if (ler(CHAVE_CAB) === true) {
+        if (!st) { st = doc.createElement("style"); st.id = "estudos-recolhe-cab"; st.textContent = ESTILO_QUADRO; doc.head.appendChild(st); }
+      } else if (st) st.remove();
+    } catch (e) { /* página de outro endereço: não dá para mexer, segue normal */ }
+  }
+  el("quadro").addEventListener("load", aplicarNoQuadro);
   function aplicarCab() {
     var rec = ler(CHAVE_CAB) === true;
     document.body.classList.toggle("cab-recolhido", rec);
     var b = el("alterna-cab");
-    b.textContent = rec ? "▼ Mostrar matéria" : "▲ Recolher";
+    b.textContent = rec ? "▼ Mostrar" : "▲ Recolher";
     b.setAttribute("aria-expanded", String(!rec));
+    aplicarNoQuadro();
   }
+  el("bv-menu").addEventListener("click", function () { el("menu").click(); });
+  el("bv-inicio").addEventListener("click", function () { irInicio(); });
   el("alterna-cab").addEventListener("click", function () { gravar(CHAVE_CAB, ler(CHAVE_CAB) !== true); aplicarCab(); });
   aplicarCab();
 
