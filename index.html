@@ -193,6 +193,11 @@
     #principal { padding: 12px; }
     #visor { min-height: 70vh; }
   }
+  /* ---------- cabeçalho da matéria recolhível (sobe e libera a tela) ---------- */
+  body.cab-recolhido #cab, body.cab-recolhido #modulos, body.cab-recolhido #paginas { display: none; }
+  #alterna-cab { border-color: var(--accent-gold) !important; color: var(--accent-gold) !important; font-weight: 700; }
+  body.cab-recolhido #visor { min-height: 0; }
+
   /* ---------- calendário de provas (só lembrete, não clicável) ---------- */
   #calendario-provas { margin: 4px 0 22px; }
   #calendario-provas h3 { margin: 0 0 10px; font-size: 1.05rem; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
@@ -239,10 +244,11 @@
     #paginas { flex-wrap: nowrap; overflow-x: auto; gap: 6px; padding-bottom: 2px; }
     .pag-btn { white-space: nowrap; padding: 6px 10px; font-size: .8rem; }
     footer { font-size: .66rem; padding: 4px 2px 6px; }
+    body:not(.inicio) footer { display: none; } /* estudando: a tela é do conteúdo; a autoria fica no rodapé de cada página */
     #visor { min-height: 72vh; min-height: 72dvh; }
     .barra-visor { padding: 4px 8px; }
     .barra-visor span { display: none; }
-    .barra-visor a, .barra-visor button { flex: 1; text-align: center; }
+    .barra-visor a, .barra-visor button { flex: 1; text-align: center; font-size: .74rem; padding: 5px 6px; }
   }
   @media (prefers-reduced-motion: reduce) { #lateral { transition: none; } }
 </style>
@@ -295,6 +301,7 @@
     <div id="vazio" class="vazio" hidden></div>
     <section id="visor" aria-label="Material de estudo" hidden>
       <div class="barra-visor">
+        <button id="alterna-cab" type="button" aria-expanded="true" title="Recolher ou mostrar o cabeçalho da matéria">▲ Recolher</button>
         <span id="visor-titulo"></span>
         <a id="nova-aba" target="_blank" rel="noopener">Abrir em nova aba ↗</a>
         <button id="tela-cheia" type="button">Tela cheia</button>
@@ -616,6 +623,18 @@
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") fecharMenu(); });
 
   /* ---- tela cheia ---- */
+  /* cabeçalho da matéria: recolhe para cima e lembra a escolha */
+  var CHAVE_CAB = "estudos-direito:cab-recolhido";
+  function aplicarCab() {
+    var rec = ler(CHAVE_CAB) === true;
+    document.body.classList.toggle("cab-recolhido", rec);
+    var b = el("alterna-cab");
+    b.textContent = rec ? "▼ Mostrar matéria" : "▲ Recolher";
+    b.setAttribute("aria-expanded", String(!rec));
+  }
+  el("alterna-cab").addEventListener("click", function () { gravar(CHAVE_CAB, ler(CHAVE_CAB) !== true); aplicarCab(); });
+  aplicarCab();
+
   function sairTelaCheia() {
     document.body.classList.remove("tela-cheia");
     el("tela-cheia").textContent = "Tela cheia";
