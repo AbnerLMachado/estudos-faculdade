@@ -630,6 +630,16 @@
     el("tela-cheia").textContent = "Sair da tela cheia";
   });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") sairTelaCheia(); });
+  /* vídeo ampliado dentro de uma página de estudo: o site também entra em tela cheia */
+  var porVideo = false;
+  window.addEventListener("message", function (e) {
+    if (e.source !== el("quadro").contentWindow) return;
+    var d = e.data;
+    if (!d || d.estudos !== "tela-cheia") return;
+    if (d.ativo) {
+      if (!document.body.classList.contains("tela-cheia")) { porVideo = true; document.body.classList.add("tela-cheia"); el("tela-cheia").textContent = "Sair da tela cheia"; }
+    } else if (porVideo) { porVideo = false; sairTelaCheia(); }
+  });
 
   /* ---- navegação pelo endereço (voltar/avançar e links compartilhados) ---- */
   window.addEventListener("hashchange", function () {

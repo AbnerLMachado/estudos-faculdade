@@ -73,6 +73,13 @@ td{background:var(--bg-card)}
 .video-card.curto .ratio{padding-top:177.78%}
 .video-card.curto h4{font-size:.82rem;padding:8px 10px}
 @media(max-width:600px){.video-grid{grid-template-columns:1fr}.video-grid.curtos{grid-template-columns:repeat(2,1fr)}}
+.video-card .ampliar{display:block;width:calc(100% - 20px);margin:0 10px 10px;padding:7px 10px;border-radius:8px;border:1px solid var(--accent-gold);background:transparent;color:var(--accent-gold);font:inherit;font-weight:700;font-size:.85rem;cursor:pointer}
+.video-card .ampliar:hover{background:var(--bg-hover)}
+#lb{position:fixed;inset:0;z-index:1000;background:#000;display:none;align-items:center;justify-content:center}
+#lb.aberto{display:flex}
+#lb iframe{width:100%;height:100%;border:0;background:#000}
+#lb.curto iframe{width:auto;height:100%;aspect-ratio:9/16;max-width:100%}
+#lb-fechar{position:absolute;top:10px;right:10px;z-index:2;padding:9px 16px;border-radius:10px;border:1px solid #fff;background:rgba(0,0,0,.75);color:#fff;font:inherit;font-weight:700;cursor:pointer}
 .video-card h4{margin:0;padding:10px 12px;font-size:.95rem}
 .vazio{background:var(--bg-secondary);border:1px dashed var(--border-color);border-radius:10px;padding:26px;text-align:center;color:var(--text-muted)}
 footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:20px 14px}
@@ -356,6 +363,7 @@ footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:20px 14
 </main>
 <footer><b>Desenvolvido por Abner Machado</b> · © 2026. Material organizado a partir de materiais dos professores e anotações em sala; vídeos, áudios e parte dos resumos são produzidos com apoio de IA e podem conter erros. Não substitui as aulas, os livros, a lei nem as orientações dos professores.</footer>
 
+<div id="lb" role="dialog" aria-modal="true" aria-label="Vídeo ampliado"><button type="button" id="lb-fechar">✕ Fechar</button></div>
 <script>
 // ---- Vídeos: preencher com {titulo:"...", id:"CODIGO_DO_YOUTUBE"} ----
 var VIDEOS = [
@@ -510,8 +518,8 @@ function toggleModule(h){ h.parentElement.classList.toggle('open'); }
     area.innerHTML = '<div class="vazio">Ainda não há vídeos publicados para este módulo. 🎬<br>Em breve entram aqui os vídeos e podcasts do NotebookLM.</div>';
     return;
   }
-  function cartao(v){
-    return '<div class="video-card' + (v.curto ? ' curto' : '') + '"><div class="ratio"><iframe src="https://www.youtube.com/embed/' + v.id + '" allowfullscreen loading="lazy" title="' + v.titulo + '"></iframe></div><h4>' + v.titulo + '</h4></div>';
+  function cartao(v, i){
+    return '<div class="video-card' + (v.curto ? ' curto' : '') + '"><div class="ratio"><iframe src="https://www.youtube.com/embed/' + v.id + '" allow="fullscreen; autoplay; encrypted-media; picture-in-picture; clipboard-write" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy" title="' + v.titulo + '"></iframe></div><h4>' + v.titulo + '</h4><button type="button" class="ampliar" data-i="' + VIDEOS.indexOf(v) + '">⛶ Ampliar (tela cheia)</button></div>';
   }
   var normais = VIDEOS.filter(function(v){ return !v.curto; });
   var curtos = VIDEOS.filter(function(v){ return v.curto; });
@@ -519,6 +527,38 @@ function toggleModule(h){ h.parentElement.classList.toggle('open'); }
   if (normais.length) html += '<div class="video-bloco"><h3>🎬 Vídeos</h3><div class="video-grid">' + normais.map(cartao).join('') + '</div></div>';
   if (curtos.length) html += '<div class="video-bloco"><h3>📱 Vídeos curtos (shorts)</h3><div class="video-grid curtos">' + curtos.map(cartao).join('') + '</div></div>';
   area.innerHTML = html;
+})();
+
+// ----- vídeo ampliado (dentro do site, sem ir ao YouTube) -----
+(function(){
+  var lb = document.getElementById('lb');
+  function avisarSite(ativo){ try { window.parent.postMessage({ estudos: 'tela-cheia', ativo: ativo }, '*'); } catch(e) {} }
+  function abrir(v){
+    var f = document.createElement('iframe');
+    f.src = 'https://www.youtube.com/embed/' + v.id + '?autoplay=1&rel=0&playsinline=1';
+    f.setAttribute('allow', 'fullscreen; autoplay; encrypted-media; picture-in-picture');
+    f.setAttribute('allowfullscreen', '');
+    f.title = v.titulo;
+    lb.classList.toggle('curto', !!v.curto);
+    lb.appendChild(f);
+    lb.classList.add('aberto');
+    avisarSite(true);
+    try { if (lb.requestFullscreen) lb.requestFullscreen().catch(function(){}); } catch(e) {}
+  }
+  function fechar(){
+    if (!lb.classList.contains('aberto')) return;
+    lb.classList.remove('aberto');
+    var f = lb.querySelector('iframe'); if (f) f.remove();
+    avisarSite(false);
+    try { if (document.fullscreenElement) document.exitFullscreen(); } catch(e) {}
+  }
+  document.addEventListener('click', function(e){
+    var b = e.target.closest && e.target.closest('.ampliar');
+    if (b) abrir(VIDEOS[+b.getAttribute('data-i')]);
+  });
+  document.getElementById('lb-fechar').addEventListener('click', fechar);
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') fechar(); });
+  document.addEventListener('fullscreenchange', function(){ if (!document.fullscreenElement) fechar(); });
 })();
 
 // ----- simulado -----
