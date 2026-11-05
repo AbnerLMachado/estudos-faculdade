@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Direito e Globalização · NP2 · Plataforma de estudos</title>
+<style>
+:root{--bg-primary:#0b132b;--bg-secondary:#1c2541;--bg-card:#2f3e46;--bg-hover:#3a506b;--accent-gold:#fbbf24;--accent-blue:#38bdf8;--accent-green:#34d399;--text-main:#f8fafc;--text-muted:#94a3b8;--correct-green:#22c55e;--wrong-red:#ef4444;--border-color:#475569}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg-primary);color:var(--text-main);line-height:1.6}
+header{background:var(--bg-secondary);padding:22px 16px 14px;text-align:center;border-bottom:2px solid var(--accent-gold)}
+header h1{margin:0 0 4px;font-size:1.6rem;color:var(--accent-gold)}
+header p{margin:0;color:var(--text-muted);font-size:.95rem}
+nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:12px;background:var(--bg-secondary);position:sticky;top:0;z-index:5;border-bottom:1px solid var(--border-color)}
+nav button{background:var(--bg-card);color:var(--text-main);border:1px solid var(--border-color);padding:9px 16px;border-radius:8px;cursor:pointer;font:inherit;font-weight:600}
+nav button:hover{background:var(--bg-hover)}
+nav button.active{background:var(--accent-gold);color:#0b132b;border-color:var(--accent-gold)}
+main{max-width:980px;margin:0 auto;padding:18px 14px 60px}
+.tab-content{display:none}.tab-content.active{display:block}
+h2{color:var(--accent-blue);margin:6px 0 14px}
+.intro{background:var(--bg-secondary);border-left:4px solid var(--accent-blue);padding:12px 16px;border-radius:8px;margin-bottom:18px;color:var(--text-muted)}
+.radar{background:#3b2f0b;border:1px solid var(--accent-gold);border-radius:10px;padding:12px 16px;margin-bottom:18px}
+.radar b{color:var(--accent-gold)}
+.module-block{background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:10px;margin-bottom:12px;overflow:hidden}
+.module-header{padding:14px 16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;font-weight:700;font-size:1.05rem}
+.module-header:hover{background:var(--bg-hover)}
+.module-header small{display:block;color:var(--text-muted);font-weight:400;font-size:.82rem}
+.module-header .seta{transition:transform .2s;color:var(--accent-gold)}
+.module-block.open .seta{transform:rotate(90deg)}
+.module-body{display:none;padding:4px 16px 16px}
+.module-block.open .module-body{display:block}
+.sub-topic{background:var(--bg-card);border-radius:8px;padding:12px 14px;margin-top:12px}
+.sub-topic h3{margin:0 0 6px;color:var(--accent-green);font-size:1rem}
+.sub-topic ul{margin:6px 0 0;padding-left:20px}
+.sub-topic li{margin:4px 0}
+.callout{border-left:4px solid var(--accent-gold);background:rgba(251,191,36,.08);padding:10px 14px;border-radius:6px;margin-top:12px}
+.callout.perigo{border-color:var(--wrong-red);background:rgba(239,68,68,.08)}
+.callout.dica{border-color:var(--accent-green);background:rgba(52,211,153,.08)}
+.lei{font-size:.9rem;color:var(--text-muted);font-style:italic}
+.tag{display:inline-block;background:var(--bg-primary);color:var(--accent-gold);border-radius:20px;padding:1px 10px;font-size:.78rem;margin-right:4px}
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:6px;margin:12px 0}
+.flow-step{background:var(--bg-card);border:1px solid var(--border-color);border-radius:8px;padding:8px 12px;flex:1 1 140px;font-size:.92rem}
+.flow-step b{color:var(--accent-blue);display:block}
+.flow-arrow{align-self:center;color:var(--accent-gold);font-size:1.3rem}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.92rem}
+th,td{border:1px solid var(--border-color);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--bg-hover);color:var(--accent-gold)}
+td{background:var(--bg-card)}
+.tbl-wrap{overflow-x:auto}
+.peg{background:var(--bg-card);border-radius:10px;padding:12px 16px;margin-bottom:10px;border-left:4px solid var(--wrong-red)}
+.peg .afirma{font-weight:700}
+.peg .errada{color:var(--wrong-red);font-weight:700}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+.stat-box{flex:1 1 140px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:8px;padding:8px 12px;text-align:center;font-size:.9rem;color:var(--text-muted)}
+.stat-box span{display:block;font-size:1.3rem;font-weight:700;color:var(--text-main)}
+.q{background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:10px;padding:14px 16px;margin-bottom:14px}
+.q .enun{font-weight:600;margin-bottom:10px}
+.option-btn{display:block;width:100%;text-align:left;background:var(--bg-card);color:var(--text-main);border:1px solid var(--border-color);border-radius:8px;padding:9px 12px;margin-bottom:7px;cursor:pointer;font:inherit}
+.option-btn:hover:not(:disabled){background:var(--bg-hover)}
+.option-btn.correct{background:rgba(34,197,94,.2);border-color:var(--correct-green)}
+.option-btn.wrong{background:rgba(239,68,68,.2);border-color:var(--wrong-red)}
+.option-btn:disabled{cursor:default}
+.explanation{display:none;margin-top:8px;padding:10px 12px;border-radius:8px;background:var(--bg-primary);color:var(--text-muted);font-size:.92rem}
+.explanation.show{display:block}
+.btn{background:var(--accent-gold);color:#0b132b;border:0;border-radius:8px;padding:9px 16px;font:inherit;font-weight:700;cursor:pointer}
+.video-bloco h3{margin:18px 0 10px;font-size:1.02rem;color:var(--accent-green)}
+.video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;align-items:start}
+.video-grid.curtos{grid-template-columns:repeat(auto-fill,minmax(190px,220px));gap:12px;justify-content:start}
+.video-card{background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:10px;overflow:hidden}
+.video-card .ratio{position:relative;padding-top:56.25%}
+.video-card iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video-card.curto .ratio{padding-top:177.78%}
+.video-card.curto h4{font-size:.82rem;padding:8px 10px}
+@media(max-width:600px){.video-grid{grid-template-columns:1fr}.video-grid.curtos{grid-template-columns:repeat(2,1fr)}}
+.video-card .ampliar{display:block;width:calc(100% - 20px);margin:0 10px 10px;padding:7px 10px;border-radius:8px;border:1px solid var(--accent-gold);background:transparent;color:var(--accent-gold);font:inherit;font-weight:700;font-size:.85rem;cursor:pointer}
+.video-card .ampliar:hover{background:var(--bg-hover)}
+#lb{position:fixed;inset:0;z-index:1000;background:#000;display:none;align-items:center;justify-content:center}
+#lb.aberto{display:flex}
+#lb iframe{width:100%;height:100%;border:0;background:#000}
+#lb.curto iframe{width:auto;height:100%;aspect-ratio:9/16;max-width:100%}
+#lb-fechar{position:absolute;top:10px;right:10px;z-index:2;padding:9px 16px;border-radius:10px;border:1px solid #fff;background:rgba(0,0,0,.75);color:#fff;font:inherit;font-weight:700;cursor:pointer}
+.video-card h4{margin:0;padding:10px 12px;font-size:.95rem}
+.vazio{background:var(--bg-secondary);border:1px dashed var(--border-color);border-radius:10px;padding:26px;text-align:center;color:var(--text-muted)}
+footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:20px 14px}
+@media(max-width:600px){header h1{font-size:1.3rem}nav button{padding:8px 11px;font-size:.9rem}}
+@media(max-width:600px){header{padding:8px 10px 6px}header h1{font-size:1.05rem;margin:0}header p{display:none}nav{padding:6px;gap:5px}nav button{padding:6px 10px;font-size:.85rem}main{padding:10px 10px 40px}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Direito e Globalização · NP2</h1>
+  <p>UNIP · Direito · 6º semestre · AVA · Profa. MSc. Priscilla Silvestrin (conteúdo) · Profa. Cecília (calendário)</p>
+</header>
+<nav>
+  <button class="active" onclick="switchTab('guia',this)">📘 Guia</button>
+  <button onclick="switchTab('mapas',this)">🗺️ Mapas</button>
+  <button onclick="switchTab('pegadinhas',this)">⚠️ Pegadinhas</button>
+  <button onclick="switchTab('quiz',this)">📝 Simulado</button>
+  <button onclick="switchTab('videos',this)">🎬 Vídeos</button>
+</nav>
+<main>
+
+<!-- ============ GUIA ============ -->
+<section id="guia" class="tab-content active">
+  <div class="intro">Resumo da disciplina <b>Direito e Globalização (AVA)</b>, feito a partir dos <b>slides de aula das Unidades I e II</b> (Profa. Priscilla Silvestrin), dos livros-texto e dos dois questionários. Clique em cada módulo para abrir.</div>
+  <div class="radar"><b>📡 Sobre a prova:</b>
+    <ul>
+      <li><b>Data no calendário:</b> 05/11/2026 · AVA (Profa. Cecília, conforme o calendário).</li>
+      <li>Os <b>questionários I e II</b> mostram o estilo: afirmações I, II e III (“é verdadeiro o que se afirma em”), <b>asserção e razão</b> (“porque”) e <b>associação de colunas</b>. Todos estão no <b>Simulado</b> marcados com “[Questionário]”.</li>
+      <li>Os slides trazem ainda questões de interatividade; também estão no Simulado.</li>
+    </ul>
+  </div>
+
+  <div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>Unidade I · O que é globalização<small>Conceito, polissemia e história</small></div><span class="seta">▶</span></div>
+    <div class="module-body">
+      <div class="sub-topic"><h3>Conceito</h3><ul>
+        <li><b>Globalização</b> é um processo de <b>expansão econômica, política e cultural em nível mundial</b>.</li>
+        <li><b>Polissemia</b>: o termo tem muitos sentidos e é usado de forma indiscriminada, para explicar o capitalismo contemporâneo, justificar medidas de governos e até políticas urbanas. Em geral vem com ar de <b>inexorável</b> (inevitável).</li>
+        <li>Exemplos do cotidiano: <b>aldeia global</b> (tudo interligado), comer sushi, usar Havaianas; costumes e produtos de um lugar passam a existir em outros.</li>
+        <li>Também aparece na <b>língua</b>: palavras estrangeiras (<i>download</i>, <i>selfie</i>, <i>online</i>) entram no vocabulário.</li></ul></div>
+      <div class="sub-topic"><h3>História da globalização</h3><ul>
+        <li><b>Conexão marítima</b>: contexto antropocêntrico do período renascentista.</li>
+        <li><b>Revolução Industrial</b> (século XVIII, Inglaterra): garantiu o surgimento da indústria e consolidou a formação do <b>capitalismo</b>.</li>
+        <li><b>Pós-guerra</b>: expansão comercial dos <b>EUA</b>; multi ou transnacionais.</li>
+        <li><b>Comunicação / internet</b>: rede de conexões globais que permite o compartilhamento instantâneo de dados. Chegou ao Brasil nos <b>anos 1990</b>, após o colapso da União Soviética e o fim da Guerra Fria, seguidos da consolidação da democracia, da globalização e do capitalismo global.</li></ul></div>
+      <div class="sub-topic"><h3>Faceta do emprego (globalização econômica)</h3><ul>
+        <li><b>Lei da oferta e da procura</b> (Adam Smith, <b>mão invisível</b>): muita procura, preços sobem; muita oferta, preços caem.</li>
+        <li>Empresas buscam agilidade, volume e menor custo, e priorizam a <b>automação</b>: atividades de capital intensivo com poucos trabalhadores qualificados (ex.: China).</li></ul></div>
+    </div></div>
+
+  <div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>Unidade I · As três visões<small>Hiperglobalistas, céticos e transformacionistas</small></div><span class="seta">▶</span></div>
+    <div class="module-body">
+      <div class="sub-topic"><h3>Hiperglobalistas (neoliberais otimistas e marxistas pessimistas)</h3><ul>
+        <li>Entendem a globalização como algo <b>novo e potencialmente revolucionário</b>.</li>
+        <li>Empresas e mercado pressionam por um <b>padrão mundial</b>: homogeneização dos modos de produção e da condução macroeconômica; mais barato; surge um mercado global.</li>
+        <li><b>Estado</b>: os Estados nacionais <b>perdem poder</b>, submetidos a uma lógica dissociada do caráter nacional, vinda de empresas e grandes capitais globais.</li></ul></div>
+      <div class="sub-topic"><h3>Céticos</h3><ul>
+        <li>Para eles as características locais (culturais, sociais, econômicas) seriam <b>realçadas e valorizadas</b>, enfrentando os constrangimentos de fatores externos.</li>
+        <li>Empresas adotariam em cada lugar <b>práticas distintas</b>, conforme a sociedade local (empresa e localidade mudam).</li>
+        <li><b>Estado</b>: seria transformado, mas continuaria determinando (e sendo determinado por) trajetórias nacionais específicas.</li></ul></div>
+      <div class="sub-topic"><h3>Transformacionistas (também chamados progressistas)</h3><ul>
+        <li>A globalização é uma <b>grande transformação</b>, inevitável como uma força da natureza, boa ou má; ela própria pode ser transformada pela interação dos envolvidos. <b>Giddens</b> é associado a esta visão (a globalização não tem sentido definido e é inexorável).</li>
+        <li>O processo atual <b>não tem precedentes históricos</b> e produz novos esquemas de <b>inclusão e exclusão</b>.</li>
+        <li><b>Estado</b>: deve se adaptar a um mundo em que <b>não há mais clara distinção entre questões externas e internas</b>.</li></ul></div>
+    </div></div>
+
+  <div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>Unidade I · Dimensões da globalização<small>Processo multidimensional</small></div><span class="seta">▶</span></div>
+    <div class="module-body">
+      <div class="sub-topic"><h3>Teoria multidimensional</h3><ul>
+        <li>A globalização não é uma condição singular, e sim um <b>conjunto de processos interconectados em várias dimensões</b>: <b>econômica, política, militar, ecológica, social e cultural</b>.</li>
+        <li>Em cada momento histórico uma dimensão ganha <b>relevância diferente</b> (ex.: 11 de setembro).</li>
+        <li>Três planos das características: ideologia e política · economia e sociedade · processo civilizatório humano-genérico (forças produtivas).</li></ul></div>
+      <div class="sub-topic"><h3>Dimensão militar</h3><ul>
+        <li><b>Foi a primeira</b> dimensão: 1941, ataque japonês a Pearl Harbor, a guerra ganha contornos mundiais.</li>
+        <li>Ápice na 2ª metade da década de 1950: EUA e URSS podiam destruir o mundo (satélites intercontinentais, espionagem). Nasce a <b>doutrina da destruição mútua</b>.</li></ul></div>
+      <div class="sub-topic"><h3>Dimensão econômica</h3><ul>
+        <li>Atores: <b>organizações transnacionais</b>. Grande produtividade, revolução tecnológica, <b>desemprego estrutural</b>, incluídos x excluídos.</li>
+        <li><b>Desenvolvidos</b>: Europa Ocidental, Canadá, Japão, Coreia do Sul, Taiwan, Cingapura, Hong Kong, Israel, Austrália, Nova Zelândia.</li>
+        <li><b>Superpotência</b>: Estados Unidos. <b>Continentais</b>: Rússia, China, Índia e Brasil.</li>
+        <li><b>Emergentes</b> (dinâmicos, atraem capital) · <b>Estagnados</b> (baixo dinamismo) · <b>Extremamente pobres</b> (dependem de ajuda, em grande parte na África) · <b>Excluídos politicamente</b> (Irã, Iraque, Coreia do Norte, países em guerra civil).</li>
+        <li>Dimensão <b>produtiva</b>: transnacionalização crescente das cadeias produtivas intra e intercorporativas.</li></ul></div>
+      <div class="sub-topic"><h3>Dimensão política</h3><ul>
+        <li>Avanço de ideologias e regimes democráticos e individualistas; também regresso de regimes autoritários e socializantes.</li>
+        <li>Crescimento do <b>terceiro setor</b>; <b>enfraquecimento da capacidade regulatória do Estado</b>; reforço de estruturas infranacionais (separatismo e desintegração nacional).</li></ul></div>
+      <div class="sub-topic"><h3>Dimensão sociocultural</h3><ul>
+        <li>Comunicação, viagens, acesso via internet a informações de outras sociedades.</li>
+        <li>Troca de costumes e tradições; <b>reflexos financeiros da aculturação</b>; debate sobre tolerância.</li></ul></div>
+      <div class="sub-topic"><h3>Dimensão ambiental</h3><ul>
+        <li>Problemas globais: contaminação radioativa, depleção do ozônio, mudança climática, perda de biodiversidade; movimento ambientalista globalizado.</li>
+        <li>Atores: ONGs (Greenpeace) · agências estatais (Agência Nacional de Águas) · instituições científicas (WWF) · programas de gestão (<b>eficiência no uso de materiais, conservação de energia</b>, controle da poluição) · mercado consumidor verde · redes multissetoriais (selos verdes, <b>ISO 14000</b>) · tratados internacionais (Convenções do Rio).</li></ul></div>
+      <div class="sub-topic"><h3>Globalitarismo</h3><ul>
+        <li>Termo da Geopolítica para o <b>totalitarismo que nações hegemônicas impõem</b> às camadas populares, no âmbito econômico ou social.</li>
+        <li>Supõe a <b>debilidade estrutural dos Estados</b>, sem meios de se opor aos mercados. A globalização liquidou o mercado nacional, fundamento do poder do Estado-nação.</li>
+        <li>Sustentada por governos que promulgaram <b>monetarismo, desregulamentação, livre-comércio, livre fluxo de capitais e privatizações maciças</b>.</li>
+        <li>Foram <b>políticos liberais e conservadores</b> que permitiram a privatização da coisa pública, passando decisões importantes (investimento, emprego, saúde, educação, cultura, meio ambiente) da esfera pública para a privada.</li></ul></div>
+    </div></div>
+
+  <div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>Unidade II · Hegemônica x contra-hegemônica<small>Consenso de Washington e atores</small></div><span class="seta">▶</span></div>
+    <div class="module-body">
+      <div class="sub-topic"><h3>Globalização hegemônica</h3><ul>
+        <li>Tríade dominante: <b>econômica, política e cultural</b>. <b>Não é consensual</b> por excelência (respeita só parcialmente as particularidades de cada Estado), mas há um consenso que dita as características dominantes e as legitima.</li>
+        <li><b>Consenso de Washington (1980)</b>: o consenso liberal definiu as direções dos sistemas econômicos mundiais, com mais rigor sobre países periféricos e semiperiféricos. O “consenso” só ocorreu entre os <b>países centrais</b>; os demais tiveram de incorporá-lo sem crítica, sob pena de exclusão.</li>
+        <li>Acarreta a <b>desestruturação dos povos dominados</b> economicamente e, por consequência, culturalmente.</li>
+        <li><b>Armadilha da globalização neoliberal</b>: acentuar simbolicamente a distinção entre local e global e ao mesmo tempo destruí-la nos mecanismos reais da economia.</li></ul></div>
+      <div class="sub-topic"><h3>Globalização contra-hegemônica</h3><ul>
+        <li>É <b>de baixo para cima</b>: nasce das lutas de <b>movimentos sociais</b> contra a globalização capitalista neoliberal, que visa enfraquecer o Estado e a proteção aos cidadãos.</li>
+        <li>Visão de Jerry Mander: a resistência eficaz está na promoção de <b>economias locais e comunitárias</b> (pequena escala, diversificadas, autossustentáveis); resposta pela <b>reterritorialização</b>, redescoberta do sentido do lugar e da comunidade.</li></ul></div>
+    </div></div>
+
+  <div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>Unidade II · Atores e sujeitos de direito<small>Quem age na globalização</small></div><span class="seta">▶</span></div>
+    <div class="module-body">
+      <div class="sub-topic"><h3>Atores da globalização</h3><ul>
+        <li><b>Ator social</b> faz parte de relações concretas (profissionais, econômicas); procura aumentar sua autonomia e controlar o tempo e as condições de trabalho. (Não é o ator que “interpreta e representa uma ação dramática”.)</li>
+        <li>Atores: <b>Estados nacionais, empresas, ONGs, organismos supranacionais e mercado financeiro</b>.</li>
+        <li><b>Mercado financeiro</b>: permite que o fluxo de capital transite pelo globo, com impactos sociais e econômicos.</li>
+        <li>Quem elabora <b>políticas públicas</b> para o desenvolvimento dos países de renda baixa: os <b>Estados nacionais</b>.</li></ul></div>
+      <div class="sub-topic"><h3>Poder e multiplicidade de atores</h3><ul>
+        <li><b>Poder mundial</b> = capacidade de <b>controlar as regras do jogo</b> em um ou vários domínios-chave da competição internacional.</li>
+        <li>A globalização dinamizou atividades em rede e reavaliou o papel dos atores transnacionais, junto dos Estados e até independentemente deles. O Estado <b>deixou de ser o único player</b> internacional e passou a compartilhar poder (Silveira, 2017).</li>
+        <li>No Brasil, até ~1980 a política pública envolvia atores governamentais e poucos não governamentais; hoje atores não governamentais influenciam pelo <b>conhecimento (expertise)</b> e pela posição política que ocupam.</li></ul></div>
+      <div class="sub-topic"><h3>Sujeitos de direito internacional</h3><ul>
+        <li><b>Sujeito de direito internacional</b>: entidade jurídica com direitos e deveres no direito internacional e capacidade de atuar na esfera internacional.</li>
+        <li>Personalidade jurídica <b>originária</b> (original): dos <b>Estados</b>. <b>Derivada</b> (não originária): das <b>organizações internacionais</b>.</li>
+        <li>Três capacidades: <b>celebrar tratados</b>; <b>gozar de privilégios e imunidades</b>; <b>atuar diretamente nas demandas internacionais</b>.</li>
+        <li><b>Soberania</b>: autoridade que reside no povo e se exerce por seus órgãos constitucionais. A soberania frente à lei internacional está <b>vinculada à aceitação, por tratados</b>. Atenção: <b>ente federado não tem personalidade jurídica internacional</b>.</li></ul></div>
+    </div></div>
+
+  <div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>Unidade II · ONU, direitos e desenvolvimento<small>Carta da ONU, direitos humanos e justiça social</small></div><span class="seta">▶</span></div>
+    <div class="module-body">
+      <div class="sub-topic"><h3>Globalização e desenvolvimento</h3><ul>
+        <li>Dimensão importante: a <b>generalização gradual de ideias e valores</b>. Direitos civis e políticos x direitos econômicos, sociais e culturais.</li>
+        <li><b>Carta da ONU</b> consagrou ideias e valores globais, ratificados pelos governos nas cúpulas. A ONU reúne países voluntariamente pela <b>paz e desenvolvimento</b>.</li>
+        <li>Órgãos: <b>Assembleia Geral, Conselho de Segurança, Conselho Econômico e Social, Conselho de Tutela, Corte Internacional de Justiça e Secretariado</b>.</li>
+        <li>Estrutura da Carta: Cap. I princípios e propósitos (paz e segurança); Cap. II critérios para ser membro; Caps. III a XV órgãos e poderes; XVI e XVII convênios para integrar à lei internacional; XVIII e XIX emendas e ratificação.</li>
+        <li>Tensão: <b>soberania x lei internacional</b>.</li></ul></div>
+      <div class="sub-topic"><h3>Direitos humanos (Piovesan, 2005)</h3><ul>
+        <li>A <b>Declaração de 1948</b> inovou ao trazer a concepção contemporânea de direitos humanos: <b>universalidade</b> (basta ser pessoa para ter direitos) e <b>indivisibilidade</b> (direitos civis e políticos junto dos econômicos, sociais e culturais).</li>
+        <li>Combina o discurso liberal e o social da cidadania, unindo <b>liberdade e igualdade</b>.</li></ul></div>
+      <div class="sub-topic"><h3>Justiça social e desenvolvimento</h3><ul>
+        <li>Segundo o IETS/Senado (2001): a pobreza é o problema mais urgente, mas a <b>desigualdade é a maior doença</b>. Os 10% mais ricos ficam com cerca de <b>50%</b> da renda; os 50% mais pobres, pouco mais de <b>10%</b>, há pelo menos 30 anos.</li>
+        <li>Em sociedades de renda média (Brasil, América Latina), a aceleração da globalização <b>manteve ou aumentou a marginalidade</b>; países de renda baixa ficaram em grande parte <b>excluídos</b> da globalização econômica.</li>
+        <li>Crescimento: a globalização pode propiciar crescimento <b>desigual a curto e a longo prazo</b> entre as nações.</li></ul></div>
+      <div class="sub-topic"><h3>Irreversível? Crise de 1929</h3><ul>
+        <li>Hoje há reforço de projetos nacionalistas, mais restrição ao comércio e menos migração: para muitos analistas, o <b>fim da globalização</b>. Mas a irreversibilidade se reflete em desigualdades (econômica, tecnológica e social), mais pobreza e desemprego, e produção que cresce mais que o consumo.</li>
+        <li>Exemplo histórico de atuação estatal: <b>crise de 1929</b> (EUA, 42% dos produtos consumidos no mundo): crédito, consumo, superprodução, especulação na Bolsa, quebra, colapso. Resposta: <b>New Deal</b> (obras públicas, benefícios sociais como salário mínimo e seguro-desemprego, intervenção na economia).</li>
+        <li>Filmes sugeridos: <i>Ilha das Flores</i> (Jorge Furtado, 1989) e <i>Man</i> (Steve Cutts, 2012).</li></ul></div>
+    </div></div>
+
+  <div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>Unidade II · Paradigmas das Relações Internacionais<small>Idealista, realista, dependência e interdependência</small></div><span class="seta">▶</span></div>
+    <div class="module-body">
+      <div class="sub-topic"><h3>Os quatro paradigmas</h3><ul>
+        <li><b>Idealista</b>: entre as duas Guerras Mundiais; influência de <b>Rousseau</b> (Contrato Social); <b>Liga das Nações</b>, reação moral e política aos horrores da 1ª Guerra; justiça e paz universal como base.</li>
+        <li><b>Realista</b>: relações regidas pelo <b>poder de cada Estado</b>; política doméstica distinta da internacional; o <b>Estado é o único ator</b>; sistema <b>anárquico</b>, com força e conflito; só há paz com <b>equilíbrio de forças</b>.</li>
+        <li><b>Dependência</b>: debate o desenvolvimento dos países menos favorecidos e as desigualdades entre <b>centro e periferia</b>; atores: Estado, ONGs, organizações internacionais, empresas transnacionais.</li>
+        <li><b>Interdependência (transnacionalismo)</b>: surge no fim dos anos 1960; destaca a economia mundial, a tecnologia das comunicações e o poder das transnacionais; afasta a ideia realista: as relações podem ser também <b>cooperativas</b>.</li>
+        <li>O <b>fim da bipolaridade da Guerra Fria</b> permitiu a consolidação das relações internacionais (questionário II).</li>
+        <li>Leitura <b>dialética</b> da globalização: progressiva e regressiva, civilizatória e bárbara, constitui o “globo” e ao mesmo tempo reforça particularismos locais. Quem não a vê assim tende a ser <b>unilateral</b>.</li></ul></div>
+    </div></div>
+
+</section>
+
+<!-- ============ MAPAS ============ -->
+<section id="mapas" class="tab-content">
+  <h2>Mapas e comparativos</h2>
+  <div class="intro">Quadros para revisar rápido.</div>
+
+  <h2 style="font-size:1.05rem">As três visões da globalização</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th></th><th>Hiperglobalistas</th><th>Céticos</th><th>Transformacionistas</th></tr>
+    <tr><td><b>Quem</b></td><td>Neoliberais (otimistas) e marxistas (pessimistas)</td><td>Valorizam o local</td><td>Progressistas (ex.: Giddens)</td></tr>
+    <tr><td><b>Globalização é…</b></td><td>Nova e revolucionária</td><td>Padrão difundido por multinacionais, mas adaptado ao local</td><td>Grande transformação, sem precedentes, inevitável</td></tr>
+    <tr><td><b>O que acontece</b></td><td>Homogeneização; mercado global</td><td>Práticas distintas em cada lugar</td><td>Novos esquemas de inclusão e exclusão</td></tr>
+    <tr><td><b>Estado</b></td><td>Perde poder</td><td>Muda, mas segue determinando trajetórias nacionais</td><td>Adapta-se: sem fronteira clara entre interno e externo</td></tr>
+  </table></div>
+
+  <h2 style="font-size:1.05rem">Hegemônica x contra-hegemônica</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th></th><th>Hegemônica</th><th>Contra-hegemônica</th></tr>
+    <tr><td><b>Direção</b></td><td>De cima para baixo</td><td>De baixo para cima</td></tr>
+    <tr><td><b>Origem</b></td><td>Consenso de Washington (1980), países centrais</td><td>Movimentos sociais</td></tr>
+    <tr><td><b>Efeito</b></td><td>Desestrutura povos dominados, enfraquece o Estado</td><td>Valoriza o local e a comunidade (Mander)</td></tr>
+  </table></div>
+
+  <h2 style="font-size:1.05rem">Dimensões: associação rápida</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th>Dimensão</th><th>Palavras-chave</th></tr>
+    <tr><td>Militar</td><td>Pearl Harbor (1941), destruição mútua, primeira dimensão</td></tr>
+    <tr><td>Econômica</td><td>Transnacionais, desemprego estrutural, países desenvolvidos / superpotência / continentais</td></tr>
+    <tr><td>Política</td><td>Enfraquecimento da capacidade regulatória do Estado, terceiro setor</td></tr>
+    <tr><td>Sociocultural</td><td>Aculturação e seus reflexos financeiros, tolerância</td></tr>
+    <tr><td>Ambiental</td><td>Eficiência no uso e conservação de energia, ISO 14000, ONGs</td></tr>
+  </table></div>
+
+  <h2 style="font-size:1.05rem">Países na dimensão econômica</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th>Classe</th><th>Exemplos</th></tr>
+    <tr><td>Desenvolvidos</td><td>Japão, Canadá, Coreia do Sul, Austrália…</td></tr>
+    <tr><td>Superpotência</td><td>Estados Unidos</td></tr>
+    <tr><td>Continentais</td><td>Rússia, China, Índia, Brasil</td></tr>
+  </table></div>
+
+  <h2 style="font-size:1.05rem">Paradigmas das Relações Internacionais</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th>Paradigma</th><th>Ideia central</th></tr>
+    <tr><td>Idealista</td><td>Paz e justiça universais; Liga das Nações; Rousseau</td></tr>
+    <tr><td>Realista</td><td>Poder; Estado único ator; anarquia; equilíbrio de forças</td></tr>
+    <tr><td>Dependência</td><td>Centro x periferia; desigualdade entre países</td></tr>
+    <tr><td>Interdependência</td><td>Economia mundial, tecnologia e transnacionais; cooperação</td></tr>
+  </table></div>
+
+  <h2 style="font-size:1.05rem">Personalidade jurídica internacional</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th>Tipo</th><th>Quem</th></tr>
+    <tr><td>Originária</td><td>Estados</td></tr>
+    <tr><td>Derivada</td><td>Organizações internacionais</td></tr>
+    <tr><td>Capacidades</td><td>Celebrar tratados · privilégios e imunidades · atuar nas demandas internacionais</td></tr>
+  </table></div>
+</section>
+
+<!-- ============ PEGADINHAS ============ -->
+<section id="pegadinhas" class="tab-content">
+  <h2>Alertas e pegadinhas</h2>
+  <div class="intro">Afirmações que parecem certas e estão erradas. Tente responder antes de ler a correção.</div>
+  <div id="lista-peg"></div>
+</section>
+
+<!-- ============ SIMULADO ============ -->
+<section id="quiz" class="tab-content">
+  <h2>Simulado com correção na hora</h2>
+  <div class="stats">
+    <div class="stat-box">Respondidas <span id="stat-total">0/0</span></div>
+    <div class="stat-box">Acertos <span id="stat-correct" style="color:var(--correct-green)">0</span></div>
+    <div class="stat-box">Erros <span id="stat-wrong" style="color:var(--wrong-red)">0</span></div>
+    <div class="stat-box">Aproveitamento <span id="stat-percent">0%</span></div>
+  </div>
+  <p><button class="btn" onclick="resetQuiz()">🔄 Refazer (embaralha as questões)</button></p>
+  <div id="quiz-container"></div>
+</section>
+
+<!-- ============ VÍDEOS ============ -->
+<section id="videos" class="tab-content">
+  <h2>Vídeos e podcasts</h2>
+  <div class="intro">Vídeos de revisão feitos no NotebookLM. Toque no vídeo para assistir.</div>
+  <div id="video-area"></div>
+</section>
+
+</main>
+<footer><b>Desenvolvido por Abner Machado</b> · © 2026. Material organizado a partir de materiais dos professores e anotações em sala; vídeos, áudios e parte dos resumos são produzidos com apoio de IA e podem conter erros. Não substitui as aulas, os livros, a lei nem as orientações dos professores.</footer>
+
+<div id="lb" role="dialog" aria-modal="true" aria-label="Vídeo ampliado"><button type="button" id="lb-fechar">✕ Fechar</button></div>
+<script>
+// ---- Vídeos: preencher com {titulo:"...", id:"CODIGO_DO_YOUTUBE"} ----
+var VIDEOS = [
+  // { titulo: "Estipulação, promessa e pessoa a declarar", id: "XXXXXXXXXXX" },
+];
+
+var PEGADINHAS = [["Para os hiperglobalistas, a globalização decorre da decrescente influência das multinacionais e de mercados cada vez menos integrados.","É o contrário: eles apontam a <b>crescente</b> influência das multinacionais e mercados <b>cada vez mais</b> integrados, que levam os países a um padrão mundial."],["Os céticos acreditam que a globalização uniformiza tudo e acaba com o local.","Quem pensa assim são os hiperglobalistas. Os céticos veem o local <b>realçado</b>, com empresas adaptando-se a cada lugar."],["Giddens defende que a globalização tem sentido definido e é reversível.","Giddens é ligado à visão <b>transformacionista</b>: a globalização <b>não tem sentido definido</b> e é <b>inexorável</b>."],["A dimensão militar foi a última a aparecer.","Foi a <b>primeira</b> dimensão (1941, Pearl Harbor). A guerra ganhou contornos mundiais."],["Em momentos diferentes, todas as dimensões têm sempre o mesmo peso.","Na teoria multidimensional, as dimensões adquirem <b>relevância diferenciada</b> conforme o momento histórico (ex.: 11 de setembro)."],["Com a globalização, a marginalização social diminuiu nas sociedades de renda média.","Nas sociedades de renda média (Brasil e América Latina) a marginalização foi <b>mantida ou aumentada</b>."],["Foram os políticos liberais e <u>não</u> conservadores que permitiram a privatização da coisa pública.","Foram os políticos <b>liberais e conservadores</b>. Trocar “e” por “e não” torna a frase falsa."],["A globalização é fruto da dimensão militar, que sedimentou particularismos locais.","Falso. O slide liga a globalização, nesse ponto, a <b>decisões políticas</b> que transferiram decisões do público para o privado."],["A globalização hegemônica é consensual por excelência.","Ela <b>não é consensual</b> por excelência: respeita só em parte as particularidades de cada Estado. O “consenso” de Washington só ocorreu entre os países centrais."],["A globalização contra-hegemônica vem de cima, das empresas e dos Estados centrais.","É <b>de baixo para cima</b>, nasce de lutas de movimentos sociais."],["Ator social é quem interpreta e representa uma ação dramática.","Falso. Ator social é quem participa de relações concretas (profissionais, econômicas) e busca autonomia e controle sobre trabalho e existência."],["O Estado é hoje o único ator das relações internacionais.","Isso é a visão <b>realista</b>. Hoje o Estado <b>compartilha</b> poder com atores transnacionais."],["Cada ente federado tem personalidade jurídica internacional e pode ter privilégios e imunidades.","Falso. Quem tem personalidade internacional são Estados (originária) e organizações internacionais (derivada). A soberania da lei internacional liga-se à <b>aceitação por tratados</b>."],["A globalização gera crescimento igualitário no curto prazo e desigualdade só depois.","A afirmação correta do questionário: a globalização pode propiciar crescimento <b>desigual tanto a curto quanto a longo prazo</b>."],["Organismos não governamentais, segundo o slide, criam padrão de consumo e desfragmentam a produção em rede global (terceira revolução industrial).","Essa descrição não é de ONGs. O item correto do slide é o do <b>mercado financeiro</b> como ator, por permitir o fluxo de capital pelo globo."],["O neoliberalismo reduziu substancialmente as desigualdades entre países ricos e pobres.","Falso. Segundo Boaventura de Sousa Santos, ele <b>aumentou exponencialmente</b> as desigualdades, entre países e dentro deles."],["No paradigma realista, as relações internacionais são essencialmente cooperativas.","Cooperação é a marca da <b>interdependência</b>. No realismo há anarquia, força, conflito e paz só por equilíbrio de forças."],["A Liga das Nações nasceu de um pensamento realista, depois da Segunda Guerra.","A Liga é do paradigma <b>idealista</b>, formado entre as Guerras, como reação moral à Primeira Guerra."],["A globalização é um fenômeno irreversível porque deixou de gerar desigualdades.","Falso. O slide trata a irreversibilidade ao lado de <b>desigualdades</b> econômicas, tecnológicas e sociais."]];
+
+var QUESTOES = [["[Questionário I] Sobre a polissemia da palavra “globalização”, analise: I. Pode ser entendida como um lado do corpo ou do objeto que se observa, e não o conjunto de normas da vida em sociedade que busca o ideal de justiça. II. Processo de integração de tecnologias, empresas e economias implementado a partir da década de 80. III. É um processo de expansão econômica, política e cultural em nível mundial.",["I, apenas.","II, apenas.","III, apenas.","I e II, apenas.","II e III, apenas."],4,"II e III descrevem a globalização (integração a partir dos anos 80 e expansão em nível mundial). O item I descreve outra coisa."],["[Questionário I] Lei da oferta e da procura. I. Quando há muita oferta, o preço dos produtos tende a diminuir. PORQUE II. A estabilização da relação entre oferta e procura leva, em primeira análise, a uma estabilização do preço.",["As asserções I e II são verdadeiras e a II justifica a I.","As asserções I e II são verdadeiras, mas a II não justifica a I.","A asserção I é verdadeira e a II é falsa.","A asserção I é falsa e a II é verdadeira.","As asserções I e II são falsas."],1,"As duas são verdadeiras, mas a II não explica por que a muita oferta derruba preços."],["[Questionário I] O(s) autor(es) da teoria da mão invisível foi(foram):",["Karl Marx.","Giddens.","Adam Smith.","Keynes.","Rousseau."],2,"A mão invisível é de Adam Smith."],["[Questionário I] I. A conexão marítima alterou o conceito antropocêntrico do período renascentista. PORQUE II. O período pós-guerra consolidou a expansão comercial dos Estados Unidos.",["As asserções I e II são verdadeiras e a II justifica a I.","As asserções I e II são verdadeiras, mas a II não justifica a I.","A asserção I é verdadeira e a II é falsa.","A asserção I é falsa e a II é verdadeira.","As asserções I e II são falsas."],1,"As duas são verdadeiras, mas a II não justifica a I (são momentos históricos diferentes)."],["[Questionário I] I. O advento da internet é considerado um divisor de águas no tocante à comunicação e aos comércios mundiais. PORQUE II. A internet é uma rede de conexões globais que permite o compartilhamento instantâneo de dados entre dispositivos.",["As asserções I e II são verdadeiras e a II justifica a I.","As asserções I e II são verdadeiras, mas a II não justifica a I.","A asserção I é verdadeira e a II é falsa.","A asserção I é falsa e a II é verdadeira.","As asserções I e II são falsas."],0,"As duas são verdadeiras e a II explica por que a internet é um divisor de águas."],["[Questionário I] Giddens (1999) defende que a globalização não é um fenômeno com sentido definido e que é inexorável. A visão ligada a ele é:",["Hiperglobalista.","Cética.","Transformacionista.","Idealista.","Realista."],2,"Giddens está na visão transformacionista."],["[Questionário I] Sobre a globalização: I. Na concepção multidimensional, o processo se desenvolve em várias dimensões. II. A relevância das dimensões varia conforme o momento histórico. III. Em diversos momentos do processo, não se pode considerar o Estado como um grande ator. É verdadeiro o que se afirma em:",["I, apenas.","II, apenas.","III, apenas.","I e II, apenas.","II e III, apenas."],3,"I e II estão corretas; a III contradiz a ideia de que o Estado segue importante."],["[Questionário I] Associe: 1 - Dimensão sociocultural; 2 - Dimensão política; 3 - Dimensão ambiental. ( ) Reflexos financeiros da aculturação; ( ) Eficiência no uso e conservação de energia; ( ) Enfraquecimento da capacidade regulatória do Estado. Sequência de cima para baixo:",["1, 2, 3.","2, 1, 3.","3, 1, 2.","1, 3, 2.","3, 2, 1."],3,"Aculturação = sociocultural (1); eficiência de energia = ambiental (3); enfraquecimento do Estado = política (2)."],["[Questionário I] Associe: 1 - Países desenvolvidos; 2 - Superpotência; 3 - Continentais. ( ) Japão; ( ) Estados Unidos; ( ) China. Sequência:",["1, 2, 3.","2, 1, 3.","3, 2, 1.","1, 3, 2.","2, 3, 1."],0,"Japão é desenvolvido, EUA é superpotência e China é continental."],["[Questionário I] Sobre a globalização: I. Com a aceleração da globalização nas sociedades de renda média ocorreu uma diminuição da marginalização social. II. Nos últimos anos do século XX, tanto os países desenvolvidos quanto os emergentes vivenciaram a aceleração das quatro subdimensões da globalização econômica. III. A dimensão produtiva refere-se à transnacionalização crescente das cadeias produtivas intra e intercorporativas.",["I, apenas.","II, apenas.","III, apenas.","I e II, apenas.","II e III, apenas."],4,"II e III corretas. A I é falsa: a marginalização foi mantida ou aumentada."],["[Questionário II] Características da globalização contra-hegemônica: I. É de baixo para cima, nasce das lutas de movimentos sociais. II. Não é consensual por excelência, pois respeita parcialmente as particularidades de cada Estado. III. O consenso liberal definiu as direções dos sistemas econômicos mundiais, criando a hegemonia.",["I, apenas.","II, apenas.","III, apenas.","I e II, apenas.","II e III, apenas."],0,"Só a I é da contra-hegemônica. II e III descrevem a globalização hegemônica."],["[Questionário II] Assinale a alternativa que contém apenas atores da globalização.",["Os estados nacionais e as pessoas físicas isoladas.","Apenas as empresas multinacionais.","As ONGs e os partidos de um só país.","Os estados nacionais e empresas.","Somente o mercado financeiro."],3,"Estados nacionais e empresas estão entre os atores (ao lado de ONGs, organismos supranacionais e mercado financeiro). (As opções erradas foram escritas por mim; no questionário a resposta marcada é a D.)"],["[Questionário II] Para elaborar políticas públicas de desenvolvimento dos países de renda baixa, o ator responsável seria:",["Os estados nacionais.","O mercado financeiro.","As empresas multinacionais.","As ONGs.","Os organismos supranacionais."],0,"Os Estados nacionais, que formulam as políticas públicas."],["[Questionário II] Para Jerry Mander, a resposta aos males da globalização está na promoção de economias locais e comunitárias, na reterritorialização. Essa visão pertence ao grupo dos:",["Hegemônicos.","Hiperglobalistas.","Contra-hegemônicos.","Realistas.","Idealistas."],2,"É a visão contra-hegemônica."],["[Questionário II] Sobre a validade da lei internacional: I. A soberania da lei internacional está vinculada à aceitação, mediante tratados internacionais. PORQUE II. Cada ente federado possui personalidade jurídica internacional podendo gozar de privilégios e imunidades.",["As asserções I e II são verdadeiras e a II justifica a I.","As asserções I e II são verdadeiras, mas a II não justifica a I.","A asserção I é verdadeira e a II é falsa.","A asserção I é falsa e a II é verdadeira.","As asserções I e II são falsas."],2,"A I é verdadeira; a II é falsa (ente federado não tem personalidade jurídica internacional)."],["[Questionário II] Entre as principais características da personalidade jurídica dos sujeitos de direito da globalização estão:",["Apenas a capacidade de celebrar tratados.","Capacidade de gozar de privilégios e imunidades apenas.","Capacidade de legislar sobre outros Estados.","Capacidade para a celebração de tratados; para gozar de privilégios e imunidades; e para atuar diretamente nas demandas internacionais.","Capacidade apenas de atuar nas demandas internacionais."],3,"São as três capacidades juntas."],["[Questionário II] Define melhor o conceito de poder nas relações afetas à globalização:",["A posse de um grande exército.","A noção de capacidade de controlar as regras do jogo em um ou vários domínios-chave da competição internacional.","O tamanho do território do Estado.","A quantidade de tratados assinados.","A população do país."],1,"Poder mundial é controlar as regras do jogo."],["[Questionário II] Sobre o neoliberalismo: I. Concede o direito aos indivíduos de se relacionarem entre si, diminuindo substancialmente as desigualdades. II. Uma das armadilhas da globalização neoliberal é acentuar simbolicamente a distinção entre o local e o global e ao mesmo tempo destruí-la nos mecanismos reais da economia. III. A acentuação simbólica entre local e global se destina a deslegitimar todos os obstáculos à expansão da globalização neoliberal. É verdadeiro o que se afirma em:",["I, apenas.","II, apenas.","III, apenas.","I e II, apenas.","II e III, apenas."],4,"II e III estão certas. A I é falsa: o neoliberalismo aumentou as desigualdades."],["[Questionário II] Sobre o crescimento dos países afetados pela globalização: I. Propicia curto prazo desigual, depois tende a se estabilizar. II. Propicia curto prazo igualitário e depois desigualdade. III. Pode propiciar, a curto e a longo prazo, crescimento desigual entre as nações. É verdadeiro:",["Apenas a I.","Apenas a II.","Apenas a III.","I e II.","II e III."],2,"Só a III."],["[Questionário II] Sobre a globalização, assinale a alternativa correta:",["O fim da Guerra Fria impediu as relações internacionais.","A globalização acabou com as desigualdades.","O Consenso de Washington foi uma decisão de todos os países.","A globalização é um fenômeno sem nenhuma relação com a política.","O fim da bipolaridade da Guerra Fria permitiu a consolidação das relações internacionais."],4,"O fim da bipolaridade permitiu a consolidação das relações internacionais."],["[Slide, Unid. I] Para os hiperglobalistas, a globalização é: I. Algo novo e substancialmente revolucionário. PORQUE II. a partir da decrescente influência das multinacionais e dos mercados cada vez menos integrados, os países seriam levados a um padrão mundial.",["As asserções I e II são verdadeiras e a II justifica a I.","As asserções I e II são verdadeiras, mas a II não justifica a I.","A asserção I é verdadeira e a II é falsa.","A asserção I é falsa e a II é verdadeira.","As asserções I e II são falsas."],2,"Como no slide: a I é verdadeira e a II é falsa (a influência das multinacionais é crescente e os mercados mais integrados)."],["[Slide, Unid. I] A globalização é, portanto: I. Fruto da dimensão militar que sedimentou particularismos locais. II. Resultado de dirigentes políticos que, por atos políticos, transferiram decisões capitais (investimento, emprego, saúde, educação, cultura, meio ambiente) da esfera pública para a privada. III. Resultado dos políticos liberais e não conservadores que permitiram a privatização da coisa pública. É verdadeiro:",["I, apenas.","II, apenas.","III, apenas.","I e II, apenas.","II e III, apenas."],1,"Só a II. A III erra ao dizer “e não conservadores”; a I troca a causa."],["[Slide, Unid. II] Sobre os atores da globalização: I. O ator social é o que interpreta uma ação dramática. II. Os organismos não governamentais criam padrão de consumo e desfragmentam a produção em rede global, típica da terceira revolução industrial. III. O Mercado Financeiro é relevante ator, pois possibilita que o fluxo de capital transite pelo globo, gerando impactos sociais e econômicos. É verdadeiro:",["I, apenas.","II, apenas.","III, apenas.","I e II, apenas.","II e III, apenas."],2,"Só a III."],["[Slide, Unid. II] I. Qualquer leitura da globalização que não apreenda seu sentido dialético e contraditório tende a ser unilateral. PORQUE II. As leituras dialéticas veem a globalização como progressiva e regressiva, civilizatória e bárbara, e como constituição do “globo” ao mesmo tempo em que reforça particularismos locais.",["As asserções I e II são verdadeiras e a II justifica a I.","As asserções I e II são verdadeiras, mas a II não justifica a I.","A asserção I é verdadeira e a II é falsa.","A asserção I é falsa e a II é verdadeira.","As asserções I e II são falsas."],0,"As duas são verdadeiras e a II justifica a I."],["Qual paradigma das Relações Internacionais tem o Estado como único ator e vê um sistema anárquico, onde a paz só existe com equilíbrio de forças?",["Idealista.","Realista.","Da dependência.","Da interdependência.","Transnacionalista."],1,"É o paradigma realista."],["A Liga das Nações, reação moral e política aos horrores da Primeira Guerra, pertence ao paradigma:",["Realista.","Da dependência.","Idealista.","Da interdependência.","Hiperglobalista."],2,"Idealista (influência de Rousseau)."],["Qual das alternativas lista corretamente os órgãos da ONU?",["Assembleia Geral, Conselho de Segurança, Conselho Econômico e Social, Conselho de Tutela, Corte Internacional de Justiça e Secretariado.","Assembleia Geral, FMI, Banco Mundial, OMC e Secretariado.","Conselho de Segurança, G20, Corte Penal e OTAN.","Assembleia Geral, Conselho de Tutela e Parlamento Europeu.","Secretariado, OMC e Corte Internacional de Justiça."],0,"São os seis órgãos principais da ONU."],["A Declaração de 1948 inovou ao combinar:",["Apenas direitos civis e políticos, de forma universal.","Universalidade e indivisibilidade dos direitos humanos, unindo liberdade e igualdade.","Direitos só de cada Estado soberano.","Apenas direitos econômicos.","Direitos de uma elite global."],1,"Universalidade e indivisibilidade (Piovesan, 2005)."],["Qual foi a resposta estatal à crise de 1929 citada no slide?",["Consenso de Washington.","New Deal.","Liga das Nações.","Plano Real.","Globalitarismo."],1,"New Deal: obras públicas, benefícios sociais e intervenção na economia."]];
+
+// ----- abas e módulos -----
+function switchTab(id, btn){
+  document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active')});
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('nav button').forEach(function(b){b.classList.remove('active')});
+  if(btn) btn.classList.add('active');
+  window.scrollTo({top:0});
+}
+function toggleModule(h){ h.parentElement.classList.toggle('open'); }
+
+// ----- pegadinhas -----
+(function(){
+  var el = document.getElementById('lista-peg');
+  el.innerHTML = PEGADINHAS.map(function(p){
+    return '<div class="peg"><div class="afirma">“' + p[0] + '”</div><div><span class="errada">Cuidado:</span> ' + p[1] + '</div></div>';
+  }).join('');
+})();
+
+// ----- vídeos -----
+(function(){
+  var area = document.getElementById('video-area');
+  if(!VIDEOS.length){
+    area.innerHTML = '<div class="vazio">Ainda não há vídeos publicados para este módulo. 🎬<br>Em breve entram aqui os vídeos e podcasts do NotebookLM.</div>';
+    return;
+  }
+  function cartao(v, i){
+    return '<div class="video-card' + (v.curto ? ' curto' : '') + '"><div class="ratio"><iframe src="https://www.youtube.com/embed/' + v.id + '" allow="fullscreen; autoplay; encrypted-media; picture-in-picture; clipboard-write" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy" title="' + v.titulo + '"></iframe></div><h4>' + v.titulo + '</h4><button type="button" class="ampliar" data-i="' + VIDEOS.indexOf(v) + '">⛶ Ampliar (tela cheia)</button></div>';
+  }
+  var normais = VIDEOS.filter(function(v){ return !v.curto; });
+  var curtos = VIDEOS.filter(function(v){ return v.curto; });
+  var html = '';
+  if (normais.length) html += '<div class="video-bloco"><h3>🎬 Vídeos</h3><div class="video-grid">' + normais.map(cartao).join('') + '</div></div>';
+  if (curtos.length) html += '<div class="video-bloco"><h3>📱 Vídeos curtos (shorts)</h3><div class="video-grid curtos">' + curtos.map(cartao).join('') + '</div></div>';
+  area.innerHTML = html;
+})();
+
+// ----- vídeo ampliado (dentro do site, sem ir ao YouTube) -----
+(function(){
+  var lb = document.getElementById('lb');
+  function avisarSite(ativo){ try { window.parent.postMessage({ estudos: 'tela-cheia', ativo: ativo }, '*'); } catch(e) {} }
+  function abrir(v){
+    var f = document.createElement('iframe');
+    f.src = 'https://www.youtube.com/embed/' + v.id + '?autoplay=1&rel=0&playsinline=1';
+    f.setAttribute('allow', 'fullscreen; autoplay; encrypted-media; picture-in-picture');
+    f.setAttribute('allowfullscreen', '');
+    f.title = v.titulo;
+    lb.classList.toggle('curto', !!v.curto);
+    lb.appendChild(f);
+    lb.classList.add('aberto');
+    avisarSite(true);
+    try { if (lb.requestFullscreen) lb.requestFullscreen().catch(function(){}); } catch(e) {}
+  }
+  function fechar(){
+    if (!lb.classList.contains('aberto')) return;
+    lb.classList.remove('aberto');
+    var f = lb.querySelector('iframe'); if (f) f.remove();
+    avisarSite(false);
+    try { if (document.fullscreenElement) document.exitFullscreen(); } catch(e) {}
+  }
+  document.addEventListener('click', function(e){
+    var b = e.target.closest && e.target.closest('.ampliar');
+    if (b) abrir(VIDEOS[+b.getAttribute('data-i')]);
+  });
+  document.getElementById('lb-fechar').addEventListener('click', fechar);
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') fechar(); });
+  document.addEventListener('fullscreenchange', function(){ if (!document.fullscreenElement) fechar(); });
+})();
+
+// ----- simulado -----
+var ordem = [], respondidas = {}, acertos = 0, erros = 0;
+function shuffle(a){ for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;} return a; }
+function initQuizData(){
+  ordem = shuffle(QUESTOES.map(function(_,i){return i;}));
+  respondidas = {}; acertos = 0; erros = 0;
+}
+function renderQuiz(){
+  var box = document.getElementById('quiz-container');
+  box.innerHTML = ordem.map(function(qi, pos){
+    var q = QUESTOES[qi];
+    var ops = q[1].map(function(o, oi){
+      return '<button class="option-btn" id="q' + pos + '-o' + oi + '" onclick="checkAnswer(' + pos + ',' + oi + ')">' + String.fromCharCode(65+oi) + ') ' + o + '</button>';
+    }).join('');
+    return '<div class="q"><div class="enun">' + (pos+1) + '. ' + q[0] + '</div>' + ops + '<div class="explanation" id="exp-' + pos + '">' + q[3] + '</div></div>';
+  }).join('');
+  updateStats();
+}
+function checkAnswer(pos, escolha){
+  if(respondidas[pos] !== undefined) return;
+  var q = QUESTOES[ordem[pos]];
+  respondidas[pos] = escolha;
+  for(var i=0;i<q[1].length;i++){
+    var b = document.getElementById('q'+pos+'-o'+i);
+    b.disabled = true;
+    if(i === q[2]) b.classList.add('correct');
+    else if(i === escolha) b.classList.add('wrong');
+  }
+  if(escolha === q[2]) acertos++; else erros++;
+  document.getElementById('exp-'+pos).classList.add('show');
+  updateStats();
+}
+function updateStats(){
+  var total = acertos + erros;
+  document.getElementById('stat-total').textContent = total + '/' + QUESTOES.length;
+  document.getElementById('stat-correct').textContent = acertos;
+  document.getElementById('stat-wrong').textContent = erros;
+  document.getElementById('stat-percent').textContent = total ? Math.round(acertos*100/total) + '%' : '0%';
+}
+function resetQuiz(){ initQuizData(); renderQuiz(); window.scrollTo({top:0}); }
+initQuizData(); renderQuiz();
+</script>
+</body>
+</html>

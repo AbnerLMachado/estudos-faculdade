@@ -71,7 +71,11 @@ module.exports = {
           np2: [item("guia", "Plataforma de estudos NP2 (aborto, lesões, honra e estupro)", local("6/penal/np2.html"))],
         },
         { id: "ava-acao-penal", nome: "Ação Penal (AVA)" },
-        { id: "ava-direito-globalizacao", nome: "Direito e Globalização (AVA)" },
+        {
+          id: "ava-direito-globalizacao",
+          nome: "Direito e Globalização (AVA)",
+          np2: [item("guia", "Plataforma de estudos NP2 (Unidades I e II, com os questionários)", local("6/direito-globalizacao/np2.html"))],
+        },
         { id: "ava-metodos-pesquisa", nome: "Métodos de Pesquisa (AVA)" },
       ],
     },

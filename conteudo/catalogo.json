@@ -158,7 +158,14 @@
         },
         {
           "id": "ava-direito-globalizacao",
-          "nome": "Direito e Globalização (AVA)"
+          "nome": "Direito e Globalização (AVA)",
+          "np2": [
+            {
+              "tipo": "guia",
+              "titulo": "Plataforma de estudos NP2 (Unidades I e II, com os questionários)",
+              "url": "paginas/6/direito-globalizacao/np2.html"
+            }
+          ]
         },
         {
           "id": "ava-metodos-pesquisa",
