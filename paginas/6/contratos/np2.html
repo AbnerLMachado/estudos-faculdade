@@ -85,6 +85,10 @@ td{background:var(--bg-card)}
 footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:20px 14px}
 @media(max-width:600px){header h1{font-size:1.3rem}nav button{padding:8px 11px;font-size:.9rem}}
 @media(max-width:600px){header{padding:8px 10px 6px}header h1{font-size:1.05rem;margin:0}header p{display:none}nav{padding:6px;gap:5px}nav button{padding:6px 10px;font-size:.85rem}main{padding:10px 10px 40px}}
+.q .enun p{margin:0 0 6px}
+.explanation.ok{border-left:4px solid var(--correct-green)}
+.explanation.no{border-left:4px solid var(--wrong-red)}
+.explanation .veredito{display:block;font-weight:700;margin-bottom:4px;color:var(--text-main,inherit)}
 </style>
 </head>
 <body>
@@ -97,6 +101,7 @@ footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:20px 14
   <button onclick="switchTab('mapas',this)">🗺️ Mapas</button>
   <button onclick="switchTab('pegadinhas',this)">⚠️ Pegadinhas</button>
   <button onclick="switchTab('quiz',this)">📝 Simulado</button>
+  <button onclick="switchTab('prof',this)">🎓 Questões do Professor</button>
   <button onclick="switchTab('videos',this)">🎬 Vídeos</button>
 </nav>
 <main>
@@ -345,6 +350,20 @@ footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:20px 14
   <div id="quiz-container"></div>
 </section>
 
+<!-- ============ QUESTÕES DO PROFESSOR ============ -->
+<section id="prof" class="tab-content">
+  <h2>Questões do Professor · Atividade em sala de aula 2/2026</h2>
+  <p style="color:var(--text-muted)">As 16 questões da atividade, <b>exatamente como o professor passou</b> (enunciados e alternativas sem nenhuma alteração, na ordem original). Os comentários depois de cada resposta são nossos.</p>
+  <div class="stats">
+    <div class="stat-box">Respondidas <span id="pstat-total">0/0</span></div>
+    <div class="stat-box">Acertos <span id="pstat-correct" style="color:var(--correct-green)">0</span></div>
+    <div class="stat-box">Erros <span id="pstat-wrong" style="color:var(--wrong-red)">0</span></div>
+    <div class="stat-box">Aproveitamento <span id="pstat-percent">0%</span></div>
+  </div>
+  <p><button class="btn" onclick="resetProf()">🔄 Refazer (mesma ordem do professor)</button></p>
+  <div id="prof-container"></div>
+</section>
+
 <!-- ============ VÍDEOS ============ -->
 <section id="videos" class="tab-content">
   <h2>Vídeos e podcasts</h2>
@@ -548,6 +567,285 @@ function updateStats(){
 }
 function resetQuiz(){ initQuizData(); renderQuiz(); window.scrollTo({top:0}); }
 initQuizData(); renderQuiz();
+
+// ----- questões do professor (texto original da atividade, sem embaralhar) -----
+var QPROF = [
+ {
+  "n": 1,
+  "e": [
+   "A extinção do contrato pode ocorrer por:"
+  ],
+  "o": [
+   "Apenas cumprimento integral.",
+   "Resilição unilateral, bilateral e resolução.",
+   "Somente por acordo das partes.",
+   "Atraso na entrega."
+  ],
+  "c": 1,
+  "x": "As formas de extinção são: <b>cumprimento</b> (a normal), <b>resolução</b> (inexecução) e <b>resilição</b> (unilateral, por denúncia, ou bilateral, o distrato). As outras alternativas são incompletas, e o simples atraso gera mora, não extingue o contrato."
+ },
+ {
+  "n": 2,
+  "e": [
+   "A resolução por inexecução voluntária ocorre quando:"
+  ],
+  "o": [
+   "Uma das partes não cumpre a obrigação.",
+   "As partes entram em acordo para rescindir.",
+   "Um evento externo impossibilita o cumprimento.",
+   "A obrigação é cumprida parcialmente."
+  ],
+  "c": 0,
+  "x": "Inexecução <b>voluntária</b> é o inadimplemento <b>culposo</b>: a parte simplesmente não cumpre. Dá direito à resolução com perdas e danos (CC, art. 475). Acordo para desfazer é resilição bilateral; evento externo é inexecução <i>involuntária</i>."
+ },
+ {
+  "n": 3,
+  "e": [
+   "A extinção do contrato por inexecução involuntária pode ser alegada em caso de:"
+  ],
+  "o": [
+   "Força maior.",
+   "Descumprimento por vontade própria.",
+   "Acordo entre as partes.",
+   "Modificação do contrato."
+  ],
+  "c": 0,
+  "x": "Inexecução <b>involuntária</b> = sem culpa: <b>caso fortuito ou força maior</b> (CC, art. 393). Descumprir por vontade própria é voluntária; acordo e modificação não são inexecução."
+ },
+ {
+  "n": 4,
+  "e": [
+   "A onerosidade excessiva pode ser alegada quando:"
+  ],
+  "o": [
+   "O preço é elevado.",
+   "As obrigações se tornam desproporcionais.",
+   "O contrato é cumprido parcialmente.",
+   "O prazo de entrega é longo."
+  ],
+  "c": 1,
+  "x": "Onerosidade excessiva (CC, art. 478): a prestação de uma parte fica <b>desproporcional</b> em razão de fatos <b>extraordinários e imprevisíveis</b>, com extrema vantagem para a outra. Preço alto ou prazo longo, por si só, não bastam."
+ },
+ {
+  "n": 5,
+  "e": [
+   "O cumprimento integral do contrato significa:"
+  ],
+  "o": [
+   "Cumprir apenas partes do contrato.",
+   "Cumprir todas as obrigações conforme estipulado.",
+   "Atrasar o cumprimento das obrigações.",
+   "Não cumprir nenhuma obrigação."
+  ],
+  "c": 1,
+  "x": "Cumprimento integral é a forma <b>normal</b> de extinção: cumprir <b>todas</b> as obrigações, como foram estipuladas (modo, tempo e lugar)."
+ },
+ {
+  "n": 6,
+  "e": [
+   "Em relação à Promessa de Fato de Terceiro, assinale a alternativa ERRADA:"
+  ],
+  "o": [
+   "É uma relação negocial, estabelecida por duas pessoas, em que uma delas é promitente, a qual promete a realização de determinado negócio que dependerá, posteriormente, de uma terceira pessoa.",
+   "No caso do terceiro não aceitar ou o dito “representante” não ter poderes para firmar um determinado negócio, aquele que contratou (o dito “representante”) fica responsável por perdas e danos.",
+   "Implica no fato de que uma pessoa se compromete com outra a obter o consentimento de uma terceira pessoa na conclusão de um contrato sem ter recebido preliminarmente o consentimento desta última pessoa para a conclusão deste contrato.",
+   "A eficácia deste contrato depende da ratificação posterior da terceira pessoa, apesar de esta terceira pessoa já estar obrigada desde a formação do contrato."
+  ],
+  "c": 3,
+  "x": "A questão pede a <b>ERRADA</b>. A letra D erra ao dizer que o terceiro já está obrigado desde a formação: pela <b>relatividade dos efeitos do contrato</b>, o terceiro <b>não</b> se obriga enquanto não ratificar. Quem se obriga é o <b>promitente</b>, que responde por perdas e danos se o terceiro não executar (CC, art. 439). As letras A, B e C descrevem corretamente o instituto."
+ },
+ {
+  "n": 7,
+  "e": [
+   "Caso, no momento da conclusão de compromisso de compra e venda de imóvel urbano, o contratante reserve-se a faculdade de indicar terceiro para figurar como adquirente na escritura definitiva, configurar-se-á"
+  ],
+  "o": [
+   "estipulação em favor de terceiro.",
+   "contrato com pessoa a declarar.",
+   "contrato preliminar.",
+   "promessa de fato de terceiro."
+  ],
+  "c": 1,
+  "x": "É o <b>contrato com pessoa a declarar</b> (CC, arts. 467 e 468): na conclusão, uma parte reserva a faculdade de <b>indicar quem adquire os direitos e assume as obrigações</b>. Na estipulação em favor de terceiro, o terceiro é beneficiário; na promessa de fato de terceiro, o promitente promete que outro agirá."
+ },
+ {
+  "n": 8,
+  "e": [
+   "Analise as afirmações abaixo a respeito da Promessa de Fato de Terceiro:",
+   "I - A pessoa que se compromete com outra a obter o consentimento de uma terceira pessoa normalmente assume este compromisso porque tem um bom relacionamento com esta última, seja ele decorrente de amizade ou de laços de família.",
+   "II – Há uma primeira fase ou fase de antecipação, onde não existe ainda a conclusão do contrato em virtude da ausência do consentimento da terceira pessoa e uma segunda fase onde já existe a decisão da terceira pessoa e com esta ratificação a obrigação daquele que se comprometeu em obter o consentimento do terceiro deixa de existir.",
+   "Assim, assinale a alternativa adequada:"
+  ],
+  "o": [
+   "Somente está correta a afirmação I.",
+   "Somente está correta a afirmação II.",
+   "Ambas afirmações estão corretas.",
+   "Ambas afirmações estão erradas."
+  ],
+  "c": 2,
+  "x": "As duas afirmações estão corretas. A <b>I</b> explica por que alguém assume o compromisso (confiança, vínculo com o terceiro). A <b>II</b> descreve as duas fases: antes da ratificação (o promitente deve obter o consentimento) e depois dela (a obrigação do promitente se cumpre e deixa de existir)."
+ },
+ {
+  "n": 9,
+  "e": [
+   "De acordo com a disciplina do Código Civil acerca da extinção do contrato, a"
+  ],
+  "o": [
+   "cláusula resolutiva tácita depende de interpelação judicial.",
+   "resilição unilateral exige prévio inadimplemento injustificado da outra parte.",
+   "parte lesada pelo inadimplemento não poderá reclamar indenização por perdas e danos se, em vez de pedir a resolução do contrato, exigir-lhe o cumprimento.",
+   "resolução por onerosidade excessiva não poderá ser determinada se não tiver sido prevista, por escrito, no contrato."
+  ],
+  "c": 0,
+  "x": "Certa a A: a cláusula resolutiva <b>tácita</b> depende de <b>interpelação judicial</b>; a expressa opera de pleno direito (CC, art. 474). B erra: a resilição unilateral <b>não exige inadimplemento</b> (art. 473). C erra: mesmo exigindo o cumprimento, a parte lesada <b>pode</b> pedir perdas e danos (art. 475). D erra: a resolução por onerosidade excessiva <b>não depende de previsão contratual</b> (art. 478)."
+ },
+ {
+  "n": 10,
+  "e": [
+   "Em relação aos Vícios Redibitórios, assinale a única alternativa ERRADA:"
+  ],
+  "o": [
+   "Trata-se de vício/defeito oculto do bem objeto da prestação do contrato de compra e venda, que o comprador não poderia tomar conhecimento no momento da aquisição, de tal maneira que este vício transforme o uso ou destinação do bem ineficiente ou inadequado, ou ainda reduzindo-lhe o valor.",
+   "Em regra, é aplicado aos contratos bilaterais, onerosos, comutativos e de compra e venda, podendo também ser aplicado no âmbito do direito comercial e dos direitos do consumidor.",
+   "Trata-se de uma garantia da lei, que protege o comprador, dependendo de uma previsão contratual, já que o alienante somente garantirá o uso do produto, para que seja alcançada sua finalidade se houver clausula contratual que assim preveja esta obrigação.",
+   "É requisito não pode ser visível ou aparente, mas sim oculto de fato, de modo que se torne impossível ao adquirente ter conhecimento dele na data da contratação."
+  ],
+  "c": 2,
+  "x": "A questão pede a <b>ERRADA</b>. A letra C erra: a garantia contra vícios redibitórios é <b>garantia da lei</b> (CC, arts. 441 e seguintes) e <b>independe de cláusula contratual</b>. A letra D, apesar da redação truncada no enunciado, traz o requisito do vício <b>oculto</b>, correto."
+ },
+ {
+  "n": 11,
+  "e": [
+   "Observe as afirmações abaixo a respeito das diferenças entre Vício Redibitório e Evicção:",
+   "I - Evicção é a situação jurídica em a coisa apresenta um vício oculto que a torna imprópria à utilização ou que lhe diminua o valor, podendo o contratante rejeitá-la, exigir reparação ou abatimento do preço, enquanto Vício Redibitório é a perda da coisa, seja ela posse ou propriedade, para seu legítimo dono, e o reconhecimento em juízo da existência de ônus sobre a mesma coisa, não denunciado oportunamente no contrato.",
+   "II - No vício redibitório o problema está no objeto e na evicção o defeito não está na coisa, e sim na titularidade dela.no vício redibitório, a responsabilidade será sempre do alienante/vendedor, enquanto na evicção a responsabilidade do alienante pode ser excluída, diminuída ou até mesmo reforçada, desde que seja expressa no contrato.",
+   "Assim, assinale a alternativa adequada:"
+  ],
+  "o": [
+   "A afirmação I está CORRETA e a afirmação II está ERRADA.",
+   "Afirmação I está ERRADA e afirmação II está CORRETA.",
+   "Ambas afirmações estão CORRETAS.",
+   "Ambas afirmações estão ERRADAS."
+  ],
+  "c": 1,
+  "x": "A <b>I</b> está errada porque <b>inverte os conceitos</b>: o defeito oculto que torna a coisa imprópria é o <b>vício redibitório</b>; a perda da coisa para o verdadeiro dono é a <b>evicção</b>. A <b>II</b> está correta: no vício redibitório o problema está <b>no objeto</b>; na evicção, na <b>titularidade</b>, e a garantia contra a evicção pode ser reforçada, diminuída ou excluída por cláusula expressa (CC, art. 448)."
+ },
+ {
+  "n": 12,
+  "e": [
+   "Observe as situações abaixo:",
+   "I – Marta adquire um automóvel e, no prazo ajustado, comunica que o verdadeiro comprador é seu marido.",
+   "II – Uma empresa adquire equipamentos “por conta de quem declarar”, mas não indica o nome dentro do prazo.",
+   "III – João contrata um seguro de vida em favor de sua filha Maria.",
+   "IV – Uma empresa contrata um plano de saúde coletivo e inclui os dependentes dos funcionários.",
+   "V – Uma imobiliária promete ao comprador que o proprietário do imóvel assinará a escritura, mas este desiste.",
+   "Assim, assinale a alternativa que traga a ordem correta das cláusulas especiais encontradas nos casos acima:"
+  ],
+  "o": [
+   "I – Contrato com pessoa a declarar; II – Promessa de fato de terceiro; III – Estipulação em favor de terceiro; IV – Estipulação em favor de terceiro; e V – Promessa de fato de terceiro.",
+   "I – Contrato com pessoa a declarar; II – Contrato com pessoa a declarar; III – Estipulação em favor de terceiro; IV – Estipulação em favor de terceiro; e V – Promessa de fato de terceiro.",
+   "I – Contrato com pessoa a declarar; II – Contrato com pessoa a declarar; III – Promessa de fato de terceiro; IV – Estipulação em favor de terceiro; e V – Promessa de fato de terceiro.",
+   "I – Contrato com pessoa a declarar; II – Contrato com pessoa a declarar; III – Estipulação em favor de terceiro; IV – Estipulação em favor de terceiro; e V – Contrato com pessoa a declarar."
+  ],
+  "c": 1,
+  "x": "<b>I</b> e <b>II</b>: contrato com pessoa a declarar (se ninguém for indicado no prazo, o contrato vale entre as partes originárias, art. 468). <b>III</b> e <b>IV</b>: estipulação em favor de terceiro (filha e dependentes são beneficiários, arts. 436 a 438). <b>V</b>: promessa de fato de terceiro (o proprietário desiste e a imobiliária responde por perdas e danos, art. 439). Só a B traz essa sequência."
+ },
+ {
+  "n": 13,
+  "e": [
+   "O prazo para o comprador pleitear a redibição do bem móvel é:"
+  ],
+  "o": [
+   "10 dias da entrega.",
+   "30 dias da entrega, se o vício for aparente.",
+   "30 dias da entrega, se o vício for oculto.",
+   "180 dias da entrega."
+  ],
+  "c": 2,
+  "x": "Para <b>bem móvel</b>, o prazo para redibição ou abatimento é de <b>30 dias contados da entrega</b> (CC, art. 445); para imóvel, 1 ano. O vício redibitório é, por definição, <b>oculto</b>: vício aparente não gera redibição. Se o defeito só puder ser conhecido mais tarde, o prazo conta do conhecimento, com limite de 180 dias (art. 445, §1º), mas esse não é o prazo \"da entrega\"."
+ },
+ {
+  "n": 14,
+  "e": [
+   "A resilição unilateral ocorre quando:"
+  ],
+  "o": [
+   "Ambas as partes concordam em extinguir o contrato.",
+   "Uma das partes exerce direito de arrependimento previsto em lei ou contrato.",
+   "O contrato é anulado judicialmente.",
+   "O contrato se resolve por inadimplemento."
+  ],
+  "c": 1,
+  "x": "Resilição <b>unilateral</b> (denúncia, CC, art. 473): uma das partes põe fim ao contrato por sua vontade, nos casos em que a <b>lei ou o contrato</b> permitem (ex.: direito de arrependimento). Acordo de ambos é resilição <i>bilateral</i> (distrato); anulação é invalidade; inadimplemento leva à resolução."
+ },
+ {
+  "n": 15,
+  "e": [
+   "A resolução do contrato por inexecução voluntária ocorre quando:"
+  ],
+  "o": [
+   "O devedor deixa de cumprir a obrigação por culpa sua.",
+   "Há caso fortuito ou força maior.",
+   "O contrato é rescindido por acordo.",
+   "O contrato é anulado por erro."
+  ],
+  "c": 0,
+  "x": "Resolução por inexecução <b>voluntária</b> = o devedor não cumpre <b>por culpa sua</b> (CC, art. 475). Caso fortuito ou força maior é inexecução involuntária; acordo é resilição bilateral; erro gera anulabilidade."
+ },
+ {
+  "n": 16,
+  "e": [
+   "A resolução por onerosidade excessiva pode ser requerida:"
+  ],
+  "o": [
+   "Quando há desequilíbrio contratual imprevisível e excessivo para uma das partes.",
+   "Sempre que o devedor não quiser mais cumprir o contrato.",
+   "Somente em contratos unilaterais.",
+   "Apenas por ato de vontade do credor."
+  ],
+  "c": 0,
+  "x": "Resolução por onerosidade excessiva exige <b>desequilíbrio imprevisível e excessivo</b> (CC, arts. 478 a 480). Não é mero arrependimento do devedor. E não se limita a contratos unilaterais: a regra é pensada para os bilaterais, e nos unilaterais o art. 480 permite pedir a redução da prestação."
+ }
+];
+
+var profResp = {}, profAcertos = 0, profErros = 0;
+function esc(t){ return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function renderProf(){
+  document.getElementById('prof-container').innerHTML = QPROF.map(function(q, qi){
+    var enun = q.e.map(function(p){ return '<p>' + esc(p) + '</p>'; }).join('');
+    var ops = q.o.map(function(o, oi){
+      return '<button class="option-btn" id="p' + qi + '-o' + oi + '" onclick="checkProf(' + qi + ',' + oi + ')">' + String.fromCharCode(65+oi) + ') ' + esc(o) + '</button>';
+    }).join('');
+    return '<div class="q"><div class="enun"><p><b>' + q.n + '.</b></p>' + enun + '</div>' + ops + '<div class="explanation" id="pexp-' + qi + '"></div></div>';
+  }).join('');
+  updateProfStats();
+}
+function checkProf(qi, escolha){
+  if(profResp[qi] !== undefined) return;
+  var q = QPROF[qi];
+  profResp[qi] = escolha;
+  for(var i=0;i<q.o.length;i++){
+    var b = document.getElementById('p'+qi+'-o'+i);
+    b.disabled = true;
+    if(i === q.c) b.classList.add('correct');
+    else if(i === escolha) b.classList.add('wrong');
+  }
+  var ok = escolha === q.c;
+  if(ok) profAcertos++; else profErros++;
+  var box = document.getElementById('pexp-'+qi);
+  box.className = 'explanation show ' + (ok ? 'ok' : 'no');
+  box.innerHTML = '<span class="veredito">' + (ok ? '✅ Acertou!' : '❌ Errou. A resposta certa é a letra ' + String.fromCharCode(65+q.c) + '.') + '</span>' + q.x;
+  updateProfStats();
+}
+function updateProfStats(){
+  var total = profAcertos + profErros;
+  document.getElementById('pstat-total').textContent = total + '/' + QPROF.length;
+  document.getElementById('pstat-correct').textContent = profAcertos;
+  document.getElementById('pstat-wrong').textContent = profErros;
+  document.getElementById('pstat-percent').textContent = total ? Math.round(profAcertos*100/total) + '%' : '0%';
+}
+function resetProf(){ profResp = {}; profAcertos = 0; profErros = 0; renderProf(); window.scrollTo({top:0}); }
+renderProf();
 </script>
 </body>
 </html>
