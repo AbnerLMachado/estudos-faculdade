@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Métodos de Pesquisa · NP2 · Plataforma de estudos</title>
+<style>
+:root{--bg-primary:#0b132b;--bg-secondary:#1c2541;--bg-card:#2f3e46;--bg-hover:#3a506b;--accent-gold:#fbbf24;--accent-blue:#38bdf8;--accent-green:#34d399;--text-main:#f8fafc;--text-muted:#94a3b8;--correct-green:#22c55e;--wrong-red:#ef4444;--border-color:#475569}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg-primary);color:var(--text-main);line-height:1.6}
+header{background:var(--bg-secondary);padding:22px 16px 14px;text-align:center;border-bottom:2px solid var(--accent-gold)}
+header h1{margin:0 0 4px;font-size:1.6rem;color:var(--accent-gold)}
+header p{margin:0;color:var(--text-muted);font-size:.95rem}
+nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:12px;background:var(--bg-secondary);position:sticky;top:0;z-index:5;border-bottom:1px solid var(--border-color)}
+nav button{background:var(--bg-card);color:var(--text-main);border:1px solid var(--border-color);padding:9px 16px;border-radius:8px;cursor:pointer;font:inherit;font-weight:600}
+nav button:hover{background:var(--bg-hover)}
+nav button.active{background:var(--accent-gold);color:#0b132b;border-color:var(--accent-gold)}
+main{max-width:980px;margin:0 auto;padding:18px 14px 60px}
+.tab-content{display:none}.tab-content.active{display:block}
+h2{color:var(--accent-blue);margin:6px 0 14px}
+.intro{background:var(--bg-secondary);border-left:4px solid var(--accent-blue);padding:12px 16px;border-radius:8px;margin-bottom:18px;color:var(--text-muted)}
+.radar{background:#3b2f0b;border:1px solid var(--accent-gold);border-radius:10px;padding:12px 16px;margin-bottom:18px}
+.radar b{color:var(--accent-gold)}
+.module-block{background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:10px;margin-bottom:12px;overflow:hidden}
+.module-header{padding:14px 16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;font-weight:700;font-size:1.05rem}
+.module-header:hover{background:var(--bg-hover)}
+.module-header small{display:block;color:var(--text-muted);font-weight:400;font-size:.82rem}
+.module-header .seta{transition:transform .2s;color:var(--accent-gold)}
+.module-block.open .seta{transform:rotate(90deg)}
+.module-body{display:none;padding:4px 16px 16px}
+.module-block.open .module-body{display:block}
+.sub-topic{background:var(--bg-card);border-radius:8px;padding:12px 14px;margin-top:12px}
+.sub-topic h3{margin:0 0 6px;color:var(--accent-green);font-size:1rem}
+.sub-topic ul{margin:6px 0 0;padding-left:20px}
+.sub-topic li{margin:4px 0}
+.callout{border-left:4px solid var(--accent-gold);background:rgba(251,191,36,.08);padding:10px 14px;border-radius:6px;margin-top:12px}
+.callout.perigo{border-color:var(--wrong-red);background:rgba(239,68,68,.08)}
+.callout.dica{border-color:var(--accent-green);background:rgba(52,211,153,.08)}
+.lei{font-size:.9rem;color:var(--text-muted);font-style:italic}
+.tag{display:inline-block;background:var(--bg-primary);color:var(--accent-gold);border-radius:20px;padding:1px 10px;font-size:.78rem;margin-right:4px}
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:6px;margin:12px 0}
+.flow-step{background:var(--bg-card);border:1px solid var(--border-color);border-radius:8px;padding:8px 12px;flex:1 1 140px;font-size:.92rem}
+.flow-step b{color:var(--accent-blue);display:block}
+.flow-arrow{align-self:center;color:var(--accent-gold);font-size:1.3rem}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.92rem}
+th,td{border:1px solid var(--border-color);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--bg-hover);color:var(--accent-gold)}
+td{background:var(--bg-card)}
+.tbl-wrap{overflow-x:auto}
+.peg{background:var(--bg-card);border-radius:10px;padding:12px 16px;margin-bottom:10px;border-left:4px solid var(--wrong-red)}
+.peg .afirma{font-weight:700}
+.peg .errada{color:var(--wrong-red);font-weight:700}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+.stat-box{flex:1 1 140px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:8px;padding:8px 12px;text-align:center;font-size:.9rem;color:var(--text-muted)}
+.stat-box span{display:block;font-size:1.3rem;font-weight:700;color:var(--text-main)}
+.q{background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:10px;padding:14px 16px;margin-bottom:14px}
+.q .enun{font-weight:600;margin-bottom:10px}
+.option-btn{display:block;width:100%;text-align:left;background:var(--bg-card);color:var(--text-main);border:1px solid var(--border-color);border-radius:8px;padding:9px 12px;margin-bottom:7px;cursor:pointer;font:inherit}
+.option-btn:hover:not(:disabled){background:var(--bg-hover)}
+.option-btn.correct{background:rgba(34,197,94,.2);border-color:var(--correct-green)}
+.option-btn.wrong{background:rgba(239,68,68,.2);border-color:var(--wrong-red)}
+.option-btn:disabled{cursor:default}
+.explanation{display:none;margin-top:8px;padding:10px 12px;border-radius:8px;background:var(--bg-primary);color:var(--text-muted);font-size:.92rem}
+.explanation.show{display:block}
+.btn{background:var(--accent-gold);color:#0b132b;border:0;border-radius:8px;padding:9px 16px;font:inherit;font-weight:700;cursor:pointer}
+.video-bloco h3{margin:18px 0 10px;font-size:1.02rem;color:var(--accent-green)}
+.video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;align-items:start}
+.video-grid.curtos{grid-template-columns:repeat(auto-fill,minmax(190px,220px));gap:12px;justify-content:start}
+.video-card{background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:10px;overflow:hidden}
+.video-card .ratio{position:relative;padding-top:56.25%}
+.video-card iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video-card.curto .ratio{padding-top:177.78%}
+.video-card.curto h4{font-size:.82rem;padding:8px 10px}
+@media(max-width:600px){.video-grid{grid-template-columns:1fr}.video-grid.curtos{grid-template-columns:repeat(2,1fr)}}
+.video-card .ampliar{display:block;width:calc(100% - 20px);margin:0 10px 10px;padding:7px 10px;border-radius:8px;border:1px solid var(--accent-gold);background:transparent;color:var(--accent-gold);font:inherit;font-weight:700;font-size:.85rem;cursor:pointer}
+.video-card .ampliar:hover{background:var(--bg-hover)}
+#lb{position:fixed;inset:0;z-index:1000;background:#000;display:none;align-items:center;justify-content:center}
+#lb.aberto{display:flex}
+#lb iframe{width:100%;height:100%;border:0;background:#000}
+#lb.curto iframe{width:auto;height:100%;aspect-ratio:9/16;max-width:100%}
+#lb-fechar{position:absolute;top:10px;right:10px;z-index:2;padding:9px 16px;border-radius:10px;border:1px solid #fff;background:rgba(0,0,0,.75);color:#fff;font:inherit;font-weight:700;cursor:pointer}
+.video-card h4{margin:0;padding:10px 12px;font-size:.95rem}
+.vazio{background:var(--bg-secondary);border:1px dashed var(--border-color);border-radius:10px;padding:26px;text-align:center;color:var(--text-muted)}
+footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:20px 14px}
+@media(max-width:600px){header h1{font-size:1.3rem}nav button{padding:8px 11px;font-size:.9rem}}
+@media(max-width:600px){header{padding:8px 10px 6px}header h1{font-size:1.05rem;margin:0}header p{display:none}nav{padding:6px;gap:5px}nav button{padding:6px 10px;font-size:.85rem}main{padding:10px 10px 40px}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Métodos de Pesquisa · NP2</h1>
+  <p>UNIP · Direito · 6º semestre · AVA · Profa. Dra. Angélica Carlini (conteúdo) · Cassola (calendário)</p>
+</header>
+<nav>
+  <button class="active" onclick="switchTab('guia',this)">📘 Guia</button>
+  <button onclick="switchTab('mapas',this)">🗺️ Mapas</button>
+  <button onclick="switchTab('pegadinhas',this)">⚠️ Pegadinhas</button>
+  <button onclick="switchTab('quiz',this)">📝 Simulado</button>
+  <button onclick="switchTab('videos',this)">🎬 Vídeos</button>
+</nav>
+<main>
+
+<!-- ============ GUIA ============ -->
+<section id="guia" class="tab-content active">
+
+<div class="intro">Resumo da disciplina <b>Métodos de Pesquisa (AVA)</b>, feito a partir dos <b>slides de aula das Unidades I e II</b> (Profa. Dra. Angélica Carlini), dos livros-texto e dos dois questionários de estudo. Clique em cada módulo para abrir.</div>
+<div class="radar"><b>📡 Sobre a prova:</b>
+  <ul>
+    <li><b>Data no calendário:</b> 10/11/2026 · AVA (Cassola, conforme o calendário).</li>
+    <li>Os <b>questionários I e II</b> mostram o estilo: afirmações I, II e III (“está correto o que se afirma em”), alternativa correta/incorreta e questões de concurso adaptadas (IFPB, FUNCAB, IF/BA). As 20 questões estão no <b>Simulado</b> marcadas com “[Questionário]”.</li>
+    <li>O gabarito do Simulado é o que está nas <b>revisões das suas tentativas</b> (as respostas que você marcou e conferiu).</li>
+    <li>Os slides trazem também questões de interatividade; elas entram no Simulado com “[Slide]”.</li>
+  </ul>
+</div>
+<div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>Unidade I · Método, metodologia e pesquisa<small>Conceitos básicos</small></div><span class="seta">▶</span></div>
+  <div class="module-body">
+    <div class="sub-topic"><h3>Ciência, sujeito e objeto</h3><ul>
+      <li><b>Ciência</b> (Zanella, 2013): produção humana na atividade de conhecer e refletir sobre o mundo e os fenômenos da natureza. É fruto da reflexão de um <b>sujeito</b> (quem busca saber) sobre um <b>objeto</b> (alvo da reflexão).</li>
+      <li>Exemplo: o geógrafo (sujeito) que pesquisa os movimentos migratórios de uma região (objeto).</li>
+      <li>Pesquisar é atividade central da graduação e da vida profissional: é com os métodos que se <b>solucionam problemas e se inova</b>. Métodos corretos dão <b>segurança e confiabilidade</b> (os resultados nem sempre são positivos, mas devem ser seguros).</li>
+</ul></div>
+    <div class="sub-topic"><h3>Método x metodologia</h3><ul>
+      <li><b>Método</b> é o caminho que o sujeito cognoscente faz em direção ao seu objeto: os procedimentos (atividades, processos intelectuais e técnicos; razão e ação) escolhidos para conhecer e entender um fato.</li>
+      <li><b>Metodologia</b> é o <b>estudo dos métodos</b>: os caminhos escolhidos pelos pesquisadores para atingir objetivos e responder às perguntas. É um conjunto de procedimentos sistemáticos para a construção do conhecimento.</li>
+      <li>Cada área do conhecimento legitima certos métodos; há métodos comuns a todas, mas também especificidades que dependem dos <b>problemas</b> postos ao pesquisador.</li>
+      <li>O que todos os métodos têm em comum: <b>isolar fatores subjetivos</b>, usar formas racionais para entender relações de <b>causalidade entre variáveis</b>, sistematizar procedimentos e <b>reduzir incertezas</b>.</li>
+      <li>O método é escolhido pelas <b>especificidades do objeto de pesquisa</b> (interatividade do slide), e não pela facilidade, pelo manual ou pela imposição da instituição.</li>
+</ul></div>
+
+  </div></div>
+
+<div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>Unidade I · Tipos de pesquisa<small>Teórica x aplicada, objetivos, abordagem e procedimentos</small></div><span class="seta">▶</span></div>
+  <div class="module-body">
+    <div class="sub-topic"><h3>Teórica x aplicada</h3><ul>
+      <li><b>Teórica</b>: amplia o conhecimento de uma área, propondo novas questões ou explicações para problemas já estudados. Ex.: rever o conceito de gênero (diferente de sexo biológico).</li>
+      <li><b>Aplicada</b>: propõe <b>soluções a problemas concretos</b>; é o uso da ciência em situações reais e busca controlar ou provocar mudanças. Ex.: pesquisa para elaborar vacinas.</li>
+      <li>Uma pesquisa nem sempre é puramente teórica ou aplicada: a teórica gera tecnologias; a aplicada gera perguntas novas. Interesses políticos e econômicos podem acelerar ou retardar (ex.: Chernobyl).</li>
+</ul></div>
+    <div class="sub-topic"><h3>Quanto aos objetivos</h3><ul>
+      <li><b>Exploratória</b>: primeira aproximação com um tema novo ou pouco conhecido; quase sempre é a primeira etapa de uma pesquisa mais complexa.</li>
+      <li><b>Descritiva</b>: descreve com o máximo de exatidão fatos, fenômenos ou características de um grupo (ex.: mapear preferências de consumidores). Responde “o que é”.</li>
+      <li><b>Explicativa</b>: identifica os <b>fatores determinantes</b>, a relação de <b>causa e efeito</b> entre variáveis. Responde “por quê” (ex.: causas do feminicídio).</li>
+</ul></div>
+    <div class="sub-topic"><h3>Quanto à abordagem</h3><ul>
+      <li><b>Qualitativa</b>: aprofunda o conhecimento sobre o fenômeno; trabalha com dados <b>não métricos</b>. Cenário ainda pouco conhecido.</li>
+      <li><b>Quantitativa</b>: <b>mede</b> a ocorrência do fenômeno; dados <b>métricos, quantificáveis</b> (estatística). O assunto já é de domínio do pesquisador, que conhece as variáveis.</li>
+      <li>Um mesmo objeto pode ser estudado das duas formas (ex.: o que as pessoas entendem por segurança alimentar x quantas vivem em segurança alimentar). As abordagens <b>se complementam</b>; a diferença é de <b>natureza e não de escala hierárquica</b>.</li>
+</ul></div>
+    <div class="sub-topic"><h3>Quanto aos procedimentos</h3><ul>
+      <li><b>Desk research</b> (“de gabinete”): sem contato com pessoas, a partir de dados já existentes (documentos históricos, estatísticas).</li>
+      <li><b>Pesquisa de campo</b>: depende de informações dadas por pessoas, com observação ou entrevistas.</li>
+</ul></div>
+
+  </div></div>
+
+<div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>Unidade I · Métodos qualitativos<small>Análise do discurso, estudo de caso, etnografia, pesquisa-ação, experimento, documental e bibliográfica</small></div><span class="seta">▶</span></div>
+  <div class="module-body">
+    <div class="sub-topic"><h3>Principais métodos qualitativos (slide)</h3><ul>
+      <li>a) Análise de discurso; b) Estudo de caso (com grupos focais, entrevistas semiestruturadas e observação); c) Estudos culturais e etnográficos; d) Pesquisa-ação; e) Experimentos. Ainda: pesquisa documental e bibliográfica.</li>
+</ul></div>
+    <div class="sub-topic"><h3>Análise do discurso (AD)</h3><ul>
+      <li>Objeto: o <b>discurso</b>, texto (verbal e não verbal) emitido por um sujeito que “fala” a partir de um contexto social e histórico. Fala, escrita, canção, desenho ou interpretação que produzem sentido.</li>
+      <li>Ocupa-se do <b>sentido produzido</b> (intencional ou não), indo além do que está visível: intenções, marcas históricas e sociais do sujeito. Foco: motivos, razões e sentimentos, sem quantificar. Ex.: memes, grafites.</li>
+</ul></div>
+    <div class="sub-topic"><h3>Estudo de caso</h3><ul>
+      <li>Investiga com <b>profundidade</b> um assunto, fenômeno ou comportamento específico: uma <b>unidade individual</b> (uma empresa, um setor, um grupo muito específico). Usa vários instrumentos ao mesmo tempo (campo + desk research, estatísticas, entrevistas, observação).</li>
+      <li>Muito usado em exploratórias e, às vezes, descritivas; <b>há restrições para as explicativas</b>.</li>
+      <li><b>Crítica principal:</b> estuda um ou poucos casos, então é <b>difícil generalizar</b> os resultados.</li>
+      <li><b>Técnicas:</b> <b>grupo focal</b> (opiniões convergentes e divergentes), <b>entrevista semiestruturada</b> (roteiro de temas; o entrevistado fala livremente; não são perguntas fechadas com alternativas padronizadas) e <b>observação</b> (participante ou não; desvantagem: subjetividade do observador).</li>
+</ul></div>
+    <div class="sub-topic"><h3>Observação</h3><ul>
+      <li><b>Não participante</b>: o observador permanece fora da realidade estudada, apenas como espectador. <b>Participante</b>: contato direto, vive a rotina do grupo.</li>
+      <li>Quanto à estrutura, a observação pode ser <b>espontânea ou planejada</b>. <b>Errado</b> dizer que quanto mais inespecífica e menos objetiva, melhores os resultados.</li>
+</ul></div>
+    <div class="sub-topic"><h3>Estudos culturais e etnográficos</h3><ul>
+      <li>Usam a <b>observação participante</b> para compreender o ambiente a partir de uma <b>perspectiva cultural</b>, em atividades no ambiente natural. O pesquisador visita domicílios, acompanha a rotina, observa comportamentos e rituais.</li>
+      <li>Traços do grupo difíceis de captar por abordagens diretas (por isso a questão da modalidade em que o pesquisador interage com os entrevistados e identifica valores, cotidianos e práticas culturais é <b>estudo etnográfico</b>).</li>
+      <li>Etapas (livro): <b>exploração, decisão e descoberta</b>. Elementos da cultura: <i>anthropos</i>, <i>ethnos</i>, <i>oikos</i> e <i>chronos</i>.</li>
+</ul></div>
+    <div class="sub-topic"><h3>Pesquisa-ação</h3><ul>
+      <li>Parecida com a observação participante (ambiente natural), mas tem como objetivo <b>desenvolver uma ação para transformar a realidade</b>. O pesquisador <b>pode e deve intervir</b>: é interventor e agente de mudança.</li>
+      <li>Na observação participante o investigador age de forma <b>neutra</b>, para não interferir no resultado. Debate: há quem questione o caráter “puramente científico” da pesquisa-ação.</li>
+</ul></div>
+    <div class="sub-topic"><h3>Experimento</h3><ul>
+      <li>(Kerlinger, 2007) variáveis <b>independentes</b> são manipuladas e os resultados são verificados em dois grupos: <b>experimental e de controle</b>. Exige identificar variáveis dependentes e independentes, medi-las com precisão e criar as condições experimentais.</li>
+</ul></div>
+    <div class="sub-topic"><h3>Pesquisa documental x bibliográfica</h3><ul>
+      <li><b>Documental</b>: analisa material que <b>ainda não recebeu tratamento analítico</b> (tabelas estatísticas, cartas, documentos pessoais ou oficiais, fotografias, vídeos).</li>
+      <li><b>Bibliográfica</b> (estado da arte, revisão da literatura): o que mais recentemente foi publicado sobre o tema, em bibliotecas, bancos de dados, acervos e arquivos. É o <b>estudo exaustivo de artigos e textos já publicados</b>.</li>
+</ul></div>
+
+  </div></div>
+
+<div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>Unidade I · Métodos quantitativos<small>Survey, web survey, amostra e questionário</small></div><span class="seta">▶</span></div>
+  <div class="module-body">
+    <div class="sub-topic"><h3>Survey (levantamento)</h3><ul>
+      <li>Aplica um <b>questionário</b> a uma <b>amostra</b> e analisa estatisticamente; conforme a amostra, os resultados podem ser projetados para toda a população. Comum em Ciências Humanas, Sociais Aplicadas e estudos comportamentais.</li>
+      <li>Pressuposto: é possível entender racionalmente o comportamento social e identificar as variáveis que o determinam (Barbier, 1999). Pode ser exploratório, descritivo ou explicativo, desde que o objetivo seja <b>mensurar</b>.</li>
+      <li><b>Vantagens:</b> conhecimento da realidade, economia, rapidez, possibilidade de quantificar. <b>Limitações:</b> erros, percepções distorcidas e vieses dos entrevistados.</li>
+</ul></div>
+    <div class="sub-topic"><h3>Amostra</h3><ul>
+      <li>Grupo de pessoas com as características de interesse (sexo, idade, profissão, região…). Seleciona-se porque entrevistar toda a população é caro, trabalhoso ou impossível.</li>
+      <li><b>Probabilística</b>: todos têm a <b>mesma chance</b> de integrar a amostra. <b>Não probabilística</b>: prevalece algum critério de escolha.</li>
+      <li>O tamanho é calculado conforme o <b>erro</b> admitido, o <b>nível de confiança</b> e a proporção do comportamento na população.</li>
+</ul></div>
+    <div class="sub-topic"><h3>Pergunta, hipótese e credibilidade</h3><ul>
+      <li>O survey parte de uma <b>pergunta possível de responder</b>; a resposta provável é a <b>hipótese de trabalho</b>, confirmada ou negada pelos dados.</li>
+      <li><b>Confiabilidade</b>: precisão da medição; medida repetida dá o mesmo resultado (exemplo da balança). <b>Validade</b>: exatidão (acurácia), medir adequadamente o conceito investigado (Lameirão, 2014).</li>
+</ul></div>
+    <div class="sub-topic"><h3>Como elaborar o questionário</h3><ul>
+      <li>Perguntas <b>abertas</b> (resposta livre; trazem informação nova, mas dificultam a contagem) e <b>fechadas</b> (alternativas; facilitam a contagem, exigem que o pesquisador conheça o tema).</li>
+      <li>Clareza e precisão; <b>não induzir</b> a resposta; ordem lógica sem vai e vem de temas; levar em conta o universo do entrevistado; <b>uma ideia por pergunta</b>; sem ambiguidade; não muito longo; sem perguntas indiscretas; fazer <b>pré-teste</b> (não é o primeiro passo: vem depois de elaborar o instrumento).</li>
+      <li>Palavras simples e compreensíveis (interatividade do slide).</li>
+</ul></div>
+    <div class="sub-topic"><h3>Web survey (online)</h3><ul>
+      <li>Survey por tecnologias de informação. <b>Benefícios:</b> interatividade, recursos visuais, menos vieses do entrevistador, sem custo de impressão e deslocamento. <b>Desvantagens:</b> exige internet; pode ser respondido por outra pessoa; sem entrevistador para tirar dúvidas; difícil garantir anonimato (e-mail e aplicativos identificam o respondente).</li>
+      <li>Questionário grande = menor taxa de resposta; questões agrupadas na mesma página = menor desistência. Linguagem simples, poucos desenhos e cores berrantes; pré-teste.</li>
+</ul></div>
+
+  </div></div>
+
+<div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>Unidade II · Projeto de pesquisa<small>A “carta de intenções” e seus elementos</small></div><span class="seta">▶</span></div>
+  <div class="module-body">
+    <div class="sub-topic"><h3>O que é</h3><ul>
+      <li>O projeto é uma <b>carta de intenções</b>: expõe intenções, razão da pesquisa, objetivos, como será feita e resultados esperados. Se aprovado, o pesquisador deve <b>cumprir obrigatoriamente</b> o que propôs.</li>
+      <li>Deve definir: problematização; hipótese; objetivos; metodologia; justificativa (motivos da escolha); referencial teórico; cronograma.</li>
+</ul></div>
+    <div class="sub-topic"><h3>As perguntas do projeto</h3><ul>
+      <li><b>Problema e hipótese</b> = <b>o que</b> fazer. <b>Objetivos</b> = <b>para que</b> fazer. <b>Metodologia</b> = <b>como</b> fazer. <b>Justificativa</b> = <b>por que</b> fazer. <b>Referencial teórico</b> = <b>com base em quê</b>. <b>Cronograma</b> = <b>quando</b> fazer.</li>
+</ul></div>
+    <div class="sub-topic"><h3>Escolha do tema</h3><ul>
+      <li>Primeiro passo da investigação. Convém um tema com o qual se tenha <b>familiaridade</b> e conhecimento prévio, de que se goste, evitando <b>modismos</b> e considerando o <b>tempo disponível</b>.</li>
+</ul></div>
+    <div class="sub-topic"><h3>Problematização (problema de pesquisa)</h3><ul>
+      <li>É a <b>pergunta</b> sobre o tema, possível de ser respondida pela pesquisa; é o norte do pesquisador. Sem problema, não há como escolher métodos, técnicas e referencial.</li>
+      <li>Cuidados (Gil, 2008): formulado de forma <b>interrogativa</b>; <b>viável</b> (passível de resolução, dimensão restrita); com <b>clareza</b> (conceitos definidos); <b>preciso</b>.</li>
+      <li>O problema <b>não</b> precisa ser inédito (a questão 10 da Unidade II pede a alternativa que não se associa à qualidade da problematização: “O problema é uma afirmativa que precisa ser confirmada ou negada”, pois o problema é uma <b>pergunta</b>).</li>
+</ul></div>
+    <div class="sub-topic"><h3>Hipótese</h3><ul>
+      <li>É uma <b>resposta provável</b> à pergunta; é uma <b>afirmativa</b>, e a pesquisa dirá se está correta. Serve para explicar provisoriamente e orientar a busca de informações (ex.: “Se elevado grau de desorganização interna na família carente, então maior probabilidade de marginalização do menor”).</li>
+      <li>Cuidados (Gil, 2008): clara; específica; <b>sem julgamentos de valor</b>, com variáveis <b>mensuráveis</b>; simples; <b>relacionada a uma teoria</b>.</li>
+      <li>Não se refere obrigatoriamente a relação causal. Pode ser tratada como <b>provavelmente verdadeira ou falsa</b> e <b>dirige</b> a investigação.</li>
+</ul></div>
+    <div class="sub-topic"><h3>Objetivos, metodologia, justificativa</h3><ul>
+      <li><b>Objetivos</b>: propósitos e finalidades; gerais ou específicos; expressos por <b>verbos de ação</b> (conhecer, compreender, aplicar, analisar, sintetizar, comparar).</li>
+      <li><b>Metodologia</b>: define processos, procedimentos e operações; problema, hipótese e objetivos indicam se será qualitativa ou quantitativa e qual o método.</li>
+      <li><b>Justificativa</b>: razão da escolha do objeto; expõe razões de ordem <b>teórica</b> (desenvolvimento da ciência) e <b>prática</b> (aplicação); relevância, oportunidade, demanda ou interesse pessoal (Gerhardt; Silveira, 2009).</li>
+</ul></div>
+    <div class="sub-topic"><h3>Referencial teórico, cronograma e referências</h3><ul>
+      <li><b>Referencial teórico</b> (marco teórico, revisão de literatura, estado da arte): conceitos, teorias e construtos; o que já foi pesquisado. <b>Teoria</b> explica fenômenos; <b>leis</b> descrevem fenômenos.</li>
+      <li><b>Revisão de literatura</b> contribui para: obter subsídios para formular hipóteses e correlacionar variáveis, e obter informações sobre os trabalhos mais recentes sobre o tema. <b>Não</b> é ela que define objetivo geral e específicos.</li>
+      <li><b>Cronograma</b>: responde à questão do tempo; algumas etapas são simultâneas, outras concatenadas (definir o referencial teórico antes de coletar dados). Sequência típica: leitura exploratória → seleção de textos → pergunta e hipótese → nova coleta bibliográfica → referencial teórico → instrumento → <b>pré-teste</b> → seleção da amostra → coleta → tratamento dos dados → relatório final → revisão.</li>
+      <li><b>Referências</b>: segundo a ABNT (ou outras normas), em <b>ordem alfabética</b> pelo sobrenome do autor.</li>
+</ul></div>
+
+  </div></div>
+
+<div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>Unidade II · Ética em pesquisa<small>Moral x ética, quatro princípios e autorização prévia</small></div><span class="seta">▶</span></div>
+  <div class="module-body">
+    <div class="sub-topic"><h3>Por que importa</h3><ul>
+      <li>Episódios graves de falta de ética: experimentos nazistas (Nuremberg, 1945-46; <b>Código de Nuremberg</b>, 1947), <b>Tuskegee</b> (1932, homens negros com sífilis sem tratamento nem informação), teste na Nigéria (1996).</li>
+      <li><b>Declaração de Helsinque</b>: princípios éticos para pesquisa com seres humanos (placebo só quando não há método consagrado).</li>
+</ul></div>
+    <div class="sub-topic"><h3>Moral x ética</h3><ul>
+      <li><b>Moral</b>: conjunto de regras, valores e proibições impostos por política, costumes, religiões ou ideologias. <b>Ética</b>: <b>reflexão e análise crítica</b> sobre a validade da conduta e das regras da moral (Alves; Tubino, 2006).</li>
+</ul></div>
+    <div class="sub-topic"><h3>Quatro princípios (pesquisa com seres vivos)</h3><ul>
+      <li><b>Não maleficência</b>: não causar mal. <b>Beneficência</b>: maximizar benefícios e minimizar prejuízos. <b>Autonomia</b>: o participante decide, bem informado. <b>Justiça</b>: equidade, atenção às vulnerabilidades.</li>
+</ul></div>
+    <div class="sub-topic"><h3>Autorização prévia</h3><ul>
+      <li>Toda pesquisa com seres vivos no ambiente acadêmico exige <b>autorização prévia</b>, com esclarecimento sobre métodos, procedimentos e cuidados éticos (Resolução 466/12 do Conselho Nacional de Saúde; Comitê de Ética em Pesquisa, direta ou indiretamente, como na observação de pessoas ou em bancos de dados não públicos).</li>
+      <li>A ética é essencial para <b>qualquer</b> tipo de pesquisa com seres vivos, não só na saúde, não só nas universidades e <b>não</b> deixou de ser violada hoje.</li>
+</ul></div>
+
+  </div></div>
+
+<div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>Unidade II · Comunicação dos resultados<small>Acadêmica x não acadêmica, relatório, banca, Qualis e eventos</small></div><span class="seta">▶</span></div>
+  <div class="module-body">
+    <div class="sub-topic"><h3>Duas modalidades</h3><ul>
+      <li><b>Acadêmica</b>: para a própria comunidade científica (pesquisadores, universidades, órgãos de financiamento, editores, revistas, repositórios). <b>Não acadêmica</b>: divulgação científica para o público em geral.</li>
+      <li>A acadêmica pode ser impressa (relatórios, artigos) ou oral (apresentações). Canais <b>formais</b> (publicações) e <b>informais</b> (conversas, palestras, eventos). Ela <b>refere-se também</b> à informação apresentada em congressos, simpósios, reuniões e sociedades científicas, a ser depois publicada em anais e revistas.</li>
+</ul></div>
+    <div class="sub-topic"><h3>Relatório e banca</h3><ul>
+      <li><b>Relatório</b>: modalidade mais comum; entregue em forma textual, antes ou depois de banca (monografias e TCC). Estrutura: introdução; capítulo com referencial teórico; capítulo com apresentação e análise dos dados; capítulo com conclusões e recomendações. Monografias: cerca de 40 a 60 páginas (10 a 15 por capítulo).</li>
+      <li>O relatório serve para <b>divulgar dados técnicos obtidos e analisados e registrá-los em caráter permanente</b>, disseminando-os entre comunidade acadêmica e não acadêmica. Não é “documento original e inédito” para registrar oposição de ideias (isso descreve outro tipo de texto).</li>
+      <li><b>Banca</b>: regras próprias de cada universidade; em geral 10 a 30 minutos de apresentação e 2 a 5 professores que questionam escolhas, critérios e referenciais. Mestrado e doutorado: regras da universidade e da <b>Capes</b>.</li>
+</ul></div>
+    <div class="sub-topic"><h3>Revistas e Qualis</h3><ul>
+      <li>Revistas brasileiras são categorizadas por Capes e CNPq com o <b>Qualis</b>: A1, A2, B1, B2, B3, B4, B5 e C. A1 a B2 vêm do <b>fator de impacto</b>; <b>B3</b> = indexação em bases internacionais; <b>B4</b> = SciELO; <b>B5</b> = outras bases nacionais; <b>C</b> = sem indexação. Quanto mais alto, mais prestígio.</li>
+</ul></div>
+    <div class="sub-topic"><h3>Eventos científicos (Capes)</h3><ul>
+      <li>Congresso, simpósio, encontro, colóquio, workshop, reunião, seminário, painel, fórum, conferência, palestras e ciclo de palestras, jornada, feira (mostra ou festival).</li>
+</ul></div>
+    <div class="sub-topic"><h3>Comunicação para o público geral</h3><ul>
+      <li>Meios: documentários, revistas eletrônicas, blogs, vídeos, revistas como Superinteressante, canais no YouTube. É a <b>disseminação do conhecimento científico</b>, em linguagem adequada e compreensível; tarefa difícil pela especialização crescente da ciência.</li>
+      <li>No questionário: sucesso da comunicação científica = <b>objetividade, ordem, acuidade e linguagem adequada ao público</b>.</li>
+</ul></div>
+
+  </div></div>
+
+<div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>Etapas do trabalho acadêmico (questionário I)<small>Definição da amostra, tabulação, conclusão e relatório técnico</small></div><span class="seta">▶</span></div>
+  <div class="module-body">
+    <div class="sub-topic"><h3>Etapas</h3><ul>
+      <li><b>Amostra</b>: usar técnicas estatísticas para garantir <b>representatividade</b>. <b>Tabulação e apresentação dos dados</b>: recursos manuais ou computacionais para organizar os dados da pesquisa de campo.</li>
+      <li><b>Conclusão</b>: expor objetivamente os resultados, que <b>devem estar apoiados em dados comprovados</b> (a afirmação “não necessariamente apoiados em dados comprovados” é falsa).</li>
+      <li>Pesquisa quantitativa: relatório valoriza o <b>planejamento bem elaborado</b> para facilitar análise e interpretação.</li>
+</ul></div>
+    <div class="sub-topic"><h3>Instrumentos qualitativos x quantitativos</h3><ul>
+      <li><b>Grupo focal e observação participante</b> são instrumentos <b>qualitativos</b>. Entrevistas semiestruturadas e etnografia também. Estatística e surveys são <b>quantitativos</b>.</li>
+      <li>A abordagem qualitativa <b>não</b> é objetiva e numérica; o questionário com escalas <b>não</b> inviabiliza análise quantitativa. A escolha das técnicas deve considerar o <b>objetivo da pesquisa</b> e os <b>recursos</b> (materiais, temporais e pessoais).</li>
+      <li>Técnicas qualitativas e quantitativas <b>não são excludentes</b>: podem ser usadas na mesma pesquisa. Resultados quantitativos também dependem da interpretação do pesquisador e <b>não</b> trazem “certeza absoluta”.</li>
+</ul></div>
+    <div class="sub-topic"><h3>Pesquisa qualitativa: características (questão 8) e procedimentos (questão 9)</h3><ul>
+      <li>Características: trabalha com universo de <b>significados, motivos, aspirações, crenças, valores e atitudes</b>; a diferença para a quantitativa é de <b>natureza</b>, não de escala hierárquica; <b>há</b> complementaridade entre as abordagens.</li>
+      <li>Procedimentos: <b>observação participante e entrevista aberta</b> são marcas registradas da pesquisa qualitativa; roteiro de perguntas abertas dá <b>mais</b> liberdade ao entrevistado; a <b>pesquisa-ação</b> soma à investigação a intervenção na realidade.</li>
+</ul></div>
+
+  </div></div>
+
+</section>
+
+<!-- ============ MAPAS ============ -->
+<section id="mapas" class="tab-content">
+
+  <h2>Mapas e comparativos</h2>
+  <div class="intro">Quadros para revisar rápido.</div>
+
+  <h2 style="font-size:1.05rem">Teórica x aplicada</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th></th><th>Teórica</th><th>Aplicada</th></tr>
+    <tr><td><b>Objetivo</b></td><td>Ampliar o conhecimento; novas questões e explicações</td><td>Propor soluções a problemas concretos</td></tr>
+    <tr><td><b>Exemplo</b></td><td>Rever o conceito de gênero (História)</td><td>Pesquisa para vacinas</td></tr>
+  </table></div>
+
+  <h2 style="font-size:1.05rem">Quanto aos objetivos</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th>Tipo</th><th>Para que serve</th><th>Palavra-chave</th></tr>
+    <tr><td>Exploratória</td><td>Primeira aproximação com tema novo</td><td>Conhecer o tema</td></tr>
+    <tr><td>Descritiva</td><td>Descrever fatos e características com exatidão</td><td>O que é</td></tr>
+    <tr><td>Explicativa</td><td>Fatores determinantes, causa e efeito</td><td>Por quê</td></tr>
+  </table></div>
+
+  <h2 style="font-size:1.05rem">Qualitativa x quantitativa</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th></th><th>Qualitativa</th><th>Quantitativa</th></tr>
+    <tr><td><b>Foco</b></td><td>Aprofundar, interpretar significados</td><td>Mensurar, medir a ocorrência</td></tr>
+    <tr><td><b>Dados</b></td><td>Não métricos</td><td>Métricos, estatísticos</td></tr>
+    <tr><td><b>Cenário</b></td><td>Ainda pouco conhecido</td><td>Variáveis já conhecidas</td></tr>
+    <tr><td><b>Técnicas</b></td><td>Grupo focal, entrevista, observação participante, etnografia, estudo de caso, pesquisa-ação, análise de discurso</td><td>Survey e web survey (questionário e amostra)</td></tr>
+  </table></div>
+
+  <h2 style="font-size:1.05rem">Observação participante x pesquisa-ação</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th></th><th>Observação participante</th><th>Pesquisa-ação</th></tr>
+    <tr><td><b>Ambiente</b></td><td>Natural</td><td>Natural</td></tr>
+    <tr><td><b>Postura</b></td><td>Neutra, não interfere</td><td>Intervém; agente de mudança</td></tr>
+    <tr><td><b>Objetivo</b></td><td>Conhecer experiências e cultura</td><td>Transformar a realidade</td></tr>
+  </table></div>
+
+  <h2 style="font-size:1.05rem">Documental x bibliográfica</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th>Tipo</th><th>Material</th></tr>
+    <tr><td>Documental</td><td>Documentos que ainda não receberam tratamento analítico (cartas, fotos, estatísticas, documentos oficiais)</td></tr>
+    <tr><td>Bibliográfica</td><td>O que já foi publicado (artigos, livros): revisão de literatura / estado da arte</td></tr>
+  </table></div>
+
+  <h2 style="font-size:1.05rem">Amostras</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th>Tipo</th><th>Característica</th></tr>
+    <tr><td>Probabilística</td><td>Todos têm a mesma chance de participar</td></tr>
+    <tr><td>Não probabilística</td><td>Há um critério de escolha dos participantes</td></tr>
+  </table></div>
+
+  <h2 style="font-size:1.05rem">Confiabilidade x validade</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th>Critério</th><th>Ideia</th></tr>
+    <tr><td>Confiabilidade</td><td>Precisão: medir de novo dá o mesmo resultado (a balança)</td></tr>
+    <tr><td>Validade</td><td>Acurácia: mede adequadamente o conceito investigado</td></tr>
+  </table></div>
+
+  <h2 style="font-size:1.05rem">Elementos do projeto: pergunta que cada um responde</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th>Elemento</th><th>Responde</th></tr>
+    <tr><td>Problema e hipótese</td><td>O que fazer</td></tr>
+    <tr><td>Objetivos</td><td>Para que fazer</td></tr>
+    <tr><td>Metodologia</td><td>Como fazer</td></tr>
+    <tr><td>Justificativa</td><td>Por que fazer</td></tr>
+    <tr><td>Referencial teórico</td><td>Com base em quê</td></tr>
+    <tr><td>Cronograma</td><td>Quando fazer</td></tr>
+  </table></div>
+
+  <h2 style="font-size:1.05rem">Problema x hipótese</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th></th><th>Problema</th><th>Hipótese</th></tr>
+    <tr><td><b>Forma</b></td><td>Pergunta (interrogativa)</td><td>Afirmativa (resposta provável)</td></tr>
+    <tr><td><b>Cuidados (Gil)</b></td><td>Viável, claro, preciso</td><td>Clara, específica, sem julgamento de valor, simples, ligada a uma teoria</td></tr>
+  </table></div>
+
+  <h2 style="font-size:1.05rem">Os 4 princípios éticos</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th>Princípio</th><th>Ideia</th></tr>
+    <tr><td>Não maleficência</td><td>Não causar mal nem prejudicar a saúde</td></tr>
+    <tr><td>Beneficência</td><td>Maximizar benefícios, minimizar prejuízos</td></tr>
+    <tr><td>Autonomia</td><td>O participante decide, bem informado</td></tr>
+    <tr><td>Justiça</td><td>Equidade; atenção às vulnerabilidades</td></tr>
+  </table></div>
+
+  <h2 style="font-size:1.05rem">Qualis das revistas</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th>Estrato</th><th>Critério</th></tr>
+    <tr><td>A1, A2, B1, B2</td><td>Fator de impacto</td></tr>
+    <tr><td>B3</td><td>Indexada em bases internacionais</td></tr>
+    <tr><td>B4</td><td>Indexada no SciELO</td></tr>
+    <tr><td>B5</td><td>Outras bases nacionais</td></tr>
+    <tr><td>C</td><td>Sem indexação</td></tr>
+  </table></div>
+
+</section>
+
+<!-- ============ PEGADINHAS ============ -->
+<section id="pegadinhas" class="tab-content">
+  <h2>Alertas e pegadinhas</h2>
+  <div class="intro">Afirmações que parecem certas e estão erradas. Tente responder antes de ler a correção.</div>
+  <div id="lista-peg"></div>
+</section>
+
+<!-- ============ SIMULADO ============ -->
+<section id="quiz" class="tab-content">
+  <h2>Simulado com correção na hora</h2>
+  <div class="stats">
+    <div class="stat-box">Respondidas <span id="stat-total">0/0</span></div>
+    <div class="stat-box">Acertos <span id="stat-correct" style="color:var(--correct-green)">0</span></div>
+    <div class="stat-box">Erros <span id="stat-wrong" style="color:var(--wrong-red)">0</span></div>
+    <div class="stat-box">Aproveitamento <span id="stat-percent">0%</span></div>
+  </div>
+  <p><button class="btn" onclick="resetQuiz()">🔄 Refazer (embaralha as questões)</button></p>
+  <div id="quiz-container"></div>
+</section>
+
+<!-- ============ VÍDEOS ============ -->
+<section id="videos" class="tab-content">
+  <h2>Vídeos e podcasts</h2>
+  <div class="intro">Vídeos de revisão feitos no NotebookLM. Toque no vídeo para assistir.</div>
+  <div id="video-area"></div>
+</section>
+
+</main>
+<footer><b>Desenvolvido por Abner Machado</b> · © 2026. Material organizado a partir de materiais dos professores e anotações em sala; vídeos, áudios e parte dos resumos são produzidos com apoio de IA e podem conter erros. Não substitui as aulas, os livros, a lei nem as orientações dos professores.</footer>
+
+<div id="lb" role="dialog" aria-modal="true" aria-label="Vídeo ampliado"><button type="button" id="lb-fechar">✕ Fechar</button></div>
+<script>
+// ---- Vídeos: preencher com {titulo:"...", id:"CODIGO_DO_YOUTUBE"} ----
+var VIDEOS = [
+  // { titulo: "Estipulação, promessa e pessoa a declarar", id: "XXXXXXXXXXX" },
+];
+
+var PEGADINHAS = [["As técnicas qualitativas e quantitativas de coleta de dados são excludentes e não podem ser usadas na mesma pesquisa.", "Falso. Podem ser combinadas. Um mesmo objeto pode ser estudado das duas formas, e as abordagens se <b>complementam</b>."], ["A pesquisa quantitativa traz resultados independentes da interpretação do pesquisador e com certeza absoluta.", "Falso. Os resultados quantitativos também passam pela <b>interpretação</b> do pesquisador, e a quantitativa não é automaticamente mais certa que a qualitativa."], ["A generalização dos resultados não ocorre nem nas pesquisas qualitativas nem nas quantitativas.", "Falso. No <b>survey</b> a amostra permite projetar resultados à população. A dificuldade de generalizar é crítica típica do <b>estudo de caso</b>."], ["Etapa da pesquisa qualitativa: análise quantitativa, objetividade por lógica formal e validação por processos dedutivos matemáticos.", "As três são <b>incorretas</b> para a qualitativa (resposta: “I, II e III” na questão que pede a incorreta). A qualitativa trabalha com significados, não com lógica formal e matemática."], ["O relatório é um documento original e inédito para registrar oposição de ideias em relação a pesquisas já realizadas.", "Falso. O relatório <b>divulga dados técnicos</b> e os registra de forma permanente, para a comunidade acadêmica e não acadêmica. Os itens I e II são os corretos."], ["A abordagem qualitativa é direcionada a uma análise objetiva dos fenômenos sociais por meio de dados numéricos.", "Falso. Isso é a <b>quantitativa</b>. Grupo focal e observação participante são exemplos de instrumentos <b>qualitativos</b>."], ["Questionário com escalas descaracteriza e inviabiliza a análise quantitativa.", "Falso. Escalas e perguntas de múltipla escolha são <b>comuns na análise quantitativa</b>."], ["A revisão de literatura serve para definir o objetivo geral e os específicos do projeto.", "Falso. Ela fornece subsídios para <b>hipóteses e correlação entre variáveis</b> e informa sobre os trabalhos mais recentes (I e II). Definir objetivos não é função dela."], ["Na etapa de conclusão, os resultados não precisam estar apoiados em dados comprovados.", "Falso. Devem ser expostos objetivamente e <b>apoiados em dados</b>. Corretas: I (amostra com estatística) e II (tabulação)."], ["Quanto mais inespecífica e menos objetiva a observação, melhores os resultados.", "Falso. A observação pode ser espontânea ou planejada, e a não participante é a feita de fora, como espectador (I e II corretas)."], ["Não há relação de complementaridade entre abordagens qualitativas e quantitativas.", "Falso. Há complementaridade, e a diferença é de <b>natureza</b>, não de escala hierárquica (I e III corretas)."], ["A técnica de entrevista com roteiro de perguntas abertas dá menos liberdade ao entrevistado.", "Falso. Dá <b>mais</b> liberdade. Corretos: observação participante/entrevista aberta como marcas da qualitativa (I) e pesquisa-ação como intervenção na realidade (III)."], ["A pesquisa-ação exige que o pesquisador seja neutro.", "Falso. Na pesquisa-ação o pesquisador <b>interfere</b> na realidade (agente de mudança). A neutralidade é da observação participante."], ["A hipótese deve dirigir-se obrigatoriamente à relação causal entre variáveis e é sempre verdadeira.", "Falso. A hipótese pode ser tratada como <b>provavelmente verdadeira ou falsa</b>; a pesquisa dirá se está correta. Ela <b>explica provisoriamente</b> e orienta a busca."], ["“Como fazer para melhorar o desempenho dos alunos” e “Como fazer para reduzir a violência urbana” são bons problemas de pesquisa científica.", "Não são, pois são <b>problemas práticos de ação</b>, não questões passíveis de tratamento científico. São problemas científicos II e IV (“Em que medida…”). A resposta que pede os que <b>não</b> são problema científico é “I e III”."], ["Para uma monografia interessante, importa o número de páginas ou usar uma metodologia jamais experimentada.", "Falso. Importa a <b>originalidade da pergunta</b> em relação ao tema, mesmo que já discutido várias vezes: a forma de tratá-lo é que deve ser original."], ["O bom método transmite segurança e economia, mas pesquisadores inovadores não devem se pautar por regras e burocracias.", "Falso. O método é um <b>instrumento de trabalho</b> que dá segurança e economia. Não se desiste de ideias e convicções para o objeto nem se ignoram regras."], ["O método é criação livre do pesquisador, ajustado por ele ao objeto de pesquisa.", "A alternativa “O método é uma criação do pesquisador…” é uma das erradas da questão 6; a correta é: o bom método transmite segurança e economia, um <b>instrumento de trabalho</b>."], ["A comunicação científica serve apenas para divulgar resultados desconhecidos até a publicação, ou só quando uma teoria é revista.", "Falso. Refere-se também à informação apresentada em <b>congressos, simpósios, reuniões, sociedades científicas</b>, depois publicada em anais e revistas."], ["O sucesso da comunicação científica depende de sofisticação de recursos audiovisuais e textos filosóficos.", "Falso. Depende de <b>objetividade, ordem, acuidade e linguagem adequada ao público</b>."], ["No relatório de pesquisa quantitativa, os elementos indispensáveis são imaginação ousada e cálculo aproximado.", "Falso. O indispensável é o <b>planejamento bem elaborado</b> da pesquisa para facilitar a análise e a interpretação."], ["A ética em pesquisa com seres vivos só é necessária nas ciências da saúde ou nas universidades.", "Falso. É <b>essencial para qualquer tipo de pesquisa</b> com seres vivos, e foi desrespeitada no passado e pode ser hoje."], ["Na justificativa do projeto, o pesquisador relata as escolhas íntimas ou pede compreensão pelos erros.", "Falso. Ele apresenta as razões de ordem <b>teórica e prática</b> da pesquisa."], ["O pré-teste é o primeiro passo na elaboração do questionário do survey.", "Falso. O pré-teste vem <b>depois</b> de elaborar o instrumento, para corrigir erros. O pesquisador deve usar palavras simples e compreensíveis."]];
+
+var QUESTOES = [["[Questionário I] A respeito dos métodos de pesquisa, assinale a alternativa correta.", ["As técnicas (qualitativas e quantitativas) de coleta de dados são excludentes, não podendo ser utilizadas em uma mesma pesquisa.", "A pesquisa realizada com métodos quantitativos resulta em informações com maior nível de certeza e precisão.", "Os resultados obtidos na pesquisa quantitativa independem da interpretação do pesquisador, já que são precisos e mensuráveis.", "A generalização dos resultados não ocorre nas pesquisas qualitativas, tampouco nas quantitativas.", "A escolha das técnicas de coleta e análise de dados deve ser realizada levando-se em consideração o objetivo da pesquisa e os recursos — materiais, temporais e pessoais – disponíveis para o pesquisador."], 4, "A escolha das técnicas depende do <b>objetivo da pesquisa</b> e dos <b>recursos</b> disponíveis. As técnicas podem ser combinadas, a quantitativa não é automaticamente mais certa, depende de interpretação e permite generalização (survey)."], ["[Questionário I] É uma das etapas do processo de trabalho científico em pesquisa qualitativa: I - A análise quantitativa dos resultados obtidos, confirmando ou não as hipóteses definidas e confrontado os resultados com os conceitos teóricos. II - A busca pela objetividade por meio de uma lógica formal e neutralidade no processo de investigação. III - A metodologia da validação por meio de processos dedutivos matemáticos. Está incorreto o que se afirma em:", ["I e II, apenas.", "II e III, apenas.", "I, apenas.", "I, II e III.", "III, apenas."], 3, "Os três itens são <b>incorretos</b> para a pesquisa qualitativa: ela não é quantitativa, não busca neutralidade por lógica formal e não valida por processos dedutivos matemáticos."], ["[Questionário I] Analise as afirmativas abaixo em relação à elaboração de um relatório técnico: I - Um relatório de pesquisa é a exposição escrita na qual se descrevem fatos verificados mediante a investigação e a análise dos dados coletados. II - De um modo geral, podemos dizer que os relatórios são escritos com os objetivos de divulgar os dados técnicos obtidos e analisados, bem como de registrá-los em caráter permanente, disseminando-os entre a comunidade acadêmica e a não acadêmica. III - O relatório é um documento original e inédito, pelo qual se faz a difusão da informação corrente. É elaborado, principalmente, para registrar oposição de ideias em relação a pesquisas já realizadas. Em relação às afirmativas:", ["São corretas apenas as afirmativas I e II.", "É correta apenas a afirmativa II.", "São corretas apenas as afirmativas II e III.", "É correta apenas a afirmativa III.", "São corretas as afirmativas I, II e III."], 0, "I e II definem o relatório. A III descreve outro tipo de texto, não o relatório."], ["[Questionário I] Com relação aos instrumentos qualitativos e quantitativos de pesquisa, assinale a alternativa correta.", ["O mérito quantitativo da pesquisa traz consigo uma gama de metodologias dentre as quais destaca-se o uso de estatísticas, entrevistas semiestruturadas e etnografia.", "A análise do discurso e de aspectos subjetivos dos indivíduos é o foco dos instrumentos quantitativos.", "A abordagem qualitativa está direcionada a uma análise objetiva dos fenômenos sociais, em um trabalho de interpretação da realidade mediante o uso de dados numéricos.", "Grupo focal e observação participante caracterizam-se como exemplos de instrumentos qualitativos.", "O uso de questionários com perguntas de respostas múltiplas – em particular, com o uso de escalas – descaracteriza e inviabiliza a construção de uma análise quantitativa."], 3, "Grupo focal e observação participante são instrumentos <b>qualitativos</b>. Entrevista semiestruturada e etnografia também são qualitativas; escalas servem à análise quantitativa."], ["[Questionário I] A revisão de literatura constitui-se na fundamentação teórica do projeto de pesquisa e do trabalho acadêmico, contribuindo para: I - A obtenção de subsídios para a formulação da(s) hipótese(s) da pesquisa e correlação entre as variáveis. II - A obtenção de informações sobre os trabalhos mais recentes realizados sobre o tema. III - A definição do objetivo geral e dos objetivos específicos do projeto de pesquisa ou trabalho acadêmico. Está correto apenas o que se afirma em:", ["I.", "I e II.", "III.", "I e III.", "II e III."], 1, "A revisão de literatura dá subsídios para hipóteses e variáveis (I) e mostra o que há de mais recente (II). Os objetivos (III) não são definidos por ela."], ["[Questionário I] Analise as afirmações que se seguem, com relação a algumas das etapas que compõem o trabalho acadêmico. I - Na etapa de definição da amostra, deve-se fazer uso de técnicas estatísticas, de modo a garantir a representatividade da amostra. II - Na etapa de tabulação e apresentação dos dados, devem ser utilizados recursos manuais ou computacionais para organizar os dados obtidos na pesquisa de campo. III - Na etapa de conclusão, devem-se expor objetivamente os resultados obtidos com a pesquisa, os quais não necessariamente devem estar apoiados em dados comprovados. São corretas as afirmações:", ["I e II apenas.", "I e III apenas.", "I, apenas.", "II e III apenas.", "I, II e III."], 0, "I e II corretas. A III é falsa: os resultados da conclusão devem estar apoiados em dados comprovados."], ["[Questionário I] Um dos métodos mais utilizados em projetos de pesquisa e em trabalhos acadêmicos é o da observação. Com relação a esse método, analise as afirmações que se seguem. I - Observação não participante é aquela em que o observador permanece fora da realidade a ser estudada, colocando-se apenas como espectador. II - Levando-se em conta a estruturação da observação, esta pode ser espontânea ou planejada. III - Quanto mais inespecífica e menos objetiva for a observação, melhores os resultados obtidos. São corretas as afirmações:", ["I e II apenas.", "I e III apenas.", "I apenas.", "II e III apenas.", "III apenas."], 0, "I e II corretas. A III é falsa: quanto mais inespecífica e menos objetiva, <b>piores</b> os resultados."], ["[Questionário I] São características principais de uma pesquisa qualitativa: I - Trabalhar com um universo de significados, motivações, ações, crenças, valores e atitudes, dentre outros. II - Não há qualquer relação de complementariedade entre abordagens qualitativas e quantitativas. III - A diferença entre a abordagem qualitativa e quantitativa da realidade social é, sobretudo, de natureza e não de escala hierárquica. Estão corretas apenas as proposições:", ["I, II e III.", "II e III.", "I e III.", "III.", "II."], 2, "I e III corretas. A II é falsa: as abordagens são <b>complementares</b>."], ["[Questionário I] Dentre as afirmações abaixo, escolha a(s) que exemplifica(m) o procedimento relevante da pesquisa qualitativa: I - A observação participante e a entrevista aberta constituem marca registrada de uma pesquisa qualitativa. II - A técnica da entrevista por meio de roteiros de perguntas abertas possibilita menos liberdade por parte do sujeito entrevistado. III - A pesquisa-ação caracteriza-se por somar, à investigação, a intervenção na realidade estudada. Está correto o que se afirma apenas em: (Atenção: o print do questionário cortou as alternativas; a resposta é “I e III” e as demais foram reconstruídas.)", ["III.", "I e II.", "II e III.", "I e III.", "II."], 3, "I e III corretas. A II é falsa: o roteiro de perguntas abertas dá <b>mais</b> liberdade ao entrevistado."], ["[Questionário I] É uma modalidade de pesquisa na qual o pesquisador interage com os entrevistados, buscando identificar a realidade em que vivem, seus valores, seus cotidianos, suas práticas culturais. Assim, identificam-se traços e aspectos difíceis de serem captados por meio de abordagens diretas. A resposta que se relaciona à definição expressa acima é a(o):", ["Entrevista em grupo.", "Entrevista em profundidade.", "Teste de múltipla escolha.", "Observação não participante.", "Estudo etnográfico."], 4, "Estudo etnográfico: observação participante com perspectiva cultural (valores, cotidiano, práticas culturais)."], ["[Questionário II] (IFPB 2011, com modificações) Com relação às hipóteses de pesquisa, analise as afirmações que se seguem. I. Têm como função supor respostas para perguntas formuladas pelo pesquisador, respostas que serão ou não confirmadas ao longo da pesquisa. II. Referem-se, obrigatoriamente, à relação de duas ou mais variáveis, de forma causal, por exemplo: “a taxa de desemprego varia inversamente em relação aos índices de desenvolvimento econômico”. III. Podem ser tratadas e julgadas como provavelmente verdadeiras ou falsas. IV. Não dirigem a investigação, mas tão somente “recortam” de maneira mais precisa o objeto da pesquisa. São corretas as afirmações:", ["I e II.", "I e III.", "II e IV.", "II e III.", "III e IV."], 1, "I e III. A hipótese supõe resposta, é confirmada ou negada e pode ser julgada provavelmente verdadeira ou falsa. Não é obrigatoriamente causal (II) e <b>dirige</b> a investigação (IV)."], ["[Questionário II] (IFPB 2013, com modificações) Um dos elementos básicos numa pesquisa é a clareza na identificação do problema de pesquisa, considerando sua finalidade e demanda. Entretanto, nem todo problema é passível de tratamento científico. Com base nisso, analise as seguintes situações de pesquisa: I. Como fazer para melhorar o desempenho dos alunos em avaliações de larga escala. II. Em que medida a escolaridade determina a preferência político-partidária. III. Como fazer para reduzir a violência urbana. IV. Em que medida a violência urbana entre jovens e adolescentes está relacionada à ausência de políticas públicas sociais. Dentre as situações apresentadas, quais não correspondem a um problema de pesquisa científico?", ["I, II, III e IV.", "I e II.", "III e IV.", "II e III.", "I e III."], 4, "I e III são perguntas de <b>ação prática</b> (“como fazer para…”), não problemas científicos. II e IV investigam relações entre variáveis."], ["[Questionário II] (FUNCAB 2015, com modificações) Servem para explicar provisoriamente, orientar na busca de informações e verificar sua validade. São elaboradas a partir da observação do pesquisador, dos resultados de outras pesquisas, das teorias ou, até mesmo, da própria percepção do profissional. Por exemplo: “Se elevado grau de desorganização interna na família carente, então maior probabilidade de marginalização do menor”. Como muitas das atividades que o ser humano desenvolve, a pesquisa também precisa ser planejada (LAKATOS, Marconi. 1991, p. 128). A etapa do planejamento da pesquisa que se relaciona ao citado é:", ["Formulação do problema de pesquisa.", "Construção de hipóteses.", "Detalhamento do marco teórico.", "Inserção de gráficos, tabelas e figuras no relatório final.", "Execução do pré-teste."], 1, "Explicar provisoriamente e orientar a busca de informações descreve as <b>hipóteses</b>."], ["[Questionário II] (FUNCAB 2015, com modificações) A sua importância tanto pode levar a elaboração de uma monografia de cunho eminentemente teórico, quanto prático. Finalmente, deve-se atentar para a sua originalidade, até porque quanto maior for o grau de originalidade, tanto maior será o interesse da comunidade em relação à monografia. Isso não significa necessariamente que deva ser absolutamente original, mas que a forma de o tratar, sim. Um dos itens de maior importância para uma monografia interessante é:", ["O número de páginas: se poucas, o trabalho é insuficiente do ponto de vista da qualidade; se muitas, o trabalho não tem foco.", "O fato de a bibliografia incluir obras em diversas línguas.", "A utilização de uma metodologia jamais experimentada antes.", "A originalidade da pergunta em relação ao tema, mesmo que já discutido anteriormente várias vezes.", "A quantidade de elementos das amostras."], 3, "Não é preciso tema absolutamente inédito: a <b>originalidade está na pergunta e na forma de tratar o tema</b>."], ["[Questionário II] (IFPB 2011, com modificações) A execução de uma pesquisa depende das técnicas e dos procedimentos a serem adotados para coleta e análise dos dados. A depender de sua natureza de pesquisa e objetivos, requer um tipo de pesquisa adequada à resolução do problema a ser estudado. A pesquisa que envolve estudo exaustivo de artigos e textos já publicados sobre determinado tema é um(a):", ["Pesquisa bibliográfica.", "Pesquisa documental.", "Pesquisa-ação.", "Pesquisa experimental.", "Estudo de caso."], 0, "Estudo de artigos e textos já publicados = <b>pesquisa bibliográfica</b> (revisão de literatura / estado da arte)."], ["[Questionário II] (IF/BA 2016, com modificações) A respeito do método, assinale a alternativa correta.", ["O bom método transmite segurança e economia na ciência. Ele é um instrumento de trabalho.", "A boa pesquisa necessita ser conduzida por pesquisadores arrojados e inovadores, que não se deixem pautar por burocracias e regras.", "Caso a hipótese seja original e inédita, a comunidade acadêmica é mais flexível em [trecho cortado no print].", "Todos os pesquisadores envolvidos numa investigação devem desistir de suas próprias ideias e convicções a respeito do objeto de pesquisa.", "O método é uma criação do pesquisador que procura ajustá-lo de acordo com o objeto da pesquisa."], 0, "O método é <b>instrumento de trabalho</b> que dá segurança e economia à ciência."], ["[Questionário II] (IF/BA 2016, com modificações) Em relação à comunicação científica, assinale a alternativa correta.", ["A comunicação científica consiste na informação ao público em geral de conhecimentos extraídos de obras e/ou tratados científicos.", "A comunicação científica é voltada apenas para a obtenção e a comunicação de resultados desconhecidos até o momento de sua publicação.", "A comunicação científica só deve ser realizada quando uma teoria é revista ou modificada.", "Refere-se também à informação apresentada em congressos, simpósios, semanais, reuniões, academias, sociedades científicas e outras, a ser posteriormente publicada em anais e revistas.", "É um texto que traz informações novas, mas não permite, devido à sua redação, que os leitores possam verificar tais informações."], 3, "A comunicação científica abrange também as apresentações em eventos, depois publicadas em anais e revistas."], ["[Questionário II] (IF/BA 2016, com modificações) Para que a comunicação científica tenha êxito, deve-se levar em conta os seguintes aspectos:", ["Finalidade, informações, estrutura, linguagem multimídia e abordagem.", "Exatidão, clareza, sofisticação de recursos audiovisuais e correção gramatical.", "Objetividade, ordem, acuidade e linguagem adequada ao público.", "Brevidade, apreciação, fixação e textos filosóficos.", "Cientificidade, clareza, linguagem técnica e rapidez da apresentação."], 2, "Objetividade, ordem, acuidade e <b>linguagem adequada ao público</b>."], ["[Questionário II] (IF/BA 2016, com modificações) Ao apresentar o relatório da pesquisa quantitativa, os elementos indispensáveis para a valoração dessa pesquisa são:", ["Tabulação aleatória, procedimentos estatísticos, gráficos e tabelas.", "Ausência de elementos lógicos e parcialidade inconsciente do investigador.", "Imaginação ousada, ambiguidade entre afirmações e fatos, e cálculo aproximado.", "Originalidade e ousadia.", "Planejamento bem elaborado da pesquisa para facilitar a análise e a interpretação."], 4, "O indispensável é o <b>planejamento bem elaborado</b> da pesquisa, que facilita análise e interpretação."], ["[Questionário II] (IF/BA 2016, com modificações) No campo da investigação científica, o problema é uma questão que a pesquisa pretende responder e todo o processo de pesquisa irá girar em torno de sua solução. Para tanto, são necessários alguns cuidados na sua elaboração. Assinale a alternativa que não está associada à necessária qualidade da problematização.", ["O problema deve ser formulado como pergunta para facilitar a identificação do que se [trecho cortado no print].", "O problema tem que ter dimensão viável: deve ser restrito para permitir a sua viabilidade. O problema formulado de forma ampla poderá tornar inviável a realização da pesquisa.", "O problema é uma afirmativa que precisa ser confirmada ou negada.", "O problema deve ter clareza: os termos adotados devem ser definidos para esclarecer os significados com que estão sendo usados na pesquisa.", "O problema precisa ser inédito."], 2, "O problema é uma <b>pergunta</b> (interrogativo). Quem é confirmada ou negada é a <b>hipótese</b>, que é uma afirmativa."], ["[Slide, Unid. I] Um pesquisador deve escolher o seu método de pesquisa:", ["Pelas facilidades em realizar a pesquisa.", "Pelas experiências de outros pesquisadores.", "Pelas especificidades do objeto de pesquisa.", "Pelas regras dos manuais de pesquisa.", "Por aquilo que for determinado pela instituição a qual está vinculado."], 2, "O método se escolhe conforme as <b>especificidades do objeto</b> de pesquisa."], ["[Slide, Unid. I] A pesquisa quantitativa, comumente, utiliza:", ["Dados estatísticos.", "Descrição de documentos históricos.", "Análise de opiniões diferentes dos entrevistados.", "Descrição de situações sociais.", "Fontes bibliográficas."], 0, "A quantitativa mede e quantifica, então usa <b>dados estatísticos</b>."], ["[Slide, Unid. I] Sobre a pesquisa-ação é correto afirmar que:", ["O pesquisador deve ser neutro.", "O ambiente experimental deve ser, previamente, preparado.", "O pesquisador deve se valer de uma entrevista estruturada.", "O pesquisador interfere na realidade pesquisada.", "O pesquisador descreve e relata, a partir de seus aportes culturais e teóricos."], 3, "Na pesquisa-ação o pesquisador <b>interfere</b> na realidade; é agente de mudança."], ["[Slide, Unid. I] Na elaboração do questionário para a realização de surveys, o pesquisador deve:", ["Começar pelo pré-teste.", "Formular perguntas minuciosas.", "Formular perguntas que sinalizem a resposta esperada.", "Formular perguntas com palavras simples e compreensíveis.", "Demonstrar toda a sua capacidade intelectual para garantir a credibilidade."], 3, "Linguagem <b>simples e compreensível</b>, sem induzir respostas. O pré-teste vem depois de elaborar o instrumento."], ["[Slide, Unid. II] Na justificativa do projeto, o pesquisador:", ["Relata principalmente as escolhas íntimas que o fizeram decidir por aquele objeto de pesquisa.", "Elenca as razões de ordem técnica da escolha.", "Apresenta as razões de ordens teórica e prática da pesquisa.", "Pede a compreensão pelos erros que possa vir a cometer.", "Destaca os resultados que serão obtidos."], 2, "A justificativa expõe razões de ordem <b>teórica e prática</b> (Gerhardt; Silveira, 2009)."], ["[Slide, Unid. II] A ética em pesquisa científica com seres vivos:", ["É necessária só no campo das ciências da saúde.", "Foi desrespeitada no passado, mas na atualidade isso não acontece.", "É aspecto relevante apenas nas universidades e não nas empresas privadas.", "É essencial para a realização de qualquer tipo de pesquisa.", "Está limitada ao âmbito das empresas privadas que visam ao lucro."], 3, "A ética é <b>essencial para qualquer tipo de pesquisa</b> com seres vivos."], ["[Slide, Unid. II] Uma comunicação de pesquisa para a comunidade científica:", ["Dá ampla liberdade ao pesquisador para a apresentação.", "Deve atender regras da Capes.", "Deve atender regras do Ministério da Educação.", "Precisa atender regras da universidade e as específicas para o tipo de comunicação.", "A universidade é o único órgão com autonomia para decidir sobre a apresentação."], 3, "Cada universidade tem suas regras e cada tipo de comunicação (banca, revista, evento) tem normas próprias."], ["[Slide, Unid. II] Na comunicação do trabalho científico para a população em geral:", ["O objetivo é educar.", "A metodologia de pesquisa é fundamental.", "Informação e educação caminham juntas.", "É essencial que haja formação universitária do público.", "Deve ser utilizada tecnologia de noticiários de televisão."], 2, "Na divulgação científica, <b>informação e educação caminham juntas</b>. (Resposta deduzida do conteúdo do slide: o destaque da resposta no slide não aparece no texto do PDF.)"], ["Qual tipo de pesquisa busca identificar os fatores determinantes de um fenômeno, mostrando a relação de causa e efeito entre variáveis?", ["Exploratória.", "Descritiva.", "Explicativa.", "Documental.", "Bibliográfica."], 2, "A <b>explicativa</b> responde “por quê”. A descritiva responde “o que é”."], ["Qual é a principal crítica feita ao estudo de caso?", ["Não permite entrevistas.", "É difícil generalizar os resultados.", "Só pode ser usado em Medicina.", "Não usa dados qualitativos.", "Exige amostra probabilística."], 1, "Por estudar um ou poucos casos, é difícil generalizar os resultados."], ["Em uma amostra probabilística:", ["Prevalece algum critério para escolher os participantes.", "Todos os participantes do grupo têm a mesma chance de integrá-la.", "Só há pesquisa qualitativa.", "O pesquisador escolhe os conhecidos.", "Não há erro nem nível de confiança."], 1, "Probabilística: <b>mesma chance</b> para todos. Na não probabilística há um critério."], ["A confiabilidade de uma pesquisa de survey se refere a:", ["Medir adequadamente o conceito investigado.", "Precisão da medição: medida repetida dá o mesmo resultado.", "Número de perguntas.", "Originalidade do tema.", "Tamanho do relatório."], 1, "Confiabilidade = precisão (balança). Validade = acurácia, medir o conceito certo."], ["Quais são os quatro princípios dos códigos de ética em pesquisa com seres vivos?", ["Legalidade, moralidade, publicidade e eficiência.", "Não maleficência, beneficência, autonomia e justiça.", "Autonomia, hierarquia, sigilo e lucro.", "Neutralidade, objetividade, imparcialidade e rapidez.", "Liberdade, igualdade, fraternidade e justiça."], 1, "Os quatro: <b>não maleficência, beneficência, autonomia e justiça</b>."], ["No indicador Qualis, as revistas indexadas no SciELO recebem:", ["A1.", "B3.", "B4.", "B5.", "C."], 2, "B3 = bases internacionais; <b>B4 = SciELO</b>; B5 = outras bases nacionais; C = sem indexação."]];
+
+// ----- abas e módulos -----
+function switchTab(id, btn){
+  document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active')});
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('nav button').forEach(function(b){b.classList.remove('active')});
+  if(btn) btn.classList.add('active');
+  window.scrollTo({top:0});
+}
+function toggleModule(h){ h.parentElement.classList.toggle('open'); }
+
+// ----- pegadinhas -----
+(function(){
+  var el = document.getElementById('lista-peg');
+  el.innerHTML = PEGADINHAS.map(function(p){
+    return '<div class="peg"><div class="afirma">“' + p[0] + '”</div><div><span class="errada">Cuidado:</span> ' + p[1] + '</div></div>';
+  }).join('');
+})();
+
+// ----- vídeos -----
+(function(){
+  var area = document.getElementById('video-area');
+  if(!VIDEOS.length){
+    area.innerHTML = '<div class="vazio">Ainda não há vídeos publicados para este módulo. 🎬<br>Em breve entram aqui os vídeos e podcasts do NotebookLM.</div>';
+    return;
+  }
+  function cartao(v, i){
+    return '<div class="video-card' + (v.curto ? ' curto' : '') + '"><div class="ratio"><iframe src="https://www.youtube.com/embed/' + v.id + '" allow="fullscreen; autoplay; encrypted-media; picture-in-picture; clipboard-write" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy" title="' + v.titulo + '"></iframe></div><h4>' + v.titulo + '</h4><button type="button" class="ampliar" data-i="' + VIDEOS.indexOf(v) + '">⛶ Ampliar (tela cheia)</button></div>';
+  }
+  var normais = VIDEOS.filter(function(v){ return !v.curto; });
+  var curtos = VIDEOS.filter(function(v){ return v.curto; });
+  var html = '';
+  if (normais.length) html += '<div class="video-bloco"><h3>🎬 Vídeos</h3><div class="video-grid">' + normais.map(cartao).join('') + '</div></div>';
+  if (curtos.length) html += '<div class="video-bloco"><h3>📱 Vídeos curtos (shorts)</h3><div class="video-grid curtos">' + curtos.map(cartao).join('') + '</div></div>';
+  area.innerHTML = html;
+})();
+
+// ----- vídeo ampliado (dentro do site, sem ir ao YouTube) -----
+(function(){
+  var lb = document.getElementById('lb');
+  function avisarSite(ativo){ try { window.parent.postMessage({ estudos: 'tela-cheia', ativo: ativo }, '*'); } catch(e) {} }
+  function abrir(v){
+    var f = document.createElement('iframe');
+    f.src = 'https://www.youtube.com/embed/' + v.id + '?autoplay=1&rel=0&playsinline=1';
+    f.setAttribute('allow', 'fullscreen; autoplay; encrypted-media; picture-in-picture');
+    f.setAttribute('allowfullscreen', '');
+    f.title = v.titulo;
+    lb.classList.toggle('curto', !!v.curto);
+    lb.appendChild(f);
+    lb.classList.add('aberto');
+    avisarSite(true);
+    try { if (lb.requestFullscreen) lb.requestFullscreen().catch(function(){}); } catch(e) {}
+  }
+  function fechar(){
+    if (!lb.classList.contains('aberto')) return;
+    lb.classList.remove('aberto');
+    var f = lb.querySelector('iframe'); if (f) f.remove();
+    avisarSite(false);
+    try { if (document.fullscreenElement) document.exitFullscreen(); } catch(e) {}
+  }
+  document.addEventListener('click', function(e){
+    var b = e.target.closest && e.target.closest('.ampliar');
+    if (b) abrir(VIDEOS[+b.getAttribute('data-i')]);
+  });
+  document.getElementById('lb-fechar').addEventListener('click', fechar);
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') fechar(); });
+  document.addEventListener('fullscreenchange', function(){ if (!document.fullscreenElement) fechar(); });
+})();
+
+// ----- simulado -----
+var ordem = [], respondidas = {}, acertos = 0, erros = 0;
+function shuffle(a){ for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;} return a; }
+function initQuizData(){
+  ordem = shuffle(QUESTOES.map(function(_,i){return i;}));
+  respondidas = {}; acertos = 0; erros = 0;
+}
+function renderQuiz(){
+  var box = document.getElementById('quiz-container');
+  box.innerHTML = ordem.map(function(qi, pos){
+    var q = QUESTOES[qi];
+    var ops = q[1].map(function(o, oi){
+      return '<button class="option-btn" id="q' + pos + '-o' + oi + '" onclick="checkAnswer(' + pos + ',' + oi + ')">' + String.fromCharCode(65+oi) + ') ' + o + '</button>';
+    }).join('');
+    return '<div class="q"><div class="enun">' + (pos+1) + '. ' + q[0] + '</div>' + ops + '<div class="explanation" id="exp-' + pos + '">' + q[3] + '</div></div>';
+  }).join('');
+  updateStats();
+}
+function checkAnswer(pos, escolha){
+  if(respondidas[pos] !== undefined) return;
+  var q = QUESTOES[ordem[pos]];
+  respondidas[pos] = escolha;
+  for(var i=0;i<q[1].length;i++){
+    var b = document.getElementById('q'+pos+'-o'+i);
+    b.disabled = true;
+    if(i === q[2]) b.classList.add('correct');
+    else if(i === escolha) b.classList.add('wrong');
+  }
+  if(escolha === q[2]) acertos++; else erros++;
+  document.getElementById('exp-'+pos).classList.add('show');
+  updateStats();
+}
+function updateStats(){
+  var total = acertos + erros;
+  document.getElementById('stat-total').textContent = total + '/' + QUESTOES.length;
+  document.getElementById('stat-correct').textContent = acertos;
+  document.getElementById('stat-wrong').textContent = erros;
+  document.getElementById('stat-percent').textContent = total ? Math.round(acertos*100/total) + '%' : '0%';
+}
+function resetQuiz(){ initQuizData(); renderQuiz(); window.scrollTo({top:0}); }
+initQuizData(); renderQuiz();
+</script>
+</body>
+</html>

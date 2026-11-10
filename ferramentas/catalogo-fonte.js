@@ -76,7 +76,11 @@ module.exports = {
           nome: "Direito e Globalização (AVA)",
           np2: [item("guia", "Plataforma de estudos NP2 (Unidades I e II, com os questionários)", local("6/direito-globalizacao/np2.html"))],
         },
-        { id: "ava-metodos-pesquisa", nome: "Métodos de Pesquisa (AVA)" },
+        {
+          id: "ava-metodos-pesquisa",
+          nome: "Métodos de Pesquisa (AVA)",
+          np2: [item("guia", "Plataforma de estudos NP2 (Unidades I e II, com os questionários)", local("6/metodos-pesquisa/np2.html"))],
+        },
       ],
     },
     {
