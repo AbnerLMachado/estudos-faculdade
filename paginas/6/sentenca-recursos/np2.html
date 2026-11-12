@@ -63,6 +63,9 @@ td{background:var(--bg-card)}
 .option-btn:disabled{cursor:default}
 .explanation{display:none;margin-top:8px;padding:10px 12px;border-radius:8px;background:var(--bg-primary);color:var(--text-muted);font-size:.92rem}
 .explanation.show{display:block}
+.q .enun p{margin:0 0 6px}
+.explanation.ok{border-left:4px solid var(--correct-green)}
+.explanation.no{border-left:4px solid var(--wrong-red)}
 .btn{background:var(--accent-gold);color:#0b132b;border:0;border-radius:8px;padding:9px 16px;font:inherit;font-weight:700;cursor:pointer}
 .video-bloco h3{margin:18px 0 10px;font-size:1.02rem;color:var(--accent-green)}
 .video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;align-items:start}
@@ -97,6 +100,7 @@ footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:20px 14
   <button onclick="switchTab('mapas',this)">🗺️ Mapas</button>
   <button onclick="switchTab('pegadinhas',this)">⚠️ Pegadinhas</button>
   <button onclick="switchTab('quiz',this)">📝 Simulado</button>
+  <button onclick="switchTab('provaq',this)">🎓 Questões de prova</button>
   <button onclick="switchTab('videos',this)">🎬 Vídeos</button>
 </nav>
 <main>
@@ -452,6 +456,20 @@ footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:20px 14
   <div id="quiz-container"></div>
 </section>
 
+<!-- ============ QUESTÕES DE PROVA ============ -->
+<section id="provaq" class="tab-content">
+  <h2>Questões de prova</h2>
+  <p style="color:var(--text-muted)">As 10 questões do arquivo de questões de prova, <b>exatamente como estão no original</b> (enunciados e alternativas sem nenhuma alteração, na ordem original). O gabarito é o informado por você; os comentários depois de cada resposta são nossos.</p>
+  <div class="stats">
+    <div class="stat-box">Respondidas <span id="vstat-total">0/0</span></div>
+    <div class="stat-box">Acertos <span id="vstat-correct" style="color:var(--correct-green)">0</span></div>
+    <div class="stat-box">Erros <span id="vstat-wrong" style="color:var(--wrong-red)">0</span></div>
+    <div class="stat-box">Aproveitamento <span id="vstat-percent">0%</span></div>
+  </div>
+  <p><button class="btn" onclick="resetProva()">🔄 Refazer</button></p>
+  <div id="prova-container"></div>
+</section>
+
 <!-- ============ VÍDEOS ============ -->
 <section id="videos" class="tab-content">
   <h2>Vídeos e podcasts</h2>
@@ -713,6 +731,198 @@ function updateStats(){
 }
 function resetQuiz(){ initQuizData(); renderQuiz(); window.scrollTo({top:0}); }
 initQuizData(); renderQuiz();
+var QPROVA = [
+ {
+  "n": "Q.1 (1.00)",
+  "e": [
+   "NÃO cabe recurso de:"
+  ],
+  "o": [
+   "Sentença terminativa.",
+   "Despacho.",
+   "Decisão monocrática de relator.",
+   "Sentença de improcedência liminar da ação.",
+   "Decisão interlocutória."
+  ],
+  "c": 1,
+  "x": "Despacho é ato de mero andamento e não admite recurso (CPC, art. 1.001). As demais decisões citadas admitem recurso."
+ },
+ {
+  "n": "Q.2 (1.00)",
+  "e": [
+   "São chamados de Recursos Excepcionais, nos quais NÃO são discutidos fatos e provas apresentados pelas partes, mas apenas questões de Direito:"
+  ],
+  "o": [
+   "Recurso Especial e Recurso Extraordinário.",
+   "Agravo de instrumento e Apelação.",
+   "Apelação e Agravo interno.",
+   "Recurso Extraordinário e Agravo em Recurso Especial.",
+   "Agravo em Recurso especial e Agravo em sentença."
+  ],
+  "c": 0,
+  "x": "Recurso Especial (STJ) e Recurso Extraordinário (STF) são os excepcionais: discutem só questão de Direito, não fatos e provas."
+ },
+ {
+  "n": "Q.3 (1.00)",
+  "e": [
+   "Quanto ao Recurso Especial, assinale a alternativa incorreta;"
+  ],
+  "o": [
+   "A competência é do Superior Tribunal de Justiça.",
+   "Tem prazo de 15 dias úteis.",
+   "Tem previsão somente no Código de Processo Civil.",
+   "Discute a interpretação e aplicação de lei federal.",
+   "Está previsto na Constituição e no Código de Processo Civil."
+  ],
+  "c": 2,
+  "x": "A pergunta pede a <b>incorreta</b>. O REsp tem previsão na Constituição (art. 105, III) <u>e</u> no CPC, não “somente” no CPC."
+ },
+ {
+  "n": "Q.4 (1.00)",
+  "e": [
+   "Da decisão judicial de primeira instância que negou o Benefício de Justiça Gratuita caberá:"
+  ],
+  "o": [
+   "Agravo interno da sentença judicial.",
+   "Agravo interno da decisão interlocutória.",
+   "Apelação interposta perante o Tribunal de Justiça respectivo.",
+   "Agravo de instrumento.",
+   "Agravo em Recurso Especial."
+  ],
+  "c": 3,
+  "x": "A decisão que nega gratuidade de justiça é interlocutória e está no rol do art. 1.015, V, do CPC: cabe agravo de instrumento."
+ },
+ {
+  "n": "Q.5 (1.00)",
+  "e": [
+   "Quanto à fundamentação das decisões judiciais está INCORRETO afirmar que:"
+  ],
+  "o": [
+   "Gera a nulidade das decisões caso inexista.",
+   "É um dos elementos da ação.",
+   "Não compõe os requisitos de validade.",
+   "É imprescindível em todas as decisões judiciais.",
+   "Tem previsão constitucional e no Código de Processo Civil."
+  ],
+  "c": 2,
+  "x": "A pergunta pede a <b>incorreta</b>. A fundamentação é requisito de validade da decisão (CF, art. 93, IX; CPC, art. 489, II). Dizer que ela “não compõe os requisitos de validade” é falso."
+ },
+ {
+  "n": "Q.6 (1.00)",
+  "e": [
+   "Sentença de investigação de paternidade cujo resultado é a procedência da ação conhecida como:"
+  ],
+  "o": [
+   "Sentença declaratória terminativa.",
+   "Sentença constitutiva definitiva.",
+   "Sentença constitutiva terminativa.",
+   "Sentença executiva definitiva.",
+   "Sentença declaratória definitiva."
+  ],
+  "c": 4,
+  "x": "Investigação de paternidade julgada procedente declara a existência de relação jurídica e resolve o mérito: sentença declaratória definitiva."
+ },
+ {
+  "n": "Q.7 (1.00)",
+  "e": [
+   "Juiz prolatou a seguinte sentença: Diante da fundamentação acima, julgo procedente o pedido do Autor, condenando o Réu ao pagamento da quantia de R$ 15.000,00 (vinte e cinco mil reais).",
+   "Desta decisão caberá:"
+  ],
+  "o": [
+   "Embargos de Declaração em 5 dias úteis.",
+   "Agravo interno em 5 dias.",
+   "Agravo interno em 5 dias úteis.",
+   "Agravo de instrumento.",
+   "Embargos de Declaração em 15 dias úteis."
+  ],
+  "c": 0,
+  "x": "O dispositivo é contraditório (15.000 x “vinte e cinco mil”). Cabem embargos de declaração, no prazo de 5 dias úteis (CPC, arts. 1.022 e 1.023)."
+ },
+ {
+  "n": "Q.8 (1.00)",
+  "e": [
+   "São efeitos dos Embargos de Declaração:"
+  ],
+  "o": [
+   "Somente efeitos infringentes.",
+   "Somente efeitos suspensivos.",
+   "Suspender o prazo recursal.",
+   "Interromper o prazo recursal.",
+   "Somente efeitos devolutivos."
+  ],
+  "c": 3,
+  "x": "Os embargos de declaração <b>interrompem</b> o prazo para os outros recursos (CPC, art. 1.026), que recomeça inteiro depois do julgamento deles."
+ },
+ {
+  "n": "Q.9 (1.00)",
+  "e": [
+   "Um acórdão do Superior Tribunal de Justiça foi prolatado pelo pleno violando o contraditório e ampla defesa do recorrido. Caberá desta decisão do Tribunal:"
+  ],
+  "o": [
+   "Recurso Extraordinário.",
+   "Apelação.",
+   "Recurso Especial.",
+   "Agravo de Instrumento.",
+   "Agravo em Recurso Especial."
+  ],
+  "c": 0,
+  "x": "A violação do contraditório e da ampla defesa é matéria constitucional, e o acórdão do STJ é de tribunal superior: cabe Recurso Extraordinário ao STF."
+ },
+ {
+  "n": "Q.10 (1.00)",
+  "e": [
+   "Quanto ao recurso de apelação, assinale a alternativa incorreta:"
+  ],
+  "o": [
+   "Cabe de qualquer sentença.",
+   "Tem como finalidade esclarecer algum ponto na sentença judicial que ficou contraditório.",
+   "Tem o prazo de 15 dias para ser interposto.",
+   "Busca reformar ou invalidar sentença de primeiro grau de jurisdição.",
+   "Como regra geral tem efeitos suspensivos."
+  ],
+  "c": 1,
+  "x": "A pergunta pede a <b>incorreta</b>. Esclarecer ponto contraditório é a função dos embargos de declaração, não da apelação."
+ }
+];
+
+var provaResp = {}, provaAcertos = 0, provaErros = 0;
+function escP(t){ return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function renderProva(){
+  document.getElementById('prova-container').innerHTML = QPROVA.map(function(q, qi){
+    var enun = q.e.map(function(p){ return '<p>' + escP(p) + '</p>'; }).join('');
+    var ops = q.o.map(function(o, oi){
+      return '<button class="option-btn" id="pv' + qi + '-o' + oi + '" onclick="checkProva(' + qi + ',' + oi + ')">' + String.fromCharCode(97+oi) + ') ' + escP(o) + '</button>';
+    }).join('');
+    return '<div class="q"><div class="enun"><p><b>' + q.n + '</b></p>' + enun + '</div>' + ops + '<div class="explanation" id="pvexp-' + qi + '"></div></div>';
+  }).join('');
+  updateProvaStats();
+}
+function checkProva(qi, escolha){
+  if(provaResp[qi] !== undefined) return;
+  var q = QPROVA[qi];
+  provaResp[qi] = escolha;
+  for(var i=0;i<q.o.length;i++){
+    var b = document.getElementById('pv'+qi+'-o'+i);
+    b.disabled = true;
+    if(i === q.c) b.classList.add('correct');
+    else if(i === escolha) b.classList.add('wrong');
+  }
+  var ok = escolha === q.c;
+  if(ok) provaAcertos++; else provaErros++;
+  var box = document.getElementById('pvexp-'+qi);
+  box.className = 'explanation show ' + (ok ? 'ok' : 'no');
+  box.innerHTML = '<b>' + (ok ? '✅ Acertou!' : '❌ Errou. A resposta certa é a letra ' + String.fromCharCode(97+q.c) + ').') + '</b> ' + q.x;
+  updateProvaStats();
+}
+function updateProvaStats(){
+  var total = provaAcertos + provaErros;
+  document.getElementById('vstat-total').textContent = total + '/' + QPROVA.length;
+  document.getElementById('vstat-correct').textContent = provaAcertos;
+  document.getElementById('vstat-wrong').textContent = provaErros;
+  document.getElementById('vstat-percent').textContent = total ? Math.round(provaAcertos*100/total) + '%' : '0%';
+}
+function resetProva(){ provaResp = {}; provaAcertos = 0; provaErros = 0; renderProva(); window.scrollTo({top:0}); }
+renderProva();
 </script>
 </body>
 </html>
