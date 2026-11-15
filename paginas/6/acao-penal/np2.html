@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ação Penal · NP2 · Plataforma de estudos</title>
+<style>
+:root{--bg-primary:#0b132b;--bg-secondary:#1c2541;--bg-card:#2f3e46;--bg-hover:#3a506b;--accent-gold:#fbbf24;--accent-blue:#38bdf8;--accent-green:#34d399;--text-main:#f8fafc;--text-muted:#94a3b8;--correct-green:#22c55e;--wrong-red:#ef4444;--border-color:#475569}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg-primary);color:var(--text-main);line-height:1.6}
+header{background:var(--bg-secondary);padding:22px 16px 14px;text-align:center;border-bottom:2px solid var(--accent-gold)}
+header h1{margin:0 0 4px;font-size:1.6rem;color:var(--accent-gold)}
+header p{margin:0;color:var(--text-muted);font-size:.95rem}
+nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:12px;background:var(--bg-secondary);position:sticky;top:0;z-index:5;border-bottom:1px solid var(--border-color)}
+nav button{background:var(--bg-card);color:var(--text-main);border:1px solid var(--border-color);padding:9px 16px;border-radius:8px;cursor:pointer;font:inherit;font-weight:600}
+nav button:hover{background:var(--bg-hover)}
+nav button.active{background:var(--accent-gold);color:#0b132b;border-color:var(--accent-gold)}
+main{max-width:980px;margin:0 auto;padding:18px 14px 60px}
+.tab-content{display:none}.tab-content.active{display:block}
+h2{color:var(--accent-blue);margin:6px 0 14px}
+.intro{background:var(--bg-secondary);border-left:4px solid var(--accent-blue);padding:12px 16px;border-radius:8px;margin-bottom:18px;color:var(--text-muted)}
+.radar{background:#3b2f0b;border:1px solid var(--accent-gold);border-radius:10px;padding:12px 16px;margin-bottom:18px}
+.radar b{color:var(--accent-gold)}
+.module-block{background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:10px;margin-bottom:12px;overflow:hidden}
+.module-header{padding:14px 16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;font-weight:700;font-size:1.05rem}
+.module-header:hover{background:var(--bg-hover)}
+.module-header small{display:block;color:var(--text-muted);font-weight:400;font-size:.82rem}
+.module-header .seta{transition:transform .2s;color:var(--accent-gold)}
+.module-block.open .seta{transform:rotate(90deg)}
+.module-body{display:none;padding:4px 16px 16px}
+.module-block.open .module-body{display:block}
+.sub-topic{background:var(--bg-card);border-radius:8px;padding:12px 14px;margin-top:12px}
+.sub-topic h3{margin:0 0 6px;color:var(--accent-green);font-size:1rem}
+.sub-topic ul{margin:6px 0 0;padding-left:20px}
+.sub-topic li{margin:4px 0}
+.callout{border-left:4px solid var(--accent-gold);background:rgba(251,191,36,.08);padding:10px 14px;border-radius:6px;margin-top:12px}
+.callout.perigo{border-color:var(--wrong-red);background:rgba(239,68,68,.08)}
+.callout.dica{border-color:var(--accent-green);background:rgba(52,211,153,.08)}
+.lei{font-size:.9rem;color:var(--text-muted);font-style:italic}
+.tag{display:inline-block;background:var(--bg-primary);color:var(--accent-gold);border-radius:20px;padding:1px 10px;font-size:.78rem;margin-right:4px}
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:6px;margin:12px 0}
+.flow-step{background:var(--bg-card);border:1px solid var(--border-color);border-radius:8px;padding:8px 12px;flex:1 1 140px;font-size:.92rem}
+.flow-step b{color:var(--accent-blue);display:block}
+.flow-arrow{align-self:center;color:var(--accent-gold);font-size:1.3rem}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.92rem}
+th,td{border:1px solid var(--border-color);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--bg-hover);color:var(--accent-gold)}
+td{background:var(--bg-card)}
+.tbl-wrap{overflow-x:auto}
+.peg{background:var(--bg-card);border-radius:10px;padding:12px 16px;margin-bottom:10px;border-left:4px solid var(--wrong-red)}
+.peg .afirma{font-weight:700}
+.peg .errada{color:var(--wrong-red);font-weight:700}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+.stat-box{flex:1 1 140px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:8px;padding:8px 12px;text-align:center;font-size:.9rem;color:var(--text-muted)}
+.stat-box span{display:block;font-size:1.3rem;font-weight:700;color:var(--text-main)}
+.q{background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:10px;padding:14px 16px;margin-bottom:14px}
+.q .enun{font-weight:600;margin-bottom:10px}
+.option-btn{display:block;width:100%;text-align:left;background:var(--bg-card);color:var(--text-main);border:1px solid var(--border-color);border-radius:8px;padding:9px 12px;margin-bottom:7px;cursor:pointer;font:inherit}
+.option-btn:hover:not(:disabled){background:var(--bg-hover)}
+.option-btn.correct{background:rgba(34,197,94,.2);border-color:var(--correct-green)}
+.option-btn.wrong{background:rgba(239,68,68,.2);border-color:var(--wrong-red)}
+.option-btn:disabled{cursor:default}
+.explanation{display:none;margin-top:8px;padding:10px 12px;border-radius:8px;background:var(--bg-primary);color:var(--text-muted);font-size:.92rem}
+.explanation.show{display:block}
+.btn{background:var(--accent-gold);color:#0b132b;border:0;border-radius:8px;padding:9px 16px;font:inherit;font-weight:700;cursor:pointer}
+.video-bloco h3{margin:18px 0 10px;font-size:1.02rem;color:var(--accent-green)}
+.video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;align-items:start}
+.video-grid.curtos{grid-template-columns:repeat(auto-fill,minmax(190px,220px));gap:12px;justify-content:start}
+.video-card{background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:10px;overflow:hidden}
+.video-card .ratio{position:relative;padding-top:56.25%}
+.video-card iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video-card.curto .ratio{padding-top:177.78%}
+.video-card.curto h4{font-size:.82rem;padding:8px 10px}
+@media(max-width:600px){.video-grid{grid-template-columns:1fr}.video-grid.curtos{grid-template-columns:repeat(2,1fr)}}
+.video-card .ampliar{display:block;width:calc(100% - 20px);margin:0 10px 10px;padding:7px 10px;border-radius:8px;border:1px solid var(--accent-gold);background:transparent;color:var(--accent-gold);font:inherit;font-weight:700;font-size:.85rem;cursor:pointer}
+.video-card .ampliar:hover{background:var(--bg-hover)}
+#lb{position:fixed;inset:0;z-index:1000;background:#000;display:none;align-items:center;justify-content:center}
+#lb.aberto{display:flex}
+#lb iframe{width:100%;height:100%;border:0;background:#000}
+#lb.curto iframe{width:auto;height:100%;aspect-ratio:9/16;max-width:100%}
+#lb-fechar{position:absolute;top:10px;right:10px;z-index:2;padding:9px 16px;border-radius:10px;border:1px solid #fff;background:rgba(0,0,0,.75);color:#fff;font:inherit;font-weight:700;cursor:pointer}
+.video-card h4{margin:0;padding:10px 12px;font-size:.95rem}
+.vazio{background:var(--bg-secondary);border:1px dashed var(--border-color);border-radius:10px;padding:26px;text-align:center;color:var(--text-muted)}
+footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:20px 14px}
+@media(max-width:600px){header h1{font-size:1.3rem}nav button{padding:8px 11px;font-size:.9rem}}
+@media(max-width:600px){header{padding:8px 10px 6px}header h1{font-size:1.05rem;margin:0}header p{display:none}nav{padding:6px;gap:5px}nav button{padding:6px 10px;font-size:.85rem}main{padding:10px 10px 40px}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Ação Penal · NP2</h1>
+  <p>UNIP · Direito · 6º semestre · AVA · Profa. Ma. Marina Della Torre (conteúdo) · Rodrigo (calendário)</p>
+</header>
+<nav>
+  <button class="active" onclick="switchTab('guia',this)">📘 Guia</button>
+  <button onclick="switchTab('mapas',this)">🗺️ Mapas</button>
+  <button onclick="switchTab('pegadinhas',this)">⚠️ Pegadinhas</button>
+  <button onclick="switchTab('quiz',this)">📝 Simulado</button>
+  <button onclick="switchTab('videos',this)">🎬 Vídeos</button>
+</nav>
+<main>
+
+<!-- ============ GUIA ============ -->
+<section id="guia" class="tab-content active">
+
+<div class="intro">Resumo da disciplina <b>Ação Penal (AVA)</b>, feito a partir dos <b>slides de aula das Unidades I e II</b> (Profa. Ma. Marina Della Torre), dos <b>livros-texto</b> e dos <b>dois questionários de estudo</b>. Clique em cada módulo para abrir e confira sempre o texto da lei (CPP e CP).</div>
+<div class="radar"><b>📡 Sobre a prova:</b>
+  <ul>
+    <li><b>Data no calendário:</b> 16/11/2026 · AVA (Rodrigo, conforme o calendário).</li>
+    <li><b>Unidade I:</b> persecução penal e <b>inquérito policial</b> (arts. 4º a 23 do CPP). <b>Unidade II:</b> <b>ação penal</b> (pública, condicionada, privada), denúncia, queixa, rejeição e extinção da punibilidade.</li>
+    <li>Os dois questionários têm 10 questões cada, no estilo de concurso. Todas estão no <b>Simulado</b> com o texto original.</li>
+    <li><b>⚠️ Gabarito:</b> os arquivos dos questionários são telas de tentativa <u>sem correção</u>. Por isso as respostas desses questionários foram <b>deduzidas pela lei e pelos slides</b>; das interatividades dos slides, 2 trazem a resposta no próprio texto do slide (Guliver e Jorge) e 2 foram deduzidas (local de crime e advogado). Se o AVA mostrar outra resposta depois da correção, vale a do AVA: me avise que eu corrijo.</li>
+    <li>Onde o livro-texto e os slides divergem, a página avisa e segue os <b>slides e a lei</b>.</li>
+  </ul>
+</div>
+<div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>Unidade I · Persecução penal e inquérito policial<small>Conceito, objeto, competência, destinatários, natureza e características</small></div><span class="seta">▶</span></div>
+  <div class="module-body">
+    <div class="sub-topic"><h3>Persecução penal</h3><ul>
+      <li>Praticada uma infração penal, nasce para o Estado o <b>jus puniendi</b> (poder de punir), que só se realiza pelo <b>processo penal</b>. Para propor a ação é preciso um mínimo de elementos: <b>autoria + materialidade</b>.</li>
+      <li>O meio mais comum (mas <b>não exclusivo</b>) de colher esses elementos é o <b>inquérito policial (IP)</b>.</li>
+      <li><b>Objeto do IP:</b> apurar o fato que configura infração penal e a autoria, para servir de base à ação penal ou a providências cautelares.</li>
+</ul></div>
+    <div class="sub-topic"><h3>Conceito de inquérito policial</h3><ul>
+      <li>Procedimento <b>preparatório</b> da ação penal, de caráter <b>administrativo</b>, conduzido pela <b>polícia judiciária</b>, para colher provas preliminares sobre a infração e a autoria.</li>
+      <li>Objetivo principal: formar a convicção do <b>Ministério Público</b>; também colher provas urgentes (que podem desaparecer) e as provas pré-constituídas que servem de base à vítima na ação privada.</li>
+      <li>É uma <b>instrução provisória, preparatória e informativa</b> (auto de flagrante, exames periciais etc.).</li>
+</ul></div>
+    <div class="sub-topic"><h3>Competência (art. 4º do CPP)</h3><ul>
+      <li>A atividade cabe à <b>polícia judiciária</b>, exercida pelas autoridades policiais (delegado).</li>
+      <li><b>Competência não exclusiva</b> (art. 4º, parágrafo único): a lei ressalva a atribuição de <b>outras autoridades administrativas</b>: IP militar (oficiais militares), sindicâncias e processos administrativos (chefes de repartição, corregedores), inquérito civil/procedimento do <b>promotor de justiça</b>, IP florestal, <b>CPI</b> (parlamentares) etc.</li>
+</ul></div>
+    <div class="sub-topic"><h3>Destinatários</h3><ul>
+      <li><b>Imediato:</b> o <b>Ministério Público</b> (ação pública) ou o <b>ofendido</b> (ação privada).</li>
+      <li><b>Mediato:</b> o <b>juiz</b>, que também pode encontrar nele fundamentos para julgar (art. 12 do CPP).</li>
+</ul></div>
+    <div class="sub-topic"><h3>Natureza e características (slides)</h3><ul>
+      <li><b>Escrito</b> (art. 9º do CPP): todas as peças são reduzidas a escrito ou datilografadas e rubricadas pela autoridade. Pode ser manuscrito.</li>
+      <li><b>Sigiloso</b> (art. 20): a autoridade assegura o sigilo necessário à elucidação do fato ou exigido pelo interesse da sociedade.</li>
+      <li><b>Inquisitivo</b>: não há contraditório nem ampla defesa no IP; o indiciado é <b>objeto de investigação</b>, não sujeito de direito. Ainda assim, vítima e indiciado podem <b>requerer diligências</b>, e a autoridade decide se faz (art. 14), por sua discricionariedade.</li>
+      <li><b>Oficialidade</b>: feito por órgãos oficiais, <b>nunca por particular</b>, ainda que a ação seja do ofendido (questionário I, Q3).</li>
+      <li><b>Oficiosidade</b> (de ofício, na ação pública incondicionada), <b>indisponibilidade</b> (a autoridade <u>não pode arquivar</u> o IP, art. 17) e <b>dispensabilidade</b> (o MP pode denunciar sem IP, se já tem elementos).</li>
+      <li>Não é processo: é <b>procedimento administrativo</b> informativo. <b>Não tem contraditório obrigatório</b>.</li>
+</ul></div>
+    <div class="sub-topic"><h3>Sigilo e o advogado</h3><ul>
+      <li>O sigilo não vale contra o <b>advogado</b>: Estatuto da OAB, art. 7º, XIV (redação da Lei 13.245/2016) e <b>Súmula Vinculante 14 do STF</b>: direito de examinar, <b>mesmo sem procuração</b>, os autos de flagrante e de investigações de qualquer natureza, findos ou em andamento, e copiar peças.</li>
+      <li>Mas isso <b>não obriga</b> a autoridade a antecipar diligências em curso, nem a <b>intimar previamente</b> o advogado para oitivas, acareações ou reconstituições. Não ofende o contraditório, que só vale na fase processual (slide de interatividade, resposta: a lei <b>não impôs</b> o dever de intimar previamente o advogado).</li>
+</ul></div>
+    <div class="sub-topic"><h3>Valor probatório e vícios</h3><ul>
+      <li>O IP tem <b>valor informativo</b> para a ação penal. Provas periciais feitas no IP têm valor semelhante ao das colhidas em juízo (preponderam fatores técnicos).</li>
+      <li><b>Não se pode condenar com base exclusiva no IP</b> (violaria o contraditório).</li>
+      <li><b>Vícios no IP não anulam a ação penal</b> (é mero procedimento informativo, não ato de jurisdição). Podem tirar o valor do ato (ex.: prisão em flagrante irregular), mas não afetam a ação já iniciada com denúncia recebida.</li>
+</ul></div>
+
+  </div></div>
+
+<div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>Unidade I · Instauração do inquérito policial<small>Notitia criminis, ação pública incondicionada, condicionada, privada e TCO</small></div><span class="seta">▶</span></div>
+  <div class="module-body">
+    <div class="sub-topic"><h3>Regra geral (art. 5º do CPP)</h3><ul>
+      <li>O IP começa com a <b>notitia criminis</b> (notícia do crime), mas a forma de instaurar depende da <b>espécie de ação penal</b> do crime.</li>
+      <li>Pode ser instaurado: de ofício (<b>portaria</b>), por <b>auto de prisão em flagrante</b>, por <b>requisição</b> do juiz ou do MP, ou por <b>requerimento do ofendido</b> (ou de quem o represente).</li>
+</ul></div>
+    <div class="sub-topic"><h3>Ação penal pública incondicionada (APPI)</h3><ul>
+      <li>A investigação independe da vontade da vítima: o Estado age assim que sabe do crime.</li>
+      <li>O IP pode ser instaurado por: <b>portaria (de ofício); auto de prisão em flagrante; requisição da autoridade judiciária; requisição do MP (promotor ou procurador da República); requerimento do ofendido ou de quem o represente</b>.</li>
+</ul></div>
+    <div class="sub-topic"><h3>Ação penal pública condicionada (APPC)</h3><ul>
+      <li>A lei subordina o exercício à <b>representação do ofendido</b> (ou de quem o represente) ou à <b>requisição do Ministro da Justiça</b>.</li>
+      <li><b>Art. 5º, §4º, CPP:</b> nos crimes em que a ação pública depender de representação, o inquérito <b>não poderá sem ela ser iniciado</b>.</li>
+      <li>Com representação: termo de representação à autoridade policial (+ portaria); requisição do juiz ou do MP <b>acompanhada da representação</b>; auto de prisão em flagrante <b>desde que colhida a representação</b>.</li>
+      <li>Com requisição do Ministro da Justiça: diretamente ao delegado (+ portaria); ou requisição do PGR, PGJ ou promotor <b>acompanhada da requisição do Ministro</b>.</li>
+      <li><b>Prazo da representação:</b> <b>6 meses</b> a partir do dia em que o titular sabe quem é o autor (art. 103 do CP; art. 38 do CPP). É <b>decadencial</b>: não suspende nem interrompe; perdido o prazo, <b>extingue-se a punibilidade por decadência</b>.</li>
+      <li><b>Retratação:</b> a representação é <b>irretratável depois de oferecida a denúncia</b> (art. 25 do CPP; art. 102 do CP).</li>
+      <li><b>Forma:</b> pode ser feita à autoridade policial, ao juiz ou ao MP (art. 39), oralmente (reduzida a termo) ou por escrito.</li>
+</ul></div>
+    <div class="sub-topic"><h3>Ação penal privada (APP)</h3><ul>
+      <li>Crime de ação privada é o que traz no texto a expressão <b>“somente se procede mediante queixa”</b>. Só o ofendido (ou quem o represente, art. 30) propõe a ação; do mesmo modo, o IP só é instaurado se o ofendido quiser.</li>
+      <li>Peças de instauração: <b>requerimento do ofendido</b> ou de quem o represente; <b>auto de prisão em flagrante</b>.</li>
+      <li>Prazo para o requerimento: a lei não diz, mas, como a queixa tem 6 meses (decadência), o IP deve acabar antes desse prazo.</li>
+</ul></div>
+    <div class="sub-topic"><h3>Termo circunstanciado (TCO, Lei 9.099/1995)</h3><ul>
+      <li>Para <b>infrações de menor potencial ofensivo</b> (contravenções e crimes com pena máxima de até 2 anos): em vez de IP, a autoridade lavra o <b>termo circunstanciado</b> e o envia ao Juizado Especial Criminal (art. 69).</li>
+      <li>O autor que se compromete a comparecer ao Juizado <b>não é preso em flagrante nem paga fiança</b>. No Jecrim cabem composição civil, <b>transação penal</b> e suspensão condicional do processo.</li>
+</ul></div>
+
+  </div></div>
+
+<div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>Unidade I · Diligências, conclusão e arquivamento do IP<small>Art. 6º, relatório, prazos, arquivamento e desarquivamento</small></div><span class="seta">▶</span></div>
+  <div class="module-body">
+    <div class="sub-topic"><h3>Diligências (art. 6º do CPP)</h3><ul>
+      <li>Ao chegar ao local, a <b>primeira providência</b> da autoridade é <b>preservar o local</b> (art. 6º, I) até a chegada dos peritos. É a resposta da questão de interatividade do slide.</li>
+      <li>Depois: apreender objetos relacionados ao fato, ouvir o ofendido, ouvir o indiciado, inquirir testemunhas, <b>reconhecimentos e acareações</b>, determinar <b>exame de corpo de delito e perícias</b>, identificar o indiciado, averiguar vida pregressa etc.</li>
+      <li>O <b>rol do art. 6º não é taxativo</b>. Exemplo de outra diligência que a autoridade faz <b>sem autorização judicial</b>: a <b>reprodução simulada dos fatos</b> (art. 7º do CPP: pode fazer, desde que não contrarie a moralidade ou a ordem pública).</li>
+      <li>Dependem de <b>autorização judicial</b>: interceptação telefônica (Lei 9.296/96), busca domiciliar, afastamento de sigilo financeiro, infiltração de agentes, prisões cautelares.</li>
+      <li>Os <b>instrumentos do crime e objetos de interesse para a prova acompanham os autos do IP</b> (art. 11).</li>
+</ul></div>
+    <div class="sub-topic"><h3>Relatório (art. 10, §1º)</h3><ul>
+      <li>Ato final do IP, <b>endereçado ao juiz</b>. A autoridade <b>não faz juízo de valor</b> sobre culpabilidade ou ilicitude.</li>
+      <li>Conteúdo: por que o IP foi instaurado; diligências cumpridas e não cumpridas (com motivos); data, hora e local; qualificação de vítima, testemunhas, indiciado e peritos; provas periciais e outras provas.</li>
+      <li>O relatório <b>não é indispensável</b>: sua falta é mera irregularidade administrativa e <b>não é causa de nulidade</b> da ação penal.</li>
+</ul></div>
+    <div class="sub-topic"><h3>Prazo para conclusão (art. 10 do CPP)</h3><ul>
+      <li><b>10 dias</b> se o indiciado está <b>preso</b> (flagrante ou preventiva); <b>30 dias</b> se <b>solto</b> (com ou sem fiança), com possibilidade de prorrogação.</li>
+      <li><b>Prazos especiais:</b> <b>Lei de Drogas</b> (art. 51): 30 dias preso / 90 dias solto. <b>Justiça Federal</b> (Lei 5.010/66, art. 66): 15 dias preso, prorrogáveis por mais 15. <b>CPP Militar:</b> 20 dias preso / 40 dias solto (prorrogação de 20). <b>Crime hediondo:</b> prisão de 30 dias, prorrogável por igual prazo (até 60). <b>Organizações criminosas</b> (livro): 15 + 15.</li>
+      <li>O descumprimento do prazo não invalida o IP, mas pode levar ao <b>relaxamento da prisão</b> ilegal.</li>
+</ul></div>
+    <div class="sub-topic"><h3>Arquivamento</h3><ul>
+      <li><b>A autoridade policial não pode arquivar o IP</b>, em nenhuma hipótese (art. 17 do CPP): iniciado, deve concluí-lo e enviá-lo ao juízo. O relatório pode <i>sugerir</i> o arquivamento, mas quem decide é o titular da ação.</li>
+      <li>O arquivamento depende do <b>Ministério Público</b> (ação pública) ou do <b>ofendido</b> (ação privada, que deixa de oferecer queixa).</li>
+      <li><b>Pacote anticrime (Lei 13.964/2019)</b>, conforme o slide: o arquivamento deixa de passar pela análise do juiz; é analisado pelo <b>órgão superior do MP</b> (Conselho Superior ou Câmaras), para onde o promotor encaminha os autos para homologação.</li>
+      <li><b>Devolução pelo MP:</b> concluído o IP, o MP só pode devolvê-lo à autoridade policial para <b>novas diligências imprescindíveis ao oferecimento da denúncia</b> (art. 16).</li>
+      <li><b>Desarquivamento (art. 18 e Súmula 524 do STF):</b> arquivado por <b>falta de base para a denúncia</b> (falta de provas, falta de justa causa), a autoridade pode fazer <b>novas pesquisas</b> se tiver notícia de outras provas. Já o arquivamento por <b>atipicidade</b>, por excludente de ilicitude ou culpabilidade (ex.: coação moral irresistível), por menoridade ou por extinção da punibilidade (ex.: decadência) <b>não permite reabrir</b> pelos mesmos fatos.</li>
+      <li><b>Súmula 234 do STJ:</b> a participação de membro do MP na fase investigatória <b>não gera impedimento nem suspeição</b> para oferecer a denúncia.</li>
+</ul></div>
+
+  </div></div>
+
+<div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>Unidade II · Ação penal: conceito, classificação e princípios<small>Conceito, art. 100 do CP, espécies e princípios da ação pública</small></div><span class="seta">▶</span></div>
+  <div class="module-body">
+    <div class="sub-topic"><h3>Conceito</h3><ul>
+      <li>Direito de ir a juízo invocar o Poder Judiciário; direito de pedir ao Estado-Juiz a aplicação do <b>Direito Penal objetivo</b> a um caso concreto. Direito público subjetivo, <b>mesmo conceito do processo civil</b>.</li>
+      <li>O que distingue uma ação da outra é a <b>pretensão</b> que lhe serve de conteúdo.</li>
+      <li>Sem processo não há pena: o Estado tem o monopólio do poder punitivo, mas só o exerce sob controle jurisdicional.</li>
+</ul></div>
+    <div class="sub-topic"><h3>Classificação (critério subjetivo)</h3><ul>
+      <li>Pelo <b>sujeito que promove</b> a ação: <b>pública</b> (Ministério Público) ou <b>privada</b> (ofendido). A ação penal popular (qualquer do povo) é de origem espanhola e anglo-americana e não vigora entre nós como regra.</li>
+      <li><b>Art. 100 do CP:</b> a ação penal é <b>pública</b>, salvo quando a lei <b>expressamente</b> a declara privativa do ofendido. <b>Regra: pública. Exceção: privada</b> (ex.: art. 167 do CP).</li>
+      <li>Distinguir: se o crime é de ação privada, <b>o próprio texto da lei declara</b> (“somente se procede mediante queixa”). O CP enumera taxativamente os crimes de ação privada.</li>
+      <li>A diferença entre pública e privada está <b>só na legitimidade de agir</b>. Mesmo na privada, o <b>direito de punir continua do Estado</b>.</li>
+</ul></div>
+    <div class="sub-topic"><h3>Ação penal pública: incondicionada (APPI)</h3><ul>
+      <li>Promovida pelo <b>MP</b> (art. 100, §1º, CP; art. 24 CPP; art. 129, I, CF), <b>sem depender da vontade de ninguém</b>; é irrelevante a manifestação contrária de quem quer que seja. <b>É a regra.</b> Quando a lei silencia sobre condição, a ação é incondicionada.</li>
+      <li>Exemplos (livro): homicídio, roubo, peculato. <b>Contravenções penais</b> são, em geral, de ação pública incondicionada.</li>
+</ul></div>
+    <div class="sub-topic"><h3>Princípios da ação penal pública incondicionada (slides)</h3><ul>
+      <li><b>Oficialidade:</b> o MP promove a ação de ofício, por iniciativa própria.</li>
+      <li><b>Indisponibilidade:</b> o MP <b>não pode desistir</b> da ação, nem transigir (art. 42 do CPP). Exceção: <b>transação penal</b> do Jecrim (art. 76 da Lei 9.099/95); o livro cita também o ANPP (art. 28-A do CPP).</li>
+      <li><b>Legalidade ou obrigatoriedade:</b> o MP é obrigado a propor (art. 24 do CPP), o “dogma da ação penal obrigatória”. O princípio da <b>oportunidade</b> (conveniência) não vigora entre nós, segundo a doutrina.</li>
+      <li><b>Indivisibilidade:</b> a ação abrange <b>todos</b> os que cometeram a infração; o promotor não escolhe contra quem propor (segundo o slide).</li>
+      <li><b>Intranscendência:</b> a ação é proposta só contra quem se imputa a infração (não passa da pessoa do autor).</li>
+      <li><b>Divergência:</b> o livro-texto trata a ação pública como <b>divisível</b> (inclusive na condicionada) e a privada como indivisível (art. 48). Na prova, siga os <b>slides</b> e o enunciado.</li>
+</ul></div>
+    <div class="sub-topic"><h3>Condições da ação, procedibilidade e pressupostos (livro, Unid. II)</h3><ul>
+      <li><b>Condições da ação:</b> <b>legitimidade</b> das partes, <b>interesse de agir</b> e <b>justa causa</b> (mínimo de prova da materialidade e indícios suficientes de autoria). Aplicam-se a todas as ações penais. Fundamento: art. 395 do CPP.</li>
+      <li><b>Condições de procedibilidade:</b> exigências <b>específicas</b> de certos casos: representação do ofendido (art. 24 CPP), requisição do Ministro da Justiça, autorização/licença em alguns casos de parlamentares, conclusão do processo administrativo tributário (Súmula Vinculante 24 do STF).</li>
+      <li><b>Pressupostos processuais:</b> existência e validade do processo: juiz <b>competente, imparcial e investido de jurisdição</b>; partes capazes e legítimas; <b>petição inicial válida</b> (art. 41). Ausência: inexistência, nulidade absoluta ou nulidade relativa.</li>
+</ul></div>
+
+  </div></div>
+
+<div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>Unidade II · Ação penal pública condicionada<small>Representação, requisição do Ministro da Justiça, prazo e retratação</small></div><span class="seta">▶</span></div>
+  <div class="module-body">
+    <div class="sub-topic"><h3>Conceito e quem promove</h3><ul>
+      <li>É aquela cujo exercício <b>se subordina a uma condição</b>: a <b>representação</b> do ofendido (ou de quem o represente) ou a <b>requisição do Ministro da Justiça</b>.</li>
+      <li>Mesmo assim, <b>quem promove a ação é o MP</b>, por <b>denúncia</b> (art. 24 do CPP). O MP é o único legitimado.</li>
+      <li><b>Art. 24 do CPP:</b> nos crimes de ação pública, a ação é promovida por denúncia do MP, mas dependerá, <b>quando a lei o exigir</b>, de representação do ofendido ou de requisição do Ministro da Justiça.</li>
+</ul></div>
+    <div class="sub-topic"><h3>Quais crimes</h3><ul>
+      <li>São <b>poucos</b>. Exemplos do slide (CP): art. 130, §2º; art. 145, parágrafo único; art. 151, §4º; art. 152, parágrafo único; art. 153; art. 154; art. 156, §1º; art. 174; art. 176; art. 182; art. 184, §3º; art. 196, §2º; art. 225, §2º.</li>
+      <li><b>Lei 9.099/95, art. 88:</b> <b>lesão corporal leve e culposa</b> são de ação pública condicionada à representação. <b>Ameaça</b> (art. 147) também, e, em regra, o <b>estelionato</b> (art. 171, §5º, após o Pacote Anticrime).</li>
+      <li><b>Exceção:</b> lesão corporal leve praticada em <b>violência doméstica</b> é de ação pública <b>incondicionada</b> (Lei Maria da Penha; STF, ADI 4424).</li>
+</ul></div>
+    <div class="sub-topic"><h3>Representação</h3><ul>
+      <li>Feita pelo <b>ofendido ou seu representante legal</b>. Dirigida ao <b>juiz, à autoridade policial ou ao MP</b> (art. 39 do CPP), oralmente (reduzida a termo) ou por escrito.</li>
+      <li><b>Morte do ofendido:</b> o direito de representar passa ao <b>cônjuge, ascendente, descendente ou irmão</b> (art. 24, §1º).</li>
+      <li><b>Prazo:</b> <b>6 meses</b>, a contar do dia em que vem a saber quem foi o autor do crime. É <b>decadencial</b> (não suspende, não interrompe, não prorroga).</li>
+      <li><b>Retratação:</b> art. 102 do CP: “a representação será irretratável depois de <b>oferecida</b> a denúncia”. Antes da denúncia, pode retratar-se; depois, não. (O livro fala em “denúncia recebida”; siga o texto da lei e os slides: <b>oferecida</b>.)</li>
+      <li>A representação <b>não é a queixa</b>: representação é <b>condição</b> da ação; queixa é a <b>petição inicial</b> da ação privada.</li>
+</ul></div>
+    <div class="sub-topic"><h3>Caso do slide: injúria contra servidor público</h3><ul>
+      <li>Injúria contra servidor <b>em razão de suas funções</b> (Súmula 714 do STF): a legitimidade é <b>concorrente</b>. O ofendido pode <b>optar</b> entre oferecer queixa-crime (com advogado) ou <b>representar ao MP</b>, que analisa a denúncia. (Resposta confirmada no slide: <b>letra a</b>.)</li>
+</ul></div>
+
+  </div></div>
+
+<div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>Unidade II · Ação penal privada<small>Legitimidade, espécies, prazo, perdão, renúncia e perempção</small></div><span class="seta">▶</span></div>
+  <div class="module-body">
+    <div class="sub-topic"><h3>Legitimidade e prazo</h3><ul>
+      <li><b>Quem promove:</b> o <b>ofendido</b> ou seu <b>representante legal</b> (art. 100, §2º, CP; art. 30 CPP), por <b>queixa-crime</b>. Se o ofendido morrer ou for declarado ausente, as pessoas do art. 31 (cônjuge, ascendente, descendente, irmão) podem promover.</li>
+      <li><b>Prazo:</b> 6 meses (art. 38 CPP), contados do dia em que o ofendido sabe quem é o autor. Prazo <b>decadencial</b> (não admite interrupção, suspensão nem prorrogação). Perdido, ocorre a <b>decadência</b>, que <b>extingue a punibilidade</b>.</li>
+      <li><b>Contagem:</b> prazo de natureza <b>penal</b>: <b>inclui-se o dia do começo</b> e exclui-se o último (art. 10 do CP). Não confundir com os prazos processuais (exclui o dia do começo, inclui o último).</li>
+      <li>A queixa deve ser assinada por <b>advogado com procuração com poderes especiais</b> (nome do querelado e menção ao fato).</li>
+</ul></div>
+    <div class="sub-topic"><h3>Espécies de ação penal privada</h3><ul>
+      <li><b>Exclusivamente privada (propriamente dita):</b> exercício do ofendido ou de quem o represente.</li>
+      <li><b>Subsidiária da pública (art. 29 CPP; art. 5º, LIX, CF):</b> cabe nos crimes de ação pública (condicionada ou incondicionada) quando o <b>MP não oferece a denúncia no prazo legal</b>. Ao ofendido cabe propor a <b>queixa substitutiva</b>. O MP continua titular: pode <b>aditar a queixa, repudiá-la e oferecer denúncia substitutiva, ou retomar a ação</b> se o querelante for negligente. Mas, <b>não pode</b> arquivar o IP depois que o ofendido propôs a subsidiária (o MP é <i>interveniente</i>).</li>
+      <li><b>Personalíssima:</b> só o ofendido pode propor; <b>morte do ofendido extingue a punibilidade</b>, e os do art. 31 não podem continuar. <b>Único caso no CP:</b> art. 236, parágrafo único (induzimento a erro essencial e ocultação de impedimento matrimonial).</li>
+</ul></div>
+    <div class="sub-topic"><h3>Princípios da ação privada</h3><ul>
+      <li><b>Oportunidade ou conveniência:</b> o ofendido decide se propõe ou não.</li>
+      <li><b>Disponibilidade:</b> pode desistir depois de proposta, pelo <b>perdão</b>; o MP não pode na ação pública.</li>
+      <li><b>Indivisibilidade (art. 48 CPP):</b> a queixa deve abranger <b>todos</b> os autores; o ofendido não escolhe contra quem. O MP velará pela indivisibilidade.</li>
+      <li><b>Intranscendência:</b> a ação só pode atingir quem praticou o crime; o direito de queixa só passa a sucessores em caso de morte ou incapacidade (art. 31).</li>
+      <li><b>Perdão e renúncia:</b> a <b>renúncia</b> é <u>antes</u> da queixa; o <b>perdão</b> é <u>depois</u> de proposta a ação. O perdão concedido a um dos querelados <b>aproveita a todos</b> (art. 51 do CPP). Na renúncia, ocorre o mesmo (art. 49).</li>
+      <li><b>Perempção (art. 60 do CPP):</b> o querelante deixa de dar andamento por <b>30 dias</b>; falecendo ou ficando incapaz, os sucessores não comparecem em <b>60 dias</b>; deixa de comparecer sem justificativa a ato em que deva estar; não pede condenação nas alegações finais. Só na ação privada.</li>
+</ul></div>
+
+  </div></div>
+
+<div class="module-block"><div class="module-header" onclick="toggleModule(this)"><div>Unidade II · Denúncia, rejeição e extinção da punibilidade<small>Prazos do art. 46, consequências, art. 395, art. 397, aditamento e extinção</small></div><span class="seta">▶</span></div>
+  <div class="module-body">
+    <div class="sub-topic"><h3>Denúncia</h3><ul>
+      <li>A ação pública (condicionada ou incondicionada) <b>inicia-se pela denúncia</b> (art. 24). Com ela se formaliza o direito de ação.</li>
+      <li>Conteúdo: <b>art. 41 do CPP</b> (exposição do fato criminoso com circunstâncias, qualificação do acusado, classificação do crime e, quando necessário, rol de testemunhas).</li>
+      <li><b>Prazo (art. 46):</b> <b>réu preso: 5 dias</b>, contados do dia em que o MP recebe os autos do IP; <b>réu solto ou afiançado: 15 dias</b>. Sem IP: conta-se da data em que o MP recebe as peças ou a representação (art. 46, §1º).</li>
+      <li>Mnemônico: <b>5 preso, 15 solto</b> (denúncia) x <b>10 preso, 30 solto</b> (inquérito).</li>
+</ul></div>
+    <div class="sub-topic"><h3>Se o MP não denuncia no prazo</h3><ul>
+      <li>1) O indiciado ou alguém por ele pode impetrar <b>habeas corpus</b> (prisão por mais tempo que o permitido).</li>
+      <li>2) O ofendido propõe <b>queixa subsidiária</b> (art. 29).</li>
+      <li>3) O promotor perde tantos dias de vencimento quantos forem os excedidos (art. 801).</li>
+      <li>4) Pode incorrer em <b>prevaricação</b> (art. 319 do CP), conforme o caso.</li>
+      <li>Mesmo assim, enquanto não extinta a punibilidade, o MP pode oferecer a denúncia a qualquer tempo (com sanções disciplinares), se o ofendido não suprir a inércia.</li>
+</ul></div>
+    <div class="sub-topic"><h3>Ao receber o IP, o promotor pode</h3><ul>
+      <li>Denunciar; <b>requerer novas diligências imprescindíveis</b> (art. 16); requerer o <b>arquivamento</b>; pedir ao juiz o reconhecimento da <b>extinção da punibilidade</b> (ex.: prescrição); e, se o crime for de <b>ação exclusivamente privada</b>, requerer que os autos <b>aguardem em cartório</b> a iniciativa do ofendido (art. 19).</li>
+</ul></div>
+    <div class="sub-topic"><h3>Recebimento e rejeição (art. 395 do CPP)</h3><ul>
+      <li>A denúncia ou queixa será rejeitada por: <b>inépcia</b>; falta de <b>pressuposto processual ou de condição para o exercício da ação penal</b>; falta de <b>justa causa</b>.</li>
+      <li>Rejeição também por falta dos requisitos do art. 41; por ausência das condições genéricas (possibilidade jurídica do pedido, legitimidade, interesse de agir) ou dos pressupostos processuais (juiz impedido, coisa julgada, litispendência etc.).</li>
+      <li><b>Recurso da decisão que recebe:</b> não há recurso específico; em ausência de requisitos pode-se impetrar <b>habeas corpus</b>.</li>
+      <li><b>Recurso da decisão que rejeita:</b> <b>RESE</b> (art. 581, I, CPP) e <b>apelação</b> no Jecrim (art. 82, Lei 9.099/95).</li>
+</ul></div>
+    <div class="sub-topic"><h3>Absolvição sumária (art. 397 do CPP)</h3><ul>
+      <li>Depois da resposta do acusado, o juiz absolve sumariamente quando verificar: <b>existência manifesta de causa excludente de ilicitude</b>; <b>de culpabilidade</b> (exceto inimputabilidade); que o <b>fato narrado evidentemente não constitui crime</b> (atipicidade); ou <b>extinta a punibilidade</b>.</li>
+      <li><b>Cuidado:</b> rejeição (art. 395) vem <u>antes</u> do recebimento; absolvição sumária (art. 397) vem <u>depois</u>, na resposta à acusação. Na questão do questionário II (Q5), “respectivamente” = 395 depois 397.</li>
+</ul></div>
+    <div class="sub-topic"><h3>Aditamento da denúncia</h3><ul>
+      <li>A qualquer tempo, <b>antes da sentença</b>, para suprir omissões (data, local, instrumento, nome da vítima ou do réu: art. 569 do CPP).</li>
+      <li>Quando se acrescentam <b>elementos essenciais</b> (tipicidade, causas de aumento, qualificadora), há inovação na pretensão punitiva. Não é vedado, mas a <b>instrução deve ser refeita e a defesa ouvida</b> (<b>mutatio libelli</b>, art. 384 do CPP).</li>
+</ul></div>
+    <div class="sub-topic"><h3>Extinção da punibilidade (art. 107 do CP)</h3><ul>
+      <li><b>Morte do agente</b>; anistia, graça e indulto; <b>abolitio criminis</b>; <b>prescrição</b>; <b>decadência</b> (representação ou queixa fora do prazo de 6 meses); <b>perempção</b> (só ação privada); <b>renúncia ao direito de queixa</b> e <b>perdão do ofendido</b> (só ação privada); retratação do agente (calúnia e difamação, art. 143 CP); perdão judicial; <b>cumprimento do ANPP</b>; pagamento do débito (crimes tributários).</li>
+      <li><b>Prescrição:</b> da <b>pretensão punitiva</b> (antes da condenação definitiva) e da <b>pretensão executória</b> (depois). Prazos no art. 109 do CP.</li>
+</ul></div>
+
+  </div></div>
+
+</section>
+
+<!-- ============ MAPAS ============ -->
+<section id="mapas" class="tab-content">
+
+  <h2>Mapas e comparativos</h2>
+  <div class="intro">Quadros para revisar rápido.</div>
+
+  <h2 style="font-size:1.05rem">Como o inquérito policial começa, em cada tipo de ação</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th></th><th>Pública incondicionada</th><th>Pública condicionada</th><th>Privada</th></tr>
+    <tr><td><b>Portaria (de ofício)</b></td><td>Sim</td><td><b>Não</b> sem representação (art. 5º, §4º)</td><td>Não</td></tr>
+    <tr><td><b>Flagrante</b></td><td>Sim</td><td>Sim, desde que colhida a representação</td><td>Sim</td></tr>
+    <tr><td><b>Requisição do juiz ou MP</b></td><td>Sim</td><td>Sim, acompanhada da representação</td><td>Não</td></tr>
+    <tr><td><b>Requerimento do ofendido</b></td><td>Sim</td><td>Representação</td><td>Sim (somente assim ou flagrante)</td></tr>
+    <tr><td><b>Requisição do Ministro da Justiça</b></td><td>Não se aplica</td><td>Sim, nos casos previstos</td><td>Não</td></tr>
+  </table></div>
+
+  <h2 style="font-size:1.05rem">Prazos que mais caem</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th>Fase</th><th>Preso</th><th>Solto</th></tr>
+    <tr><td>Conclusão do <b>inquérito</b> (art. 10 CPP)</td><td>10 dias</td><td>30 dias</td></tr>
+    <tr><td>Inquérito na <b>Lei de Drogas</b></td><td>30 dias</td><td>90 dias</td></tr>
+    <tr><td>Inquérito na <b>Justiça Federal</b></td><td>15 dias (+15)</td><td>30 dias (art. 10)</td></tr>
+    <tr><td>Oferecimento da <b>denúncia</b> (art. 46)</td><td>5 dias</td><td>15 dias</td></tr>
+    <tr><td><b>Representação</b> e <b>queixa</b> (art. 38; decadência)</td><td colspan="2">6 meses, do dia em que sabe quem é o autor (inclui o dia do começo)</td></tr>
+    <tr><td><b>Perempção</b> (art. 60)</td><td colspan="2">30 dias sem andamento; 60 dias para sucessores</td></tr>
+  </table></div>
+
+  <h2 style="font-size:1.05rem">Ação pública x ação privada</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th></th><th>Pública</th><th>Privada</th></tr>
+    <tr><td><b>Quem promove</b></td><td>Ministério Público</td><td>Ofendido ou representante legal</td></tr>
+    <tr><td><b>Peça inicial</b></td><td>Denúncia</td><td>Queixa-crime</td></tr>
+    <tr><td><b>Regra ou exceção</b></td><td>Regra (art. 100 CP)</td><td>Exceção: só quando a lei diz “somente se procede mediante queixa”</td></tr>
+    <tr><td><b>Princípios</b></td><td>Obrigatoriedade, indisponibilidade, oficialidade</td><td>Oportunidade, disponibilidade, indivisibilidade, intranscendência</td></tr>
+    <tr><td><b>Desistência</b></td><td>MP não pode desistir (art. 42)</td><td>Pode: perdão do ofendido</td></tr>
+    <tr><td><b>Perempção, perdão, renúncia</b></td><td>Não há</td><td>Há</td></tr>
+  </table></div>
+
+  <h2 style="font-size:1.05rem">As três espécies de ação privada</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th>Espécie</th><th>Quando</th><th>Detalhe</th></tr>
+    <tr><td>Exclusivamente privada</td><td>Lei diz “somente mediante queixa”</td><td>Ofendido ou quem o represente (art. 31 se morrer)</td></tr>
+    <tr><td>Subsidiária da pública</td><td>MP não denuncia no prazo (art. 29)</td><td>MP continua titular; pode retomar, aditar ou repudiar</td></tr>
+    <tr><td>Personalíssima</td><td>Só o art. 236, parágrafo único (CP)</td><td>Morte do ofendido extingue a punibilidade</td></tr>
+  </table></div>
+
+  <h2 style="font-size:1.05rem">Representação x queixa x denúncia</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th></th><th>Representação</th><th>Queixa-crime</th><th>Denúncia</th></tr>
+    <tr><td><b>O que é</b></td><td>Condição da ação (manifestação de vontade)</td><td>Petição inicial da ação privada</td><td>Petição inicial da ação pública</td></tr>
+    <tr><td><b>Quem faz</b></td><td>Ofendido</td><td>Ofendido (com advogado)</td><td>Ministério Público</td></tr>
+    <tr><td><b>Retratação</b></td><td>Até o <b>oferecimento</b> da denúncia</td><td>Perdão (depois de proposta)</td><td>Irretratável</td></tr>
+  </table></div>
+
+  <h2 style="font-size:1.05rem">Arquivamento do IP: pode reabrir?</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th>Fundamento do arquivamento</th><th>Pode desarquivar (Súm. 524 STF)?</th></tr>
+    <tr><td>Falta de provas / falta de base para a denúncia (justa causa)</td><td><b>Sim</b>, com <b>novas provas</b></td></tr>
+    <tr><td>Atipicidade do fato</td><td>Não (faz coisa julgada material)</td></tr>
+    <tr><td>Excludente de ilicitude ou de culpabilidade (ex.: coação moral irresistível)</td><td>Não</td></tr>
+    <tr><td>Extinção da punibilidade (ex.: decadência, prescrição, morte)</td><td>Não</td></tr>
+  </table></div>
+
+  <h2 style="font-size:1.05rem">Rejeição da denúncia x absolvição sumária</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th></th><th>Rejeição (art. 395)</th><th>Absolvição sumária (art. 397)</th></tr>
+    <tr><td><b>Momento</b></td><td>Antes de receber a denúncia</td><td>Depois da resposta à acusação</td></tr>
+    <tr><td><b>Hipóteses</b></td><td>Inépcia; falta de pressuposto ou condição da ação; falta de justa causa</td><td>Excludente de ilicitude; excludente de culpabilidade (exceto inimputabilidade); fato atípico; extinção da punibilidade</td></tr>
+    <tr><td><b>Recurso</b></td><td>RESE (art. 581, I) / apelação no Jecrim</td><td>Apelação</td></tr>
+  </table></div>
+
+  <h2 style="font-size:1.05rem">Condições da ação, de procedibilidade e pressupostos</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th>Categoria</th><th>Exemplos</th><th>Aplica-se a</th></tr>
+    <tr><td>Condições da ação</td><td>Legitimidade, interesse de agir, justa causa</td><td>Todas as ações penais</td></tr>
+    <tr><td>Condições de procedibilidade</td><td>Representação; requisição do Ministro da Justiça; SV 24 (crédito tributário)</td><td>Só alguns casos</td></tr>
+    <tr><td>Pressupostos processuais</td><td>Juiz competente e imparcial; partes capazes; inicial válida (art. 41)</td><td>Existência e validade do processo</td></tr>
+  </table></div>
+
+</section>
+
+<!-- ============ PEGADINHAS ============ -->
+<section id="pegadinhas" class="tab-content">
+  <h2>Alertas e pegadinhas</h2>
+  <div class="intro">Afirmações que parecem certas e estão erradas. Tente responder antes de ler a correção.</div>
+  <div id="lista-peg"></div>
+</section>
+
+<!-- ============ SIMULADO ============ -->
+<section id="quiz" class="tab-content">
+  <h2>Simulado com correção na hora</h2>
+  <div class="stats">
+    <div class="stat-box">Respondidas <span id="stat-total">0/0</span></div>
+    <div class="stat-box">Acertos <span id="stat-correct" style="color:var(--correct-green)">0</span></div>
+    <div class="stat-box">Erros <span id="stat-wrong" style="color:var(--wrong-red)">0</span></div>
+    <div class="stat-box">Aproveitamento <span id="stat-percent">0%</span></div>
+  </div>
+  <p><button class="btn" onclick="resetQuiz()">🔄 Refazer (embaralha as questões)</button></p>
+  <div id="quiz-container"></div>
+</section>
+
+<!-- ============ VÍDEOS ============ -->
+<section id="videos" class="tab-content">
+  <h2>Vídeos e podcasts</h2>
+  <div class="intro">Vídeos de revisão feitos no NotebookLM. Toque no vídeo para assistir.</div>
+  <div id="video-area"></div>
+</section>
+
+</main>
+<footer><b>Desenvolvido por Abner Machado</b> · © 2026. Material organizado a partir de materiais dos professores e anotações em sala; vídeos, áudios e parte dos resumos são produzidos com apoio de IA e podem conter erros. Não substitui as aulas, os livros, a lei nem as orientações dos professores.</footer>
+
+<div id="lb" role="dialog" aria-modal="true" aria-label="Vídeo ampliado"><button type="button" id="lb-fechar">✕ Fechar</button></div>
+<script>
+// ---- Vídeos: preencher com {titulo:"...", id:"CODIGO_DO_YOUTUBE"} ----
+var VIDEOS = [
+  // { titulo: "Estipulação, promessa e pessoa a declarar", id: "XXXXXXXXXXX" },
+];
+
+var PEGADINHAS = [["O delegado pode arquivar o inquérito quando concluir que não houve crime.", "Falso. <b>A autoridade policial não pode arquivar</b> o IP (art. 17 do CPP). Só o MP (ação pública) ou o ofendido (ação privada) decide pelo arquivamento."], ["No inquérito policial vale o contraditório e a ampla defesa, como no processo.", "Falso. O IP é <b>inquisitivo</b>, sem contraditório obrigatório. O contraditório e a ampla defesa valem na fase processual."], ["O sigilo do inquérito impede o advogado de ver os autos.", "Falso. O advogado tem direito de examinar, <b>mesmo sem procuração</b>, os atos já documentados (Estatuto da OAB, art. 7º, XIV; Súmula Vinculante 14). O sigilo vale para diligências em curso."], ["A Lei 13.245/2016 obriga o delegado a intimar previamente o advogado para a oitiva de testemunhas.", "Falso. A lei <b>não impôs esse dever</b> à autoridade policial (resposta do slide)."], ["O inquérito é obrigatório para que o MP possa denunciar.", "Falso. O IP é <b>dispensável</b>: se o MP já tem elementos, denuncia sem inquérito (art. 46, §1º)."], ["Vício no inquérito policial anula a ação penal.", "Falso. Vícios do IP <b>não anulam</b> a ação penal; podem apenas reduzir o valor do ato."], ["O juiz pode condenar com base exclusivamente nas provas do inquérito.", "Falso. Não se condena apenas com o IP: violaria o contraditório."], ["A falta do relatório final torna nulo o inquérito.", "Falso. O relatório não é indispensável: a falta é mera <b>irregularidade administrativa</b>."], ["A primeira providência da autoridade ao chegar ao local do fato é prender o suspeito.", "Falso. É <b>preservar o local</b> (art. 6º, I do CPP)."], ["Nos crimes de ação pública condicionada, a autoridade policial pode abrir inquérito sem a representação da vítima.", "Falso. Art. 5º, §4º: o inquérito <b>não poderá, sem ela, ser iniciado</b>."], ["Prazo do inquérito: 5 dias se preso e 15 se solto.", "Confusão. <b>Inquérito: 10 dias preso e 30 solto</b>. Os 5 e 15 dias são do prazo para <b>oferecer a denúncia</b> (art. 46)."], ["Depois do arquivamento, o inquérito nunca mais pode ser reaberto.", "Falso. Se arquivado por <b>falta de provas</b> (falta de base para a denúncia), pode ser reaberto com <b>novas provas</b> (art. 18; Súm. 524 STF). Já arquivado por atipicidade ou excludente, não."], ["O MP pode devolver o inquérito à polícia quando quiser.", "Falso. Só para <b>novas diligências imprescindíveis ao oferecimento da denúncia</b> (art. 16)."], ["Se o membro do MP participou da investigação, fica impedido de denunciar.", "Falso. Súmula 234 do STJ: <b>não há impedimento nem suspeição</b>."], ["A representação do ofendido é irretratável depois de recebida a denúncia.", "Cuidado com a palavra: a lei diz <b>depois de oferecida</b> a denúncia (art. 102 do CP; art. 25 do CPP)."], ["O prazo de seis meses da representação ou da queixa pode ser interrompido ou suspenso.", "Falso. É prazo <b>decadencial</b>: não suspende, não interrompe e não prorroga. Perdido, extingue a punibilidade."], ["O prazo da queixa-crime é prescricional.", "Falso. É <b>decadencial</b> (6 meses), contado do dia em que se sabe quem é o autor, <b>incluindo o dia do começo</b> (art. 10 do CP)."], ["Na ação pública condicionada, quem oferece a denúncia é o ofendido.", "Falso. Quem denuncia é o <b>MP</b>. O ofendido apenas <b>representa</b> (condição)."], ["Representação e queixa-crime são a mesma coisa.", "Falso. <b>Representação</b> = condição da ação pública condicionada. <b>Queixa</b> = petição inicial da ação privada."], ["Todas as contravenções penais são de ação pública condicionada.", "Falso. As contravenções são, em geral, de ação pública <b>incondicionada</b>."], ["Lesão corporal leve em violência doméstica é de ação pública condicionada.", "Falso. Na violência doméstica é <b>incondicionada</b> (Lei Maria da Penha; ADI 4424). Fora dela, a lesão leve é condicionada (Lei 9.099/95, art. 88)."], ["A ação penal privada pode ser proposta só contra um dos autores, à escolha do ofendido.", "Falso. <b>Indivisibilidade</b> (art. 48 do CPP): a queixa abrange todos os autores."], ["Se o ofendido perdoa só um dos querelados, o perdão não alcança os outros.", "Falso. O perdão a um dos querelados <b>aproveita a todos</b> (art. 51 do CPP)."], ["Morto o ofendido na ação privada, ninguém mais pode continuar a ação.", "Em regra falso: o cônjuge, ascendente, descendente ou irmão podem (art. 31). A exceção é a ação <b>personalíssima</b> (art. 236, parágrafo único, CP), em que a morte extingue a punibilidade."], ["Na ação privada subsidiária, o MP perde totalmente a titularidade.", "Falso. O MP <b>continua titular</b>: pode aditar a queixa, repudiá-la e oferecer denúncia substitutiva ou retomar a ação (art. 29). Mas não pode determinar o arquivamento do IP depois da subsidiária."], ["O promotor pode desistir da ação penal pública quando a prova for fraca.", "Falso. <b>Indisponibilidade</b> (art. 42 do CPP). Exceção: transação penal no Jecrim (art. 76 da Lei 9.099/95)."], ["Rejeição da denúncia e absolvição sumária são a mesma coisa.", "Falso. Rejeição (art. 395) é <b>antes</b> de receber; absolvição sumária (art. 397) é <b>depois</b> da resposta à acusação."], ["A inimputabilidade permite absolvição sumária.", "Falso. O art. 397, II exclui a <b>inimputabilidade</b> (que gera absolvição imprópria, com medida de segurança, só depois da instrução)."], ["Aditar a denúncia com nova qualificadora não precisa de nova instrução.", "Falso. Elemento essencial novo exige <b>nova instrução e defesa ouvida</b> (mutatio libelli, art. 384 do CPP)."], ["Perempção existe em toda ação penal.", "Falso. A perempção (art. 60 do CPP) só existe na <b>ação penal privada</b>."]];
+
+var QUESTOES = [["[Questionário I] Ao chegar a um “local de fato”, ainda não sabendo que se trata de um “local de crime”, de acordo com o Art. 6º do CPP, a primeira providência da autoridade policial deve ser a de:", ["Apreender objetos que tiverem relação com o fato, evitando a perda de objetos potencialmente importantes.", "Ouvir o indiciado, a fim de decidir sobre a necessidade de sua detenção imediata.", "Prender o suspeito, a fim de evitar sua fuga.", "Preservar o local.", "Ouvir o ofendido, para que se defina a área a ser isolada."], 3, "Art. 6º, I: <b>preservar o local</b> até a chegada dos peritos. (Esta questão também é a de interatividade do slide da Unidade I.)"], ["[Questionário I] Assinale a alternativa correta sobre o inquérito policial.", ["O ofendido não poderá requerer diligências no inquérito.", "A autoridade policial mandará arquivar os autos do inquérito assim que concluído.", "Depois de arquivado o inquérito, a autoridade policial não poderá proceder a novas pesquisas, mesmo se tiver notícia de outras provas.", "O inquérito pode ser iniciado, mesmo sem a representação do ofendido, nos casos de ação penal pública condicionada à representação.", "Concluído o inquérito, o Ministério Público só poderá devolvê-lo à autoridade policial em caso de novas diligências imprescindíveis ao oferecimento da denúncia."], 4, "Art. 16 do CPP. As demais erram: o ofendido pode requerer diligências (art. 14); a autoridade não arquiva (art. 17); pode fazer novas pesquisas (art. 18); e sem representação o IP não inicia (art. 5º, §4º). <i>Gabarito deduzido pela lei.</i>"], ["[Questionário I] O inquérito policial é atividade investigatória realizada por órgãos oficiais, não podendo ficar a cargo do particular, ainda que a titularidade do exercício da ação penal pelo crime investigado seja atribuída ao ofendido. Considerando as características do inquérito policial, é correto afirmar que o texto anterior discorre sobre:", ["O procedimento escrito do inquérito policial.", "A indisponibilidade do inquérito policial.", "A oficiosidade do inquérito policial.", "A oficialidade do inquérito policial.", "A dispensabilidade do inquérito policial."], 3, "<b>Oficialidade</b>: o IP é feito por órgãos oficiais, nunca por particular. <i>Gabarito deduzido.</i>"], ["[Questionário I] Em regra, é possível desarquivar o inquérito policial quando fundamentado na:", ["Atipicidade do fato.", "Falta de justa causa para a ação penal.", "Decadência do direito de representação do ofendido.", "Comprovação de coação moral irresistível.", "Menoridade do autor do fato."], 1, "Súmula 524 do STF e art. 18 do CPP: o arquivamento por <b>falta de base (provas, justa causa)</b> permite reabrir com novas provas. Atipicidade, decadência (extinção da punibilidade), excludente de culpabilidade e menoridade não. <i>Gabarito deduzido.</i>"], ["[Questionário I] De acordo com o Código de Processo Penal, é correto afirmar:", ["O Ministério Público não poderá requerer a devolução do inquérito à autoridade policial, senão para novas diligências, imprescindíveis ao oferecimento da denúncia.", "Após a realização das diligências cabíveis, caso a autoridade policial entenda não ter havido infração penal, ela deverá determinar o arquivamento dos autos de inquérito.", "Os instrumentos do crime, bem como os objetos que interessarem à instrução processual, deverão ficar sob a guarda de depositário fiel, que deverá apresentá-los à autoridade competente toda vez que forem requisitados.", "Para verificar o modo e as circunstâncias em que ocorreu a prática da infração penal, é dever da autoridade policial proceder à reprodução simulada dos fatos.", "Tendo conhecimento do cometimento de um crime, a autoridade policial deverá instaurar, imediatamente, o inquérito policial, que terá por fim a apuração das infrações penais e da sua autoria."], 0, "Art. 16. B erra (art. 17: não arquiva); C erra (os instrumentos acompanham os autos, art. 11); D erra (a reprodução é <b>faculdade</b>, art. 7º); E erra (não é “imediato” em ação condicionada ou privada). <i>Gabarito deduzido.</i>"], ["[Questionário I] Assinale a alternativa correta sobre o inquérito policial.", ["Nos crimes de ação privada, a autoridade policial poderá proceder a inquérito independentemente de requerimento de quem tenha qualidade para intentá-la.", "Somente o ofendido ou seu representante legal poderão requerer diligências, que serão realizadas, ou não, a juízo da autoridade, não sendo permitido o requerimento de diligências pelo indiciado.", "O inquérito policial é amparado pelo princípio da publicidade, sendo vedada a imposição de sigilo para a elucidação do fato investigado.", "Consoante entendimento sumulado pelo Superior Tribunal de Justiça, a participação de membro do Ministério Público na fase investigatória criminal não acarreta o seu impedimento ou suspeição para o oferecimento da denúncia.", "Nos crimes de ação penal pública condicionada, a autoridade policial poderá proceder a inquérito independentemente de requerimento da vítima."], 3, "<b>Súmula 234 do STJ.</b> As outras erram: na ação privada e na condicionada o IP depende do ofendido; o indiciado também pode requerer diligências (art. 14); o IP é sigiloso (art. 20). <i>Gabarito deduzido.</i>"], ["[Questionário I] O rol do Art. 6º do Código de Processo Penal (diligências que poderão ser realizadas pela autoridade policial) não é taxativo, havendo outras diligências que poderão ser tomadas pela autoridade policial, independentemente de autorização judicial, como:", ["Reprodução simulada dos fatos.", "Produção antecipada de prova.", "Infiltração de agentes policiais.", "Afastamento do sigilo financeiro.", "Busca e apreensão."], 0, "A <b>reprodução simulada</b> (art. 7º) a autoridade faz sozinha. As demais exigem <b>autorização judicial</b>. <i>Gabarito deduzido.</i>"], ["[Questionário I] Assinale a alternativa correta sobre o inquérito policial.", ["É um processo administrativo judicialiforme.", "Observa, obrigatoriamente, as garantias do contraditório e da ampla defesa.", "Não tem prazo fixado em lei para ser concluído.", "É um procedimento dispensável.", "Exige requerimento da vítima para ser instaurado."], 3, "O IP é <b>dispensável</b> (o MP pode denunciar sem ele). Não é processo, não tem contraditório obrigatório, tem prazos (art. 10) e nem sempre exige requerimento. <i>Gabarito deduzido.</i>"], ["[Questionário I] Considerando as hipóteses de requerimento do ofendido para a abertura de inquérito policial em crimes de ação pública, é correto afirmar:", ["Na dicção expressa do art. 5º, §2º, do CPP, do despacho que indeferir o requerimento de abertura de inquérito, caberá recurso para o delegado regional; caso tal recurso seja indeferido, caberá novo recurso para o chefe de Polícia.", "No caso de morte do ofendido, têm qualidade para representá-lo para o fim de requerer a abertura de inquérito policial seu cônjuge, ascendente, descendente ou irmão.", "Nos crimes em que a ação pública depender de representação, o inquérito poderá ser iniciado sem ela.", "O requerimento do ofendido para a abertura de inquérito policial em crimes de ação pública deverá conter, sob pena de indeferimento, a narração do fato, com todas as circunstâncias, bem como a individualização do indiciado ou seus sinais característicos e as razões de convicção ou de presunção de ser ele o autor da infração, ou os motivos de impossibilidade de o fazer, além da nomeação das testemunhas, com indicação de sua profissão e residência.", "Arquivamento de inquérito policial é medida excepcional, admitida somente quando dos autos emergirem, de plano, a atipicidade da conduta, a existência de causa de extinção da punibilidade e a ausência de indícios de autoria sobre a materialidade do delito, sendo necessário exame aprofundado e exauriente das provas."], 1, "Art. 24, §1º do CPP: cônjuge, ascendente, descendente ou irmão. A letra A usa regra antiga; C contraria o art. 5º, §4º; D acrescenta “sob pena de indeferimento”, que a lei não diz (diz “sempre que possível”, art. 5º, §1º). <i>Gabarito deduzido.</i>"], ["[Questionário I] Assinale a alternativa correta sobre o Inquérito Policial e suas disposições do Código de Processo Penal.", ["Os instrumentos do crime, bem como os objetos que interessarem à prova, permanecerão na Delegacia de Polícia e não acompanharão os autos do inquérito.", "Depois de ordenado o arquivamento do inquérito pela autoridade judiciária, por falta de base para a denúncia, a autoridade policial poderá proceder a novas pesquisas, se de outras provas tiver notícia.", "Apenas o ofendido ou seu representante legal poderão requerer diligências à autoridade policial.", "O Ministério Público poderá requerer a devolução do inquérito à autoridade policial, para novas diligências, ainda que desnecessárias ao oferecimento da denúncia.", "A autoridade policial arquivará os autos de inquérito policial, caso considere não haver elementos informativos indicativos de infração penal."], 1, "<b>Art. 18 do CPP</b>, quase literal. <i>Gabarito deduzido.</i>"], ["[Questionário II] Considerando a hipótese de Naldo e Zeca terem sido indiciados pela prática de crime de ação penal privada contra Bernardo, assinale a opção correta:", ["Bernardo pode escolher propor a queixa-crime contra, apenas, um dos indiciados.", "O Ministério Público não é titular da ação penal, razão pela qual não tem acesso à queixa-crime.", "Caso Bernardo venha a falecer de causas naturais no decorrer do processo, a ação penal não poderá ser proposta por outra pessoa e será extinta.", "Caso Bernardo opte por perdoar, apenas, um dos querelados, o perdão se estenderá ao corréu.", "Para a propositura da queixa-crime, é dispensável a outorga de procuração por Bernardo ao advogado."], 3, "Art. 51 do CPP: o perdão concedido a um dos querelados <b>aproveita a todos</b>. As outras erram: indivisibilidade (art. 48), o MP intervém na ação privada, sucessores continuam (art. 31) e a queixa exige procuração. <i>Gabarito deduzido.</i>"], ["[Questionário II] Jonas foi vítima de um crime de ação penal pública condicionada, tendo representado no prazo legal. Durante o processo, resolveu reconciliar-se com o réu e o convidou para ser padrinho de seu filho. Com relação a essa situação hipotética, assinale a opção correta:", ["O Ministério Público deve desistir da ação proposta, por não haver mais o interesse de agir.", "A representação de Jonas feita no prazo é irretratável e impede a prescrição do crime.", "O juiz deve absolver o réu, se ele aceitar o perdão dado por Jonas.", "A reconciliação de Jonas com o réu não interfere no andamento da ação penal pública, desde que tenha sido oferecida a denúncia.", "Jonas poderá retratar-se da representação, por escrito e a qualquer tempo, antes de a sentença transitar em julgado."], 3, "Depois de <b>oferecida a denúncia</b>, a representação é irretratável e a ação segue (indisponibilidade). Perdão não existe na ação pública. <i>Gabarito deduzido.</i>"], ["[Questionário II] Sabendo que a pretensão punitiva estatal, realizada por meio do processo penal, perpassa a fase pré-processual e a ação penal, assinale a opção correta:", ["O ofendido estará autorizado a ingressar com a ação penal privada subsidiária da pública quando, após o prazo do oferecimento da denúncia, estando o réu solto, o Ministério Público requisitar novas diligências manifestamente protelatórias à autoridade policial.", "Após o ingresso da ação penal de iniciativa privada subsidiária da pública, por atuar como litisconsórcio ativo, o Ministério Público, ao se manifestar em repúdio à queixa subsidiária, poderá determinar o arquivamento do inquérito policial.", "Haverá o arquivamento implícito quando o juiz, por discordar do pedido do Ministério Público de declinação de competência, determinar a remessa do inquérito policial ao arquivo, ante o conflito de atribuições entre o juiz e o promotor.", "O Ministério Público não poderá promover o arquivamento das peças informativas provenientes de comissão parlamentar de inquérito, pois, por não se tratar de um inquérito policial, não possui a atribuição legal para essa manifestação.", "A promoção de arquivamento de inquérito policial, diante da existência de provas suficientes, acerca da inexigibilidade de conduta diversa faz coisa julgada formal, mas não material, de modo que poderá ser revista se novas provas surgirem."], 0, "Diligências <b>protelatórias</b> equivalem à inércia do MP: cabe a <b>subsidiária</b> (art. 29 CPP; art. 5º, LIX, CF). B erra (ao repudiar a queixa, o MP oferece denúncia substitutiva, não arquiva); D erra (o MP pode arquivar peças de CPI); E erra (excludente de culpabilidade faz coisa julgada <b>material</b>). <i>Gabarito deduzido.</i>"], ["[Questionário II] Sobre a Ação Penal Pública Condicionada, assinale a alternativa correta:", ["Será promovida por denúncia do Ministério Público, independente de representação do ofendido.", "Será promovida por denúncia do Ministério Público, independente de requisição do Ministro da Justiça.", "Será promovida por denúncia do Ministério Público, desde que haja a requisição do Ministro da Justiça ou de representação do ofendido.", "Será promovida por denúncia do Delegado de Polícia, desde que haja a requisição do Ministro da Justiça ou de representação do ofendido.", "Será promovida por denúncia do ofendido."], 2, "Art. 24 do CPP: denúncia do MP, dependendo de <b>representação ou requisição do Ministro da Justiça</b>. <i>Gabarito deduzido.</i>"], ["[Questionário II] São causas de rejeição da denúncia e absolvição sumária, respectivamente, previstas nos Artigos 395 e 397, do Código de Processo Penal:", ["Existência manifesta de excludente de ilicitude do fato e falta de condições para o exercício da ação penal.", "Inépcia e prescrição.", "Falta de justa causa para a ação penal e falta de condição para o exercício da ação penal.", "Inimputabilidade e atipicidade.", "Inépcia e falta de justa causa para a ação penal."], 1, "<b>Inépcia</b> rejeita a denúncia (art. 395); <b>prescrição</b> (extinção da punibilidade) leva à absolvição sumária (art. 397, IV). Nas demais, a ordem ou as hipóteses estão trocadas (inimputabilidade é exceção do art. 397; falta de justa causa e de condição são do art. 395). <i>Gabarito deduzido.</i>"], ["[Questionário II] Jorge Henrique, 45 anos, capaz, em 02/01/2021, foi vítima de um delito de estelionato praticado por Ana Cláudia. Jorge Henrique tomou conhecimento da autoria do delito em 05/01/2021 e, nesse mesmo dia, noticiou os fatos à autoridade policial, com a respectiva representação, tendo sido, em decorrência, instaurado um inquérito policial. Nessa hipótese, assinale a alternativa correta:", ["Jorge Henrique poderá retratar-se da representação até o dia 04/07/2021, independentemente, do oferecimento, ou não, da denúncia.", "Jorge Henrique não poderá se retratar da representação feita, pois a ação penal, embora seja condicionada, é pública, razão pela qual o Ministério Público é o único dominus litis.", "Após o oferecimento da denúncia, Jorge Henrique não poderá retratar-se da representação feita.", "Jorge Henrique poderá se retratar da representação a qualquer tempo, desde que, ainda, não tenha ocorrido o trânsito em julgado da condenação.", "Jorge Henrique poderá retratar-se da representação até o dia 01/07/2021, independentemente, do oferecimento, ou não, da denúncia."], 2, "Estelionato (art. 171, §5º) é, em regra, ação pública condicionada. A retratação é possível <b>até o oferecimento da denúncia</b> (art. 102 CP; art. 25 CPP). <i>Gabarito deduzido.</i>"], ["[Questionário II] O Inquérito Policial na Ação Penal Pública Condicionada (APPC) pode ser instaurado, exceto:", ["Por Portaria (de Ofício), exclusivamente.", "Por auto de prisão em flagrante delito.", "Por requisição da autoridade judiciária.", "Por requisição de órgão do Ministério Público.", "Por requerimento do ofendido ou de quem o representar."], 0, "Na APPC, a portaria de ofício <b>sozinha</b> não basta: o IP depende da <b>representação</b> (art. 5º, §4º). As demais formas valem, com a representação. <i>Gabarito deduzido.</i>"], ["[Questionário II] A doutrina brasileira considera a persecução penal como a soma da atividade investigatória com a ação penal promovida pelo Ministério Público. No estudo da ação penal, observam-se algumas espécies, como a ação penal pública e a ação penal privada, que ainda se subdividem. Com relação às espécies de ação penal, assinale a afirmativa incorreta:", ["As contravenções penais são todas de ação penal pública condicionada à representação.", "Em regra, a ação penal no crime de estelionato é de ação penal pública condicionada à representação.", "Nos crimes de lesões corporais leves – Art. 129, caput –, a ação penal é pública condicionada à representação.", "Nos crimes contra a honra, a ação penal é privada, via de regra.", "Quando o crime de lesão corporal leve for praticado no âmbito da violência doméstica, a ação penal será pública incondicionada."], 0, "<b>Incorreta:</b> as contravenções penais são, em geral, de ação pública <b>incondicionada</b>. As demais estão certas. <i>Gabarito deduzido.</i>"], ["[Questionário II] Jorge foi preso em flagrante pela prática do delito de roubo. Durante as investigações, descobriram-se mais vítimas dessa prática criminosa, angariando-se mais documentação que comprovariam esses demais delitos praticados por Jorge. Como se sabe, esses autos são enviados ao Ministério Público, que é quem tem, por lei, a função privativa de promover a ação penal pública. Em relação à ação penal, assinale a alternativa correta:", ["O prazo para o oferecimento da denúncia, estando o réu preso, será de 5 dias, contado da data em que o órgão do Ministério Público receber os autos do inquérito policial, e de 15 dias, se o réu estiver solto ou afiançado.", "O prazo para o oferecimento da denúncia, estando o réu preso, será de 10 dias, contado da data em que o órgão do Ministério Público receber os autos do inquérito policial, e de 20 dias, se o réu estiver solto ou afiançado.", "O prazo para o oferecimento da denúncia, estando o réu preso, será de 5 dias, contado da data em que o órgão do Ministério Público receber os autos do inquérito policial, e de 20 dias, se o réu estiver solto ou afiançado.", "O prazo para o oferecimento da denúncia, estando o réu preso, será de 10 dias, contado da data em que o órgão do Ministério Público receber os autos do inquérito policial, e de 15 dias, se o réu estiver solto ou afiançado.", "O prazo para o oferecimento da denúncia, estando o réu preso, será de 15 dias, contado da data em que o órgão do Ministério Público receber os autos do inquérito policial, e de 30 dias, se o réu estiver solto ou afiançado."], 0, "Art. 46 do CPP: <b>5 dias</b> (preso) e <b>15 dias</b> (solto ou afiançado). Resposta confirmada no slide da Unidade II."], ["[Questionário II] Durante uma festa muito lotada, Márcio e Jorge se esbarraram sem querer, e Márcio começa a discutir com Jorge, proferindo os termos e as frases que caracterizariam os delitos contra a honra de Jorge. Posteriormente, Jorge registra a ocorrência na Delegacia Policial e, em seguida, procura um advogado para que lhe seja esclarecido o procedimento correto a se seguir no tocante à queixa-crime. Acerca do procedimento da ação penal privada para o ingresso com a queixa-crime é correto afirmar que:", ["O prazo não é decadencial, mas sim prescricional de seis meses contados do dia em que vier a saber quem é o autor do crime, incluindo-se o dia do começo e excluindo-se o último dia.", "O prazo decadencial é de três meses contados do dia em que vier a saber quem é o autor do crime, excluindo-se o dia do começo e incluindo-se o último dia.", "O prazo não é decadencial, mas sim prescricional de seis meses contados do dia em que vier a saber quem é o autor do crime, excluindo-se o dia do começo e incluindo-se o último dia.", "O prazo decadencial é de seis meses contados do dia em que vier a saber quem é o autor do crime, incluindo-se o dia do começo e excluindo-se o último dia.", "O prazo decadencial é de seis meses contados do dia em que vier a saber quem é o autor do crime, excluindo-se o dia do começo e incluindo-se o último dia."], 3, "Prazo <b>decadencial de 6 meses</b>, e, por ser prazo de natureza penal, <b>inclui o dia do começo</b> e exclui o último (art. 10 do CP). <i>Gabarito deduzido.</i>"], ["[Slide, Unidade I] A Lei n. 13.245/2016 alterou o art. 7º, da Lei 8.906/94 (Estatuto da OAB), que garante ao advogado do investigado o direito de assistir a seus clientes durante a apuração de infrações penais. Com efeito, Anderson, advogado de José, impugnou a oitiva de duas testemunhas em fase de inquérito policial, alegando que não recebeu notificação informando dia e hora da oitiva das referidas testemunhas em sede policial. Diante da temática apresentada, assinale a seguir a alternativa correta:", ["O sigilo do inquérito policial impede que o advogado tenha acesso aos atos já documentados em inquérito policial.", "A referida lei impôs o dever à autoridade policial de intimar previamente o advogado constituído para os atos de investigação, em homenagem ao contraditório e à ampla defesa.", "A referida lei instituiu a obrigatoriedade do inquérito policial ainda que já haja provas devidamente constituídas.", "A referida lei não impôs um dever à autoridade policial de intimar previamente o advogado constituído para os atos de investigação.", "A inquisitorialidade do procedimento investigatório policial é o que impede que o advogado tenha acesso aos atos já documentados em inquérito policial."], 3, "A lei garante o <b>acesso</b> do advogado, mas <b>não impõe</b> intimação prévia (o IP é inquisitivo; o contraditório é da fase processual). <i>Resposta deduzida do conteúdo do slide.</i>"], ["[Slide, Unidade II] Guliver, servidor público municipal, foi vítima de crime de injúria em razão de suas funções. Em decorrência desse fato, foi instaurado inquérito policial para investigar a notícia crime, sendo identificado o acusado. Analisando esse fato narrado e de acordo com a jurisprudência do Supremo Tribunal Federal, é correto afirmar que:", ["Guliver poderá optar por ofertar a queixa-crime assistido por um advogado ou oferecer representação ao Ministério Público, para que seja analisada a possibilidade de oferecimento de denúncia.", "Caberá exclusivamente a Guliver dar prosseguimento à ação, assistido por um advogado, mediante queixa-crime.", "Caberá ao Ministério Público oferecer denúncia, independentemente da representação de Guliver.", "Caberá ao Ministério Público oferecer denúncia após a representação da pretensa vítima, mas Guliver não poderá optar por oferecer queixa-crime.", "Guliver deverá apresentar perante o juízo processante a representação, o que pode ser feito sem a necessidade de advogado, externando seu desejo de dar prosseguimento ao feito."], 0, "Súmula 714 do STF: <b>legitimidade concorrente</b> do ofendido (queixa) e do MP (mediante representação) nos crimes contra a honra de servidor em razão das funções. Resposta mostrada no slide."], ["[Revisão] O prazo para a conclusão do inquérito policial, na regra geral do CPP, é de:", ["5 dias se preso e 15 dias se solto.", "10 dias se preso e 30 dias se solto.", "15 dias se preso e 30 dias se solto.", "30 dias se preso e 90 dias se solto.", "10 dias, estando preso ou solto."], 1, "Art. 10 do CPP: <b>10 dias (preso) e 30 dias (solto)</b>. Os 30/90 são da Lei de Drogas; os 5/15 são da denúncia."], ["[Revisão] A respeito da retratação da representação, é correto afirmar que:", ["É possível até o trânsito em julgado.", "É possível até o recebimento da sentença.", "É possível até o oferecimento da denúncia.", "Nunca é possível.", "É possível até o fim da instrução."], 2, "Art. 102 do CP e art. 25 do CPP: irretratável <b>depois de oferecida a denúncia</b>."], ["[Revisão] A ação penal privada personalíssima, prevista no art. 236, parágrafo único, do Código Penal:", ["Pode ser continuada pelo cônjuge do ofendido em caso de morte.", "Extingue a punibilidade com a morte do ofendido.", "É proposta pelo MP, mediante representação.", "É a regra para os crimes contra a honra.", "Admite o ingresso dos sucessores previstos no art. 31."], 1, "Direito <b>personalíssimo e intransmissível</b>: a morte do ofendido extingue a punibilidade."], ["[Revisão] O promotor de justiça deixa de oferecer a denúncia no prazo legal, estando o réu solto. Qual é uma das consequências previstas?", ["A prescrição imediata do crime.", "O ofendido pode propor queixa subsidiária.", "O juiz oferece a denúncia.", "A autoridade policial arquiva o inquérito.", "O réu fica automaticamente absolvido."], 1, "Art. 29 do CPP e art. 5º, LIX, da CF: ação privada subsidiária da pública. Também cabem habeas corpus (se preso) e sanções ao promotor."], ["[Revisão] A autoridade policial, concluído o inquérito sem elementos para indiciar, pode:", ["Arquivar o inquérito por conta própria.", "Sugerir o arquivamento no relatório, mas a decisão cabe ao titular da ação.", "Destruir as peças.", "Pedir a prisão do suspeito.", "Encerrar sem relatório e sem remeter ao juízo."], 1, "Art. 17 do CPP: a autoridade policial <b>não arquiva</b>; remete ao juízo/MP, podendo sugerir o arquivamento no relatório."], ["[Revisão] Quanto aos vícios no inquérito policial:", ["Anulam a ação penal subsequente.", "Não afetam a ação penal já iniciada, podendo reduzir o valor do ato viciado.", "Tornam o inquérito inválido apenas se o advogado reclamar.", "Impedem o recebimento da denúncia.", "Geram absolvição sumária."], 1, "O IP é procedimento informativo; vícios dele <b>não contaminam</b> a ação penal."], ["[Revisão] Em relação à ação penal pública incondicionada, é correto afirmar que o Ministério Público:", ["Só pode agir se a vítima representar.", "Pode desistir da ação a qualquer tempo.", "Promove a ação sem depender da vontade de ninguém e não pode desistir dela, salvo exceções legais (ex.: transação penal).", "Atua apenas em crimes de menor potencial ofensivo.", "Depende da requisição do juiz."], 2, "Obrigatoriedade e indisponibilidade (arts. 24 e 42 do CPP). Exceção: transação penal no Jecrim (art. 76 da Lei 9.099/95)."], ["[Revisão] Em um mesmo fato com dois autores, na ação penal privada, o ofendido propõe a queixa apenas contra um deles. Isso viola o princípio da:", ["Oficialidade.", "Indivisibilidade.", "Legalidade.", "Obrigatoriedade.", "Subsidiariedade."], 1, "Art. 48 do CPP: a queixa abrange <b>todos</b> os autores."]];
+
+// ----- abas e módulos -----
+function switchTab(id, btn){
+  document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active')});
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('nav button').forEach(function(b){b.classList.remove('active')});
+  if(btn) btn.classList.add('active');
+  window.scrollTo({top:0});
+}
+function toggleModule(h){ h.parentElement.classList.toggle('open'); }
+
+// ----- pegadinhas -----
+(function(){
+  var el = document.getElementById('lista-peg');
+  el.innerHTML = PEGADINHAS.map(function(p){
+    return '<div class="peg"><div class="afirma">“' + p[0] + '”</div><div><span class="errada">Cuidado:</span> ' + p[1] + '</div></div>';
+  }).join('');
+})();
+
+// ----- vídeos -----
+(function(){
+  var area = document.getElementById('video-area');
+  if(!VIDEOS.length){
+    area.innerHTML = '<div class="vazio">Ainda não há vídeos publicados para este módulo. 🎬<br>Em breve entram aqui os vídeos e podcasts do NotebookLM.</div>';
+    return;
+  }
+  function cartao(v, i){
+    return '<div class="video-card' + (v.curto ? ' curto' : '') + '"><div class="ratio"><iframe src="https://www.youtube.com/embed/' + v.id + '" allow="fullscreen; autoplay; encrypted-media; picture-in-picture; clipboard-write" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy" title="' + v.titulo + '"></iframe></div><h4>' + v.titulo + '</h4><button type="button" class="ampliar" data-i="' + VIDEOS.indexOf(v) + '">⛶ Ampliar (tela cheia)</button></div>';
+  }
+  var normais = VIDEOS.filter(function(v){ return !v.curto; });
+  var curtos = VIDEOS.filter(function(v){ return v.curto; });
+  var html = '';
+  if (normais.length) html += '<div class="video-bloco"><h3>🎬 Vídeos</h3><div class="video-grid">' + normais.map(cartao).join('') + '</div></div>';
+  if (curtos.length) html += '<div class="video-bloco"><h3>📱 Vídeos curtos (shorts)</h3><div class="video-grid curtos">' + curtos.map(cartao).join('') + '</div></div>';
+  area.innerHTML = html;
+})();
+
+// ----- vídeo ampliado (dentro do site, sem ir ao YouTube) -----
+(function(){
+  var lb = document.getElementById('lb');
+  function avisarSite(ativo){ try { window.parent.postMessage({ estudos: 'tela-cheia', ativo: ativo }, '*'); } catch(e) {} }
+  function abrir(v){
+    var f = document.createElement('iframe');
+    f.src = 'https://www.youtube.com/embed/' + v.id + '?autoplay=1&rel=0&playsinline=1';
+    f.setAttribute('allow', 'fullscreen; autoplay; encrypted-media; picture-in-picture');
+    f.setAttribute('allowfullscreen', '');
+    f.title = v.titulo;
+    lb.classList.toggle('curto', !!v.curto);
+    lb.appendChild(f);
+    lb.classList.add('aberto');
+    avisarSite(true);
+    try { if (lb.requestFullscreen) lb.requestFullscreen().catch(function(){}); } catch(e) {}
+  }
+  function fechar(){
+    if (!lb.classList.contains('aberto')) return;
+    lb.classList.remove('aberto');
+    var f = lb.querySelector('iframe'); if (f) f.remove();
+    avisarSite(false);
+    try { if (document.fullscreenElement) document.exitFullscreen(); } catch(e) {}
+  }
+  document.addEventListener('click', function(e){
+    var b = e.target.closest && e.target.closest('.ampliar');
+    if (b) abrir(VIDEOS[+b.getAttribute('data-i')]);
+  });
+  document.getElementById('lb-fechar').addEventListener('click', fechar);
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') fechar(); });
+  document.addEventListener('fullscreenchange', function(){ if (!document.fullscreenElement) fechar(); });
+})();
+
+// ----- simulado -----
+var ordem = [], respondidas = {}, acertos = 0, erros = 0;
+function shuffle(a){ for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;} return a; }
+function initQuizData(){
+  ordem = shuffle(QUESTOES.map(function(_,i){return i;}));
+  respondidas = {}; acertos = 0; erros = 0;
+}
+function renderQuiz(){
+  var box = document.getElementById('quiz-container');
+  box.innerHTML = ordem.map(function(qi, pos){
+    var q = QUESTOES[qi];
+    var ops = q[1].map(function(o, oi){
+      return '<button class="option-btn" id="q' + pos + '-o' + oi + '" onclick="checkAnswer(' + pos + ',' + oi + ')">' + String.fromCharCode(65+oi) + ') ' + o + '</button>';
+    }).join('');
+    return '<div class="q"><div class="enun">' + (pos+1) + '. ' + q[0] + '</div>' + ops + '<div class="explanation" id="exp-' + pos + '">' + q[3] + '</div></div>';
+  }).join('');
+  updateStats();
+}
+function checkAnswer(pos, escolha){
+  if(respondidas[pos] !== undefined) return;
+  var q = QUESTOES[ordem[pos]];
+  respondidas[pos] = escolha;
+  for(var i=0;i<q[1].length;i++){
+    var b = document.getElementById('q'+pos+'-o'+i);
+    b.disabled = true;
+    if(i === q[2]) b.classList.add('correct');
+    else if(i === escolha) b.classList.add('wrong');
+  }
+  if(escolha === q[2]) acertos++; else erros++;
+  document.getElementById('exp-'+pos).classList.add('show');
+  updateStats();
+}
+function updateStats(){
+  var total = acertos + erros;
+  document.getElementById('stat-total').textContent = total + '/' + QUESTOES.length;
+  document.getElementById('stat-correct').textContent = acertos;
+  document.getElementById('stat-wrong').textContent = erros;
+  document.getElementById('stat-percent').textContent = total ? Math.round(acertos*100/total) + '%' : '0%';
+}
+function resetQuiz(){ initQuizData(); renderQuiz(); window.scrollTo({top:0}); }
+initQuizData(); renderQuiz();
+</script>
+</body>
+</html>
